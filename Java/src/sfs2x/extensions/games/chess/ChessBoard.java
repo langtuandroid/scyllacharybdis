@@ -28,7 +28,7 @@ public class ChessBoard {
 		mBoard.put("blackPieces", (long) 255 >>> 4);
 	}
 	
-	public ISFSArray toSFSArray() 
+	public ISFSArray GetBoardArray() 
 	{
 		ISFSArray boardArray = new SFSArray();
 		
@@ -39,5 +39,13 @@ public class ChessBoard {
 		  boardArray.addLong(value);
 		}
 		return boardArray;
+	}
+
+	public ISFSArray GetPredictionsArray()
+	{
+		ISFSArray predictionsArray = new SFSArray();
+		for ( int i = 0; i < 16; i++ ) {
+			predictionsArray.addLong((long) 0);
+		}
 	}
 }

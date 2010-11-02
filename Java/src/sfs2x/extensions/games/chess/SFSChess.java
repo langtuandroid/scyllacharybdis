@@ -80,6 +80,4 @@ public class SFSChess extends SFSExtension {
 		// Send information to all the clients
 		send("start", resObj, getParentRoom().getUserList());		
 	}
-	
-		
-}
+}	
