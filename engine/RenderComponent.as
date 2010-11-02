@@ -9,34 +9,38 @@ package
 	 */
 	public class RenderComponent extends Component
 	{
-		protected var mMovieClip:MovieClip = null;
-		protected var mPosition:Point = new Point( 0, 0 );
-		protected var mSurface:DisplayObjectContainer = null;
+		protected var _baseclip:MovieClip = null;
+		protected var _position:Point = new Point( 0, 0 );
 		
 		public override function get type():Number { return RENDER_COMPONENT; }
 		
-		public function set movieClip( value:MovieClip ):void 	{
-																	if ( mMovieClip != null )
-																	{
-																		mSurface.removeChild( mMovieClip );
-																	}
-																	
-																	mMovieClip = value;
-																	mSurface.addChild( mMovieClip );
-																}
-																
-		public function set position( value:Point ):void { mPosition = value; }
+		public function set baseclip( value:MovieClip ):void { _baseclip = value; }									
+		public function set position( value:Point ):void { _position = value; }
 		
-		public function RenderComponent( surface:DisplayObjectContainer ) 
+		public function RenderComponent() 
 		{
-			mSurface = surface;
+			
 		}	
 		
-		// Render at the world position
-		public function Render( position:Point ):void
+		public function render( surface:DisplayObjectContainer ):void
 		{
-			mMovieClip.x = mPosition.x + position.x
-			mMovieClip.y = mPosition.y + position.y;	
+			surface.addChild( _baseclip );
+		}
+		
+		public function erase( surface:DisplayObjectContainer ):void
+		{
+			surface.removeChild( _baseclip );
+		}
+		
+		public override function update():void
+		{
+			_baseclip.x = _position.x;
+			_baseclip.y = _position.y;	
+		}
+		
+		public function initUIScripts( scriptComponent:ScriptComponent ):void
+		{
+			
 		}
 	}
 }

@@ -23,19 +23,16 @@
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
 			
-			var square:SceneObject = new SceneObject();
-			var squareRenderable:RenderComponent = new RenderComponent( this );
-			var squareClip:MovieClip = new MovieClip();
-			squareClip.graphics.beginFill( 0x123456 );
-			squareClip.graphics.drawRect( 0, 0, 200, 200 );
-			squareClip.graphics.endFill();
-			squareRenderable.movieClip = squareClip;
+			var square1:SquareSceneObject = new SquareSceneObject( 400, 0x333333 );
+			var square2:SquareSceneObject = new SquareSceneObject( 300, 0x666666 );
+			var square3:SquareSceneObject = new SquareSceneObject( 200, 0x999999 );
+			var square4:SquareSceneObject = new SquareSceneObject( 100, 0xBBBBBB );
 			
-			square.AddComponent( squareRenderable );
+			square3.addSceneChild( square4 );
+			square2.addSceneChild( square3 );
+			square1.addSceneChild( square2 );
 			
-			(square.GetComponent( Component.RENDER_COMPONENT ) as RenderComponent).Render( new Point( 0, 0 ));
+			square1.render( this );
 		}
-		
 	}
-	
 }

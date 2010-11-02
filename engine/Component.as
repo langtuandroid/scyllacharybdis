@@ -1,7 +1,7 @@
 package  
 {
 	/**
-	 * Component Baseclass. Extend this to create a new component type.
+	 * Component base class. Extend this to create a new component type.
 	 * 
 	 * @author Daniel Lamb
 	 */
@@ -11,10 +11,10 @@ package
 		public static const RENDER_COMPONENT:Number = 1;
 		public static const SCRIPT_COMPONENT:Number = 2;
 
-		protected var mSceneObject:SceneObject = null;
+		protected var _owner:SceneObject = null;
 		
-		public function get sceneObject():SceneObject { return mSceneObject; }
-		public function set sceneObject( value:SceneObject ):void { mSceneObject = value; }
+		public function get owner():SceneObject { return _owner; }
+		public function set owner( value:SceneObject ):void { _owner = value; }
 		
 		public function get type():Number { return COMPONENT; }
 		
@@ -23,7 +23,7 @@ package
 			
 		}
 		
-		public function Update():void
+		public function update():void
 		{
 			
 		}

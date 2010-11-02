@@ -1,5 +1,6 @@
 package  
 {
+	import flash.display.DisplayObjectContainer;
 	import flash.geom.Point;
 	/**
 	 * ...
@@ -7,60 +8,63 @@ package
 	 */
 	public class SceneObject
 	{
-		private static var sObjectCount:int = 0;
+		private static var _sObjectCount:int = 0;
 		
-		private var mName:String = null;
-		private var mParent:SceneObject = null;
-		private var mChildren:Array = new Array();
-		private var mComponents:Array = new Array();
-		private var mPosition:Point = new Point( 0.0, 0.0 );
-		private var mWorldPosition:Point = new Point( 0.0, 0.0 );
-		private var mDisabled:Boolean = false;
+		private var _name:String = null;
+		private var _parent:SceneObject = null;
+		private var _children:Array = new Array();
+		private var _components:Array = new Array();
+		private var _position:Point = new Point( 0.0, 0.0 );
+		private var _worldPosition:Point = new Point( 0.0, 0.0 );
+		private var _disabled:Boolean = false;
 		
-		public function get name():String { return mName; }
-		public function get parent():SceneObject { return mParent; }
-		public function get postion():Point { return mPosition; }
-		public function get worldPosition():Point { return mWorldPosition; }
+		public function get name():String { return _name; }
+		public function get parent():SceneObject { return _parent; }
+		public function get postion():Point { return _position; }
+		public function get worldPosition():Point { return _worldPosition; }
 		
-		public function set parent( value:SceneObject ):void { mParent = value; }
+		public function set parent( value:SceneObject ):void { _parent = value; }
 		public function set position ( value:Point ):void 	{ 
 																// Set the local position
-																mPosition.x = value.x;
-																mPosition.y = value.y;
-
+																_position.x = value.x;
+																_position.y = value.y;
+																
 																// Cache the world position
-																mWorldPosition.x = value.x;
-																mWorldPosition.y = value.y;
-																if (mParent != null)
+																_worldPosition.x = value.x;
+																_worldPosition.y = value.y;
+																
+																// If the parent exists
+																if ( _parent != null )
 																{
-																	var pos:Point = mParent.worldPosition;
-																	mWorldPosition.x = mPosition.x + pos.x;
-																	mWorldPosition.y = mPosition.y + pos.y;
+																	// Set world position from parent's world position
+																	var parentPos:Point = _parent.worldPosition;
+																	_worldPosition.x = _position.x + parentPos.x;
+																	_worldPosition.y = _position.y + parentPos.y;
 																}
 															}
 
 		public function SceneObject( name:String = null ) 
 		{
-			sObjectCount++;
-			mName = ( name == null ) ? "SceneObject" + sObjectCount : name;
+			_sObjectCount++;
+			_name = ( name == null ) ? "SceneObject" + _sObjectCount : name;
 		}
 		
 		/*******************************************/
 		// SceneObject Tree Structure
 		/*******************************************/
 
-		public function AddChild( child:SceneObject ):void
+		public function addSceneChild( child:SceneObject ):void
 		{
 			child.parent = this;
-			mChildren.push( child );
+			_children.push( child );
 		}
 
-		public function RemoveChild( child:SceneObject ):void
+		public function removeSceneChild( child:SceneObject ):void
 		{
-			var index:int = mChildren.indexOf( child );
+			var index:int = _children.indexOf( child );
 			if ( index >= 0 )
 			{
-				mChildren.splice( index, 1 );
+				_children.splice( index, 1 );
 			}
 		}
 
@@ -68,19 +72,19 @@ package
 		// SceneObject Components
 		/*******************************************/
 
-		public function AddComponent( component:Component ):void 
+		public function addComponent( component:Component ):void 
 		{
 			if (component == null)
 			{
 				return;
 			}
-			component.sceneObject = this;
-			mComponents.push( component );
+			component.owner = this;
+			_components.push( component );
 		}
 
-		public function GetComponent( type:Number ):Component
+		public function getComponent( type:Number ):Component
 		{
-			for each ( var component:Component in mComponents ) 
+			for each ( var component:Component in _components ) 
 			{
 				if ( component.type == type)
 				{
@@ -91,56 +95,86 @@ package
 			return null;
 		}
 
-		public function RemoveComponent( component:Component ):void
+		public function removeComponent( component:Component ):void
 		{
 			if (component == null)
 			{
 				return;
 			}
-			var index:int = mComponents.indexOf( component, 0 );
+			var index:int = _components.indexOf( component, 0 );
 			if ( index >= 0 )
 			{
-				mComponents.splice(index, 1);
+				_components.splice(index, 1);
 			}
 		}
 
+		/*
+		 * Rendering/Erasing
+		 */
+		public function render( surface:DisplayObjectContainer ):void 
+		{
+			var renderComponent:RenderComponent = getComponent( Component.RENDER_COMPONENT ) as RenderComponent;
+			
+			if ( renderComponent != null )
+			{
+				renderComponent.render( surface );
+			}
+			
+			for each ( var child:SceneObject in _children ) 
+			{
+				child.render( surface );
+			}
+		}
+		
+		public function erase( surface:DisplayObjectContainer ):void
+		{
+			for each ( var child:SceneObject in _children ) 
+			{
+				child.erase( surface );
+			}
+			
+			var renderComponent:RenderComponent = getComponent( Component.RENDER_COMPONENT ) as RenderComponent;
+			
+			if ( renderComponent != null )
+			{
+				renderComponent.erase( surface );
+			}
+		}
+		
 		/*******************************************/
 		// Update all the children
 		/*******************************************/
 
-		public function Update():void
+		public function update():void
 		{
-			UpdateChildren();
-			UpdateComponents();
-			Render();
+			updateChildren();
+			updateComponents();
 		}
 
-		private function UpdateChildren():void 
+		private function updateChildren():void 
 		{
-			for each ( var child:SceneObject in mChildren ) 
+			for each ( var child:SceneObject in _children ) 
 			{
-				child.Update();
+				child.update();
 			}
 		}
-
-		private function UpdateComponents( ):void 
+		
+		private function updateComponents( ):void 
 		{
-			for each ( var component:Component in mComponents ) 
+			for each ( var component:Component in _components ) 
 			{
-				component.Update();
-			}
-		}
-
-		private function Render():void 
-		{
-			for each ( var component:Component in mComponents ) 
-			{
-				if ( component.type == Component.RENDER_COMPONENT )
+				if ( component.type != Component.RENDER_COMPONENT )
 				{
-					(component as RenderComponent).Render( this.worldPosition );
+					component.update();
 				}
+			}
+			
+			var renderComponent:RenderComponent = getComponent( Component.RENDER_COMPONENT ) as RenderComponent;
+			
+			if ( renderComponent != null ) 
+			{
+				renderComponent.update();
 			}
 		}
 	}
-
 }
