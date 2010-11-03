@@ -4,8 +4,7 @@ package
 	import flash.display.MovieClip;
 	import flash.geom.Point;
 	/**
-	 * ...
-	 * @author Daniel Lamb
+	 * 
 	 */
 	public class RenderComponent extends Component
 	{

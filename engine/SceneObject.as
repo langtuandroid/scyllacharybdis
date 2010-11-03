@@ -6,7 +6,7 @@ package
 	 * ...
 	 * @author Daniel Lamb
 	 */
-	public class SceneObject
+	public class SceneObject extends ISCObject
 	{
 		private static var _sObjectCount:int = 0;
 		
@@ -25,40 +25,23 @@ package
 		
 		public function set parent( value:SceneObject ):void { _parent = value; }
 		public function set position ( value:Point ):void 	{ 
-<<<<<<< /home/ben/scyllacharybdis/engine/SceneObject.as
-		// Set the local position
-		mPosition.x = value.x;
-		mPosition.y = value.y;
-
-		// Cache the world position
-		mWorldPosition.x = value.x;
-		mWorldPosition.y = value.y;
-		if (mParent != null)
-		{
-			var pos:Point = mParent.worldPosition;
-			mWorldPosition.x = mPosition.x + pos.x;
-			mWorldPosition.y = mPosition.y + pos.y;
+			// Set the local position
+			_position.x = value.x;
+			_position.y = value.y;
+			
+			// Cache the world position
+			_worldPosition.x = value.x;
+			_worldPosition.y = value.y;
+			
+			// If the parent exists
+			if ( _parent != null )
+			{
+				// Set world position from parent's world position
+				var parentPos:Point = _parent.worldPosition;
+				_worldPosition.x = _position.x + parentPos.x;
+				_worldPosition.y = _position.y + parentPos.y;
+			}
 		}
-	}
-=======
-																// Set the local position
-																_position.x = value.x;
-																_position.y = value.y;
-																
-																// Cache the world position
-																_worldPosition.x = value.x;
-																_worldPosition.y = value.y;
-																
-																// If the parent exists
-																if ( _parent != null )
-																{
-																	// Set world position from parent's world position
-																	var parentPos:Point = _parent.worldPosition;
-																	_worldPosition.x = _position.x + parentPos.x;
-																	_worldPosition.y = _position.y + parentPos.y;
-																}
-															}
->>>>>>> /tmp/SceneObject.as~other.Lvi8rS
 
 		public function SceneObject( name:String = null ) 
 		{

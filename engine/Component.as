@@ -2,10 +2,8 @@ package
 {
 	/**
 	 * Component base class. Extend this to create a new component type.
-	 * 
-	 * @author Daniel Lamb
 	 */
-	public class Component
+	public class Component extends ISCObject
 	{
 		public static const COMPONENT:Number = 0;
 		public static const RENDER_COMPONENT:Number = 1;

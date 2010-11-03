@@ -2,7 +2,6 @@ package
 {
 	/**
 	 * ...
-	 * @author Daniel Lamb
 	 */
 	public class ScriptComponent extends Component
 	{
