@@ -1,5 +1,5 @@
-package {
-	
+package Engine 
+{
 	class MemoryManager {
 		
 		/***********************************/
@@ -9,8 +9,8 @@ package {
 		{
 		}
 		
-		private static var sInstance:DataManager;
-		public static function Instance():DataManager {
+		private static var sInstance:MemoryManager;
+		public static function Instance():MemoryManager {
 			if (sInstance == null) {
 				sInstance = new MemoryManager();
 			}
@@ -18,26 +18,16 @@ package {
 		}		
 		/***********************************/
 		
-		private var mSceneObjects:Array = new Array();
-		private var mCounter = 0;
+		private var mBaseObjects:Array = new Array();
 		
 		/**
-		* Instanciate a scene object 
-		* @param Name (String) Name of the scene object
+		* Instantiate an object
+		* @param Type (Class) The type of object to create
 		*/
-		public function Instanciate( name:String = "" ):SceneObject
+		public function Instantiate( type:Class,  param:Array ... ):type
 		{
-			mCounter++;
-			var object:SceneObject;
-			if ( name == "" )
-			{
-				// Give the class a random name
-				name = "SceneObject-" + mCounter;
-			} 
-			
-			// Create the scene object ( should be replaced with a cache )
-			object = new SceneObject( name );
-			
+			var object:type = new type( param );
+
 			// Add it to the array
 			mSceneObjects.push(object);
 			

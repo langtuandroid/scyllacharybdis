@@ -1,5 +1,6 @@
-package  
+package Engine 
 {
+
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	import flash.geom.Point;
@@ -15,11 +16,6 @@ package
 		
 		public function set baseclip( value:MovieClip ):void { _baseclip = value; }									
 		public function set position( value:Point ):void { _position = value; }
-		
-		public function RenderComponent() 
-		{
-			
-		}	
 		
 		public function render( surface:DisplayObjectContainer ):void
 		{
