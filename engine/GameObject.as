@@ -12,23 +12,19 @@ package Engine
 
 		public function get type():Number { return GAME_OBJECT; }		
 		
-		private static var _sObjectCount:int = 0;
-		
-		private var _name:String = null;
-		private var _parent:SceneObject = null;
+		private var _parent:GameObject = null;
 		private var _children:Array = new Array();
 		private var _components:Array = new Array();
+
 		private var _position:Point = new Point( 0.0, 0.0 );
 		private var _worldPosition:Point = new Point( 0.0, 0.0 );
 		private var _disabled:Boolean = false;
 		
-		public function get name():String { return _name; }
-		public function get parent():SceneObject { return _parent; }
+		public function get parent():GameObject { return _parent; }
+		public function set parent( value:GameObject ):void { _parent = value; }
+		
 		public function get postion():Point { return _position; }
 		public function get worldPosition():Point { return _worldPosition; }
-		
-		public function set parent( value:SceneObject ):void { _parent = value; }
-		
 		public function set position ( value:Point ):void 
 		{ 
 			// Set the local position
@@ -49,18 +45,30 @@ package Engine
 			}
 		}
 
-		/*******************************************/
-		// SceneObject Tree Structure
-		/*******************************************/
-
-		public function addSceneChild( child:SceneObject ):void
+		/**
+		 * Add a child game object.
+		 * @param	child (GameObject)
+		 */
+		public function addChild( child:GameObject ):void
 		{
+			// Attach to the tree
 			child.parent = this;
 			_children.push( child );
+			
+			// Start the game object
+			child.start();
 		}
 
-		public function removeSceneChild( child:SceneObject ):void
+		/**
+		 * Remove a child game object.
+		 * @param	child (GameObject)
+		 */
+		public function removeChild( child:GameObject ):void
 		{
+			// Stop the child before removing it
+			child.stop();
+			
+			// Remove the child from the list
 			var index:int = _children.indexOf( child );
 			if ( index >= 0 )
 			{
@@ -68,10 +76,10 @@ package Engine
 			}
 		}
 
-		/*******************************************/
-		// SceneObject Components
-		/*******************************************/
-
+		/**
+		 * Add a component to the game object
+		 * @param	component (Component)
+		 */
 		public function addComponent( component:Component ):void 
 		{
 			if (component == null)
@@ -80,8 +88,15 @@ package Engine
 			}
 			component.owner = this;
 			_components.push( component );
+			
+			// Start the component
+			component.start();
 		}
 
+		/**
+		 * Get a component from the game object
+		 * @param	type (Number) The component id
+		 */
 		public function getComponent( type:Number ):Component
 		{
 			for each ( var component:Component in _components ) 
@@ -95,12 +110,18 @@ package Engine
 			return null;
 		}
 
+		/**
+		 * Remove a component from the game object
+		 * @param	component (Component)
+		 */
 		public function removeComponent( component:Component ):void
 		{
 			if (component == null)
 			{
 				return;
 			}
+			component.stop();
+			
 			var index:int = _components.indexOf( component, 0 );
 			if ( index >= 0 )
 			{
@@ -109,7 +130,8 @@ package Engine
 		}
 
 		/*
-		 * Rendering/Erasing
+		 * Render to the screen
+		 * @param surface (DisplayObjectContainer) The display.
 		 */
 		public function render( surface:DisplayObjectContainer ):void 
 		{
@@ -126,14 +148,18 @@ package Engine
 			}
 		}
 		
+		/*
+		 * Erasing from the screen
+		 * @param surface (DisplayObjectContainer) The display.
+		 */
 		public function erase( surface:DisplayObjectContainer ):void
 		{
-			for each ( var child:SceneObject in _children ) 
+			for each ( var child:GameObject in _children ) 
 			{
 				child.erase( surface );
 			}
 			
-			var renderComponent:RenderComponent = getComponent( Component.RENDER_COMPONENT ) as RenderComponent;
+			var renderComponent:RenderComponent = getComponent( BaseObject.RENDER_COMPONENT ) as RenderComponent;
 			
 			if ( renderComponent != null )
 			{
@@ -141,16 +167,48 @@ package Engine
 			}
 		}
 		
-		/*******************************************/
-		// Update all the children
-		/*******************************************/
+		/**
+		* Awake is called at the construction of the object
+		*/
+		public override function awake():void
+		{
+		}
 
-		public function update():void
+		/**
+		* Start is called when the object is added to the scene
+		*/
+		public override function start():void		
+		{
+		}
+
+		/**
+		* Stop is called when the object is removed from the scene
+		*/
+		public override function stop():void
+		{
+		}
+
+		/**
+		* Destroy is called at the removal of the object
+		*/
+		public override function destroy():void		
+		{
+			// Destroy the children
+			// Destroy the components
+		}
+		
+		/**
+		 * Update each frame
+		 */
+		public override function update():void
 		{
 			updateChildren();
 			updateComponents();
 		}
 
+		/**
+		 * Helper function: Update all children ( should be an event )
+		 */
 		private function updateChildren():void 
 		{
 			for each ( var child:SceneObject in _children ) 
@@ -159,6 +217,9 @@ package Engine
 			}
 		}
 		
+		/**
+		 * Helper function: Update all components ( should be an event )
+		 */
 		private function updateComponents( ):void 
 		{
 			for each ( var component:Component in _components ) 

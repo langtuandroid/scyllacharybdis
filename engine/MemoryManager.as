@@ -17,16 +17,22 @@ package Engine
 			return instance;
 		}		
 		/***********************************/
-		
+
 		private var mBaseObjects:Array = new Array();
+		private var mObjectCounters:Array = new Array();
 		
 		/**
 		* Instantiate an object
 		* @param Type (Class) The type of object to create
+		* @return type of class to be created
 		*/
-		public function Instantiate( type:Class,  param:Array ... ):type
+		public function Instantiate( type:Class ):type
 		{
-			var object:type = new type( param );
+			// Create the object
+			var object:type = new type();
+			
+			// Increase the debugging counter
+			IncrementCounter(object);
 
 			// Add it to the array
 			mSceneObjects.push(object);
@@ -44,29 +50,59 @@ package Engine
 		 */
 		public function Destroy( var object:SceneObject ): void 
 		{
-			if ( mSceneObjects.indexOf( object ) < 0 ) {
-				trace("Object: " + object " wasn't created by the memory manager!" );
-			}
+			// Reduce the debugging counter
+			DecrementCounter(object);
 			
 			// Remove the object from the list
 			mSceneObject.remove(object);
 
+			// Remove the object frmo the tree
+			if ( object.parent() ) {
+				object.parent().removeChild(object);
+			}
 			// Let the object run its own destroy methods
+			object.Stop();
 			object.Destroy();
 			
 			// Delete the object ( should be replaced with a cache )
 			delete object;
 		}
 		
-		function FindSceneObjectByName( var name:String ): SceneObject
+		/**
+		 * Get the object counter
+		 * @param type (Class) The class type
+		 * @return int 
+		 */
+		public function GetObjectCount(type:Class):int;
 		{
-			for (int i = 0; i < mSceneObjects.length(); i++) 
-			{
-				if ( mSceneObjects[i].name() == name) {
-					return mSceneObjects[i];
-				}
+			return mObjectCounters[type.GetType()];
+		}		
+		
+		/**
+		 * Debugging Helper Function
+		 * @param type (BaseObject) The created object
+		 */
+		private function IncrementCounter(obj:BaseObject):void
+		{
+			if ( mObjectCounters.size == 0 ) {
+				mObjectCounters.push( int );
+				mObjectCounters.push( int );
+				mObjectCounters.push( int );
+				mObjectCounters.push( int );
 			}
-			return null;
+			mObjectCounters[obj.GetType()]++;
+		}
+		
+		/**
+		 * Debugging Helper Function
+		 * @param type (BaseObject) The destroyed object
+		 */
+		private function DecrementCounter(obj:BaseObject):void
+		{
+			if ( mObjectCounters.size == 0 ) {
+				return;
+			}
+			mObjectCounters[obj.GetType()]--;
 		}
 	}
 }
