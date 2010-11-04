@@ -27,6 +27,33 @@ package Engine
 			surface.removeChild( _baseclip );
 		}
 		
+		// Hack 
+		public function addMovieClip(): void 
+		{
+			_baseclip = new MovieClip();
+			_baseclip.graphics.beginFill( color );
+			_baseclip.graphics.drawRect( 0, 0, size, size );
+			_baseclip.graphics.endFill();
+			_baseclip.addEventListener( MouseEvent.MOUSE_DOWN, (scriptComponent as SquareScriptComponent).onMouseDown ); 
+
+			// If the other way didn't work try this:
+			mMovieClip.onMouseDown = function() 
+			{
+				var tempComp = this.GetGameObject().GetComponent(ScriptType);
+				if (tempComp != null) {
+					tempComp.OnMouseDown();
+				}
+			}
+			
+			mMovieClip.onMouseUp =  = function() 
+			{
+				var tempComp = this.GetGameObject().GetComponent(ScriptType);
+				if (tempComp != null) {
+					tempComp.OnMouseUp();
+				}
+			}
+		}
+		
 		/**
 		* Awake is called at the construction of the object
 		*/
