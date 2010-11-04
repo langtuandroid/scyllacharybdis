@@ -23,11 +23,13 @@ package Engine
 		
 		/**
 		* Instantiate an object
-		* @param Type (Class) The type of object to create
-		* @return type of class to be created
+		* @param type (Class) The type of object to create
+		* @return type (Object) The object of the specified type
 		*/
 		public function Instantiate( type:Class ):type
 		{
+			// Do we need a check to see if the type is BaseObject or an ancestor thereof?
+			
 			// Create the object
 			var object:type = new type();
 			
@@ -37,8 +39,8 @@ package Engine
 			// Add it to the array
 			mSceneObjects.push(object);
 			
-			// Run Awake on the class
-			object.Awake();
+			// Awaken the object
+			object.dispatchEvent( new EngineEvent( EngineEvent.AWAKE ) );
 			
 			// Return the object
 			return object;
@@ -48,7 +50,7 @@ package Engine
 		 * Destroy the scene object 
 		 * @param object (SceneObject) The scene object to be destroyed
 		 */
-		public function Destroy( var object:SceneObject ): void 
+		public function Destroy( object:BaseObject ): void 
 		{
 			// Reduce the debugging counter
 			DecrementCounter(object);
@@ -61,11 +63,7 @@ package Engine
 				object.parent().removeChild(object);
 			}
 			// Let the object run its own destroy methods
-			object.Stop();
-			object.Destroy();
-			
-			// Delete the object ( should be replaced with a cache )
-			delete object;
+			object.dispatchEvent( new EngineEvent( EngineEvent.DESTROY ) );
 		}
 		
 		/**

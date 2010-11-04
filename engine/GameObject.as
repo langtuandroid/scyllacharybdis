@@ -12,19 +12,17 @@ package Engine
 
 		public function get type():Number { return GAME_OBJECT; }		
 		
-		private var _parent:GameObject = null;
-		private var _children:Array = new Array();
-		private var _components:Array = new Array();
-
-		private var _position:Point = new Point( 0.0, 0.0 );
-		private var _worldPosition:Point = new Point( 0.0, 0.0 );
-		private var _disabled:Boolean = false;
+		protected var _parent:GameObject = null;
+		protected var _children:Array = new Array();
+		protected var _components:Array = new Array();
+		protected var _position:Point = new Point( 0.0, 0.0 );
+		protected var _worldPosition:Point = new Point( 0.0, 0.0 );
+		protected var _disabled:Boolean = false;
 		
 		public function get parent():GameObject { return _parent; }
 		public function set parent( value:GameObject ):void { _parent = value; }
 		
 		public function get postion():Point { return _position; }
-		public function get worldPosition():Point { return _worldPosition; }
 		public function set position ( value:Point ):void 
 		{ 
 			// Set the local position
@@ -43,6 +41,22 @@ package Engine
 				_worldPosition.x = _position.x + parentPos.x;
 				_worldPosition.y = _position.y + parentPos.y;
 			}
+		}
+		
+		public function get worldPosition():Point { return _worldPosition; }
+		
+		public function get disabled():Boolean { return _disabled; }
+		public function set disabled( value:Boolean ):void 
+		{
+			_disabled = value;
+
+			// Do some other stuff here, like awake/sleep the object, probaly an event deal
+
+			for each ( var obj:GameObject in _children )
+			{
+				obj.disabled = value;
+			}
+			
 		}
 
 		/**
