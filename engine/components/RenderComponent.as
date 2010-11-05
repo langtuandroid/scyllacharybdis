@@ -5,30 +5,31 @@ package engine.components
 	import flash.display.MovieClip;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
-	import flash.geom.Point;
+	
 	/**
 	 * 
 	 */
 	public class RenderComponent extends Component
 	{
-		protected var _baseclip:MovieClip = null;
-		protected var _position:Point = new Point( 0, 0 );
-		
 		public override function get type():Number { return RENDER_COMPONENT; }
+
+		protected var _baseclip:MovieClip = null;
 		
-		public function set baseclip( value:MovieClip ):void { _baseclip = value; }									
-		public function set position( value:Point ):void 
-		{ 
-			_position = value;
-			_baseclip.x = value.x;
-			_baseclip.y = value.y; 
-		}
-		
+		public function set baseclip( value:MovieClip ):void { _baseclip = value; }	
+
+		/**
+		 * Add the renderable to the surface
+		 * @param	surface (DisplayObjectContainer) 
+		 */
 		public function render( surface:DisplayObjectContainer ):void
 		{
 			surface.addChild( _baseclip );
 		}
 		
+		/**
+		 * Erace this from the surface
+		 * @param	surface (DisplayObjectContainer) 
+		 */
 		public function erase( surface:DisplayObjectContainer ):void
 		{
 			surface.removeChild( _baseclip );
