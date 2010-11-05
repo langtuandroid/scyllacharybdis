@@ -98,9 +98,9 @@ package engine.core
 		}
 		
 		/**
-		 * Delete a component to the game object
+		 * Remove a component to the game object
 		 */
-		public deleteComponent( comp:Component ):void
+		public removeComponent( comp:Component ):void
 		{
 			_sortRequired = true;
 			if ( comp.GetType() == RENDER_COMPONENT ) {

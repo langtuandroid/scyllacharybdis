@@ -13,13 +13,22 @@ public class ReadyHandler extends BaseClientRequestHandler
 	{
 		SFSChess gameExt = (SFSChess) getParentExtension();
 		
-		if (user.isPlayer())
-		{
-			sendBoard(user);
-
-			// Checks if two players are available and start game
-			if (gameExt.getParentRoom().getSize().getUserCount() == 2)
-				gameExt.startGame();
+		if ( !user.isPlayer() ) {
+			return ;
 		}
+	
+		if ( getWhoseTurn() != user ) {
+			return ;
+		}
+
+		if ( ! gameExt.isStarted() ) {
+			
+		}
+
+		String to = params.getString("to");
+		String from = params.getString("from");
+		
+		gameExt.move(to, from); 
+		
 	}
 }
