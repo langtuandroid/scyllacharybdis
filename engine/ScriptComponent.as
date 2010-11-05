@@ -1,44 +1,75 @@
 package Engine 
 {
+	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
 	/**
 	 */
 	public class ScriptComponent extends Component
 	{
-		public override function get type():Number { return SCRIPT_COMPONENT; }
+		public override function get type():int { return SCRIPT_COMPONENT; }
 
-		/**
-		* Awake is called at the construction of the object
-		*/
-		public override function awake():void
-		{
-		}
-
-		/**
-		* Start is called when the object is added to the scene
-		*/
-		public override function start():void		
-		{
-		}
-
-		/**
-		* Stop is called when the object is removed from the scene
-		*/
-		public override function stop():void
-		{
-		}
-
-		/**
-		* Destroy is called at the removal of the object
-		*/
-		public override function destroy():void		
-		{
-		} 
-
-		/**
-		 * Update each frame
+		/*
+		 * Handler functions for the keyboard and mouse events
 		 */
-		public override function update():void
+		
+		public function onMouseDown( e:MouseEvent ):void
 		{
+			
+		}
+		
+		public function onMouseUp( e:MouseEvent ):void
+		{
+			
+		}
+		
+		public function onClick( e:MouseEvent ):void
+		{
+			
+		}
+		
+		public function onDoubleClick( e:MouseEvent ):void
+		{
+			
+		}
+		
+		public function onMouseMove( e:MouseEvent ):void
+		{
+			
+		}
+		
+		public function onMouseOut( e:MouseEvent ):void
+		{
+			
+		}
+		
+		public function onMouseOver( e:MouseEvent ):void
+		{
+			
+		}
+		
+		public function onMouseWheel( e:MouseEvent ):void
+		{
+			
+		}
+		
+		public function onRollOver( e:MouseEvent ):void
+		{
+			
+		}
+		
+		public function onRollOut( e:MouseEvent ):void
+		{
+			
+		}
+		
+		public function onKeyDown( e:KeyboardEvent ):void
+		{
+			
+		}
+		
+		public function onKeyUp( e:KeyboardEvent ):void
+		{
+			
 		}
 	}
 }

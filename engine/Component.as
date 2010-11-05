@@ -9,5 +9,7 @@ package Engine
 		
 		public function get owner():GameObject { return _owner; }
 		public function set owner( value:GameObject ):void { _owner = value; }
+		
+		public override function get type():int { return COMPONENT; }
 	}
 }
