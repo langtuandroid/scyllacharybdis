@@ -1,71 +1,60 @@
 package Engine 
 {
+	import flash.events.Event;
 	import flash.events.EventDispatcher;
-	import Engine.EngineEvent;
 	
 	/**
 	 * BaseObject is a base object for all game elements
 	 */
 	class BaseObject extends EventDispatcher
 	{
-		public static const GAME_OBJECT:Number = 1;
-		public static const RENDER_COMPONENT:Number = 2;
-		public static const SCRIPT_COMPONENT:Number = 3;	
+		public static const BASE_OBJECT:int = 0;
+		public static const GAME_OBJECT:int = 1;
+		public static const COMPONENT:int = 2;
+		public static const RENDER_COMPONENT:int = 3;
+		public static const SCRIPT_COMPONENT:int = 4;
 		
 		public function BaseObject()
 		{
 			trace("To create an object use Instantiate(Class)");
-			
-			addEventListener( EngineEvent.AWAKE, onAwake );
 		}
 		
 		/**
 		* Awake is called at the construction of the object
 		*/
-		public function onAwake( e:EngineEvent ):void
+		public function awake( ):void
 		{
-			removeEventListener( EngineEvent.AWAKE, onAwake );
-			
-			addEventListener( EngineEvent.DESTROY, onDestroy );
-			addEventListener( EngineEvent.START, onStart );
-			addEventListener( EngineEvent.STOP, onStop );
-			addEventListener( EngineEvent.UPDATE, onUpdate );
+			addEventListener( Event.ENTER_FRAME, update );
 		}
 
 		/**
 		* Start is called when the object is added to the scene
 		*/
-		public function onStart( e:EngineEvent ):void		
+		public function start( ):void		
 		{
-			
+
 		}
 
 		/**
 		* Stop is called when the object is removed from the scene
 		*/
-		public function onStop( e:EngineEvent ):void
+		public function stop( ):void
 		{
-			
+
 		}
 
 		/**
 		* Destroy is called at the removal of the object
 		*/
-		public function onDestroy( e:EngineEvent ):void		
+		public function destroy( ):void		
 		{
-			removeEventListener( EngineEvent.DESTROY, onDestroy );
-			removeEventListener( EngineEvent.START, onStart );
-			removeEventListener( EngineEvent.STOP, onStop );
-			removeEventListener( EngineEvent.UPDATE, onUpdate );
-			
-			// Delete the object ( should be replaced with a cache )
-			delete this;
+			removeEventListener( Event.ENTER_FRAME, update );
 		} 
 		
 		/**
 		 * Update each frame
 		 */
-		public function onUpdate( e:EngineEvent ):void
+		public function update( e:Event ):void
 		{
 			
 		}
@@ -73,6 +62,6 @@ package Engine
 		/** 
 		 * Return the type of object
 		 */
-		public function get type():Number { return 0; }
+		public function get type():int { return BASE_OBJECT; }
 	}
 }

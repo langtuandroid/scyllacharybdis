@@ -1,32 +1,39 @@
 package Engine 
 {
+	import flash.utils.getQualifiedClassName;
+	
 	class MemoryManager {
 		
 		/***********************************/
 		// Singleton boilerplate
 		/***********************************/
-		private function MemoryManager() 
+		public function MemoryManager( se:SingletonEnforcer ) 
 		{
+			
 		}
 		
-		private static var sInstance:MemoryManager;
-		public static function Instance():MemoryManager {
-			if (sInstance == null) {
-				sInstance = new MemoryManager();
+		private static var _sInstance:MemoryManager = null;
+		
+		public static function get instance():MemoryManager 
+		{
+			if (_sInstance == null) 
+			{
+				_sInstance = new MemoryManager( new SingletonEnforcer() );
 			}
-			return instance;
+			
+			return _sInstance;
 		}		
 		/***********************************/
 
-		private var mBaseObjects:Array = new Array();
-		private var mObjectCounters:Array = new Array();
+		private var _baseObjects:Array = new Array();
+		private var _objectCounters:Array = new Array();
 		
 		/**
 		* Instantiate an object
 		* @param type (Class) The type of object to create
 		* @return type (Object) The object of the specified type
 		*/
-		public function Instantiate( type:Class ):type
+		public function instantiate( type:Class ):type
 		{
 			// Do we need a check to see if the type is BaseObject or an ancestor thereof?
 			
@@ -34,13 +41,13 @@ package Engine
 			var object:type = new type();
 			
 			// Increase the debugging counter
-			IncrementCounter(object);
+			incrementCounter(object);
 
 			// Add it to the array
-			mSceneObjects.push(object);
+			_baseObjects.push(object);
 			
 			// Awaken the object
-			object.dispatchEvent( new EngineEvent( EngineEvent.AWAKE ) );
+			object.awake();
 			
 			// Return the object
 			return object;
@@ -50,20 +57,25 @@ package Engine
 		 * Destroy the scene object 
 		 * @param object (SceneObject) The scene object to be destroyed
 		 */
-		public function Destroy( object:BaseObject ): void 
+		public function destroy( object:BaseObject ): void 
 		{
 			// Reduce the debugging counter
-			DecrementCounter(object);
+			decrementCounter(object);
 			
 			// Remove the object from the list
-			mSceneObject.remove(object);
+			_baseObjects.remove(object);
 
 			// Remove the object frmo the tree
-			if ( object.parent() ) {
-				object.parent().removeChild(object);
+			if ( object.parent != null ) 
+			{
+				object.parent.removeChild(object);
 			}
+			
 			// Let the object run its own destroy methods
-			object.dispatchEvent( new EngineEvent( EngineEvent.DESTROY ) );
+			object.destroy();
+			
+			// Delete the object ( should be replaced with a cache )
+			delete object;
 		}
 		
 		/**
@@ -71,36 +83,34 @@ package Engine
 		 * @param type (Class) The class type
 		 * @return int 
 		 */
-		public function GetObjectCount(type:Class):int;
+		public function getObjectCount(type:Class):int;
 		{
-			return mObjectCounters[type.GetType()];
+			return _objectCounters[ getQualifiedClassName( new type() )];
 		}		
 		
 		/**
 		 * Debugging Helper Function
 		 * @param type (BaseObject) The created object
 		 */
-		private function IncrementCounter(obj:BaseObject):void
+		private function incrementCounter(obj:BaseObject):void
 		{
-			if ( mObjectCounters.size == 0 ) {
-				mObjectCounters.push( int );
-				mObjectCounters.push( int );
-				mObjectCounters.push( int );
-				mObjectCounters.push( int );
-			}
-			mObjectCounters[obj.GetType()]++;
+			_objectCounters[getQualifiedClassName( obj )]++;
 		}
 		
 		/**
 		 * Debugging Helper Function
 		 * @param type (BaseObject) The destroyed object
 		 */
-		private function DecrementCounter(obj:BaseObject):void
+		private function decrementCounter(obj:BaseObject):void
 		{
-			if ( mObjectCounters.size == 0 ) {
+			if ( _objectCounters.size == 0 ) 
+			{
 				return;
 			}
-			mObjectCounters[obj.GetType()]--;
+			
+			_objectCounters[getQualifiedClassName( obj )]--;
 		}
 	}
 }
+
+final class SingletonEnforcer { }

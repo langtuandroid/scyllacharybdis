@@ -1,6 +1,7 @@
 package Engine 
 {
 	import flash.display.DisplayObjectContainer;
+	import flash.events.Event;
 	import flash.geom.Point;
 	/**
 	 */
@@ -9,8 +10,7 @@ package Engine
 		/** 
 		 * Return the type of object
 		 */
-
-		public function get type():Number { return GAME_OBJECT; }		
+		public function get type():int { return GAME_OBJECT; }		
 		
 		protected var _parent:GameObject = null;
 		protected var _children:Array = new Array();
@@ -50,13 +50,10 @@ package Engine
 		{
 			_disabled = value;
 
-			// Do some other stuff here, like awake/sleep the object, probaly an event deal
-
 			for each ( var obj:GameObject in _children )
 			{
 				obj.disabled = value;
-			}
-			
+			}			
 		}
 
 		/**
@@ -84,6 +81,7 @@ package Engine
 			
 			// Remove the child from the list
 			var index:int = _children.indexOf( child );
+			
 			if ( index >= 0 )
 			{
 				_children.splice( index, 1 );
@@ -100,7 +98,9 @@ package Engine
 			{
 				return;
 			}
+			
 			component.owner = this;
+			
 			_components.push( component );
 			
 			// Start the component
@@ -109,9 +109,9 @@ package Engine
 
 		/**
 		 * Get a component from the game object
-		 * @param	type (Number) The component id
+		 * @param	type (int) The component id
 		 */
-		public function getComponent( type:Number ):Component
+		public function getComponent( type:int ):Component
 		{
 			for each ( var component:Component in _components ) 
 			{
@@ -134,6 +134,7 @@ package Engine
 			{
 				return;
 			}
+			
 			component.stop();
 			
 			var index:int = _components.indexOf( component, 0 );
@@ -182,74 +183,23 @@ package Engine
 		}
 		
 		/**
-		* Awake is called at the construction of the object
-		*/
-		public override function awake():void
-		{
-		}
-
-		/**
-		* Start is called when the object is added to the scene
-		*/
-		public override function start():void		
-		{
-		}
-
-		/**
-		* Stop is called when the object is removed from the scene
-		*/
-		public override function stop():void
-		{
-		}
-
-		/**
 		* Destroy is called at the removal of the object
 		*/
 		public override function destroy():void		
 		{
 			// Destroy the children
+			for each ( var gameObj:GameObject in _children )
+			{
+				MemoryManager.instance.destroy( gameObj );
+			}
+			
 			// Destroy the components
-		}
-		
-		/**
-		 * Update each frame
-		 */
-		public override function update():void
-		{
-			updateChildren();
-			updateComponents();
-		}
-
-		/**
-		 * Helper function: Update all children ( should be an event )
-		 */
-		private function updateChildren():void 
-		{
-			for each ( var child:SceneObject in _children ) 
+			for each ( var component:Component in _components )
 			{
-				child.update();
-			}
-		}
-		
-		/**
-		 * Helper function: Update all components ( should be an event )
-		 */
-		private function updateComponents( ):void 
-		{
-			for each ( var component:Component in _components ) 
-			{
-				if ( component.type != Component.RENDER_COMPONENT )
-				{
-					component.update();
-				}
+				MemoryManager.instance.destroy( component );
 			}
 			
-			var renderComponent:RenderComponent = getComponent( Component.RENDER_COMPONENT ) as RenderComponent;
-			
-			if ( renderComponent != null ) 
-			{
-				renderComponent.update();
-			}
+			super.destroy();
 		}
 	}
 }
