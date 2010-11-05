@@ -1,4 +1,4 @@
-package Engine 
+package engine.components 
 {
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;

@@ -1,4 +1,4 @@
-package Engine 
+package engine.components 
 {
 	/**
 	 * Component base class. Extend this to create a new component type.
