@@ -15,35 +15,10 @@ package Engine
 		protected var _parent:GameObject = null;
 		protected var _children:Array = new Array();
 		protected var _components:Array = new Array();
-		protected var _position:Point = new Point( 0.0, 0.0 );
-		protected var _worldPosition:Point = new Point( 0.0, 0.0 );
 		protected var _disabled:Boolean = false;
 		
 		public function get parent():GameObject { return _parent; }
 		public function set parent( value:GameObject ):void { _parent = value; }
-		
-		public function get postion():Point { return _position; }
-		public function set position ( value:Point ):void 
-		{ 
-			// Set the local position
-			_position.x = value.x;
-			_position.y = value.y;
-			
-			// Cache the world position
-			_worldPosition.x = value.x;
-			_worldPosition.y = value.y;
-			
-			// If the parent exists
-			if ( _parent != null )
-			{
-				// Set world position from parent's world position
-				var parentPos:Point = _parent.worldPosition;
-				_worldPosition.x = _position.x + parentPos.x;
-				_worldPosition.y = _position.y + parentPos.y;
-			}
-		}
-		
-		public function get worldPosition():Point { return _worldPosition; }
 		
 		public function get disabled():Boolean { return _disabled; }
 		public function set disabled( value:Boolean ):void 
@@ -200,6 +175,22 @@ package Engine
 			}
 			
 			super.destroy();
+		}
+		
+		/**
+		 * Internal function for the scene graph
+		 */
+		public void function getAllChildren(): Array
+		{
+			return _children;
+		}
+
+		/**
+		 * Internal function for the scene graph
+		 */
+		public void function getAllComponents(): Array
+		{
+			return _components;
 		}
 	}
 }

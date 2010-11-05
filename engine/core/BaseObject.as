@@ -1,4 +1,4 @@
-package Engine 
+package engine.core
 {
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -8,11 +8,16 @@ package Engine
 	 */
 	class BaseObject extends EventDispatcher
 	{
+		// These objects are base objects
 		public static const BASE_OBJECT:int = 0;
+		public static const COMPONENT:int = 0;
+
+		// Usable types
 		public static const GAME_OBJECT:int = 1;
-		public static const COMPONENT:int = 2;
+		public static const TRANSFORM_COMPONENT:int = 2;
 		public static const RENDER_COMPONENT:int = 3;
 		public static const SCRIPT_COMPONENT:int = 4;
+		public static const NETWORK_COMPONENT:int = 5;
 		
 		public function BaseObject()
 		{

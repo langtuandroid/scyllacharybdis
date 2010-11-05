@@ -48,7 +48,7 @@
   </includeLibraries>
   <!-- SWC Libraries -->
   <libraryPaths>
-    <!-- example: <element path="..." /> -->
+    <element path="lib\SFS2X_API_AS3.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
