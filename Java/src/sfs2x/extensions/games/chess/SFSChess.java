@@ -25,7 +25,7 @@ public class SFSChess extends SFSExtension {
 		mGameBoard = new ChessBoard();
 
 	    addRequestHandler("ready", ReadyHandler.class);
-	    //addRequestHandler("move", MoveHandler.class);
+	    addRequestHandler("move", MoveHandler.class);
 	    
 	    //addEventHandler(SFSEventType.USER_DISCONNECT, OnUserGoneHandler.class);
 	    //addEventHandler(SFSEventType.USER_LEAVE_ROOM, OnUserGoneHandler.class);
@@ -79,5 +79,26 @@ public class SFSChess extends SFSExtension {
 		
 		// Send information to all the clients
 		send("start", resObj, getParentRoom().getUserList());		
+	}
+	
+	public void move( String to, String from ) 
+	{
+		ISFSObject resObj = new SFSObject();
+		resObj.putBoolean("valid", mChessBoard.move( to, from ));
+		send("moveResults", resObj, getParentRoom().getUserList());		
+		
+		sendBoard();
+	}
+	
+	public void sendBoard() 
+	{
+		send("GetBoardResults", GetBoardArray(), getParentRoom().getUserList());		
+		send("GetPredictionsResults", GetPredictionsArray(), getParentRoom().getUserList());		
+	}
+
+	public void sendBoard(User user) 
+	{
+		send("GetBoardResults", GetBoardArray(), user);		
+		send("GetPredictionsResults", GetPredictionsArray(), user);		
 	}
 }	

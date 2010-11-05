@@ -72,10 +72,13 @@ package Engine
 			{
 				return;
 			}
-			
+
+			// Setup the component
 			component.owner = this;
-			
 			_components.push( component );
+
+			// Add the component to the scene graph
+			SceneGraph.instance().addComponent( component );
 			
 			// Start the component
 			component.start();
@@ -109,51 +112,41 @@ package Engine
 				return;
 			}
 			
+			// Add the component to the scene graph
+			removeComponent.instance().addComponent( component );
+			
+			// Stop the component
 			component.stop();
 			
+			// Remove it from the list
 			var index:int = _components.indexOf( component, 0 );
 			if ( index >= 0 )
 			{
 				_components.splice(index, 1);
 			}
 		}
-
-		/*
-		 * Render to the screen
-		 * @param surface (DisplayObjectContainer) The display.
-		 */
-		public function render( surface:DisplayObjectContainer ):void 
+		/**
+		* Awake is called at the construction of the object
+		*/
+		public function awake( ):void
 		{
-			var renderComponent:RenderComponent = getComponent( Component.RENDER_COMPONENT ) as RenderComponent;
-			
-			if ( renderComponent != null )
-			{
-				renderComponent.render( surface );
-			}
-			
-			for each ( var child:SceneObject in _children ) 
-			{
-				child.render( surface );
-			}
+			addEventListener( Event.ENTER_FRAME, update );
 		}
-		
-		/*
-		 * Erasing from the screen
-		 * @param surface (DisplayObjectContainer) The display.
-		 */
-		public function erase( surface:DisplayObjectContainer ):void
+
+		/**
+		* Start is called when the object is added to the scene
+		*/
+		public function start( ):void		
 		{
-			for each ( var child:GameObject in _children ) 
-			{
-				child.erase( surface );
-			}
-			
-			var renderComponent:RenderComponent = getComponent( BaseObject.RENDER_COMPONENT ) as RenderComponent;
-			
-			if ( renderComponent != null )
-			{
-				renderComponent.erase( surface );
-			}
+
+		}
+
+		/**
+		* Stop is called when the object is removed from the scene
+		*/
+		public function stop():void
+		{
+
 		}
 		
 		/**
