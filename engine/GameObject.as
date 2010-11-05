@@ -2,7 +2,6 @@ package Engine
 {
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
-	import flash.geom.Point;
 	/**
 	 */
 	public class GameObject extends BaseObject
@@ -175,22 +174,6 @@ package Engine
 			}
 			
 			super.destroy();
-		}
-		
-		/**
-		 * Internal function for the scene graph
-		 */
-		public void function getAllChildren(): Array
-		{
-			return _children;
-		}
-
-		/**
-		 * Internal function for the scene graph
-		 */
-		public void function getAllComponents(): Array
-		{
-			return _components;
 		}
 	}
 }
