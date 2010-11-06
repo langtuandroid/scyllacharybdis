@@ -1,5 +1,8 @@
 package engine.components 
 {
+	import engine.core.BaseObject;
+	import engine.GameObject;
+	
 	/**
 	 * Component base class. Extend this to create a new component type.
 	 */
