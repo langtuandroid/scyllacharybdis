@@ -5,8 +5,10 @@ package engine.components
 	public class ConnectionComponent extends NetworkComponent
 	{
 		private var _isConnecting:Boolean = false;
+		
+		public override function get type():String { return CONNECTION_COMPONENT; }
 	
-		public function awake():void
+		public override function awake():void
 		{
 			sfs().addEventListener(SFSEvent.CONNECTION, onConnection)
 			sfs().addEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost)
@@ -14,7 +16,7 @@ package engine.components
 			sfs().addEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure)
 		}
 		
-		public function destroy():void
+		public override function destroy():void
 		{
 			sfs().removeEventListener(SFSEvent.CONNECTION, onConnection)
 			sfs().removeEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost)
@@ -31,14 +33,18 @@ package engine.components
 
 			// Check if connection is already available
 			if (!sfs.isConnected)
-
-				if (sfs.config == null) {
+			{
+				if (sfs.config == null) 
+				{
 					sfs.loadConfig("config.xml", true);
-				} else {
+				} 
+				else 
+				{
 					sfs.connect();
 				}
 			}
-			else {
+			else 
+			{
 				connected(true);
 			}
 		}
@@ -47,7 +53,7 @@ package engine.components
 		 * onConntection event handler
 		 * @param	evt (SFSEvent)
 		 */
-		private function onConnection(evt:SFSEvent):void
+		protected function onConnection(evt:SFSEvent):void
 		{
 			if (evt.params.success)
 			{
@@ -65,7 +71,7 @@ package engine.components
 		 * onConnectionLost event handler
 		 * @param	evt (SFSEvent)
 		 */
-		private function onConnectionLost(evt:SFSEvent):void
+		protected function onConnectionLost(evt:SFSEvent):void
 		{
 			dTrace("Connection was lost. Reason: " + evt.params.reason)
 		}
@@ -74,7 +80,7 @@ package engine.components
 		 * onConfigLoadSuccess event handler
 		 * @param	evt (SFSEvent)
 		 */
-		private function onConfigLoadSuccess(evt:SFSEvent):void
+		protected function onConfigLoadSuccess(evt:SFSEvent):void
 		{
 			dTrace("Config load success!")
 			dTrace("Server settings: "  + sfs.config.host + ":" + sfs.config.port)
@@ -84,7 +90,7 @@ package engine.components
 		 * onConfigLoadFailure event handler
 		 * @param	evt (SFSEvent)
 		 */
-		private function onConfigLoadFailure(evt:SFSEvent):void
+		protected function onConfigLoadFailure(evt:SFSEvent):void
 		{
 			dTrace("Config load failure!!!")
 		}
@@ -93,7 +99,7 @@ package engine.components
 		 * Helper function for displaying errors
 		 * @param	msg (String) The error message
 		 */
-		private function dTrace(msg:String):void
+		protected function dTrace(msg:String):void
 		{
 			trace ( "--> " + msg + "\n" );
 			ta_debug.text += "--> " + msg + "\n";
