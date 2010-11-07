@@ -63,6 +63,12 @@ package engine.handlers
 			}
 		}
 		
+		private function disconnect():void
+		{
+			connect(false);
+			sfs.disconnect();
+		}				
+		
 		/**
 		 * onConntection event handler
 		 * @param	evt (SFSEvent)
