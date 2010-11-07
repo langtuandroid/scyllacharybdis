@@ -5,7 +5,8 @@ package engine.components
 	 */
 	public class NetworkComponent extends Component 
 	{
-		public function Awake() {
+		public function Awake() 
+		{
 			sfs.addEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse)
 		}
 		
