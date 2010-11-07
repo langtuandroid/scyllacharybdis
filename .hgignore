@@ -1,1 +1,2 @@
 glob:ChessExtension/bin/
+glob:SFS2X/lib/cachedir/packages/*.pkc
