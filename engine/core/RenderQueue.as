@@ -1,7 +1,7 @@
 package engine.core
-{
-	import flash.utils.getQualifiedClassName;
-	
+{	
+	import engine.components.RenderComponent;
+	import flash.display.DisplayObjectContainer;
 	public class RenderQueue
 	{
 		/***********************************/
@@ -9,6 +9,7 @@ package engine.core
 		/***********************************/
 		public function RenderQueue( se:SingletonEnforcer ) 
 		{
+			
 		}
 		
 		private static var _sInstance:RenderQueue = null;
@@ -27,15 +28,24 @@ package engine.core
 		 * Render the world
 		 * @param	surface (DisplayObjectContainer) The surface for rendering
 		 */
-		public function RenderWorld(surface:DisplayObjectContainer):void
+		public function renderWorld(surface:DisplayObjectContainer):void
 		{
-			renderables:Dictionary = SceneGraph.Instance().getRenderables();
-			
 			// Display the renderables 
-			for ( var key:Component in renderables ) 
+			for each ( var renderable:RenderComponent in SceneGraph.instance.renderables ) 
 			{
-				// The key and value are both the object :)
-				key.render( surface );
+				renderable.render(surface);
+			}
+		}
+		
+		/**
+		 * Erase the world
+		 * @param	surface (DisplayObjectContainer) The surface to erase
+		 */
+		public function eraseWorld( surface:DisplayObjectContainer ):void
+		{
+			for each ( var renderable:RenderComponent in SceneGraph.instance.renderables )
+			{
+				renderable.erase( surface );
 			}
 		}
 	}

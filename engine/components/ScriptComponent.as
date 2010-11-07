@@ -6,7 +6,7 @@ package engine.components
 	 */
 	public class ScriptComponent extends Component
 	{
-		public override function get type():int { return SCRIPT_COMPONENT; }
+		public override function get type():String { return SCRIPT_COMPONENT; }
 
 		/*
 		 * Handler functions for the keyboard and mouse events
