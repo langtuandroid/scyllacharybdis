@@ -28,6 +28,8 @@ package engine.core
 		private var _connectionHandler = null;
 		private var _roomHandler = null;
 		
+		private const THE_LOBBY_NAME:String = "The Lobby";
+		
 		/**
 		 * Get the smartfox server
 		 */
@@ -63,7 +65,46 @@ package engine.core
 			}
 			_roomHandler = handler;
 		}
+		
+		/** 
+		 * Connect to the server
+		 */
+		public function connect():void
+		{
+			if ( _connectionHandler != null ) 
+			{
+				_connectionHandler.connect();
+			}
+		}
+		
+		/**
+		 * Disconnect from the server
+		 */
+		private function disconnect():void
+		{
+			_connectionHandler.disconnect();
+		}		
+		
+		
+		/**
+		 * Login to the server
+		 * @param	userName (String) Users name
+		 * @param	password (String) Users password
+		 */
+		public function login(userName:String, password:String):void
+		{
+			_loginHandler.login(userName, password);
+		}
 
+		/**
+		* Join the passed room.
+		*/
+		private function joinRoom():void
+		{
+			var request:JoinRoomRequest = new JoinRoomRequest(THE_LOBBY_NAME);
+			sfs.send(request);
+		}		
+		
 		/**
 		 * Create a game room
 		 * 
@@ -88,6 +129,16 @@ package engine.core
 				sfs.send( new CreateRoomRequest(settings, true, sfs.lastJoinedRoom) )
 			}		
 		}
+		
+		/**
+		* Leave game and return them to the lobby
+		* Join the lobby room. 
+		*/
+		private function leaveGameRoom():void
+		{
+			var request:JoinRoomRequest = new JoinRoomRequest(THE_LOBBY_NAME);
+			sfs.send(request);
+		}		
 
 		public function backToLoginScreen():void {}		
 				
