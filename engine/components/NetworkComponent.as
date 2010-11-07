@@ -12,6 +12,7 @@ package engine.components
 		
 		public function onExtensionResponse(evt:SFSEvent):void
 		{
+			// This should be moved to a handler that generates custom events
 			var params:ISFSObject = evt.params.params
 			var cmd:String = evt.params.cmd
 			

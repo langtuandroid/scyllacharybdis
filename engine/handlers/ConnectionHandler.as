@@ -2,7 +2,7 @@ package engine.handlers
 {
 	/**
 	 */
-	public class ConnectionHandler
+	public class ConnectionHandler extends Handler
 	{
 		protected var _connected:Boolean = false;
 		protected var _isConnecting:Boolean = false;
@@ -14,20 +14,28 @@ package engine.handlers
 			_connected = value;
 		}
 		
+		/**
+		* Awake is called at the construction of the object
+		* Register all the listeners
+		*/
 		public override function awake():void
 		{
-			NetworkManager.sfs.addEventListener(SFSEvent.CONNECTION, onConnection)
-			NetworkManager.sfs.addEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost)
-			NetworkManager.sfs.addEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess)
-			NetworkManager.sfs.addEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure)
+			NetworkManager.sfs.addEventListener(SFSEvent.CONNECTION, onConnection);
+			NetworkManager.sfs.addEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
+			NetworkManager.sfs.addEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess);
+			NetworkManager.sfs.addEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure);
 		}
 		
+		/**
+		* Destroy is called at the removal of the object
+		* Unregister listeners
+		*/
 		public override function destroy():void
 		{
-			NetworkManager.sfs.removeEventListener(SFSEvent.CONNECTION, onConnection)
-			NetworkManager.sfs.removeEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost)
-			NetworkManager.sfs.removeEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess)
-			NetworkManager.sfs.removeEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure)
+			NetworkManager.sfs.removeEventListener(SFSEvent.CONNECTION, onConnection);
+			NetworkManager.sfs.removeEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
+			NetworkManager.sfs.removeEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess);
+			NetworkManager.sfs.removeEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure);
 		}
 
 		/** 
@@ -64,12 +72,12 @@ package engine.handlers
 			if (evt.params.success)
 			{
 				connected(true);
-				dTrace("Connection Success!")
+				NetworkManager.sfs.dTrace("Connection Success!")
 			}
 			else
 			{
 				connected(false);
-				dTrace("Connection Failure: " + evt.params.errorMessage)
+				NetworkManager.sfs.dTrace("Connection Failure: " + evt.params.errorMessage)
 			}
 		}
 		
@@ -79,7 +87,7 @@ package engine.handlers
 		 */
 		protected function onConnectionLost(evt:SFSEvent):void
 		{
-			dTrace("Connection was lost. Reason: " + evt.params.reason)
+			NetworkManager.sfs.dTrace("Connection was lost. Reason: " + evt.params.reason)
 		}
 		
 		/**
@@ -88,8 +96,8 @@ package engine.handlers
 		 */
 		protected function onConfigLoadSuccess(evt:SFSEvent):void
 		{
-			dTrace("Config load success!")
-			dTrace("Server settings: "  + sfs.config.host + ":" + sfs.config.port)
+			NetworkManager.sfs.dTrace("Config load success!")
+			NetworkManager.sfs.dTrace("Server settings: "  + sfs.config.host + ":" + sfs.config.port)
 		}
 		
 		/**
@@ -98,17 +106,7 @@ package engine.handlers
 		 */
 		protected function onConfigLoadFailure(evt:SFSEvent):void
 		{
-			dTrace("Config load failure!!!")
-		}
-
-		/**
-		 * Helper function for displaying errors
-		 * @param	msg (String) The error message
-		 */
-		protected function dTrace(msg:String):void
-		{
-			trace ( "--> " + msg + "\n" );
-			//ta_debug.text += "--> " + msg + "\n";
+			NetworkManager.sfs.dTrace("Config load failure!!!")
 		}
 	}
 }
