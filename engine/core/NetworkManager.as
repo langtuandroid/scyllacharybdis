@@ -1,20 +1,36 @@
-package engine.components 
+package engine.core 
 {
-	/**
-	 */
-	public class ConnectionComponent extends NetworkComponent
-	{
+	import flash.utils.getQualifiedClassName;
+	
+	class NetworkManager {
+		
+		/***********************************/
+		// Singleton boilerplate
+		/***********************************/
+		public function NetworkManager( se:SingletonEnforcer ) 
+		{
+		}
+		
+		private static var _sInstance:NetworkManager = null;
+		public static function get instance():NetworkManager 
+		{
+			if (_sInstance == null) 
+			{
+				_sInstance = new NetworkManager( new SingletonEnforcer() );
+				_sInstance.awake();
+			}
+			
+			return _sInstance;
+		}		
+		/***********************************/
+		
 		protected var _sfs:SmartFox = new SmartFox(true);
 		protected var _connected:Boolean = false;
 		private var _isConnecting:Boolean = false;
 
 		public function get sfs():SmartFox { return _sfs; }
 
-		protected function get connected():Boolean { return _connected; }
-		protected function set connected( value:Boolean ) 
-		{
-			_connected = value;
-		}
+		protected function get isConnected():Boolean { return _connected; }
 		
 		public override function awake():void
 		{
@@ -24,6 +40,7 @@ package engine.components
 			sfs().addEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure)
 		}
 		
+		// Doesn't do anything ( its never called )
 		public override function destroy():void
 		{
 			sfs().removeEventListener(SFSEvent.CONNECTION, onConnection)
@@ -53,7 +70,7 @@ package engine.components
 			}
 			else 
 			{
-				connected(true);
+				_connected = true;
 			}
 		}
 		
@@ -65,12 +82,12 @@ package engine.components
 		{
 			if (evt.params.success)
 			{
-				connected(true);
+				_connected = true;
 				dTrace("Connection Success!")
 			}
 			else
 			{
-				connected(false);
+				_connected = false;
 				dTrace("Connection Failure: " + evt.params.errorMessage)
 			}
 		}
@@ -114,3 +131,5 @@ package engine.components
 		}
 	}
 }
+
+final class SingletonEnforcer { }
