@@ -1,14 +1,12 @@
-package engine.components 
+package engine.handlers 
 {
 	/**
 	 */
-	public class ConnectionComponent extends NetworkComponent
+	public class ConnectionHandler
 	{
-		protected var _sfs:SmartFox = new SmartFox(true);
 		protected var _connected:Boolean = false;
-		private var _isConnecting:Boolean = false;
-
-		public function get sfs():SmartFox { return _sfs; }
+		protected var _isConnecting:Boolean = false;
+		protected var configFile:String = "config.xml";
 
 		protected function get connected():Boolean { return _connected; }
 		protected function set connected( value:Boolean ) 
@@ -18,18 +16,18 @@ package engine.components
 		
 		public override function awake():void
 		{
-			sfs().addEventListener(SFSEvent.CONNECTION, onConnection)
-			sfs().addEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost)
-			sfs().addEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess)
-			sfs().addEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure)
+			NetworkManager.sfs.addEventListener(SFSEvent.CONNECTION, onConnection)
+			NetworkManager.sfs.addEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost)
+			NetworkManager.sfs.addEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess)
+			NetworkManager.sfs.addEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure)
 		}
 		
 		public override function destroy():void
 		{
-			sfs().removeEventListener(SFSEvent.CONNECTION, onConnection)
-			sfs().removeEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost)
-			sfs().removeEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess)
-			sfs().removeEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure)
+			NetworkManager.sfs.removeEventListener(SFSEvent.CONNECTION, onConnection)
+			NetworkManager.sfs.removeEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost)
+			NetworkManager.sfs.removeEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess)
+			NetworkManager.sfs.removeEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure)
 		}
 
 		/** 
@@ -42,13 +40,13 @@ package engine.components
 			// Check if connection is already available
 			if (!sfs.isConnected)
 			{
-				if (sfs.config == null) 
+				if (NetworkManager.sfs.config == null) 
 				{
-					sfs.loadConfig("config.xml", true);
+					NetworkManager.sfs.loadConfig(_configFile, true);
 				} 
 				else 
 				{
-					sfs.connect();
+					NetworkManager.sfs.connect();
 				}
 			}
 			else 
@@ -110,7 +108,7 @@ package engine.components
 		protected function dTrace(msg:String):void
 		{
 			trace ( "--> " + msg + "\n" );
-			ta_debug.text += "--> " + msg + "\n";
+			//ta_debug.text += "--> " + msg + "\n";
 		}
 	}
 }

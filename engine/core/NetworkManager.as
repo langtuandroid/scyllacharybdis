@@ -24,110 +24,31 @@ package engine.core
 		}		
 		/***********************************/
 		
-		protected var _sfs:SmartFox = new SmartFox(true);
-		protected var _connected:Boolean = false;
-		private var _isConnecting:Boolean = false;
-
+		private var _sfs:SmartFox = new SmartFox(true);
+		private var _connectionHandler = null;
+		private var _roomHandler = null;
+		
+		/**
+		 * Get the smartfox server
+		 */
 		public function get sfs():SmartFox { return _sfs; }
-
-		protected function get isConnected():Boolean { return _connected; }
 		
-		public override function awake():void
+		public function get connectionHandler():void { return _connectionHandler; }
+		public function set connectionHandler( handler:ConnectionHandler ):void
 		{
-			sfs().addEventListener(SFSEvent.CONNECTION, onConnection)
-			sfs().addEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost)
-			sfs().addEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess)
-			sfs().addEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure)
-		}
-		
-		// Doesn't do anything ( its never called )
-		public override function destroy():void
-		{
-			sfs().removeEventListener(SFSEvent.CONNECTION, onConnection)
-			sfs().removeEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost)
-			sfs().removeEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess)
-			sfs().removeEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure)
+			if ( _connectionHandler != null ) {
+				MemoryManager.instance.destroy(_connectionHandler);
+			}
+			_connectionHandler = handler;
 		}
 
-		/** 
-		 * Connect to the server
-		 */
-		public function connect():void
+		public function get roomHandler():void { return _roomHandler; }
+		public function set roomHandler( handler:RoomHandler ):void
 		{
-			_isConnecting = true;
-
-			// Check if connection is already available
-			if (!sfs.isConnected)
-			{
-				if (sfs.config == null) 
-				{
-					sfs.loadConfig("config.xml", true);
-				} 
-				else 
-				{
-					sfs.connect();
-				}
+			if ( _roomHandler != null ) {
+				MemoryManager.instance.destroy(_roomHandler);
 			}
-			else 
-			{
-				_connected = true;
-			}
-		}
-		
-		/**
-		 * onConntection event handler
-		 * @param	evt (SFSEvent)
-		 */
-		protected function onConnection(evt:SFSEvent):void
-		{
-			if (evt.params.success)
-			{
-				_connected = true;
-				dTrace("Connection Success!")
-			}
-			else
-			{
-				_connected = false;
-				dTrace("Connection Failure: " + evt.params.errorMessage)
-			}
-		}
-		
-		/**
-		 * onConnectionLost event handler
-		 * @param	evt (SFSEvent)
-		 */
-		protected function onConnectionLost(evt:SFSEvent):void
-		{
-			dTrace("Connection was lost. Reason: " + evt.params.reason)
-		}
-		
-		/**
-		 * onConfigLoadSuccess event handler
-		 * @param	evt (SFSEvent)
-		 */
-		protected function onConfigLoadSuccess(evt:SFSEvent):void
-		{
-			dTrace("Config load success!")
-			dTrace("Server settings: "  + sfs.config.host + ":" + sfs.config.port)
-		}
-		
-		/**
-		 * onConfigLoadFailure event handler
-		 * @param	evt (SFSEvent)
-		 */
-		protected function onConfigLoadFailure(evt:SFSEvent):void
-		{
-			dTrace("Config load failure!!!")
-		}
-
-		/**
-		 * Helper function for displaying errors
-		 * @param	msg (String) The error message
-		 */
-		protected function dTrace(msg:String):void
-		{
-			trace ( "--> " + msg + "\n" );
-			ta_debug.text += "--> " + msg + "\n";
+			_roomHandler = handler;
 		}
 	}
 }
