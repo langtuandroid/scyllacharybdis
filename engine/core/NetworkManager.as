@@ -37,6 +37,7 @@ package engine.core
 		 * Get the connection handler
 		 */
 		public function get connectionHandler():void { return _connectionHandler; }
+		
 		/**
 		 * Set the connection handler
 		 */
@@ -62,7 +63,34 @@ package engine.core
 			}
 			_roomHandler = handler;
 		}
-		
+
+		/**
+		 * Create a game room
+		 * 
+		 * @param	roomName (String) Room name
+		 * @param	roomPwd (String Room password
+		 * @param	roomMaxS (int) Room Max size 
+		 * @param	extensionId (String) The module name
+		 * @param	extensionClass (String) The fully qualified class
+		 */
+		public function createGameRoom(roomName:String, roomPwd:String=null, roomMaxS:int=0, extensionId:String="sfsChess", extensionClass:String = "sfs2x.extensions.games.tris.SFSTrisGame"):void
+		{
+			if (roomName.length > 0)
+			{
+				var settings:RoomSettings = new RoomSettings(roomName)
+				settings.groupId = "game"
+				settings.password = roomPwd
+				settings.isGame = true
+				settings.maxUsers = 2
+				settings.maxSpectators = roomMaxS
+				settings.extension = new RoomExtension(EXTENSION_ID, EXTENSIONS_CLASS)
+				
+				sfs.send( new CreateRoomRequest(settings, true, sfs.lastJoinedRoom) )
+			}		
+		}
+
+		public function backToLoginScreen():void {}		
+				
 		/**
 		 * Helper function for displaying errors
 		 * @param	msg (String) The error message
