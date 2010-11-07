@@ -2,6 +2,10 @@ package Engine
 {
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
+	import flash.utils.Dictionary;
+	import engine.components.Component;
+	import engine.core.SceneGraph;
+	
 	/**
 	 */
 	public class GameObject extends BaseObject
@@ -9,11 +13,11 @@ package Engine
 		/** 
 		 * Return the type of object
 		 */
-		public function get type():int { return GAME_OBJECT; }		
+		public function get type():String { return GAME_OBJECT; }		
 		
 		protected var _parent:GameObject = null;
 		protected var _children:Array = new Array();
-		protected var _components:Array = new Array();
+		protected var _components:Dictionary = new Dictionary();
 		protected var _disabled:Boolean = false;
 		
 		public function get parent():GameObject { return _parent; }
@@ -23,6 +27,15 @@ package Engine
 		public function set disabled( value:Boolean ):void 
 		{
 			_disabled = value;
+			
+			if ( _disabled )
+			{
+				stop();
+			}
+			else
+			{
+				start();
+			}
 
 			for each ( var obj:GameObject in _children )
 			{
@@ -75,10 +88,10 @@ package Engine
 
 			// Setup the component
 			component.owner = this;
-			_components.push( component );
+			_components[component.type] =  component;
 
 			// Add the component to the scene graph
-			SceneGraph.instance().addComponent( component );
+			SceneGraph.instance.addComponent( component );
 			
 			// Start the component
 			component.start();
@@ -88,17 +101,9 @@ package Engine
 		 * Get a component from the game object
 		 * @param	type (int) The component id
 		 */
-		public function getComponent( type:int ):Component
+		public function getComponent( type:String ):*
 		{
-			for each ( var component:Component in _components ) 
-			{
-				if ( component.type == type)
-				{
-					return component;
-				}
-			}
-			
-			return null;
+			return _components[type];
 		}
 
 		/**

@@ -12,11 +12,12 @@ package engine.components
 	 */
 	public class RenderComponent extends Component
 	{
-		public override function get type():Number { return RENDER_COMPONENT; }
+		public override function get type():String { return RENDER_COMPONENT; }
 
 		protected var _baseclip:MovieClip = null;
 		
-		public function set baseclip( value:MovieClip ):void { _baseclip = value; }	
+		public function set baseclip( value:MovieClip ):void { _baseclip = value; }
+		public function get baseclip():MovieClip { return _baseclip; }
 
 		/**
 		 * Add the renderable to the surface
@@ -183,19 +184,6 @@ package engine.components
 			}
 			
 			super.stop();
-		}
-		
-		public override function update():void
-		{
-			var transformComponent:TransformComponent = _owner.getComponent(TRANSFORM_COMPONENT) as TransformComponent;
-			
-			if ( transformComponent != null )
-			{
-				var postion:Point3d = transformComponent.worldPosition;
-				
-				_baseclip.x = position.x;
-				_baseclip.y = position.y;
-			}
 		}
 	}
 }
