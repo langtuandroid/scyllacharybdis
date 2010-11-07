@@ -5,16 +5,38 @@ package engine.components
 	 */
 	public class NetworkComponent extends Component 
 	{
-		public override function get type():String { return NETWORK_COMPONENT; }
+		public function Awake() {
+			sfs.addEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse)
+		}
 		
-		protected var _sfs:SmartFox = new SmartFox(true);
-		public function get sfs():SmartFox { return _sfs; }
-		
-		protected var _connected:Boolean = false;
-		protected function get connected():Boolean { return _connected; }
-		protected function set connected( value:Boolean ) 
+		public function onExtensionResponse(evt:SFSEvent):void
 		{
-			_connected = value;
+			var params:ISFSObject = evt.params.params
+			var cmd:String = evt.params.cmd
+			
+			switch(cmd)
+			{
+				case "start":
+//					startGame(params)
+					break
+				
+				case "stop":
+//					userLeft()
+					break
+				
+				case "move":
+//					moveReceived(params)
+					break
+				
+				case "specStatus":
+//					setSpectatorBoard(params)
+					break
+				
+				case "win":
+				case "tie":
+//					showWinner(cmd, params)
+					break
+			}
 		}
 	}
 }
