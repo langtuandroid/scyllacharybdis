@@ -1,7 +1,10 @@
 package engine.core 
 {
+	import flash.events.Event;
 	import flash.utils.getQualifiedClassName;
 	import flash.utils.Dictionary;
+	import engine.components.Component;
+	import Engine.GameObject;
 	
 	/**
 	 */
@@ -13,6 +16,11 @@ package engine.core
 		/***********************************/
 		public function SceneGraph( se:SingletonEnforcer ) 
 		{
+			// Allocate the individual component dictionaries within the _components dictionary 
+			_components[BaseObject.NETWORK_COMPONENT] = new Dictionary();
+			_components[BaseObject.RENDER_COMPONENT] = new Dictionary();
+			_components[BaseObject.SCRIPT_COMPONENT] = new Dictionary();
+			_components[BaseObject.TRANSFORM_COMPONENT] = new Dictionary();
 		}
 		
 		private static var _sInstance:SceneGraph = null;
@@ -29,122 +37,97 @@ package engine.core
 		/***********************************/
 
 		// All the game object in the world
-		private var _gameObjects:Dictionary = new Dictionary(true);
-		private var _sortRequired:Boolean = true;
+		protected var _gameObjects:Dictionary = new Dictionary(true);
 		
+		// MAY NOT BE REQUIRED AFTER ALL IF YOU ACUTALLY USE Z PROPERTY AND ALL RENDERABLES ARE RENDERED ONTO THE SAME SURFACE
+		//protected var _sortRequired:Boolean = true;
 		
 		// Caches of all the components
-		private var _renderComponents:Dictionary = new Dictionary(true);
-		private var _scriptComponents:Dictionary = new Dictionary(true);
-		private var _networkComponents:Dictionary = new Dictionary(true);
+		protected var _components:Dictionary = new Dictionary(true);
 		
 		/**
 		 * Updates all the components in the world
 		 */
-		public updateWorld(): void 
+		public function updateWorld( e:Event ): void 
 		{
-			// How the fuck do I loop through this in flash
-			for ( var key:Component in _networkComponents ) {
-				// The key and value are both the object :)
-				key.update()
+			for each ( var component:Component in _components[BaseObject.NETWORK_COMPONENT] ) 
+			{
+				component.update();
 			}
-			for ( var key:Component in _scriptComponents ) {
-				// The key and value are both the object :)
-				key.update()
+			
+			for each ( component in _scriptComponents[BaseObject.SCRIPT_COMPONENT] ) 
+			{
+				component.update();
 			}
-			for ( var key:Component in _renderComponents ) {
-				// The key and value are both the object :)
-				key.update()
-			}
+			
+			// ALSO MAY NOT BE REQUIRED
+			// THE SCRIPT COMPONENT'S UPDATE WILL HANDLE IT THROUGH IT'S USE OF THE TRANSFORM COMPONENT
+			//for each ( component in _renderComponents ) 
+			//{
+				//component.update();
+			//}
 		}
 		
 		/** 
 		 * Add a scene object to the graph
 		 */
-		public addSceneObject( gameObj:GameObject ):void 
+		public function addSceneObject( gameObj:GameObject ):void 
 		{
-			_sortRequired = true;
+			//_sortRequired = true;
 			_gameObjects[gameObj] = gameObj;
+			gameObj.start();
 		}
 		
 		/** 
 		 * Remove a scene object to the graph
 		 */
-		public removeSceneObject( gameObj:GameObject ): void
+		public function removeSceneObject( gameObj:GameObject ): void
 		{
-			_sortRequired = true;
+			//_sortRequired = true;
+			gameObj.stop();
 			delete _gameObjects[gameObj];
+			
 		}
 
 		/**
 		 * Added a component to the game object
 		 */
-		public addComponent( comp:Component ):void
+		public function addComponent( comp:Component ):void
 		{
-			_sortRequired = true;
-			if ( comp.GetType() == RENDER_COMPONENT ) {
-				_renderComponents[comp] = comp;
-				return;
-			}
-			if ( comp.GetType() == SCRIPT_COMPONENT ) {
-				_scriptComponents[comp] = comp;
-				return;
-			}
-			if ( comp.GetType() == NETWORK_COMPONENT ) {
-				_networkComponents[comp] = comp;
-				return;
-			}
+			//_sortRequired = true;
+			
+			_components[comp.type][comp] = comp;
+			
 			return;
 		}
 		
 		/**
 		 * Remove a component to the game object
 		 */
-		public removeComponent( comp:Component ):void
+		public function removeComponent( comp:Component ):void
 		{
-			_sortRequired = true;
-			if ( comp.GetType() == RENDER_COMPONENT ) {
-				delete _renderComponents[comp];
-				return;
-			}
-			if ( comp.GetType() == SCRIPT_COMPONENT ) {
-				delete _scriptComponents[comp];
-				return;
-			}
-			if ( comp.GetType() == NETWORK_COMPONENT ) {
-				delete _networkComponents[comp];
-				return;
-			}
+			//_sortRequired = true;
+			
+			delete _components[comp.type][comp];
 		}
 		
 		/**
 		 * Get Renderables 
 		 */
-		public var getRenderables():Dictionary
+		public function get renderables():Dictionary
 		{
 			// Check to see if anything has changed
-			if ( _sortRequired == true ) {
+			//if ( _sortRequired == true ) {
 				// Sort back to front ( bigger numbers are closer to the screen );
-				renderables.sort( ZSort );
-			}
-			return _renderComponents;
-		}
-
-		/**
-		 * ZSort sorts the renderables back to front
-		 * @param	a (Point3d) 
-		 * @param	b (Point3d)
-		 */
-		protected function ZSort(a:Point3d, b:Point3d) 
-		{
-			_sortRequired = false;
-			if ( a.z() < b.z() ) {
-				return -1;
-			} else if ( a.z() > b.z() ) { 
-				return 1;
-			}
-			return 0;
+				//sortRenderables(  );
+				//_sortRequired = false;
+			//}
+			return _components[BaseObject.RENDER_COMPONENT];
 		}
 		
+		//protected function sortRenderables( comparator:Object, options:Object = null ):Dictionary
+		//{
+			//
+		//}
 	}
 }

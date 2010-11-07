@@ -5,7 +5,7 @@ package engine.components
 	 */
 	public class NetworkComponent extends Component 
 	{
-		public override function get type():int { return NETWORK_COMPONENT; }
+		public override function get type():String { return NETWORK_COMPONENT; }
 		
 		protected var _sfs:SmartFox = new SmartFox(true);
 		public function get sfs():SmartFox { return _sfs; }
