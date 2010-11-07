@@ -33,7 +33,13 @@ package engine.core
 		 */
 		public function get sfs():SmartFox { return _sfs; }
 		
+		/**
+		 * Get the connection handler
+		 */
 		public function get connectionHandler():void { return _connectionHandler; }
+		/**
+		 * Set the connection handler
+		 */
 		public function set connectionHandler( handler:ConnectionHandler ):void
 		{
 			if ( _connectionHandler != null ) {
@@ -42,7 +48,13 @@ package engine.core
 			_connectionHandler = handler;
 		}
 
+		/**
+		 * Get the room handler
+		 */
 		public function get roomHandler():void { return _roomHandler; }
+		/**
+		 * Set the room handler
+		 */
 		public function set roomHandler( handler:RoomHandler ):void
 		{
 			if ( _roomHandler != null ) {
@@ -50,6 +62,18 @@ package engine.core
 			}
 			_roomHandler = handler;
 		}
+		
+		/**
+		 * Helper function for displaying errors
+		 * @param	msg (String) The error message
+		 */
+		protected function dTrace(msg:String):void
+		{
+			trace ( "--> " + msg + "\n" );
+			
+			// Create view to print stuff too
+			//ta_debug.text += "--> " + msg + "\n";
+		}		
 	}
 }
 
