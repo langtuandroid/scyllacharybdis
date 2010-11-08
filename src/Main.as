@@ -23,11 +23,17 @@
 			// entry point
 			
 			zTest();
+			
+			registerDependencies();
+		}
+		
+		private function registerDependencies() 
+		{
+			DependencyInjector injector = new DependencyInjector();
 		}
 		
 		private function squaretest():void
 		{
-			
 		}
 		
 		private function zTest():void

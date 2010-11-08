@@ -2,29 +2,29 @@ package engine.core
 {
 	import flash.utils.getQualifiedClassName;
 	
-	class MemoryManager {
+	class MemoryManager extends BaseObject {
 		
-		/***********************************/
-		// Singleton boilerplate
-		/***********************************/
-		public function MemoryManager( se:SingletonEnforcer ) 
+		/** 
+		 * Return the type of object
+		 */
+		public static function get type():String { return BASE_OBJECT; }
+		
+		/**
+		 * Return the class description
+		 */
+		public static function get description():Description 
 		{
-			
+			return new Description(this.class, SINGLETON_OBJECT);
 		}
 		
-		private static var _sInstance:MemoryManager = null;
-		
-		public static function get instance():MemoryManager 
+		/**
+		 * Return the class dependencies
+		 */
+		public static function get dependencies():Dependencies 
 		{
-			if (_sInstance == null) 
-			{
-				_sInstance = new MemoryManager( new SingletonEnforcer() );
-			}
-			
-			return _sInstance;
-		}		
-		/***********************************/
-
+			return new Dependencies(DependencyInjector);
+		}
+		
 		private var _baseObjects:Array = new Array();
 		private var _objectCounters:Array = new Array();
 		
@@ -107,4 +107,3 @@ package engine.core
 	}
 }
 
-final class SingletonEnforcer { }
