@@ -65,12 +65,6 @@ package engine.core
 			// Remove the object from the list
 			_baseObjects.remove(object);
 
-			// Remove the object frmo the tree
-			if ( object.parent != null ) 
-			{
-				object.parent.removeChild(object);
-			}
-			
 			// Let the object run its own destroy methods
 			object.destroy();
 			

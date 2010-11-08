@@ -19,6 +19,7 @@ package engine.core
 		public static const SCRIPT_COMPONENT:String = "script_component";
 		public static const NETWORK_COMPONENT:String = "network_component";
 		public static const CONNECTION_COMPONENT:String = "connection_component";
+		public static const STATE_COMPONENT:String = "state_component";
 		
 		public function BaseObject()
 		{
@@ -60,7 +61,7 @@ package engine.core
 		/**
 		 * Update each frame
 		 */
-		public function update( e:Event = null ):void
+		public function update( ):void
 		{
 			
 		}

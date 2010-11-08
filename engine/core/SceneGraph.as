@@ -1,6 +1,10 @@
 package engine.core 
 {
+	import engine.components.RenderComponent;
+	import flash.display.DisplayObjectContainer;
+	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	import flash.utils.getQualifiedClassName;
 	import flash.utils.Dictionary;
 	import engine.components.Component;
@@ -8,9 +12,8 @@ package engine.core
 	
 	/**
 	 */
-	public class SceneGraph
+	public class SceneGraph extends EventDispatcher
 	{
-
 		/***********************************/
 		// Singleton boilerplate
 		/***********************************/
@@ -18,9 +21,12 @@ package engine.core
 		{
 			// Allocate the individual component dictionaries within the _components dictionary 
 			_components[BaseObject.NETWORK_COMPONENT] = new Dictionary();
-			_components[BaseObject.RENDER_COMPONENT] = new Dictionary();
+			_components[BaseObject.STATE_COMPONENT] = new Dictionary();
 			_components[BaseObject.SCRIPT_COMPONENT] = new Dictionary();
 			_components[BaseObject.TRANSFORM_COMPONENT] = new Dictionary();
+			_components[BaseObject.RENDER_COMPONENT] = new Dictionary();
+			
+			addEvenListener( Event.ENTER_FRAME, updateWorld );
 		}
 		
 		private static var _sInstance:SceneGraph = null;
@@ -29,7 +35,7 @@ package engine.core
 		{
 			if (_sInstance == null) 
 			{
-				_sInstance = new SceneGraph( new SingletonEnforcer() );
+				_sInstance = MemoryManager.instance.instantiate( SceneGraph );
 			}
 			
 			return _sInstance;
@@ -39,11 +45,11 @@ package engine.core
 		// All the game object in the world
 		protected var _gameObjects:Dictionary = new Dictionary(true);
 		
-		// MAY NOT BE REQUIRED AFTER ALL IF YOU ACUTALLY USE Z PROPERTY AND ALL RENDERABLES ARE RENDERED ONTO THE SAME SURFACE
-		//protected var _sortRequired:Boolean = true;
-		
 		// Caches of all the components
-		protected var _components:Dictionary = new Dictionary(true);
+		protected var _components:Dictionary = new Dictionary();
+		
+		// Extra array of just the renderables
+		protected var _renderables:Array = new Array();
 		
 		/**
 		 * Updates all the components in the world
@@ -55,25 +61,20 @@ package engine.core
 				component.update();
 			}
 			
-			for each ( component in _scriptComponents[BaseObject.SCRIPT_COMPONENT] ) 
+			for each ( component in _components[BaseObject.STATE_COMPONENT] ) 
 			{
 				component.update();
 			}
 			
-			// ALSO MAY NOT BE REQUIRED
-			// THE SCRIPT COMPONENT'S UPDATE WILL HANDLE IT THROUGH IT'S USE OF THE TRANSFORM COMPONENT
-			//for each ( component in _renderComponents ) 
-			//{
-				//component.update();
-			//}
+			renderWorld( );
 		}
 		
 		/** 
 		 * Add a scene object to the graph
 		 */
-		public function addSceneObject( gameObj:GameObject ):void 
+		public function addGameObject( gameObj:GameObject ):void 
 		{
-			//_sortRequired = true;
+			_sortRequired = true;
 			_gameObjects[gameObj] = gameObj;
 			gameObj.start();
 		}
@@ -81,12 +82,11 @@ package engine.core
 		/** 
 		 * Remove a scene object to the graph
 		 */
-		public function removeSceneObject( gameObj:GameObject ): void
+		public function removeGameObject( gameObj:GameObject ): void
 		{
-			//_sortRequired = true;
+			_sortRequired = true;
 			gameObj.stop();
 			delete _gameObjects[gameObj];
-			
 		}
 
 		/**
@@ -94,8 +94,11 @@ package engine.core
 		 */
 		public function addComponent( comp:Component ):void
 		{
-			//_sortRequired = true;
-			
+			if ( comp.type == BaseObject.RENDER_COMPONENT )
+			{
+				_renderables.push(comp);
+			}
+		
 			_components[comp.type][comp] = comp;
 			
 			return;
@@ -106,7 +109,16 @@ package engine.core
 		 */
 		public function removeComponent( comp:Component ):void
 		{
-			//_sortRequired = true;
+			if ( comp.type == BaseObject.RENDER_COMPONENT )
+			{
+				// Remove the child from the list
+				var index:int = _renderables.indexOf( comp );
+				
+				if ( index >= 0 )
+				{
+					_renderables.splice( index, 1 );
+				}
+			}
 			
 			delete _components[comp.type][comp];
 		}
@@ -114,20 +126,25 @@ package engine.core
 		/**
 		 * Get Renderables 
 		 */
-		public function get renderables():Dictionary
+		public function renderWorld( surface:DisplayObjectContainer ):void
 		{
-			// Check to see if anything has changed
-			//if ( _sortRequired == true ) {
-				// Sort back to front ( bigger numbers are closer to the screen );
-				//sortRenderables(  );
-				//_sortRequired = false;
-			//}
-			return _components[BaseObject.RENDER_COMPONENT];
+			// Erase the world
+			for each ( var renderable:RenderComponent in _renderables )
+			{
+				if ( surface.contains( renderable.baseclip ) )
+				{
+					renderable.erase(surface);
+				}
+			}
+			
+			// Sort the renderables array (bigger numbers are closer to the screen) 
+			_renderables.sortOn( "z", Array.NUMERIC | Array.DESCENDING );
+			
+			// Render children in order
+			for ( var i:int = 0; i < _renderables.length; i++ )
+			{
+				_renderables[i].render(surface);
+			}
 		}
-		
-		//protected function sortRenderables( comparator:Object, options:Object = null ):Dictionary
-		//{
-			//
-		//}
 	}
 }

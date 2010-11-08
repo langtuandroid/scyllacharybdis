@@ -18,6 +18,9 @@ package engine.components
 		
 		public function set baseclip( value:MovieClip ):void { _baseclip = value; }
 		public function get baseclip():MovieClip { return _baseclip; }
+		
+		// For z-sorting
+		public function get z():Number { return _baseclip.z; }
 
 		/**
 		 * Add the renderable to the surface
@@ -42,7 +45,7 @@ package engine.components
 		 */ 
 		public override function start(): void 
 		{
-			var scriptComponent:ScriptComponent = _owner.getComponent(SCRIPT_COMPONENT) as ScriptComponent;
+			var scriptComponent:ScriptComponent = _owner.getComponent(SCRIPT_COMPONENT);
 			
 			if ( scriptComponent != null )
 			{
