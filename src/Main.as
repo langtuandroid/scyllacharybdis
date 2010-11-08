@@ -30,6 +30,8 @@
 		private function registerDependencies() 
 		{
 			DependencyInjector injector = new DependencyInjector();
+			MemoryManager memory = new MemoryManager(injector);
+			
 		}
 		
 		private function squaretest():void
