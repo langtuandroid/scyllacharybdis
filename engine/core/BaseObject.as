@@ -2,6 +2,8 @@ package engine.core
 {
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
+
+	import engine.di
 	
 	/**
 	 * BaseObject is a base object for all game elements
@@ -69,6 +71,23 @@ package engine.core
 		/** 
 		 * Return the type of object
 		 */
-		public function get type():String { return BASE_OBJECT; }
+		public static function get type():String { return BASE_OBJECT; }
+		
+		/**
+		 * Return the class description
+		 */
+		public static function get description():Description 
+		{
+			return null;
+		}
+		
+		/**
+		 * Return the class dependencies
+		 */
+		public static function get dependencies():Dependencies 
+		{
+			return null;
+		}
+		
 	}
 }
