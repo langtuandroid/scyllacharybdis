@@ -1,32 +1,21 @@
 package engine.core 
 {
+	import flash.utils.Dictionary;
 	import flash.utils.getQualifiedClassName;
 	
-	class MemoryManager extends BaseObject {
+	class MemoryManager {
 		
-		/** 
-		 * Return the type of object
-		 */
-		public static function get type():String { return BASE_OBJECT; }
+		private final var _injector:DependencyInjector;
+
+		// Create the object lists
+		private var _baseObjects:Dictionary = new Dictionary();
+		private var _singletonList:Dictionary = new Dictionary();
+		private var _objectCounters:Dictionary = new Dictionary();
 		
-		/**
-		 * Return the class description
-		 */
-		public static function get description():Description 
+		public function MemoryManager(injector:DependencyInjector) 
 		{
-			return new Description(this.class, SINGLETON_OBJECT);
+				_injector = injector;
 		}
-		
-		/**
-		 * Return the class dependencies
-		 */
-		public static function get dependencies():Dependencies 
-		{
-			return new Dependencies(DependencyInjector);
-		}
-		
-		private var _baseObjects:Array = new Array();
-		private var _objectCounters:Array = new Array();
 		
 		/**
 		* Instantiate an object
@@ -37,14 +26,36 @@ package engine.core
 		{
 			// Do we need a check to see if the type is BaseObject or an ancestor thereof?
 			
-			// Create the object
-			var object:type = new type();
+			var object:type;
+			
+			// Get the class details
+			var details = _injector.description(type);
+			
+			if ( details.scope() == SINGLETON_OBJECT ) 
+			{
+				if ( _singletonList[type] ) {
+					return _singletonList[type];
+				}
+				else 
+				{
+					// Create the object
+					object = new type();
+					_singletonList[type] = object;
+				}
+			} 
+			else 
+			{
+				// Create the object
+				object = new type();
+				// Add it to the array
+				_baseObjects[object] = object;
+			}
+
+			// Inject the dependencies
+			object.dependencies( _injector.dependencies(type) );
 			
 			// Increase the debugging counter
-			incrementCounter(object);
-
-			// Add it to the array
-			_baseObjects.push(object);
+			incrementCounter(type);
 			
 			// Awaken the object
 			object.awake();
@@ -59,14 +70,22 @@ package engine.core
 		 */
 		public function destroy( object:BaseObject ): void 
 		{
+			// Get the class details
+			var details = _injector.description( getQualifiedClassName(object) );
+			if ( details.scope() == SINGLETON_OBJECT )  
+			{
+				trace("Can't delete a singleton");
+				return;
+			}
+
 			// Reduce the debugging counter
-			decrementCounter(object);
-			
-			// Remove the object from the list
-			_baseObjects.remove(object);
+			decrementCounter( getQualifiedClassName(object) );
 
 			// Let the object run its own destroy methods
 			object.destroy();
+			
+			// Remove the object from the list
+			delete _baseObjects[object];
 			
 			// Delete the object ( should be replaced with a cache )
 			delete object;
@@ -79,16 +98,19 @@ package engine.core
 		 */
 		public function getObjectCount(type:Class):int;
 		{
-			return _objectCounters[ getQualifiedClassName( new type() )];
+			return _objectCounters[type];
 		}		
 		
 		/**
 		 * Debugging Helper Function
 		 * @param type (BaseObject) The created object
 		 */
-		private function incrementCounter(obj:BaseObject):void
+		private function incrementCounter(type:Class):void
 		{
-			_objectCounters[getQualifiedClassName( obj )]++;
+			if ( ! _objectCounters[type] ) {
+				_objectCounters[type] = 0;
+			}
+			_objectCounters[type]++;
 		}
 		
 		/**
@@ -102,7 +124,7 @@ package engine.core
 				return;
 			}
 			
-			_objectCounters[getQualifiedClassName( obj )]--;
+			_objectCounters[type]--;
 		}
 	}
 }
