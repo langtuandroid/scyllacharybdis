@@ -89,5 +89,10 @@ package engine.core
 			return null;
 		}
 		
+		public function set dependencies( dep:Array ):void
+		{
+			
+		}
+		
 	}
 }
