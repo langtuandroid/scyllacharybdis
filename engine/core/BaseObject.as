@@ -59,7 +59,7 @@ package engine.core
 		} 
 		
 		/**
-		 * Update each frame
+		 * Update each frame ( this should be moved higher up )
 		 */
 		public function update( ):void
 		{
