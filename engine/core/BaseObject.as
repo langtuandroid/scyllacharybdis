@@ -50,7 +50,7 @@ package engine.core
 		 * Set the dependencies
 		 * @param dep (Dictionary) Key = Class and Value is the object
 		 */
-		public function set dependencies( dep:Dictionary ):void { return null; }
+		public function set dependencies( dep:Dictionary ):void { return; }
 	
 		
 		/****************************************/
