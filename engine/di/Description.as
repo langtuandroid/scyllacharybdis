@@ -10,17 +10,28 @@ package engine.di
 		private final var _type:Class;
 		private final var _scope:int;
 		
+		/**
+		 * The construtor
+		 * @param	type (Class) The type of class that is being described
+		 * @param	scope (int) NEW_OBJECT or SINGLETON_OBJECT
+		 */
 		public function Description(type:Class, scope:int) 
 		{
 			_type = type;
 			_scope = scope;
 		}
 		
+		/**
+		 * Get the class type
+		 */
 		public function get type():Class
 		{
 			return _type;
 		}
 
+		/**
+		 * Get the scope
+		 */
 		public function get scope():int
 		{
 			return _scope;
