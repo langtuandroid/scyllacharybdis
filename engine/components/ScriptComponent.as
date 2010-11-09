@@ -49,13 +49,13 @@ package engine.components
 		/****************************************/
 		// Class specific
 		/****************************************/
-		
-		public override function get type():String { return SCRIPT_COMPONENT; }
 
+		/****************************************/
+		// Event Handlers
+		/****************************************/
 		/*
 		 * Handler functions for the keyboard and mouse events
 		 */
-		
 		public function onMouseDown( e:MouseEvent ):void
 		{
 			

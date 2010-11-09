@@ -36,13 +36,14 @@ package engine.components
 		 * Return the class dependencies
 		 */
 		public static function get dependencies():Dependencies  
-		{  
+		{
 		}
 
 		/**
 		 * Set the dependencies
 		 * @param dep (Dictionary) Key = Class and Value is the object
 		 */
+		private var _sceneGraph;
 		public function set dependencies( dep:Dictionary ):void 
 		{ 
 		}
@@ -55,9 +56,6 @@ package engine.components
 		/****************************************/
 		// Class specific
 		/****************************************/
-		
-		public override function get type():String { return RENDER_COMPONENT; }
-
 		protected var _baseclip:MovieClip = null;
 		
 		public function set baseclip( value:MovieClip ):void { _baseclip = value; }
