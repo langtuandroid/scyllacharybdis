@@ -22,6 +22,16 @@ package engine.di
 			_descriptions[type] = type.desctiption();
 			_dependencies[type] = type.dependencies();
 		}
+
+		public function get descriptions( type:Class ) 
+		{
+			return _descriptions[type];
+		}
+		
+		public function get dependencies( type:Class ) 
+		{
+			return _dependencies[type];
+		}
 		
 		private registerEngineDependencies() 
 		{

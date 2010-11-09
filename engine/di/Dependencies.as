@@ -6,11 +6,11 @@ package engine.di
 	{
 		private  var _dependencies:Dictionary = new Dictionary();
 		
-		public function Dependencies( deps:Class ... ) 
+		public function Dependencies( types:Class ... ) 
 		{
-			for each( var dep:BaseObject in deps ) 
+			for each( var type:Class in types ) 
 			{
-				_dependencies[dep] = dep;
+				_dependencies[type] = type;
 			}
 		}
 		
