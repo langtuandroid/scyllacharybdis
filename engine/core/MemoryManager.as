@@ -20,12 +20,16 @@ package engine.core
 		/**
 		* Instantiate an object
 		* @param type (Class) The type of object to create
-		* @return type (Object) The object of the specified type
+		* @param level (int) Count the dep levels to stop infiniate declarations
 		*/
-		public function instantiate( type:Class ):type
+		public function instantiate( type:Class, level:int = 0):type
 		{
-			// Do we need a check to see if the type is BaseObject or an ancestor thereof?
-			
+			if ( level > 5 ) 
+			{
+				trace("Recursive instanciate!!!!!!!");
+				return;
+			}
+			// Declare the object variable
 			var object:type;
 			
 			// Get the class details
@@ -51,8 +55,19 @@ package engine.core
 				_baseObjects[object] = object;
 			}
 
+			// Create the dependencies
+			var depMap:Dictionary = new Dictionary();
+			for each ( type:Class in _injector.dependencies(type) ) 
+			{
+				if ( _injector.description(type).scope == SINGLETON_OBJECT ) {
+					depMap[type] = _singletonList[type];
+				} else {
+					depMap[type] = instantiate(type, level++);
+				}
+			}
+			
 			// Inject the dependencies
-			object.dependencies( _injector.dependencies(type) );
+			object.dependencies(depMap);
 			
 			// Increase the debugging counter
 			incrementCounter(type);
