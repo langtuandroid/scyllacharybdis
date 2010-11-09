@@ -7,12 +7,12 @@ package engine.di
 		private var _descriptions:Dictionary = new Dictionary();
 		private var _dependencies:Dictionary = new Dictionary();
 		
-		public DependencyInjector()
+		public function DependencyInjector():void
 		{
 			registerEngineDependencies();
 		}
 		
-		public registerClass( type:Class ) 
+		public function registerClass( type:Class ):void
 		{
 			// Is it already registered
 			if ( _descriptions.indexOf( type ) ) 
@@ -23,17 +23,17 @@ package engine.di
 			_dependencies[type] = type.dependencies();
 		}
 
-		public function get descriptions( type:Class ) 
+		public function get descriptions( type:Class ):Description
 		{
 			return _descriptions[type];
 		}
 		
-		public function get dependencies( type:Class ) 
+		public function get dependencies( type:Class ):Dependencies
 		{
 			return _dependencies[type];
 		}
 		
-		private registerEngineDependencies() 
+		private function registerEngineDependencies():void
 		{
 			registerClass(BaseObject); 
 			registerClass(GameObject); 
