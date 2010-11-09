@@ -12,6 +12,50 @@ package engine.components
 	 */
 	public class RenderComponent extends Component
 	{
+		/****************************************/
+		// Type definition
+		/****************************************/
+		public override function get type():String 
+		{
+			return RENDER_COMPONENT;
+		}				
+		
+		/****************************************/
+		// Dependency Injection calls
+		/****************************************/
+		
+		/**
+		 * Return the class description
+		 */
+		public static function get description():Description  
+		{ 
+			return new Description( getQualifiedClassName(this), false );
+		}
+
+		/**
+		 * Return the class dependencies
+		 */
+		public static function get dependencies():Dependencies  
+		{  
+		}
+
+		/**
+		 * Set the dependencies
+		 * @param dep (Dictionary) Key = Class and Value is the object
+		 */
+		public function set dependencies( dep:Dictionary ):void 
+		{ 
+		}
+		
+		/****************************************/
+		// Overide function
+		/****************************************/
+		
+		
+		/****************************************/
+		// Class specific
+		/****************************************/
+		
 		public override function get type():String { return RENDER_COMPONENT; }
 
 		protected var _baseclip:MovieClip = null;
