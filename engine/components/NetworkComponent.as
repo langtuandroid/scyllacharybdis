@@ -23,7 +23,7 @@ package engine.components
 		 */
 		public static function get description():Description  
 		{ 
-			return new Description( getQualifiedClassName(this), true );
+			return new Description( getQualifiedClassName(this), NEW_OBJECT );
 		}
 
 		/**
