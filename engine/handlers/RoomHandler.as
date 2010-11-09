@@ -17,18 +17,28 @@ package engine.handlers
 		/**
 		 * Return the class description
 		 */
-		public static function get description():Description  { return null; }
+		public static function get description():Description  
+		{ 
+			return new Description( getQualifiedClassName(this), true );
+		}
 
 		/**
 		 * Return the class dependencies
 		 */
-		public static function get dependencies():Dependencies  { return null; }
+		public static function get dependencies():Dependencies  
+		{  
+			return Dependencies(NetworkManager);
+		}
 
 		/**
 		 * Set the dependencies
 		 * @param dep (Dictionary) Key = Class and Value is the object
 		 */
-		public function set dependencies( dep:Dictionary ):void { return null; }
+		private var _networkManager;
+		public function set dependencies( dep:Dictionary ):void 
+		{ 
+			_networkManager = dep[NetowrkManager];
+		}
 		
 		/****************************************/
 		// Overide function
