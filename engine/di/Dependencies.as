@@ -8,7 +8,8 @@ package engine.di
 		
 		public function Dependencies( deps:Class ... ) 
 		{
-			for each( var dep:Component in deps ) {
+			for each( var dep:BaseObject in deps ) 
+			{
 				_dependencies[dep] = dep;
 			}
 		}
