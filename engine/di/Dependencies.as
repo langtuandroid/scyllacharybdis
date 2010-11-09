@@ -6,6 +6,10 @@ package engine.di
 	{
 		private  var _dependencies:Dictionary = new Dictionary();
 		
+		/**
+		 * Constructor
+		 * @param	types (Class) A comman delimited list of depencencies
+		 */
 		public function Dependencies( types:Class ... ) 
 		{
 			for each( var type:Class in types ) 
@@ -14,7 +18,10 @@ package engine.di
 			}
 		}
 		
-		public function get dependencies()
+		/** 
+		 * Return the dependencies
+		 */
+		public function get dependencies():Dictionary 
 		{
 			return _dependencies;
 		}
