@@ -4,6 +4,36 @@ package engine.handlers
 	 */
 	public class LoginHandler extends Handler
 	{
+		
+		/****************************************/
+		// Dependency Injection calls
+		/****************************************/
+		
+		/** 
+		 * Return the type of object
+		 */
+		public static function get type():String { return BASE_OBJECT; }
+		
+		/**
+		 * Return the class description
+		 */
+		public static function get description():Description  { return null; }
+
+		/**
+		 * Return the class dependencies
+		 */
+		public static function get dependencies():Dependencies  { return null; }
+
+		/**
+		 * Set the dependencies
+		 * @param dep (Dictionary) Key = Class and Value is the object
+		 */
+		public function set dependencies( dep:Dictionary ):void { return null; }
+		
+		/****************************************/
+		// Overide function
+		/****************************************/
+		
 		/**
 		* Awake is called at the construction of the object
 		* Register all the listeners
@@ -24,6 +54,10 @@ package engine.handlers
 			NetworkManager.sfs.removeEventListener(SFSEvent.LOGIN, onLogin);
 		}
 
+		/****************************************/
+		// Class specific
+		/****************************************/
+		
 		/**
 		 * Login to the server
 		 * @param	userName (String) Users name
@@ -34,6 +68,10 @@ package engine.handlers
 			var request:LoginRequest = new LoginRequest(username, password);
 			NetworkManager.sfs.send(request);
 		}
+		
+		/****************************************/
+		// Event Handlers
+		/****************************************/
 		
 		/**
 		 * An error occurred during login; go back to login panel and display error message.
