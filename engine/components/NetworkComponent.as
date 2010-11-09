@@ -1,14 +1,76 @@
 package engine.components
 {
 	import com.smartfoxserver.v2.SmartFox;
+
 	/**
 	 */
 	public class NetworkComponent extends Component 
 	{
+		/****************************************/
+		// Type definition
+		/****************************************/
+		public override function get type():String 
+		{
+			return NETWORK_COMPONENT;
+		}
+	
+		/****************************************/
+		// Dependency Injection calls
+		/****************************************/
+		
+		/** 
+		 * Return the type of object
+		 */
+		public static function get type():String { return BASE_OBJECT; }
+		
+		/**
+		 * Return the class description
+		 */
+		public static function get description():Description  
+		{ 
+			return new Description( getQualifiedClassName(this), false );
+		}
+
+		/**
+		 * Return the class dependencies
+		 */
+		public static function get dependencies():Dependencies  
+		{  
+			return Dependencies(NetworkManager);
+		}
+
+		/**
+		 * Set the dependencies
+		 * @param dep (Dictionary) Key = Class and Value is the object
+		 */
+		private var _networkManager;
+		public function set dependencies( dep:Dictionary ):void 
+		{ 
+			_networkManager = dep[NetowrkManager];
+		}
+		
+		/****************************************/
+		// Overide function
+		/****************************************/
+
 		public function Awake() 
 		{
 			sfs.addEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse)
 		}
+		
+		public function Destroy() 
+		{
+			sfs.removeEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse)
+		}
+		
+		/****************************************/
+		// Class specific
+		/****************************************/
+		
+		
+		/****************************************/
+		// Event Handlers
+		/****************************************/
 		
 		public function onExtensionResponse(evt:SFSEvent):void
 		{

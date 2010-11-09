@@ -8,12 +8,7 @@ package engine.handlers
 		/****************************************/
 		// Dependency Injection calls
 		/****************************************/
-		
-		/** 
-		 * Return the type of object
-		 */
-		public static function get type():String { return BASE_OBJECT; }
-		
+
 		/**
 		 * Return the class description
 		 */

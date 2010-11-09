@@ -8,7 +8,51 @@ package engine.components
 	 */
 	public class TransformComponent extends Component 
 	{
+		/****************************************/
+		// Type definition
+		/****************************************/
+		public override function get type():String 
+		{
+			return TRANSFORM_COMPONENT; 
+		}		
+		
+		/****************************************/
+		// Dependency Injection calls
+		/****************************************/
+
+		/**
+		 * Return the class description
+		 */
+		public static function get description():Description  
+		{ 
+			return new Description( getQualifiedClassName(this), false );
+		}
+
+		/**
+		 * Return the class dependencies
+		 */
+		public static function get dependencies():Dependencies  
+		{  
+		}
+
+		/**
+		 * Set the dependencies
+		 * @param dep (Dictionary) Key = Class and Value is the object
+		 */
+		public function set dependencies( dep:Dictionary ):void 
+		{ 
+		}
+		
+		/****************************************/
+		// Overide function
+		/****************************************/
 		public override function get type():String { return TRANSFORM_COMPONENT; }
+		
+		
+		/****************************************/
+		// Class specific
+		/****************************************/
+		
 		
 		protected var _position:Point3d = new Point3d();
 		protected var _scale:Point3d = new Point3d();
