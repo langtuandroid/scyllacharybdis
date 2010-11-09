@@ -10,11 +10,103 @@ package engine.core
 	 */
 	public class GameObject extends BaseObject
 	{
+		
+		/****************************************/
+		// Type definition
+		/****************************************/
+		public override function get type():String 
+		{
+			return GAME_OBJECT;
+		}
+	
+		/****************************************/
+		// Dependency Injection calls
+		/****************************************/
+		
 		/** 
 		 * Return the type of object
 		 */
-		public function get type():String { return GAME_OBJECT; }		
+		public static function get type():String { return BASE_OBJECT; }
 		
+		/**
+		 * Return the class description
+		 */
+		public static function get description():Description  
+		{ 
+			return new Description( getQualifiedClassName(this), false );
+		}
+
+		/**
+		 * Return the class dependencies
+		 */
+		public static function get dependencies():Dependencies  
+		{
+			return Dependencies(SceneGraph);
+		}
+
+		/**
+		 * Set the dependencies
+		 * @param dep (Dictionary) Key = Class and Value is the object
+		 */
+		private var _sceneGraph;
+		public function set dependencies( dep:Dictionary ):void 
+		{ 
+			_sceneGraph = dep[SceneGraph];
+		}
+		
+
+		/****************************************/
+		// Overide function
+		/****************************************/
+		
+		}
+		/**
+		* Awake is called at the construction of the object
+		*/
+		public function awake( ):void
+		{
+			addEventListener( Event.ENTER_FRAME, update );
+		}
+
+		/**
+		* Start is called when the object is added to the scene
+		*/
+		public function start( ):void		
+		{
+
+		}
+
+		/**
+		* Stop is called when the object is removed from the scene
+		*/
+		public function stop():void
+		{
+
+		}
+		
+		/**
+		* Destroy is called at the removal of the object
+		*/
+		public override function destroy():void		
+		{
+			// Destroy the children
+			for each ( var gameObj:GameObject in _children )
+			{
+				MemoryManager.instance.destroy( gameObj );
+			}
+			
+			// Destroy the components
+			for each ( var component:Component in _components )
+			{
+				MemoryManager.instance.destroy( component );
+			}
+			
+			super.destroy();
+		}
+		
+		/****************************************/
+		// Class specific
+		/****************************************/
 		protected var _parent:GameObject = null;
 		protected var _children:Array = new Array();
 		protected var _components:Dictionary = new Dictionary();
@@ -129,49 +221,6 @@ package engine.core
 			{
 				_components.splice(index, 1);
 			}
-		}
-		/**
-		* Awake is called at the construction of the object
-		*/
-		public function awake( ):void
-		{
-			addEventListener( Event.ENTER_FRAME, update );
-		}
 
-		/**
-		* Start is called when the object is added to the scene
-		*/
-		public function start( ):void		
-		{
-
-		}
-
-		/**
-		* Stop is called when the object is removed from the scene
-		*/
-		public function stop():void
-		{
-
-		}
-		
-		/**
-		* Destroy is called at the removal of the object
-		*/
-		public override function destroy():void		
-		{
-			// Destroy the children
-			for each ( var gameObj:GameObject in _children )
-			{
-				MemoryManager.instance.destroy( gameObj );
-			}
-			
-			// Destroy the components
-			for each ( var component:Component in _components )
-			{
-				MemoryManager.instance.destroy( component );
-			}
-			
-			super.destroy();
-		}
 	}
 }
