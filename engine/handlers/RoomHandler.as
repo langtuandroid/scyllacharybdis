@@ -4,6 +4,36 @@ package engine.handlers
 	 */
 	public class RoomHandler extends Handler
 	{
+		
+		/****************************************/
+		// Dependency Injection calls
+		/****************************************/
+		
+		/** 
+		 * Return the type of object
+		 */
+		public static function get type():String { return BASE_OBJECT; }
+		
+		/**
+		 * Return the class description
+		 */
+		public static function get description():Description  { return null; }
+
+		/**
+		 * Return the class dependencies
+		 */
+		public static function get dependencies():Dependencies  { return null; }
+
+		/**
+		 * Set the dependencies
+		 * @param dep (Dictionary) Key = Class and Value is the object
+		 */
+		public function set dependencies( dep:Dictionary ):void { return null; }
+		
+		/****************************************/
+		// Overide function
+		/****************************************/
+		
 		/**
 		* Awake is called at the construction of the object
 		* Register all the listeners
@@ -25,6 +55,67 @@ package engine.handlers
 			NetworkManager.sfs.removeEventListener(SFSEvent.ROOM_JOIN, onJoinRoom);
 			NetworkManager.sfs.removeEventListener(SFSEvent.ROOM_JOIN_ERROR, onJoinRoomError);
 		}
+		
+		/****************************************/
+		// Class specific
+		/****************************************/
+		
+		private var _roomName:String;
+		
+		/**
+		* Join the passed room.
+		*/
+		private function joinRoom(name:String):void
+		{
+			_roomName = name;
+			var request:JoinRoomRequest = new JoinRoomRequest(name);
+			sfs.send(request);
+		}		
+		
+		/**
+		 * Create a game room
+		 * 
+		 * @param	roomName (String) Room name
+		 * @param	roomPwd (String Room password
+		 * @param	roomMaxS (int) Room Max size 
+		 * @param	extensionId (String) The module name
+		 * @param	extensionClass (String) The fully qualified class
+		 */
+		public function createGameRoom(roomName:String, roomPwd:String=null, roomMaxS:int=0, extensionId:String="sfsChess", extensionClass:String = "sfs2x.extensions.games.tris.SFSTrisGame"):void
+		{
+			if (roomName.length > 0)
+			{
+				var settings:RoomSettings = new RoomSettings(roomName)
+				settings.groupId = "game"
+				settings.password = roomPwd
+				settings.isGame = true
+				settings.maxUsers = 2
+				settings.maxSpectators = roomMaxS
+				settings.extension = new RoomExtension(EXTENSION_ID, EXTENSIONS_CLASS)
+				
+				sfs.send( new CreateRoomRequest(settings, true, sfs.lastJoinedRoom) )
+			}		
+		}
+		
+		/**
+		* Leave game and return them to the lobby
+		* Join the lobby room. 
+		*/
+		private function leaveGameRoom(name:String = ""):void
+		{
+			if ( name == null ) {
+				name = _roomName;
+			}
+			
+			var request:JoinRoomRequest = new JoinRoomRequest(THE_LOBBY_NAME);
+			sfs.send(request);
+		}		
+
+		
+		
+		/****************************************/
+		// Event Handlers
+		/****************************************/
 		
 		/**
 		 * onRoomCreationError event handler

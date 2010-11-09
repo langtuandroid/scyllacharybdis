@@ -55,6 +55,7 @@ package engine.core
 		 * Get the room handler
 		 */
 		public function get roomHandler():void { return _roomHandler; }
+		
 		/**
 		 * Set the room handler
 		 */
@@ -85,7 +86,6 @@ package engine.core
 			_connectionHandler.disconnect();
 		}		
 		
-		
 		/**
 		 * Login to the server
 		 * @param	userName (String) Users name
@@ -99,10 +99,9 @@ package engine.core
 		/**
 		* Join the passed room.
 		*/
-		private function joinRoom():void
+		private function joinRoom(name:String = "The Lobby"):void
 		{
-			var request:JoinRoomRequest = new JoinRoomRequest(THE_LOBBY_NAME);
-			sfs.send(request);
+			_roomHandler.joinRoom(name);
 		}		
 		
 		/**
@@ -116,18 +115,7 @@ package engine.core
 		 */
 		public function createGameRoom(roomName:String, roomPwd:String=null, roomMaxS:int=0, extensionId:String="sfsChess", extensionClass:String = "sfs2x.extensions.games.tris.SFSTrisGame"):void
 		{
-			if (roomName.length > 0)
-			{
-				var settings:RoomSettings = new RoomSettings(roomName)
-				settings.groupId = "game"
-				settings.password = roomPwd
-				settings.isGame = true
-				settings.maxUsers = 2
-				settings.maxSpectators = roomMaxS
-				settings.extension = new RoomExtension(EXTENSION_ID, EXTENSIONS_CLASS)
-				
-				sfs.send( new CreateRoomRequest(settings, true, sfs.lastJoinedRoom) )
-			}		
+			_roomHandler.joinRoom(roomName, roomPwd, roomMaxS, extensionId, extensionClass);
 		}
 		
 		/**
@@ -136,8 +124,7 @@ package engine.core
 		*/
 		private function leaveGameRoom():void
 		{
-			var request:JoinRoomRequest = new JoinRoomRequest(THE_LOBBY_NAME);
-			sfs.send(request);
+			_roomHandler.leaveGameRoom();
 		}		
 
 		public function backToLoginScreen():void {}		
