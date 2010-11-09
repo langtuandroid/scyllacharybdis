@@ -14,5 +14,13 @@ package engine.components
 		public function set owner( value:GameObject ):void { _owner = value; }
 		
 		public override function get type():String { return COMPONENT; }
+		
+		/**
+		 * Update each frame ( this should be moved higher up )
+		 */
+		public function update( ):void
+		{
+			
+		}
 	}
 }

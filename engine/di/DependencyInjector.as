@@ -25,29 +25,24 @@ package engine.di
 		
 		private registerEngineDependencies() 
 		{
-			registerClass(EngineEvent.class); 
-			registerClass(GameObject.class); 
-			registerClass(Component.class); 
-			registerClass(NetworkComponent.class); 
-			registerClass(RenderComponent.class); 
-			registerClass(ScriptComponent.class); 
-			registerClass(StateComponent.class); 
-			registerClass(TransformComponent.class); 
-			registerClass(BaseObject.class); 
-			registerClass(ComponentManager.class); 
-			registerClass(GameObjectManager.class); 
-			registerClass(MemoryManager.class); 
-			registerClass(NetworkManager.class); 
-			registerClass(RenderManager.class); 
-			registerClass(SceneGraph.class); 
-			registerClass(State.class); 
-			registerClass(ClassList.class); 
-			registerClass(Dependencies.class); 
-			registerClass(Description.class); 
-			registerClass(ConnectionHandler.class); 
-			registerClass(Handler.class); 
-			registerClass(LoginHandler.class); 
-			registerClass(RoomHandler.class); 
+			registerClass(BaseObject); 
+			registerClass(GameObject); 
+
+			registerClass(MemoryManager); 
+			registerClass(NetworkManager); 
+			registerClass(RenderManager); 
+			registerClass(SceneGraph); 
+			
+			registerClass(NetworkComponent); 
+			registerClass(RenderComponent); 
+			registerClass(ScriptComponent); 
+			registerClass(StateComponent); 
+			registerClass(TransformComponent); 
+			registerClass(StateComponent); 
+			
+			registerClass(ConnectionHandler); 
+			registerClass(LoginHandler); 
+			registerClass(RoomHandler); 
 		}
 	}
 }
