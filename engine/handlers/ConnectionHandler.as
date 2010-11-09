@@ -4,16 +4,37 @@ package engine.handlers
 	 */
 	public class ConnectionHandler extends Handler
 	{
-		protected var _connected:Boolean = false;
-		protected var _isConnecting:Boolean = false;
-		protected var configFile:String = "config.xml";
-
-		protected function get connected():Boolean { return _connected; }
-		protected function set connected( value:Boolean ) 
-		{
-			_connected = value;
-		}
+	
+		/****************************************/
+		// Dependency Injection calls
+		/****************************************/
 		
+		/** 
+		 * Return the type of object
+		 */
+		public static function get type():String { return BASE_OBJECT; }
+		
+		/**
+		 * Return the class description
+		 */
+		public static function get description():Description  { return null; }
+
+		/**
+		 * Return the class dependencies
+		 */
+		public static function get dependencies():Dependencies  { return null; }
+
+		/**
+		 * Set the dependencies
+		 * @param dep (Dictionary) Key = Class and Value is the object
+		 */
+		public function set dependencies( dep:Dictionary ):void { return null; }
+	
+
+		/****************************************/
+		// Overide function
+		/****************************************/
+
 		/**
 		* Awake is called at the construction of the object
 		* Register all the listeners
@@ -38,6 +59,20 @@ package engine.handlers
 			NetworkManager.sfs.removeEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure);
 		}
 
+		/****************************************/
+		// Class specific
+		/****************************************/
+
+		protected var _connected:Boolean = false;
+		protected var _isConnecting:Boolean = false;
+		protected var configFile:String = "config.xml";
+
+		protected function get connected():Boolean { return _connected; }
+		protected function set connected( value:Boolean ) 
+		{
+			_connected = value;
+		}
+		
 		/** 
 		 * Connect to the server
 		 */
@@ -68,6 +103,10 @@ package engine.handlers
 			connect(false);
 			sfs.disconnect();
 		}				
+
+		/****************************************/
+		// Event Handlers
+		/****************************************/
 		
 		/**
 		 * onConntection event handler

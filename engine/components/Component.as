@@ -10,17 +10,19 @@ package engine.components
 	{
 		protected var _owner:GameObject = null;
 		
+		/**
+		 * Get the ownering Game Object
+		 */
 		public function get owner():GameObject { return _owner; }
+
+		/**
+		 * Set the ownering Game Object
+		 */
 		public function set owner( value:GameObject ):void { _owner = value; }
-		
-		public override function get type():String { return COMPONENT; }
 		
 		/**
 		 * Update each frame ( this should be moved higher up )
 		 */
-		public function update( ):void
-		{
-			
-		}
+		public function update( ):void { return ; }
 	}
 }
