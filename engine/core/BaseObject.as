@@ -25,13 +25,16 @@ package engine.core
 		public static const STATE_COMPONENT:String = "state_component";
 
 		/****************************************/
+		// Type definition
+		/****************************************/
+		public override function get type():String 
+		{
+			return BASE_OBJECT;
+		}
+	
+		/****************************************/
 		// Dependency Injection calls
 		/****************************************/
-		
-		/** 
-		 * Return the type of object
-		 */
-		public static function get type():String { return BASE_OBJECT; }
 		
 		/**
 		 * Return the class description

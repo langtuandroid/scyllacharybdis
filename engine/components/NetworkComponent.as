@@ -18,17 +18,12 @@ package engine.components
 		// Dependency Injection calls
 		/****************************************/
 		
-		/** 
-		 * Return the type of object
-		 */
-		public static function get type():String { return BASE_OBJECT; }
-		
 		/**
 		 * Return the class description
 		 */
 		public static function get description():Description  
 		{ 
-			return new Description( getQualifiedClassName(this), false );
+			return new Description( getQualifiedClassName(this), true );
 		}
 
 		/**
@@ -43,11 +38,11 @@ package engine.components
 		 * Set the dependencies
 		 * @param dep (Dictionary) Key = Class and Value is the object
 		 */
-		private var _networkManager;
 		public function set dependencies( dep:Dictionary ):void 
-		{ 
-			_networkManager = dep[NetowrkManager];
+		{
+ 			_networkManager = dep[NetowrkManager];
 		}
+
 		
 		/****************************************/
 		// Overide function

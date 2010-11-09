@@ -183,7 +183,7 @@ package engine.core
 			_components[component.type] =  component;
 
 			// Add the component to the scene graph
-			SceneGraph.instance.addComponent( component );
+			_sceneGraph.addComponent( component );
 			
 			// Start the component
 			component.start();
@@ -209,8 +209,8 @@ package engine.core
 				return;
 			}
 			
-			// Add the component to the scene graph
-			removeComponent.instance().addComponent( component );
+			// Remove the component from the scenegraph
+			_sceneGraph.removeComponent( component );
 			
 			// Stop the component
 			component.stop();

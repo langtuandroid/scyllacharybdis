@@ -14,33 +14,56 @@ package engine.core
 	 */
 	public class SceneGraph extends EventDispatcher
 	{
-		/***********************************/
-		// Singleton boilerplate
-		/***********************************/
-		public function SceneGraph( se:SingletonEnforcer ) 
+		/****************************************/
+		// Dependency Injection calls
+		/****************************************/
+
+		/**
+		 * Return the class description
+		 */
+		public static function get description():Description  
+		{ 
+			return new Description( getQualifiedClassName(this), SINGLETON_OBJECT );
+		}
+
+		/**
+		 * Return the class dependencies
+		 */
+		public static function get dependencies():Dependencies  
+		{  
+		}
+
+		/**
+		 * Set the dependencies
+		 * @param dep (Dictionary) Key = Class and Value is the object
+		 */
+		public function set dependencies( dep:Dictionary ):void 
+		{ 
+		}
+		
+		/****************************************/
+		// Overide function
+		/****************************************/
+
+		/**
+		* Awake is called at the construction of the object
+		*/
+		public function Awake() 
 		{
-			// Allocate the individual component dictionaries within the _components dictionary 
-			_components[BaseObject.NETWORK_COMPONENT] = new Dictionary();
-			_components[BaseObject.STATE_COMPONENT] = new Dictionary();
-			_components[BaseObject.SCRIPT_COMPONENT] = new Dictionary();
-			_components[BaseObject.TRANSFORM_COMPONENT] = new Dictionary();
-			_components[BaseObject.RENDER_COMPONENT] = new Dictionary();
-			
 			addEvenListener( Event.ENTER_FRAME, updateWorld );
 		}
 		
-		private static var _sInstance:SceneGraph = null;
-		
-		public static function get instance():SceneGraph 
+		/**
+		* Destroy is called at the removal of the object
+		*/	
+		public function Destroy() 
 		{
-			if (_sInstance == null) 
-			{
-				_sInstance = MemoryManager.instance.instantiate( SceneGraph );
-			}
-			
-			return _sInstance;
-		}		
-		/***********************************/
+			removeEvenListener( Event.ENTER_FRAME, updateWorld );
+		}
+
+		/****************************************/
+		// Class specific
+		/****************************************/
 
 		// All the game object in the world
 		protected var _gameObjects:Dictionary = new Dictionary(true);

@@ -3,32 +3,46 @@ package engine.core
 	import flash.utils.getQualifiedClassName;
 	
 	class NetworkManager {
-		
-		/***********************************/
-		// Singleton boilerplate
-		/***********************************/
-		public function NetworkManager( se:SingletonEnforcer ) 
-		{
+
+		/****************************************/
+		// Dependency Injection calls
+		/****************************************/
+
+		/**
+		 * Return the class description
+		 */
+		public static function get description():Description  
+		{ 
+			return new Description( getQualifiedClassName(this), SINGLETON_OBJECT );
+		}
+
+		/**
+		 * Return the class dependencies
+		 */
+		public static function get dependencies():Dependencies  
+		{  
+			return Dependencies(ConnectionHandler, LoginHandler, RoomHandler);			
+		}
+
+		/**
+		 * Set the dependencies
+		 * @param dep (Dictionary) Key = Class and Value is the object
+		 */
+		private var _connectionHandler;
+		private var _loginHandler;
+		private var _roomHandler;
+		public function set dependencies( dep:Dictionary ):void 
+		{ 
+			_networkManager = dep[ConnectionHandler];
+			_networkManager = dep[ConnectionHandler];
+			_networkManager = dep[ConnectionHandler];
 		}
 		
-		private static var _sInstance:NetworkManager = null;
-		public static function get instance():NetworkManager 
-		{
-			if (_sInstance == null) 
-			{
-				_sInstance = new NetworkManager( new SingletonEnforcer() );
-				_sInstance.awake();
-			}
-			
-			return _sInstance;
-		}		
-		/***********************************/
+		/****************************************/
+		// Overide function
+		/****************************************/
 		
 		private var _sfs:SmartFox = new SmartFox(true);
-		private var _connectionHandler = null;
-		private var _roomHandler = null;
-		
-		private const THE_LOBBY_NAME:String = "The Lobby";
 		
 		/**
 		 * Get the smartfox server
@@ -41,31 +55,14 @@ package engine.core
 		public function get connectionHandler():void { return _connectionHandler; }
 		
 		/**
-		 * Set the connection handler
+		 * Get the login handler
 		 */
-		public function set connectionHandler( handler:ConnectionHandler ):void
-		{
-			if ( _connectionHandler != null ) {
-				MemoryManager.instance.destroy(_connectionHandler);
-			}
-			_connectionHandler = handler;
-		}
-
+		public function get loginHandler():void { return _loginHandler; }
+		
 		/**
 		 * Get the room handler
 		 */
-		public function get roomHandler():void { return _roomHandler; }
-		
-		/**
-		 * Set the room handler
-		 */
-		public function set roomHandler( handler:RoomHandler ):void
-		{
-			if ( _roomHandler != null ) {
-				MemoryManager.instance.destroy(_roomHandler);
-			}
-			_roomHandler = handler;
-		}
+		public function get roomHandler():void { return _roomHandler; }		
 		
 		/** 
 		 * Connect to the server
@@ -143,4 +140,3 @@ package engine.core
 	}
 }
 
-final class SingletonEnforcer { }
