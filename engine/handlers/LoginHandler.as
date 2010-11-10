@@ -8,7 +8,7 @@ package handlers
 	
 	/**
 	 */
-	public class LoginHandler extends Handler
+	public class LoginHandler extends Component
 	{
 		
 		/****************************************/
