@@ -15,39 +15,30 @@ package core
 	
 	/**
 	 */
-	public class SceneGraph extends EventDispatcher
+	public class SceneGraph extends DIObject;
 	{
 		/****************************************/
-		// Dependency Injection calls
+		// Dependency Information
 		/****************************************/
 
 		/**
-		 * Return the class description
+		 * Return the class scope
 		 */
-		public static function get description():Description  
-		{ 
-			return new Description( SceneGraph, Description.SINGLETON_OBJECT );
-		}
+		public static function get scope():int { base.SINGLETON_OBJECT };		
 
-		/**
-		 * Return the class dependencies
-		 */
-		public static function get dependencies():Dependencies  
-		{  
-			return null;
-		}
-
-		/**
-		 * Set the dependencies
-		 * @param dep (Dictionary) Key = Class and Value is the object
-		 */
-		public function set dependencies( dep:Dictionary ):void 
-		{ 
-		}
 		
 		/****************************************/
-		// Overide function
+		// Constructors and Allocation 
 		/****************************************/
+
+		// All the game object in the world
+		protected var _gameObjects:Dictionary = new Dictionary(true);
+		
+		// Extra array of just the renderables
+		protected var _renderables:Array = new Array();
+
+		// Does the scene need to be sorted
+		private var _sortRequired = true;
 
 		/**
 		* Awake is called at the construction of the object
@@ -62,21 +53,50 @@ package core
 		public function Destroy():void
 		{
 		}
+		
+		/** 
+		 * Add a scene object to the graph
+		 */
+		public function addGameObject( gameObj:GameObject ):void 
+		{
+			// Tell the scene its dirty
+			_sortRequired = true;
+			
+			// Add the object to the list
+			_gameObjects[gameObj] = gameObj;
+			
+			// Get renderables from the gameobject
+			AddRenderables( gameObj );
+			
+			// Start the game object
+			gameObj.start();
+		}
+		
+		public function updateGameObject( gameObj:GameObject ):void
+		{
+			// Tell the scene its dirty
+			_sortRequired = true;
+			
+			// Get renderables from the gameobject
+			AddRenderables( gameObj );
+		}
+		
+		/** 
+		 * Remove a scene object to the graph
+		 */
+		public function removeGameObject( gameObj:GameObject ): void
+		{
+			_sortRequired = true;
+			
+			// Get renderables from the gameobject
+			RemoveRenderables( gameObj );
 
-		/****************************************/
-		// Class specific
-		/****************************************/
+			// Stop the game object
+			gameObj.stop();
 
-		// All the game object in the world
-		protected var _gameObjects:Dictionary = new Dictionary(true);
-		
-		// Caches of all the components
-		protected var _components:Dictionary = new Dictionary();
-		
-		// Extra array of just the renderables
-		protected var _renderables:Array = new Array();
-		
-		private var _sortRequired = true;
+			delete _gameObjects[gameObj];
+		}
+
 		
 		/**
 		 * Updates all the components in the world
@@ -94,60 +114,6 @@ package core
 			}
 			
 			//renderWorld();
-		}
-		
-		/** 
-		 * Add a scene object to the graph
-		 */
-		public function addGameObject( gameObj:GameObject ):void 
-		{
-			_sortRequired = true;
-			_gameObjects[gameObj] = gameObj;
-			gameObj.start();
-		}
-		
-		/** 
-		 * Remove a scene object to the graph
-		 */
-		public function removeGameObject( gameObj:GameObject ): void
-		{
-			_sortRequired = true;
-			gameObj.stop();
-			delete _gameObjects[gameObj];
-		}
-
-		/**
-		 * Added a component to the game object
-		 */
-		public function addComponent( comp:Component ):void
-		{
-			if ( comp.type == BaseObject.RENDER_COMPONENT )
-			{
-				_renderables.push(comp);
-			}
-		
-			_components[comp.type][comp] = comp;
-			
-			return;
-		}
-		
-		/**
-		 * Remove a component to the game object
-		 */
-		public function removeComponent( comp:Component ):void
-		{
-			if ( comp.type == BaseObject.RENDER_COMPONENT )
-			{
-				// Remove the child from the list
-				var index:int = _renderables.indexOf( comp );
-				
-				if ( index >= 0 )
-				{
-					_renderables.splice( index, 1 );
-				}
-			}
-			
-			delete _components[comp.type][comp];
 		}
 		
 		/**
@@ -172,6 +138,23 @@ package core
 			{
 				_renderables[i].render(surface);
 			}
+		}
+		
+		/** 
+		 * Helper function to get the components off the scripts
+		 */
+		private function AddRenderables( obj:GameObject ) 
+		{
+			// Get the render component
+			var renderable:Component = gameObj.getComponent( BaseObject.RENDER_COMPONENT );
+			_renderables[renderable] = renderable;
+		}
+		
+		private function RemoveRenderables( obj:GameObject ) 
+		{
+			// Get the render component
+			var renderable:Component = gameObj.getComponent( BaseObject.RENDER_COMPONENT );
+			delete _renderables[renderable];
 		}
 	}
 }

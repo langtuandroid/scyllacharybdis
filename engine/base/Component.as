@@ -20,9 +20,5 @@ package base
 		 */
 		public function set owner( value:GameObject ):void { _owner = value; }
 		
-		/**
-		 * Update each frame ( this should be moved higher up )
-		 */
-		public function update( ):void { return ; }
 	}
 }

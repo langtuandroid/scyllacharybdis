@@ -1,5 +1,6 @@
 package base 
 {
+	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
 	import flash.utils.Dictionary;
@@ -12,64 +13,41 @@ package base
 	
 	/**
 	 */
-	public class GameObject extends BaseObject
+	public class GameObject extends DIObject
 	{
-		
 		/****************************************/
-		// Type definition
+		// Dependency Information
 		/****************************************/
-		public override function get type():String 
-		{
-			return GAME_OBJECT;
-		}
-
-		/****************************************/
-		// Dependency Injection calls
-		/****************************************/
-		
-		/** 
-		 * Return the type of object
-		 */
-		public static function get type():String { return BASE_OBJECT; }
-		
-		/**
-		 * Return the class description
-		 */
-		public static function get description():Description  
-		{ 
-			return new Description( GameObject, Description.NEW_OBJECT );
-		}
 
 		/**
 		 * Return the class dependencies
+		 * @returns [dep1, dep2];
 		 */
-		public static function get dependencies():Dependencies  
-		{
-			return new Dependencies(SceneGraph, MemoryManager);
-		}
-
-		/**
-		 * Set the dependencies
-		 * @param dep (Dictionary) Key = Class and Value is the object
-		 */
-		private var _memoryManager:MemoryManager;
-		private var _sceneGraph:SceneGraph;
-		public override function set dependencies( dep:Dictionary ):void 
-		{ 
-			_memoryManager = dep[MemoryManager];
-			_sceneGraph = dep[SceneGraph];
+		public static function get dependencies():Array  {
+			return [MemoryManager, SceneGraph];	
 		}
 		
-
 		/****************************************/
-		// Overide function
+		// Constructors and Allocation 
 		/****************************************/
+		
+		private var _memoryManager:MemoryManager;
+		private var _sceneGraph:SceneGraph;
+		protected var _parent:GameObject = null;
+		protected var _children:Array = new Array();
+		protected var _components:Dictionary = new Dictionary();
+		protected var _disabled:Boolean = false;				
 		
 		/**
 		* Awake is called at the construction of the object
 		*/
 		public override function awake( ):void
 		{
+			_memoryManager = getDependency(MemoryManager);
+			_sceneGraph = getDependency(SceneGraph);
+			
+			// Add itself to the scenegraph
+			_sceneGraph.addGameObject( this );
 		}
 
 		/**
@@ -77,7 +55,6 @@ package base
 		*/
 		public override function start( ):void		
 		{
-
 		}
 
 		/**
@@ -85,7 +62,6 @@ package base
 		*/
 		public override function stop():void
 		{
-
 		}
 		
 		/**
@@ -93,6 +69,9 @@ package base
 		*/
 		public override function destroy():void		
 		{
+
+			_sceneGraph.removeGameObject( this );
+			
 			// Destroy the children
 			for each ( var gameObj:GameObject in _children )
 			{
@@ -109,13 +88,8 @@ package base
 		}
 		
 		/****************************************/
-		// Class specific
+		// Trees and Components
 		/****************************************/
-		
-		protected var _parent:GameObject = null;
-		protected var _children:Array = new Array();
-		protected var _components:Dictionary = new Dictionary();
-		protected var _disabled:Boolean = false;				
 		
 		public function get parent():GameObject { return _parent; }
 		public function set parent( value:GameObject ):void { _parent = value; }
@@ -187,8 +161,7 @@ package base
 			component.owner = this;
 			_components[component.type] =  component;
 
-			// Add the component to the scene graph
-			_sceneGraph.addComponent( component );
+			_sceneGraph.updateGameObject( this );
 			
 			// Start the component
 			component.start();
@@ -214,9 +187,6 @@ package base
 				return;
 			}
 			
-			// Remove the component from the scenegraph
-			_sceneGraph.removeComponent( component );
-			
 			// Stop the component
 			component.stop();
 			
@@ -226,6 +196,9 @@ package base
 			{
 				_components.splice(index, 1);
 			}
+			
+			// Update the scene graph
+			_sceneGraph.updateGameObject( this );
 		}
 	}
 }
