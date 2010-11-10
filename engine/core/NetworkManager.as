@@ -1,11 +1,9 @@
 package core 
 {
-	import com.smartfoxserver.v2.SmartFox;
-	
 	import flash.utils.Dictionary;
+	import com.smartfoxserver.v2.SmartFox;
+
 	import core.BaseObject;
-	import di.Dependencies;
-	import di.Description;
 	import handlers.*;
 
 	class NetworkManager extends BaseObject

@@ -4,13 +4,11 @@ package handlers
 	import com.smartfoxserver.v2.core.SFSEvent;
 	
 	import core.NetworkManager;
-	
-	import di.Dependencies;
-	import di.Description;
+	import core.BaseObject;	
 	
 	/**
 	 */
-	public class ConnectionHandler extends Component
+	public class ConnectionHandler extends BaseObject
 	{
 
 		/****************************************/

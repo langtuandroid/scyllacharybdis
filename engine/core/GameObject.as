@@ -5,7 +5,6 @@ package core
 	import flash.events.Event;
 	import flash.utils.Dictionary;
 	
-	import base.Component;
 	import core.SceneGraph;
 	import core.MemoryManager;
 	

@@ -3,11 +3,13 @@ package components
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.SmartFox;
 	import com.smartfoxserver.v2.core.SFSEvent;
+	
 	import core.NetworkManager;
+	import core.BaseObject;	
 
 	/**
 	 */
-	public class NetworkComponent extends Component 
+	public class NetworkComponent extends BaseObject 
 	{
 		/****************************************/
 		// Type definition

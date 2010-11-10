@@ -3,12 +3,11 @@ package handlers
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
 	
-	import di.Dependencies;
-	import di.Description;
+	import core.BaseObject;	
 	
 	/**
 	 */
-	public class LoginHandler extends Component
+	public class LoginHandler extends BaseObject
 	{
 		/****************************************/
 		// Overide function
