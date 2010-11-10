@@ -7,39 +7,6 @@ package base
 	 */
 	public class BaseObject
 	{
-		/****************************************/
-		// Type definition
-		/****************************************/
-		public function get type():String 
-		{
-			return BASE_OBJECT;
-		}
-	
-		/****************************************/
-		// Dependency Injection calls
-		/****************************************/
-		
-		/**
-		 * Return the class description
-		 */
-		public static function get description():Description  { return null; }
-
-		/**
-		 * Return the class dependencies
-		 */
-		public static function get dependencies():Dependencies  { return null; }
-
-		/**
-		 * Set the dependencies
-		 * @param dep (Dictionary) Key = Class and Value is the object
-		 */
-		public function set dependencies( dep:Dictionary ):void { return; }
-	
-		
-		/****************************************/
-		// Public virtual methods
-		/****************************************/
-		
 		/**
 		* Awake is called at the construction of the object
 		*/
