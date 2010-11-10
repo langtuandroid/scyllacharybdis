@@ -1,12 +1,12 @@
-package core 
+package base 
 {
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
 	import flash.utils.Dictionary;
 	
+	import base.Component;
 	import core.SceneGraph;
 	import core.MemoryManager;
-	import components.Component;
 	import di.Dependencies;
 	import di.Description;
 	

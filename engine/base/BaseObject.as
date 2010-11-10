@@ -1,27 +1,12 @@
-package core
+package base
 {
 	import flash.utils.Dictionary;
-	import di.Description;
-	import di.Dependencies;
 	
 	/**
 	 * BaseObject is a base object for all game elements
 	 */
 	public class BaseObject
 	{
-		// These objects are base objects
-		public static const BASE_OBJECT:String = "base_object";
-		public static const COMPONENT:String = "component";
-
-		// Usable types
-		public static const GAME_OBJECT:String = "game_object";
-		public static const TRANSFORM_COMPONENT:String = "transform_component";
-		public static const RENDER_COMPONENT:String = "render_component";
-		public static const SCRIPT_COMPONENT:String = "script_component";
-		public static const NETWORK_COMPONENT:String = "network_component";
-		public static const CONNECTION_COMPONENT:String = "connection_component";
-		public static const STATE_COMPONENT:String = "state_component";
-
 		/****************************************/
 		// Type definition
 		/****************************************/
