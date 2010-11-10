@@ -1,12 +1,8 @@
 package components 
 {
 	import flash.utils.Dictionary;
-	
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
-	
-	import di.Dependencies;
-	import di.Description;
 	
 	/**
 	 */

@@ -1,16 +1,11 @@
 package components
 {
 	import flash.utils.Dictionary;
-	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import org.casalib.math.geom.Point3d;
-	
-	import di.Dependencies;
-	import di.Description;
-	
 	
 	/**
 	 * 
