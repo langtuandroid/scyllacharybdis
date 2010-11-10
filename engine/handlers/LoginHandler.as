@@ -1,5 +1,11 @@
-package engine.handlers 
+package handlers 
 {
+	import flash.utils.Dictionary;
+	import com.smartfoxserver.v2.core.SFSEvent;
+	
+	import di.Dependencies;
+	import di.Description;
+	
 	/**
 	 */
 	public class LoginHandler extends Handler
@@ -14,7 +20,7 @@ package engine.handlers
 		 */
 		public static function get description():Description  
 		{ 
-			return new Description( getQualifiedClassName(this), true );
+			return new Description( LoginHandler, Description.NEW_OBJECT );
 		}
 
 		/**
@@ -22,7 +28,7 @@ package engine.handlers
 		 */
 		public static function get dependencies():Dependencies  
 		{  
-			return Dependencies(NetworkManager);
+			return new Dependencies(NetworkManager);
 		}
 
 		/**
@@ -30,7 +36,7 @@ package engine.handlers
 		 * @param dep (Dictionary) Key = Class and Value is the object
 		 */
 		private var _networkManager;
-		public function set dependencies( dep:Dictionary ):void 
+		public override function set dependencies( dep:Dictionary ):void 
 		{ 
 			_networkManager = dep[NetowrkManager];
 		}
@@ -45,8 +51,8 @@ package engine.handlers
 		*/
 		public override function awake():void
 		{
-			NetworkManager.sfs.addEventListener(SFSEvent.LOGIN_ERROR, onLoginError);
-			NetworkManager.sfs.addEventListener(SFSEvent.LOGIN, onLogin);
+			_networkManager.addEventListener(SFSEvent.LOGIN_ERROR, onLoginError);
+			_networkManager.addEventListener(SFSEvent.LOGIN, onLogin);
 		}
 		
 		/**
@@ -55,8 +61,8 @@ package engine.handlers
 		*/
 		public override function destroy():void
 		{
-			NetworkManager.sfs.removeEventListener(SFSEvent.LOGIN_ERROR, onLoginError);
-			NetworkManager.sfs.removeEventListener(SFSEvent.LOGIN, onLogin);
+			_networkManager.removeEventListener(SFSEvent.LOGIN_ERROR, onLoginError);
+			_networkManager.removeEventListener(SFSEvent.LOGIN, onLogin);
 		}
 
 		/****************************************/
@@ -71,7 +77,7 @@ package engine.handlers
 		public function login(userName:String, password:String):void
 		{
 			var request:LoginRequest = new LoginRequest(username, password);
-			NetworkManager.sfs.send(request);
+			_networkManager.send(request);
 		}
 		
 		/****************************************/

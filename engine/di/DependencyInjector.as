@@ -1,5 +1,13 @@
-package engine.di 
+package di
 {
+	import flash.utils.Dictionary;
+	import components.*;
+	import core.*;
+	import di.*;
+	import events.*;
+	import handlers.*;
+	
+	
 	/**
 	 */
 	public class DependencyInjector
@@ -23,7 +31,7 @@ package engine.di
 			_dependencies[type] = type.dependencies();
 		}
 
-		public function get descriptions( type:Class ):Description
+		public function get description( type:Class ):Description
 		{
 			return _descriptions[type];
 		}

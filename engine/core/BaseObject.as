@@ -1,15 +1,13 @@
-package engine.core
+package core
 {
-	import flash.events.Event;
-	import flash.events.EventDispatcher;
 	import flash.utils.Dictionary;
-
-	import engine.di
+	import di.Description;
+	import di.Dependencies;
 	
 	/**
 	 * BaseObject is a base object for all game elements
 	 */
-	class BaseObject extends EventDispatcher
+	public class BaseObject
 	{
 		// These objects are base objects
 		public static const BASE_OBJECT:String = "base_object";
@@ -27,7 +25,7 @@ package engine.core
 		/****************************************/
 		// Type definition
 		/****************************************/
-		public override function get type():String 
+		public function get type():String 
 		{
 			return BASE_OBJECT;
 		}
@@ -60,21 +58,21 @@ package engine.core
 		/**
 		* Awake is called at the construction of the object
 		*/
-		public function awake( ):void { return null; }
+		public function awake( ):void { return; }
 		
 		/**
 		* Start is called when the object is added to the scene
 		*/
-		public function start( ):void  { return null; }
+		public function start( ):void  { return; }
 		
 		/**
 		* Stop is called when the object is removed from the scene
 		*/
-		public function stop( ):void { return null; }
+		public function stop( ):void { return; }
 		
 		/**
 		* Destroy is called at the removal of the object
 		*/
-		public function destroy( ):void	 { return null; } 
+		public function destroy( ):void	 { return; } 
 	}
 }

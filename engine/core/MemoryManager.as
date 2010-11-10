@@ -1,20 +1,22 @@
-package engine.core 
+package core 
 {
 	import flash.utils.Dictionary;
 	import flash.utils.getQualifiedClassName;
+	import di.DependencyInjector;
+	import di.Description;
 	
 	class MemoryManager {
 		
-		private final var _injector:DependencyInjector;
+		private var _injector:DependencyInjector;
 
 		// Create the object lists
 		private var _baseObjects:Dictionary = new Dictionary();
 		private var _singletonList:Dictionary = new Dictionary();
 		private var _objectCounters:Dictionary = new Dictionary();
 		
-		public function MemoryManager(injector:DependencyInjector) 
+		public function MemoryManager( injector:DependencyInjector ):void 
 		{
-				_injector = injector;
+			_injector = injector;
 		}
 		
 		/**
@@ -22,7 +24,7 @@ package engine.core
 		* @param type (Class) The type of object to create
 		* @param level (int) Count the dep levels to stop infiniate declarations
 		*/
-		public function instantiate( type:Class, level:int = 0):type
+		public function instantiate( type:Class, level:int = 0):*
 		{
 			if ( level > 5 ) 
 			{
@@ -30,12 +32,12 @@ package engine.core
 				return;
 			}
 			// Declare the object variable
-			var object:type;
+			var object:*;
 			
 			// Get the class details
 			var details = _injector.description(type);
 			
-			if ( details.scope() == SINGLETON_OBJECT ) 
+			if ( details.scope() == Description.SINGLETON_OBJECT ) 
 			{
 				if ( _singletonList[type] ) {
 					return _singletonList[type];
@@ -57,9 +59,9 @@ package engine.core
 
 			// Create the dependencies
 			var depMap:Dictionary = new Dictionary();
-			for each ( type:Class in _injector.dependencies(type) ) 
+			for each ( var type:Class in _injector.dependencies(type) ) 
 			{
-				if ( _injector.description(type).scope == SINGLETON_OBJECT ) {
+				if ( _injector.description(type).scope == Description.SINGLETON_OBJECT ) {
 					depMap[type] = _singletonList[type];
 				} else {
 					depMap[type] = instantiate(type, level++);
@@ -83,18 +85,18 @@ package engine.core
 		 * Destroy the scene object 
 		 * @param object (SceneObject) The scene object to be destroyed
 		 */
-		public function destroy( object:BaseObject ): void 
+		public function destroy( object:* ): void 
 		{
 			// Get the class details
 			var details = _injector.description( getQualifiedClassName(object) );
-			if ( details.scope() == SINGLETON_OBJECT )  
+			if ( details.scope() == Description.SINGLETON_OBJECT )  
 			{
 				trace("Can't delete a singleton");
 				return;
 			}
 
 			// Reduce the debugging counter
-			decrementCounter( getQualifiedClassName(object) );
+			decrementCounter( getQualifiedClassNameByObject(object) );
 
 			// Let the object run its own destroy methods
 			object.destroy();
@@ -111,7 +113,7 @@ package engine.core
 		 * @param type (Class) The class type
 		 * @return int 
 		 */
-		public function getObjectCount(type:Class):int;
+		public function getObjectCount(type:Class):int
 		{
 			return _objectCounters[type];
 		}		

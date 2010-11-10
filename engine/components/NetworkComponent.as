@@ -1,6 +1,14 @@
-package engine.components
+package components
 {
+	import flash.utils.Dictionary;
+	
 	import com.smartfoxserver.v2.SmartFox;
+	import com.smartfoxserver.v2.core.SFSEvent;
+	import core.NetworkManager;
+	
+	import di.Dependencies;
+	import di.Description;
+
 
 	/**
 	 */
@@ -23,7 +31,7 @@ package engine.components
 		 */
 		public static function get description():Description  
 		{ 
-			return new Description( getQualifiedClassName(this), NEW_OBJECT );
+			return new Description( NetworkComponent, Description.NEW_OBJECT );
 		}
 
 		/**
@@ -38,7 +46,7 @@ package engine.components
 		 * Set the dependencies
 		 * @param dep (Dictionary) Key = Class and Value is the object
 		 */
-		public function set dependencies( dep:Dictionary ):void 
+		public override function set dependencies( dep:Dictionary ):void 
 		{
  			_networkManager = dep[NetowrkManager];
 		}
