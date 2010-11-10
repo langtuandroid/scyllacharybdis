@@ -1,10 +1,14 @@
-package engine.core 
+package core 
 {
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
 	import flash.utils.Dictionary;
-	import engine.components.Component;
-	import engine.core.SceneGraph;
+	
+	import core.SceneGraph;
+	import core.MemoryManager;
+	import components.Component;
+	import di.Dependencies;
+	import di.Description;
 	
 	/**
 	 */
@@ -18,7 +22,7 @@ package engine.core
 		{
 			return GAME_OBJECT;
 		}
-	
+
 		/****************************************/
 		// Dependency Injection calls
 		/****************************************/
@@ -33,7 +37,7 @@ package engine.core
 		 */
 		public static function get description():Description  
 		{ 
-			return new Description( getQualifiedClassName(this), NEW_OBJECT );
+			return new Description( GameObject, Description.NEW_OBJECT );
 		}
 
 		/**
@@ -41,16 +45,18 @@ package engine.core
 		 */
 		public static function get dependencies():Dependencies  
 		{
-			return Dependencies(SceneGraph);
+			return new Dependencies(SceneGraph, MemoryManager);
 		}
 
 		/**
 		 * Set the dependencies
 		 * @param dep (Dictionary) Key = Class and Value is the object
 		 */
-		private var _sceneGraph;
-		public function set dependencies( dep:Dictionary ):void 
+		private var _memoryManager:MemoryManager;
+		private var _sceneGraph:SceneGraph;
+		public override function set dependencies( dep:Dictionary ):void 
 		{ 
+			_memoryManager = dep[MemoryManager];
 			_sceneGraph = dep[SceneGraph];
 		}
 		
@@ -59,19 +65,17 @@ package engine.core
 		// Overide function
 		/****************************************/
 		
-		}
 		/**
 		* Awake is called at the construction of the object
 		*/
-		public function awake( ):void
+		public override function awake( ):void
 		{
-			addEventListener( Event.ENTER_FRAME, update );
 		}
 
 		/**
 		* Start is called when the object is added to the scene
 		*/
-		public function start( ):void		
+		public override function start( ):void		
 		{
 
 		}
@@ -79,7 +83,7 @@ package engine.core
 		/**
 		* Stop is called when the object is removed from the scene
 		*/
-		public function stop():void
+		public override function stop():void
 		{
 
 		}
@@ -92,13 +96,13 @@ package engine.core
 			// Destroy the children
 			for each ( var gameObj:GameObject in _children )
 			{
-				MemoryManager.instance.destroy( gameObj );
+				_memoryManager.destroy( gameObj );
 			}
 			
 			// Destroy the components
 			for each ( var component:Component in _components )
 			{
-				MemoryManager.instance.destroy( component );
+				_memoryManager.destroy( component );
 			}
 			
 			super.destroy();
@@ -107,10 +111,11 @@ package engine.core
 		/****************************************/
 		// Class specific
 		/****************************************/
+		
 		protected var _parent:GameObject = null;
 		protected var _children:Array = new Array();
 		protected var _components:Dictionary = new Dictionary();
-		protected var _disabled:Boolean = false;
+		protected var _disabled:Boolean = false;				
 		
 		public function get parent():GameObject { return _parent; }
 		public function set parent( value:GameObject ):void { _parent = value; }
@@ -221,6 +226,6 @@ package engine.core
 			{
 				_components.splice(index, 1);
 			}
-
+		}
 	}
 }

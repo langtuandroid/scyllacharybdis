@@ -1,14 +1,17 @@
-package engine.core 
+package core 
 {
-	import engine.components.RenderComponent;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.utils.getQualifiedClassName;
 	import flash.utils.Dictionary;
-	import engine.components.Component;
-	import Engine.GameObject;
+	
+	import core.GameObject;
+	import components.RenderComponent
+	import components.Component;
+	import di.Dependencies;
+	import di.Description;
 	
 	/**
 	 */
@@ -23,7 +26,7 @@ package engine.core
 		 */
 		public static function get description():Description  
 		{ 
-			return new Description( getQualifiedClassName(this), SINGLETON_OBJECT );
+			return new Description( SceneGraph, Description.SINGLETON_OBJECT );
 		}
 
 		/**
@@ -31,6 +34,7 @@ package engine.core
 		 */
 		public static function get dependencies():Dependencies  
 		{  
+			return null;
 		}
 
 		/**
@@ -48,17 +52,15 @@ package engine.core
 		/**
 		* Awake is called at the construction of the object
 		*/
-		public function Awake() 
+		public function Awake():void
 		{
-			addEvenListener( Event.ENTER_FRAME, updateWorld );
 		}
 		
 		/**
 		* Destroy is called at the removal of the object
 		*/	
-		public function Destroy() 
+		public function Destroy():void
 		{
-			removeEvenListener( Event.ENTER_FRAME, updateWorld );
 		}
 
 		/****************************************/
@@ -74,10 +76,12 @@ package engine.core
 		// Extra array of just the renderables
 		protected var _renderables:Array = new Array();
 		
+		private var _sortRequired = true;
+		
 		/**
 		 * Updates all the components in the world
 		 */
-		public function updateWorld( e:Event ): void 
+		public function updateWorld(): void 
 		{
 			for each ( var component:Component in _components[BaseObject.NETWORK_COMPONENT] ) 
 			{
@@ -89,7 +93,7 @@ package engine.core
 				component.update();
 			}
 			
-			renderWorld( );
+			//renderWorld();
 		}
 		
 		/** 

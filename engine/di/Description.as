@@ -1,4 +1,4 @@
-package engine.di 
+package di 
 {
 	/**
 	 */
@@ -7,8 +7,8 @@ package engine.di
 		public static const NEW_OBJECT:int = 1;
 		public static const SINGLETON_OBJECT:int = 2;
 		
-		private final var _type:Class;
-		private final var _scope:int;
+		private var _type:Class;
+		private var _scope:int;
 		
 		/**
 		 * The construtor

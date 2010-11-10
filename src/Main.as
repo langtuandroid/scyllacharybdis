@@ -3,8 +3,8 @@
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import engine.di.DependencyInjector;
-	import engine.core.MemoryManager;
+	import di.DependencyInjector;
+	import core.MemoryManager;
 	
 	/**
 	 * ...
@@ -32,7 +32,7 @@
 		private function registerDependencies():void
 		{
 			var injector:DependencyInjector = new DependencyInjector();
-			var memory:MemoryManager  = new MemoryManager(injector);
+			var memory:MemoryManager  = new MemoryManager( injector );
 			
 		}
 		

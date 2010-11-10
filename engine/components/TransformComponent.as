@@ -1,8 +1,13 @@
-package engine.components
+package components
 {
 	import adobe.utils.ProductManager;
 	import flash.geom.Point;
+	import flash.utils.Dictionary;
 	import org.casalib.math.geom.Point3d;
+	
+	import di.Dependencies;
+	import di.Description;
+	
 
 	/**
 	 */
@@ -25,7 +30,7 @@ package engine.components
 		 */
 		public static function get description():Description  
 		{ 
-			return new Description( getQualifiedClassName(this), NEW_OBJECT );
+			return new Description( TransformComponent, Description.NEW_OBJECT );
 		}
 
 		/**
@@ -33,13 +38,14 @@ package engine.components
 		 */
 		public static function get dependencies():Dependencies  
 		{  
+			return null;
 		}
 
 		/**
 		 * Set the dependencies
 		 * @param dep (Dictionary) Key = Class and Value is the object
 		 */
-		public function set dependencies( dep:Dictionary ):void 
+		public override function set dependencies( dep:Dictionary ):void 
 		{ 
 		}
 		

@@ -1,7 +1,13 @@
-package engine.components 
+package components 
 {
+	import flash.utils.Dictionary;
+	
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	
+	import di.Dependencies;
+	import di.Description;
+	
 	/**
 	 */
 	public class ScriptComponent extends Component
@@ -23,21 +29,22 @@ package engine.components
 		 */
 		public static function get description():Description  
 		{ 
-			return new Description( getQualifiedClassName(this), NEW_OBJECT );
+			return new Description( ScriptComponent, Description.NEW_OBJECT );
 		}
 
 		/**
 		 * Return the class dependencies
 		 */
 		public static function get dependencies():Dependencies  
-		{  
+		{
+			return null;
 		}
 
 		/**
 		 * Set the dependencies
 		 * @param dep (Dictionary) Key = Class and Value is the object
 		 */
-		public function set dependencies( dep:Dictionary ):void 
+		public override function set dependencies( dep:Dictionary ):void 
 		{ 
 		}
 		

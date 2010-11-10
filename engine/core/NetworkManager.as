@@ -1,9 +1,15 @@
-package engine.core 
+package core 
 {
-	import flash.utils.getQualifiedClassName;
+	import com.smartfoxserver.v2.SmartFox;
 	
-	class NetworkManager {
+	import flash.utils.Dictionary;
+	import core.BaseObject;
+	import di.Dependencies;
+	import di.Description;
+	import handlers.*;
 
+	class NetworkManager extends BaseObject
+	{
 		/****************************************/
 		// Dependency Injection calls
 		/****************************************/
@@ -13,7 +19,7 @@ package engine.core
 		 */
 		public static function get description():Description  
 		{ 
-			return new Description( getQualifiedClassName(this), SINGLETON_OBJECT );
+			return new Description( NetworkManager, Description.SINGLETON_OBJECT );
 		}
 
 		/**
@@ -21,7 +27,7 @@ package engine.core
 		 */
 		public static function get dependencies():Dependencies  
 		{  
-			return Dependencies(ConnectionHandler, LoginHandler, RoomHandler);			
+			return new Dependencies(ConnectionHandler, LoginHandler, RoomHandler);			
 		}
 
 		/**
@@ -31,7 +37,7 @@ package engine.core
 		private var _connectionHandler;
 		private var _loginHandler;
 		private var _roomHandler;
-		public function set dependencies( dep:Dictionary ):void 
+		public override function set dependencies( dep:Dictionary ):void 
 		{ 
 			_networkManager = dep[ConnectionHandler];
 			_networkManager = dep[ConnectionHandler];

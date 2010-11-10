@@ -1,11 +1,16 @@
-package engine.components
+package components
 {
-
+	import flash.utils.Dictionary;
+	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import org.casalib.math.geom.Point3d;
+	
+	import di.Dependencies;
+	import di.Description;
+	
 	
 	/**
 	 * 
@@ -29,7 +34,7 @@ package engine.components
 		 */
 		public static function get description():Description  
 		{ 
-			return new Description( getQualifiedClassName(this), NEW_OBJECT );
+			return new Description( RenderComponent, Description.NEW_OBJECT );
 		}
 
 		/**
@@ -37,6 +42,7 @@ package engine.components
 		 */
 		public static function get dependencies():Dependencies  
 		{
+			return null;
 		}
 
 		/**
@@ -44,7 +50,7 @@ package engine.components
 		 * @param dep (Dictionary) Key = Class and Value is the object
 		 */
 		private var _sceneGraph;
-		public function set dependencies( dep:Dictionary ):void 
+		public override function set dependencies( dep:Dictionary ):void 
 		{ 
 		}
 		

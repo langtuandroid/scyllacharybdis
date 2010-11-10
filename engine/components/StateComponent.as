@@ -1,9 +1,12 @@
-package engine.components
+package components
 {
-	import Engine.GameObject;
+	import flash.utils.Dictionary;
+	
+	import core.GameObject;
+	import di.Dependencies;
+	import di.Description;
+
 	/**
-	 * ...
-	 * @author ...
 	 */
 	public class StateComponent extends Component
 	{
@@ -24,7 +27,7 @@ package engine.components
 		 */
 		public static function get description():Description  
 		{ 
-			return new Description( getQualifiedClassName(this), NEW_OBJECT );
+			return new Description( StateComponent, Description.NEW_OBJECT );
 		}
 
 		/**
@@ -32,13 +35,14 @@ package engine.components
 		 */
 		public static function get dependencies():Dependencies  
 		{  
+			return null;
 		}
 
 		/**
 		 * Set the dependencies
 		 * @param dep (Dictionary) Key = Class and Value is the object
 		 */
-		public function set dependencies( dep:Dictionary ):void 
+		public override function set dependencies( dep:Dictionary ):void 
 		{ 
 		}
 		
@@ -56,18 +60,17 @@ package engine.components
 		
 		public function enter( owner:GameObject ):void
 		{
-			
-		}
-		
-		public function update( owner:GameObject ):void
-		{
-			
 		}
 		
 		public function exit( owner:GameObject ):void
 		{
+		}
+
+		public function stateUpdate( owner:GameObject ):void
+		{
 			
 		}
+		
 	}
 
 }

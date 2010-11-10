@@ -1,5 +1,7 @@
-package engine.di 
+package di 
 {
+	import flash.utils.Dictionary;
+	
 	/**
 	 */
 	public class Dependencies
@@ -10,7 +12,7 @@ package engine.di
 		 * Constructor
 		 * @param	types (Class) A comman delimited list of depencencies
 		 */
-		public function Dependencies( types:Class ... ) 
+		public function Dependencies( ... types:Array ):void
 		{
 			for each( var type:Class in types ) 
 			{

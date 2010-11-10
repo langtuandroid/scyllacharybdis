@@ -1,7 +1,14 @@
-package engine.handlers 
+package handlers 
 {
+	import flash.utils.Dictionary;
+	import com.smartfoxserver.v2.core.SFSEvent;
+	import core.NetworkManager;
+	
+	import di.Dependencies;
+	import di.Description;
+
 	/**
-	 */
+	*/
 	public class RoomHandler extends Handler
 	{
 		
@@ -14,7 +21,7 @@ package engine.handlers
 		 */
 		public static function get description():Description  
 		{ 
-			return new Description( getQualifiedClassName(this), true );
+			return new Description( LoginHandler, Description.NEW_OBJECT );
 		}
 
 		/**
@@ -22,7 +29,7 @@ package engine.handlers
 		 */
 		public static function get dependencies():Dependencies  
 		{  
-			return Dependencies(NetworkManager);
+			return new Dependencies(NetworkManager);
 		}
 
 		/**
@@ -30,9 +37,9 @@ package engine.handlers
 		 * @param dep (Dictionary) Key = Class and Value is the object
 		 */
 		private var _networkManager;
-		public function set dependencies( dep:Dictionary ):void 
+		public override function set dependencies( dep:Dictionary ):void 
 		{ 
-			_networkManager = dep[NetowrkManager];
+			_networkManager = dep[NetworkManager];
 		}
 		
 		/****************************************/
@@ -45,9 +52,9 @@ package engine.handlers
 		*/
 		public override function awake():void
 		{
-			NetworkManager.sfs.addEventListener(SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError);
-			NetworkManager.sfs.addEventListener(SFSEvent.ROOM_JOIN, onJoinRoom);
-			NetworkManager.sfs.addEventListener(SFSEvent.ROOM_JOIN_ERROR, onJoinRoomError);
+			_networkManager.sfs.addEventListener(SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError);
+			_networkManager.sfs.addEventListener(SFSEvent.ROOM_JOIN, onJoinRoom);
+			_networkManager.sfs.addEventListener(SFSEvent.ROOM_JOIN_ERROR, onJoinRoomError);
 		}
 		
 		/**
@@ -56,9 +63,9 @@ package engine.handlers
 		*/
 		public override function destroy():void
 		{
-			NetworkManager.sfs.removeEventListener(SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError);
-			NetworkManager.sfs.removeEventListener(SFSEvent.ROOM_JOIN, onJoinRoom);
-			NetworkManager.sfs.removeEventListener(SFSEvent.ROOM_JOIN_ERROR, onJoinRoomError);
+			_networkManager.sfs.temoveEventListener(SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError);
+			_networkManager.sfs.removeEventListener(SFSEvent.ROOM_JOIN, onJoinRoom);
+			_networkManager.sfs.removeEventListener(SFSEvent.ROOM_JOIN_ERROR, onJoinRoomError);
 		}
 		
 		/****************************************/
@@ -74,7 +81,7 @@ package engine.handlers
 		{
 			_roomName = name;
 			var request:JoinRoomRequest = new JoinRoomRequest(name);
-			sfs.send(request);
+			_networkManager.sfs.send(request);
 		}		
 		
 		/**
@@ -98,7 +105,7 @@ package engine.handlers
 				settings.maxSpectators = roomMaxS
 				settings.extension = new RoomExtension(EXTENSION_ID, EXTENSIONS_CLASS)
 				
-				sfs.send( new CreateRoomRequest(settings, true, sfs.lastJoinedRoom) )
+				_networkManager.ssfs.send( new CreateRoomRequest(settings, true, sfs.lastJoinedRoom) )
 			}		
 		}
 		
@@ -113,7 +120,7 @@ package engine.handlers
 			}
 			
 			var request:JoinRoomRequest = new JoinRoomRequest(THE_LOBBY_NAME);
-			sfs.send(request);
+			_networkManager.ssfs.send(request);
 		}		
 
 		
@@ -128,8 +135,8 @@ package engine.handlers
 		 */
 		protected function onRoomCreationError(evt:SFSEvent):void
 		{
-			NetworkManager.sfs.dTrace("===> " + evt.params.errorMessage);
-			NetworkManager.sfs.dTrace("Room creation error:\n" + evt.params.error);
+			_networkManager.sfs.dTrace("===> " + evt.params.errorMessage);
+			_networkManager.sfs.dTrace("Room creation error:\n" + evt.params.error);
 		}
 
 		/**
@@ -138,7 +145,7 @@ package engine.handlers
 		 */
 		protected function onJoinRoomError(evt:SFSEvent):void
 		{
-			NetworkManager.sfs.dTrace("Room join error:\n" + evt.params.errorMessage);
+			_networkManager.sfs.dTrace("Room join error:\n" + evt.params.errorMessage);
 		}
 
 		/**

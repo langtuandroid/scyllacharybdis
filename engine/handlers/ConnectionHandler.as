@@ -1,5 +1,13 @@
-package engine.handlers 
+package handlers 
 {
+	import flash.utils.Dictionary;
+	import com.smartfoxserver.v2.core.SFSEvent;
+	
+	import core.NetworkManager;
+	
+	import di.Dependencies;
+	import di.Description;
+	
 	/**
 	 */
 	public class ConnectionHandler extends Handler
@@ -14,7 +22,7 @@ package engine.handlers
 		 */
 		public static function get description():Description  
 		{ 
-			return new Description( getQualifiedClassName(this), NEW_OBJECT );
+			return new Description( ConnectionHandler, Description.NEW_OBJECT );
 		}
 
 		/**
@@ -30,7 +38,7 @@ package engine.handlers
 		 * @param dep (Dictionary) Key = Class and Value is the object
 		 */
 		private var _networkManager;
-		public function set dependencies( dep:Dictionary ):void 
+		public override function set dependencies( dep:Dictionary ):void 
 		{ 
 			_networkManager = dep[NetowrkManager];
 		}
