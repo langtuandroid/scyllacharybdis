@@ -6,76 +6,34 @@ package core
 	
 	class MemoryManager extends BaseObject 
 	{
-		private var _injector:DependencyInjector;
 
 		// Create the object lists
 		private var _baseObjects:Dictionary = new Dictionary();
 		private var _singletonList:Dictionary = new Dictionary();
 		private var _objectCounters:Dictionary = new Dictionary();
-		private var _descriptions:Dictionary = new Dictionary();
 		
-		public function registerClass( type:Class ):void
-		{
-			// Is it already registered
-			if ( _descriptions.indexOf( type ) ) 
-			{
-				return;
-			}
-		}		
 		
 		/**
 		* Instantiate an object
 		* @param type (Class) The type of object to create
-		* @param level (int) Count the dep levels to stop infiniate declarations
 		*/
-		public function instantiate( type:Class, level:int = 0):*
+		public function instantiate( type:Class ):*
 		{
-			// If the injector hasn't been created then create it
-			if ( _injector == null ) 
-			{
-				_injector = new DependencyInjector();
-			}
-			
-			if ( level > 5 ) 
-			{
-				trace("Recursive instanciate!!!!!!!");
-				return;
-			}
-			// Declare the object variable
-			var object:*;
-			
-			// Get the class details
-			var details = _injector.description(type);
-			
-			if ( details.scope() == Description.SINGLETON_OBJECT ) 
-			{
-				if ( _singletonList[type] ) {
-					return _singletonList[type];
-				}
-				else 
-				{
-					// Create the object
-					object = new type();
-					_singletonList[type] = object;
-				}
-			} 
-			else 
-			{
-				// Create the object
-				object = new type();
-				// Add it to the array
-				_baseObjects[object] = object;
-			}
 
+			// Declare the object variable
+			var obj:* = getObject(type);
+			
 			// Create the dependencies
 			var depMap:Dictionary = new Dictionary();
-			for each ( var type:Class in _injector.dependencies(type) ) 
+			
+			// Add the memory manager to the list
+			depMap[MemoryManager] = this;
+
+			// Loop through all the dependencies
+			for each ( var dep:Class in obj.dependencies ) 
 			{
-				if ( _injector.description(type).scope == Description.SINGLETON_OBJECT ) {
-					depMap[type] = _singletonList[type];
-				} else {
-					depMap[type] = instantiate(type, level++);
-				}
+				// Add the deps to a dictionary
+				depMap[type] = getObject(dep);
 			}
 			
 			// Inject the dependencies
@@ -90,15 +48,17 @@ package core
 			// Return the object
 			return object;
 		}
-
+		
 		/**
 		 * Destroy the scene object 
 		 * @param object (SceneObject) The scene object to be destroyed
 		 */
-		public function destroy( object:* ): void 
+		public function destroy( obj:* ): void 
 		{
 			// Get the class details
 			var details = _injector.description( getQualifiedClassName(object) );
+			
+			// Check to see if its a singleton
 			if ( details.scope() == Description.SINGLETON_OBJECT )  
 			{
 				trace("Can't delete a singleton");
@@ -127,6 +87,39 @@ package core
 		{
 			return _objectCounters[type];
 		}		
+		
+		/**
+		 * Get object helper function
+		 * @param type (Class) Type of object to get
+		 * @return object
+		 */
+		
+		private function getObject(type:Class):* 
+		{
+			var obj:* = null;
+			if ( details.scope() == Description.SINGLETON_OBJECT ) 
+			{
+				if ( ! _singletonList[type] ) 
+				{
+					obj = new type();
+				}
+
+				// Create the object
+				_singletonList[type] = obj;
+				return _singletonList[type];
+			} 
+			else 
+			{
+				// Create the object
+				obj = new type();
+				
+				// Add it to the array
+				_baseObjects[obj] = obj;
+				return obj;
+			}
+			
+			return null;
+		}
 		
 		/**
 		 * Debugging Helper Function
