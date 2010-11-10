@@ -2,22 +2,26 @@ package core
 {
 	import flash.utils.Dictionary;
 	import flash.utils.getQualifiedClassName;
-	import di.DependencyInjector;
-	import di.Description;
+	import core.BaseObject;
 	
-	class MemoryManager {
-		
+	class MemoryManager extends BaseObject 
+	{
 		private var _injector:DependencyInjector;
 
 		// Create the object lists
 		private var _baseObjects:Dictionary = new Dictionary();
 		private var _singletonList:Dictionary = new Dictionary();
 		private var _objectCounters:Dictionary = new Dictionary();
+		private var _descriptions:Dictionary = new Dictionary();
 		
-		public function MemoryManager( injector:DependencyInjector ):void 
+		public function registerClass( type:Class ):void
 		{
-			_injector = injector;
-		}
+			// Is it already registered
+			if ( _descriptions.indexOf( type ) ) 
+			{
+				return;
+			}
+		}		
 		
 		/**
 		* Instantiate an object
@@ -26,6 +30,12 @@ package core
 		*/
 		public function instantiate( type:Class, level:int = 0):*
 		{
+			// If the injector hasn't been created then create it
+			if ( _injector == null ) 
+			{
+				_injector = new DependencyInjector();
+			}
+			
 			if ( level > 5 ) 
 			{
 				trace("Recursive instanciate!!!!!!!");

@@ -9,13 +9,10 @@ package core
 	
 	import core.GameObject;
 	import components.RenderComponent
-	import components.Component;
-	import di.Dependencies;
-	import di.Description;
 	
 	/**
 	 */
-	public class SceneGraph extends DIObject;
+	public class SceneGraph extends BaseObject
 	{
 		/****************************************/
 		// Dependency Information
