@@ -11,37 +11,7 @@ package handlers
 	*/
 	public class RoomHandler extends Component
 	{
-		
-		/****************************************/
-		// Dependency Injection calls
-		/****************************************/
-		
-		/**
-		 * Return the class description
-		 */
-		public static function get description():Description  
-		{ 
-			return new Description( LoginHandler, Description.NEW_OBJECT );
-		}
 
-		/**
-		 * Return the class dependencies
-		 */
-		public static function get dependencies():Dependencies  
-		{  
-			return new Dependencies(NetworkManager);
-		}
-
-		/**
-		 * Set the dependencies
-		 * @param dep (Dictionary) Key = Class and Value is the object
-		 */
-		private var _networkManager;
-		public override function set dependencies( dep:Dictionary ):void 
-		{ 
-			_networkManager = dep[NetworkManager];
-		}
-		
 		/****************************************/
 		// Overide function
 		/****************************************/

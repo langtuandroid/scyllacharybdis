@@ -1,7 +1,7 @@
-package components 
+package base 
 {
-	import core.BaseObject;
-	import core.GameObject;
+	import base.BaseObject;
+	import base.GameObject;
 	
 	/**
 	 * Component base class. Extend this to create a new component type.
