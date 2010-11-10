@@ -9,7 +9,7 @@ package handlers
 
 	/**
 	*/
-	public class RoomHandler extends Handler
+	public class RoomHandler extends Component
 	{
 		
 		/****************************************/

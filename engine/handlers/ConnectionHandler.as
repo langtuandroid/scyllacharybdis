@@ -10,7 +10,7 @@ package handlers
 	
 	/**
 	 */
-	public class ConnectionHandler extends Handler
+	public class ConnectionHandler extends Component
 	{
 	
 		/****************************************/
