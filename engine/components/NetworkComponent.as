@@ -1,14 +1,9 @@
 package components
 {
 	import flash.utils.Dictionary;
-	
 	import com.smartfoxserver.v2.SmartFox;
 	import com.smartfoxserver.v2.core.SFSEvent;
 	import core.NetworkManager;
-	
-	import di.Dependencies;
-	import di.Description;
-
 
 	/**
 	 */

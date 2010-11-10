@@ -11,44 +11,38 @@ package core
 	class NetworkManager extends BaseObject
 	{
 		/****************************************/
-		// Dependency Injection calls
+		// Dependency Information
 		/****************************************/
 
 		/**
-		 * Return the class description
+		 * Return the class scope
 		 */
-		public static function get description():Description  
-		{ 
-			return new Description( NetworkManager, Description.SINGLETON_OBJECT );
-		}
-
-		/**
-		 * Return the class dependencies
-		 */
-		public static function get dependencies():Dependencies  
-		{  
-			return new Dependencies(ConnectionHandler, LoginHandler, RoomHandler);			
-		}
-
-		/**
-		 * Set the dependencies
-		 * @param dep (Dictionary) Key = Class and Value is the object
-		 */
-		private var _connectionHandler;
-		private var _loginHandler;
-		private var _roomHandler;
-		public override function set dependencies( dep:Dictionary ):void 
-		{ 
-			_networkManager = dep[ConnectionHandler];
-			_networkManager = dep[ConnectionHandler];
-			_networkManager = dep[ConnectionHandler];
-		}
+		public static function get scope():int { base.SINGLETON_OBJECT };
+		
 		
 		/****************************************/
 		// Overide function
 		/****************************************/
 		
+		private var _connectionHandler;
+		private var _loginHandler;
+		private var _roomHandler;
 		private var _sfs:SmartFox = new SmartFox(true);
+		
+		/**
+		* Awake is called at the construction of the object
+		*/
+		public function Awake():void
+		{
+			
+		}
+		
+		/**
+		* Destroy is called at the removal of the object
+		*/	
+		public function Destroy():void
+		{
+		}
 		
 		/**
 		 * Get the smartfox server

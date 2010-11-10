@@ -21,7 +21,7 @@ package base
 
 		/**
 		 * Return the class dependencies
-		 * @returns [dep1, dep2];
+		 * @returns [dep1, dep2,etc..];
 		 */
 		public static function get dependencies():Array  {
 			return [MemoryManager, SceneGraph];	
