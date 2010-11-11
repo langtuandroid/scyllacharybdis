@@ -56,6 +56,11 @@ package core
 		public function start( ):void  { }
 		
 		/**
+		 * Update is called every frame
+		 */
+		public function update():void { }
+		
+		/**
 		* Stop is called when the object is removed from the scene
 		*/
 		public function stop( ):void { }
@@ -80,13 +85,13 @@ package core
 		 * Return the class dependencies
 		 * @returns [dep1, dep2];
 		 */
-		public function get dependencies():Dictionary  { return _dependencies; }
+		public static function get dependencyClasses():Array  { return new Array(); }
 
 		/**
 		 * Set the dependencies
 		 * @param dep (Dictionary) Key = Class and Value is the object
 		 */
-		public function set dependencies( value:Dictionary ):void 
+		public function set dependencyObjects( value:Dictionary ):void 
 		{ 
 			_dependencies = value; 
 		}
@@ -94,7 +99,7 @@ package core
 		/**
 		 * Get the dependency
 		 */
-		public function getDepencency( type:Class ):*
+		public function getDependency( type:Class ):*
 		{
 			return _dependencies[type];
 		}
@@ -107,18 +112,24 @@ package core
 		 * Add a component to the game object
 		 * @param	component (Component)
 		 */
-		public function addComponent( component:Class ):void 
+		public function addComponent( component:* ):void 
 		{
 			if (component == null)
 			{
 				return;
 			}
+			
+			if ( !component is BaseObject )
+			{
+				// Just want to see what happens if I do this
+				throw new Error( "COMPONENTS MUST BE BASE OBJECTS" );
+			}
 
 			// Check to see if there is an old one
-			if ( _components.contains[component.type] ) 
+			if ( _components[component.type] != null )
 			{
 				// Remove the old component 
-				removeComponent( Class(getDefinitionByName(getQualifiedClassName( _components.contains[component.type] ))));
+				removeComponent( component );
 			}
 			
 			// Setup the component
@@ -133,7 +144,7 @@ package core
 		 * Get a component from the game object
 		 * @param	type (int) The component id
 		 */
-		public function getComponent( type:Class ):*
+		public function getComponent( type:String ):*
 		{
 			return _components[type];
 		}
@@ -142,16 +153,23 @@ package core
 		 * Remove a component from the game object
 		 * @param	component (Component)
 		 */
-		public function removeComponent( component:Class ):void
+		public function removeComponent( component:* ):void
 		{
 			if (component == null)
 			{
 				return;
 			}
 			
+			if ( !component is BaseObject )
+			{
+				// Just want to see what happens if I do this
+				throw new Error( "COMPONENTS MUST BE BASE OBJECTS" );
+			}
+			
 			// Stop the component
 			component.stop();
 			
+			// Remove reference from the dictionary
 			delete _components[component.type];
 		}
 		
@@ -173,5 +191,6 @@ package core
 		 * Set the ownering Game Object
 		 */
 		public function set owner( value:* ):void { _owner = value; }		
+		
 	}
 }

@@ -9,7 +9,7 @@ package components
 
 	/**
 	 */
-	public class NetworkComponent extends BaseObject 
+	public class NetworkComponent extends Component
 	{
 		/****************************************/
 		// Type definition
@@ -19,7 +19,6 @@ package components
 			return NETWORK_COMPONENT;
 		}
 
-		
 		/****************************************/
 		// Overide function
 		/****************************************/
