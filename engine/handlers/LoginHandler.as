@@ -9,6 +9,15 @@ package handlers
 	 */
 	public class LoginHandler extends BaseObject
 	{
+		
+		/****************************************/
+		// Type definition
+		/****************************************/
+		public override function get type():String 
+		{
+			return LOGIN_HANDLER;
+		}
+		
 		/****************************************/
 		// Overide function
 		/****************************************/
@@ -19,8 +28,8 @@ package handlers
 		*/
 		public override function awake():void
 		{
-			_networkManager.addEventListener(SFSEvent.LOGIN_ERROR, onLoginError);
-			_networkManager.addEventListener(SFSEvent.LOGIN, onLogin);
+			owner.sfs.addEventListener(SFSEvent.LOGIN_ERROR, onLoginError);
+			owner.sfs.addEventListener(SFSEvent.LOGIN, onLogin);
 		}
 		
 		/**
@@ -29,8 +38,8 @@ package handlers
 		*/
 		public override function destroy():void
 		{
-			_networkManager.removeEventListener(SFSEvent.LOGIN_ERROR, onLoginError);
-			_networkManager.removeEventListener(SFSEvent.LOGIN, onLogin);
+			owner.sfs.removeEventListener(SFSEvent.LOGIN_ERROR, onLoginError);
+			owner.sfs.removeEventListener(SFSEvent.LOGIN, onLogin);
 		}
 
 		/****************************************/
@@ -45,7 +54,7 @@ package handlers
 		public function login(userName:String, password:String):void
 		{
 			var request:LoginRequest = new LoginRequest(username, password);
-			_networkManager.send(request);
+			owner.sfs.send(request);
 		}
 		
 		/****************************************/
