@@ -32,7 +32,9 @@ package core
 		*/
 		public function Awake():void
 		{
-			
+			_connectionHandler = getDependency(ConnectionHandler);
+			_loginHandler = getDependency(LoginHandler);
+			_roomHandler = getDependency(RoomHandler);
 		}
 		
 		/**
@@ -40,6 +42,9 @@ package core
 		*/	
 		public function Destroy():void
 		{
+			_connectionHandler = null;
+			_loginHandler = null;
+			_roomHandler = null;
 		}
 		
 		/**

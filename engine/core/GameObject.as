@@ -22,7 +22,7 @@ package core
 		 * @returns [dep1, dep2,etc..];
 		 */
 		public static function get dependencies():Array  {
-			return [MemoryManager, SceneGraph];	
+			return [SceneGraph];	
 		}
 		
 		/****************************************/
@@ -81,6 +81,9 @@ package core
 			{
 				_memoryManager.destroy( component );
 			}
+			
+			_memoryManager = null;
+			_sceneGraph = null;
 			
 			super.destroy();
 		}
