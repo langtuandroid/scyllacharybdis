@@ -5,6 +5,14 @@
 	import flash.events.Event;
 
 	import core.MemoryManager;
+	import core.GameObject;
+	
+	import components.TransformComponent;
+	
+	import examples.BoardRenderComponent;
+	import examples.BoardScriptComponent;
+	import examples.BoardNetworkComponent;
+	
 	
 	/**
 	 */
@@ -27,6 +35,16 @@
 			
 			zTest();
 			
+		}
+		
+		private function setupBoard():void
+		{
+			_memoryManager.instantiate(GameObject);
+			
+			GameObject.addComponent(TransformComponent);
+			GameObject.addComponent(BoardRenderComponent);
+			GameObject.addComponent(BoardScriptComponent);
+			GameObject.addComponent(BoardNetworkComponent);
 		}
 		
 		private function squaretest():void
