@@ -20,6 +20,7 @@
       <path-element>C:\Development\scyllacharybdis\src</path-element>
       <path-element>C:\Development\scyllacharybdis\engine</path-element>
       <path-element>C:\Development\scyllacharybdis\examples</path-element>
+      <path-element>C:\Development\scyllacharybdis\engine\core</path-element>
       <path-element>C:\Development\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
     <library-path append="true">
