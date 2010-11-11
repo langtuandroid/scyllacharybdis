@@ -21,8 +21,9 @@ package core
 		 * Return the class dependencies
 		 * @returns [dep1, dep2,etc..];
 		 */
-		public static function get dependencies():Array  {
-			return [SceneGraph];	
+		public static function get dependencyClasses():Array  
+		{
+			return [SceneGraph, MemoryManager];	
 		}
 		
 		/****************************************/
@@ -73,13 +74,13 @@ package core
 			// Destroy the children
 			for each ( var gameObj:GameObject in _children )
 			{
-				_memoryManager.destroy( gameObj );
+				_memoryManager.destroyObject( gameObj );
 			}
 			
 			// Destroy the components
-			for each ( var component:Component in _components )
+			for each ( var component:BaseObject in _components )
 			{
-				_memoryManager.destroy( component );
+				_memoryManager.destroyObject( component );
 			}
 			
 			_memoryManager = null;
@@ -151,13 +152,8 @@ package core
 		 * Add a component to the game object
 		 * @param	component (Class)
 		 */
-		public override function addComponent( component:Class ):void 
+		public override function addComponent( component:* ):void 
 		{
-			if (component == null)
-			{
-				return;
-			}
-			
 			super.addComponent( component );
 
 			_sceneGraph.updateGameObject( this );
@@ -170,18 +166,18 @@ package core
 		 * Remove a component from the game object
 		 * @param	component (Class)
 		 */
-		public override function removeComponent( component:Class ):void
+		public override function removeComponent( component:* ):void
 		{
-			if (component == null)
+			if ( !(component is BaseObject) )
 			{
-				return;
+				// Just want to see what happens if I do this
+				throw new Error( "COMPONENTS MUST BE BASE OBJECTS" );
 			}
 			
 			// Stop the component
 			component.stop();
 
 			super.removeComponent( component );
-				
 		}
 	}
 }
