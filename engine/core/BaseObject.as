@@ -1,6 +1,8 @@
 package core
 {
 	import flash.utils.Dictionary;
+	import flash.utils.getQualifiedClassName;
+	import flash.utils.getDefinitionByName;
 	
 	/**
 	 * BaseObject is a base object for all game elements
@@ -68,13 +70,13 @@ package core
 		 * Get the object scope 
 		 * Override if you want a singleton
 		 */
-		public static function get scope():int { base.NEW_OBJECT };
+		public static function get scope():int { return BaseObject.NEW_OBJECT };
 		
 		/**
 		 * Return the class dependencies
 		 * @returns [dep1, dep2];
 		 */
-		public static function get dependencies():Array  { return; }
+		public static function get dependencies():Array  { return null; }
 
 		/**
 		 * Set the dependencies
@@ -111,8 +113,8 @@ package core
 			// Check to see if there is an old one
 			if ( _components.contains[component.type] ) 
 			{
-				// Remove the old component
-				removeComponent(getQualifiedName( _components.contains[component.type] ));
+				// Remove the old component 
+				removeComponent( Class(getDefinitionByName(getQualifiedClassName( _components.contains[component.type] ))));
 			}
 			
 			// Setup the component
@@ -146,12 +148,7 @@ package core
 			// Stop the component
 			component.stop();
 			
-			// Remove it from the list
-			var index:int = _components.indexOf( component, 0 );
-			if ( index >= 0 )
-			{
-				_components.splice(index, 1);
-			}
+			delete _components[component.type];
 		}
 		
 		/****************************************/
@@ -161,11 +158,11 @@ package core
 		/**
 		 * Get the ownering Game Object
 		 */
-		public function get owner():GameObject { return _owner; }
+		public function get owner():* { return _owner; }
 
 		/**
 		 * Set the ownering Game Object
 		 */
-		public function set owner( value:GameObject ):void { _owner = value; }		
+		public function set owner( value:* ):void { _owner = value; }		
 	}
 }

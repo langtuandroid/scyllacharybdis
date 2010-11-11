@@ -7,10 +7,11 @@ package core
 	
 	import core.SceneGraph;
 	import core.MemoryManager;
+	import core.BaseObject;
 	
 	/**
 	 */
-	public class GameObject extends DIObject
+	public class GameObject extends BaseObject
 	{
 		/****************************************/
 		// Dependency Information
@@ -145,9 +146,9 @@ package core
 
 		/**
 		 * Add a component to the game object
-		 * @param	component (Component)
+		 * @param	component (Class)
 		 */
-		public override function addComponent( component:Component ):void 
+		public override function addComponent( component:Class ):void 
 		{
 			if (component == null)
 			{
@@ -164,9 +165,9 @@ package core
 
 		/**
 		 * Remove a component from the game object
-		 * @param	component (Component)
+		 * @param	component (Class)
 		 */
-		public function removeComponent( component:Component ):void
+		public override function removeComponent( component:Class ):void
 		{
 			if (component == null)
 			{

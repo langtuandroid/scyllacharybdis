@@ -3,36 +3,29 @@
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import di.DependencyInjector;
+
 	import core.MemoryManager;
 	
 	/**
-	 * ...
-	 * @author Daniel Lamb
 	 */
 	public class Main extends Sprite 
 	{
+		var _memoryManager:MemoryManager;
 		
 		public function Main():void 
 		{
+			
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
 		}
 		
 		private function init(e:Event = null):void 
 		{
+			_memoryManager = new MemoryManager();
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
 			
 			zTest();
-			
-			registerDependencies();
-		}
-		
-		private function registerDependencies():void
-		{
-			var injector:DependencyInjector = new DependencyInjector();
-			var memory:MemoryManager  = new MemoryManager( injector );
 			
 		}
 		
@@ -63,8 +56,6 @@
 			
 			this.addChild(square2);
 			this.addChild(square1);
-			
-			
 		}
 	}
 }

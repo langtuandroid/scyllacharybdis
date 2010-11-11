@@ -16,7 +16,6 @@
     <class path="src" />
     <class path="engine" />
     <class path="examples" />
-    <class path="..\casalib\code" />
   </classpaths>
   <!-- Build options -->
   <build>
