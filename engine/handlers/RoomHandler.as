@@ -12,8 +12,12 @@ package handlers
 	{
 
 		/****************************************/
-		// Overide function
+		// Type definition
 		/****************************************/
+		public override function get type():String 
+		{
+			return ROOM_HANDLER;
+		}
 		
 		/**
 		* Awake is called at the construction of the object
@@ -21,9 +25,9 @@ package handlers
 		*/
 		public override function awake():void
 		{
-			_networkManager.sfs.addEventListener(SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError);
-			_networkManager.sfs.addEventListener(SFSEvent.ROOM_JOIN, onJoinRoom);
-			_networkManager.sfs.addEventListener(SFSEvent.ROOM_JOIN_ERROR, onJoinRoomError);
+			owner.sfs.addEventListener(SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError);
+			owner.sfs.addEventListener(SFSEvent.ROOM_JOIN, onJoinRoom);
+			owner.sfs.addEventListener(SFSEvent.ROOM_JOIN_ERROR, onJoinRoomError);
 		}
 		
 		/**
@@ -32,9 +36,9 @@ package handlers
 		*/
 		public override function destroy():void
 		{
-			_networkManager.sfs.temoveEventListener(SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError);
-			_networkManager.sfs.removeEventListener(SFSEvent.ROOM_JOIN, onJoinRoom);
-			_networkManager.sfs.removeEventListener(SFSEvent.ROOM_JOIN_ERROR, onJoinRoomError);
+			owner.sfs.temoveEventListener(SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError);
+			owner.sfs.removeEventListener(SFSEvent.ROOM_JOIN, onJoinRoom);
+			owner.sfs.removeEventListener(SFSEvent.ROOM_JOIN_ERROR, onJoinRoomError);
 		}
 		
 		/****************************************/
@@ -50,7 +54,7 @@ package handlers
 		{
 			_roomName = name;
 			var request:JoinRoomRequest = new JoinRoomRequest(name);
-			_networkManager.sfs.send(request);
+			owner.sfs.send(request);
 		}		
 		
 		/**
@@ -74,7 +78,7 @@ package handlers
 				settings.maxSpectators = roomMaxS
 				settings.extension = new RoomExtension(EXTENSION_ID, EXTENSIONS_CLASS)
 				
-				_networkManager.ssfs.send( new CreateRoomRequest(settings, true, sfs.lastJoinedRoom) )
+				owner.ssfs.send( new CreateRoomRequest(settings, true, sfs.lastJoinedRoom) )
 			}		
 		}
 		
@@ -89,7 +93,7 @@ package handlers
 			}
 			
 			var request:JoinRoomRequest = new JoinRoomRequest(THE_LOBBY_NAME);
-			_networkManager.ssfs.send(request);
+			owner.ssfs.send(request);
 		}		
 
 		
@@ -104,8 +108,8 @@ package handlers
 		 */
 		protected function onRoomCreationError(evt:SFSEvent):void
 		{
-			_networkManager.sfs.dTrace("===> " + evt.params.errorMessage);
-			_networkManager.sfs.dTrace("Room creation error:\n" + evt.params.error);
+			owner.sfs.dTrace("===> " + evt.params.errorMessage);
+			owner.sfs.dTrace("Room creation error:\n" + evt.params.error);
 		}
 
 		/**
@@ -114,7 +118,7 @@ package handlers
 		 */
 		protected function onJoinRoomError(evt:SFSEvent):void
 		{
-			_networkManager.sfs.dTrace("Room join error:\n" + evt.params.errorMessage);
+			owner.sfs.dTrace("Room join error:\n" + evt.params.errorMessage);
 		}
 
 		/**

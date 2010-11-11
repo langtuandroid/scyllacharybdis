@@ -10,7 +10,15 @@ package handlers
 	 */
 	public class ConnectionHandler extends BaseObject
 	{
-
+		
+		/****************************************/
+		// Type definition
+		/****************************************/
+		public override function get type():String 
+		{
+			return CONNECTION_HANDLER;
+		}
+		
 		/****************************************/
 		// Overide function
 		/****************************************/
@@ -21,10 +29,10 @@ package handlers
 		*/
 		public override function awake():void
 		{
-			NetworkManager.sfs.addEventListener(SFSEvent.CONNECTION, onConnection);
-			NetworkManager.sfs.addEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
-			NetworkManager.sfs.addEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess);
-			NetworkManager.sfs.addEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure);
+			owner.sfs.addEventListener(SFSEvent.CONNECTION, onConnection);
+			owner.sfs.addEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
+			owner.sfs.addEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess);
+			owner.sfs.addEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure);
 		}
 		
 		/**
@@ -33,10 +41,10 @@ package handlers
 		*/
 		public override function destroy():void
 		{
-			NetworkManager.sfs.removeEventListener(SFSEvent.CONNECTION, onConnection);
-			NetworkManager.sfs.removeEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
-			NetworkManager.sfs.removeEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess);
-			NetworkManager.sfs.removeEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure);
+			owner.sfs.removeEventListener(SFSEvent.CONNECTION, onConnection);
+			owner.sfs.removeEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
+			owner.sfs.removeEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess);
+			owner.sfs.removeEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure);
 		}
 
 		/****************************************/
@@ -63,13 +71,13 @@ package handlers
 			// Check if connection is already available
 			if (!sfs.isConnected)
 			{
-				if (NetworkManager.sfs.config == null) 
+				if (owner.sfs.config == null) 
 				{
-					NetworkManager.sfs.loadConfig(_configFile, true);
+					owner.sfs.loadConfig(_configFile, true);
 				} 
 				else 
 				{
-					NetworkManager.sfs.connect();
+					owner.sfs.connect();
 				}
 			}
 			else 
@@ -97,12 +105,12 @@ package handlers
 			if (evt.params.success)
 			{
 				connected(true);
-				NetworkManager.sfs.dTrace("Connection Success!")
+				owner.sfs.dTrace("Connection Success!")
 			}
 			else
 			{
 				connected(false);
-				NetworkManager.sfs.dTrace("Connection Failure: " + evt.params.errorMessage)
+				owner.sfs.dTrace("Connection Failure: " + evt.params.errorMessage)
 			}
 		}
 		
@@ -112,7 +120,7 @@ package handlers
 		 */
 		protected function onConnectionLost(evt:SFSEvent):void
 		{
-			NetworkManager.sfs.dTrace("Connection was lost. Reason: " + evt.params.reason)
+			owner.sfs.dTrace("Connection was lost. Reason: " + evt.params.reason)
 		}
 		
 		/**
@@ -121,8 +129,8 @@ package handlers
 		 */
 		protected function onConfigLoadSuccess(evt:SFSEvent):void
 		{
-			NetworkManager.sfs.dTrace("Config load success!")
-			NetworkManager.sfs.dTrace("Server settings: "  + sfs.config.host + ":" + sfs.config.port)
+			owner.sfs.dTrace("Config load success!")
+			owner.sfs.dTrace("Server settings: "  + sfs.config.host + ":" + sfs.config.port)
 		}
 		
 		/**
@@ -131,7 +139,7 @@ package handlers
 		 */
 		protected function onConfigLoadFailure(evt:SFSEvent):void
 		{
-			NetworkManager.sfs.dTrace("Config load failure!!!")
+			owner.sfs.dTrace("Config load failure!!!")
 		}
 	}
 }
