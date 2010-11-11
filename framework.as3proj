@@ -13,9 +13,10 @@
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
-    <class path="src" />
     <class path="engine" />
     <class path="examples" />
+    <class path="org" />
+    <class path="src" />
   </classpaths>
   <!-- Build options -->
   <build>

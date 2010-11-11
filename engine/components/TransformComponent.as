@@ -3,7 +3,7 @@ package components
 	import adobe.utils.ProductManager;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
-	import org.casalib.math.geom.Point3d;
+	import casalib.math.geom.Point3d;
 	
 	import core.BaseObject;	
 
@@ -37,6 +37,7 @@ package components
 		protected var _worldRotate:Point3d = new Point3d();
 		
 		public function get position():Point3d { return _position; }
+		
 		public function set position ( value:Point3d ):void 
 		{ 
 			// Set the local position
@@ -90,8 +91,8 @@ package components
 		
 		public function get worldScale():Point3d { return _worldScale; }		
 	
-		public function get rotate():Number { return _rotate; }
-		public function set rotate ( value:Number ):void 
+		public function get rotate():Point3d { return _rotate; }
+		public function set rotate ( value:Point3d ):void 
 		{ 
 			// Set the local rotation
 			_rotate = value;

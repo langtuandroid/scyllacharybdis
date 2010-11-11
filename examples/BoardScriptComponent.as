@@ -2,6 +2,7 @@ package
 {
 	import core.MemoryManager;
 	import core.GameObject;
+	import components.ScriptComponent;
 
 	import components.TransformComponent;
 	/**
@@ -18,7 +19,7 @@ package
 
 		public function Awake() 
 		{
-			for ( int i = 0; i < 16; i++ ) 
+			for ( var i:int = 0; i < 16; i++ ) 
 			{
 				// Create a new piece
 				var whitePiece:GameObject = _memoryManager.instantiate(GameObject);

@@ -1,5 +1,6 @@
 package  
 {
+	import components.ScriptComponent;
 	/**
 	 * ...
 	 * @author ...
@@ -10,12 +11,7 @@ package
 		// Overide function
 		/****************************************/
 
-		public function Awake() 
-		{			
-		}
 		
-		public function Destroy() 
-		{
-		}
+		
 	}
 }

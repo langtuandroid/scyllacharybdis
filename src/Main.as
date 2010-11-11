@@ -1,5 +1,6 @@
 ﻿package 
 {
+	import core.BaseObject;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -33,8 +34,7 @@
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
 			
-			zTest();
-			
+			var base:BaseObject = _memoryManager.instantiate( BaseObject );
 		}
 		
 		private function setupBoard():void

@@ -1,16 +1,18 @@
 package  
 {
+	import components.NetworkComponent;
+	import com.smartfoxserver.v2.core.SFSEvent;
 	/**
 	 */
 	public class BoardNetworkComponent  extends NetworkComponent 
 	{
 		
-		public function Awake() 
+		public override function awake() 
 		{
 			sfs.addEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse)
 		}
 		
-		public function Destroy() 
+		public override function destroy() 
 		{
 			sfs.removeEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse)
 		}

@@ -1,5 +1,6 @@
 package core
 {
+	import flash.events.EventDispatcher;
 	import flash.utils.Dictionary;
 	import flash.utils.getQualifiedClassName;
 	import flash.utils.getDefinitionByName;
@@ -7,7 +8,7 @@ package core
 	/**
 	 * BaseObject is a base object for all game elements
 	 */
-	public class BaseObject
+	public class BaseObject extends EventDispatcher
 	{
 		/****************************************/
 		// Constants
@@ -47,22 +48,22 @@ package core
 		/**
 		* Awake is called at the construction of the object
 		*/
-		public function awake( ):void { return; }
+		public function awake( ):void { }
 		
 		/**
 		* Start is called when the object is added to the scene
 		*/
-		public function start( ):void  { return; }
+		public function start( ):void  { }
 		
 		/**
 		* Stop is called when the object is removed from the scene
 		*/
-		public function stop( ):void { return; }
+		public function stop( ):void { }
 		
 		/**
 		* Destroy is called at the removal of the object
 		*/
-		public function destroy( ):void	 { return; } 
+		public function destroy( ):void	 { } 
 
 		
 		/****************************************/
@@ -79,15 +80,15 @@ package core
 		 * Return the class dependencies
 		 * @returns [dep1, dep2];
 		 */
-		public static function get dependencies():Array  { return null; }
+		public function get dependencies():Dictionary  { return _dependencies; }
 
 		/**
 		 * Set the dependencies
 		 * @param dep (Dictionary) Key = Class and Value is the object
 		 */
-		public function set dependencies( dep:Dictionary ):void 
+		public function set dependencies( value:Dictionary ):void 
 		{ 
-			_dependencies = dep; 
+			_dependencies = value; 
 		}
 
 		/**

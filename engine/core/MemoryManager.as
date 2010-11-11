@@ -17,14 +17,12 @@ package core
 		private var _singletonList:Dictionary = new Dictionary();
 		private var _objectCounters:Dictionary = new Dictionary();
 		
-		
 		/**
 		* Instantiate an object
 		* @param type (Class) The type of object to create
 		*/
 		public function instantiate( type:Class ):*
 		{
-
 			// Declare the object variable
 			var obj:* = getObject(type);
 			
