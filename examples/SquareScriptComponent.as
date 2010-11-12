@@ -1,5 +1,6 @@
 package  
 {
+	import components.ScriptComponent;
 	import flash.events.MouseEvent;
 	/**
 	 * ...
@@ -13,9 +14,9 @@ package
 			
 		}
 		
-		public function onMouseDown( e:MouseEvent ):void
+		public override function onMouseDown( e:MouseEvent ):void
 		{
-			trace("You just clicked on " + owner.name);
+			trace("You just clicked on " + owner.toString());
 		}
 	}
 }

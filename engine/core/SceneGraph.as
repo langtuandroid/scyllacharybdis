@@ -43,7 +43,7 @@ package core
 		*/
 		public override function awake():void
 		{
-			
+			super.awake();
 		}
 		
 		/**
@@ -129,7 +129,7 @@ package core
 			}
 			
 			// Sort the renderables array (bigger numbers are closer to the screen) 
-			_renderables.sortOn( "z", Array.NUMERIC | Array.DESCENDING );
+			_renderables.sortOn( "comparator", Array.NUMERIC | Array.DESCENDING );
 			
 			// Render children in order
 			for ( var i:int = 0; i < _renderables.length; i++ )
@@ -148,17 +148,27 @@ package core
 			
 			// Get the render component
 			var renderable:RenderComponent = obj.getComponent( BaseObject.RENDER_COMPONENT );
-			_renderables.push(renderable);
+			
+			if ( renderable != null )
+			{
+				_renderables.push(renderable);
+			}
+			
 		}
 		
 		private function removeRenderable( obj:GameObject ):void 
 		{
-			// Tell the scene its dirty
-			_sortRequired = true;
+			if ( _renderables.length > 0 )
+			{
+				// Tell the scene its dirty
+				_sortRequired = true;
 			
-			// Get the render component
-			var renderable:RenderComponent = obj.getComponent( BaseObject.RENDER_COMPONENT );
-			delete _renderables[renderable];
+				// Get the render component
+				var renderable:RenderComponent = ArrayUtil.getItemByKeys( _renderables, { owner:obj.owner } );
+				
+				// Remove the render component from the array
+				ArrayUtil.removeItem( _renderables, renderable );
+			}
 		}
 	}
 }
