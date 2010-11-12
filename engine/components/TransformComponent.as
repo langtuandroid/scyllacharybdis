@@ -3,7 +3,7 @@ package components
 	import adobe.utils.ProductManager;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
-	import casalib.math.geom.Point3d;
+	import org.casalib.math.geom.Point3d;
 	
 	import core.BaseObject;	
 
@@ -30,7 +30,7 @@ package components
 		protected var _position:Point3d = new Point3d();
 		protected var _scale:Point3d = new Point3d();
 		protected var _rotate:Point3d = new Point3d();
-		protected var _widthHeight:Point = new Point();
+		protected var _dimensions:Point = new Point();
 		
 		protected var _worldPosition:Point3d = new Point3d();
 		protected var _worldScale:Point3d = new Point3d();
@@ -104,7 +104,7 @@ package components
 			if ( _owner.parent != null )
 			{
 				// Set world rotation from parent's world rotation
-				var parentRotate:Number = (_owner.parent.getComponent(TRANSFORM_COMPONENT) as TransformComponent).rotate;
+				var parentRotate:Point3d = (_owner.parent.getComponent(TRANSFORM_COMPONENT) as TransformComponent).rotate;
 				_worldRotate = _rotate.add(parentRotate);
 			}
 			
@@ -117,16 +117,16 @@ package components
 		
 		public function get worldRotate():Point3d { return _worldRotate; }
 		
-		public function get widthHeight():Point { return _widthHeight; }
-		public function set widthHeight( value:Point ):void 
+		public function get dimensions():Point { return _dimensions; }
+		public function set dimensions( value:Point ):void 
 		{
 			// Set the width and height
-			_widthHeight = value;
+			_dimensions = value;
 			
 			// Set the render component
 			var renderComponent:RenderComponent = (_owner.getComponent(RENDER_COMPONENT) as RenderComponent);
-			renderComponent.baseclip.width = _widthHeight.x;
-			renderComponent.baseclip.height = _widthHeight.y;
+			renderComponent.baseclip.width = _dimensions.x;
+			renderComponent.baseclip.height = _dimensions.y;
 		}
 	}
 }

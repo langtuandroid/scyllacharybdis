@@ -1,5 +1,6 @@
 package core 
 {
+	import org.casalib.util.ArrayUtil;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -35,20 +36,22 @@ package core
 		protected var _renderables:Array = new Array();
 
 		// Does the scene need to be sorted
-		private var _sortRequired = true;
+		private var _sortRequired:Boolean = true;
 
 		/**
 		* Awake is called at the construction of the object
 		*/
-		public function Awake():void
+		public override function awake():void
 		{
+			
 		}
 		
 		/**
 		* Destroy is called at the removal of the object
 		*/	
-		public function Destroy():void
+		public override function destroy():void
 		{
+			
 		}
 		
 		/** 
@@ -63,7 +66,7 @@ package core
 			_gameObjects[gameObj] = gameObj;
 			
 			// Get renderables from the gameobject
-			AddRenderables( gameObj );
+			addRenderable( gameObj );
 			
 			// Start the game object
 			gameObj.start();
@@ -71,11 +74,11 @@ package core
 		
 		public function updateGameObject( gameObj:GameObject ):void
 		{
-			// Tell the scene its dirty
-			_sortRequired = true;
+			// Remove the old renderable
+			removeRenderable( gameObj );
 			
 			// Get renderables from the gameobject
-			AddRenderables( gameObj );
+			addRenderable( gameObj );
 		}
 		
 		/** 
@@ -83,10 +86,8 @@ package core
 		 */
 		public function removeGameObject( gameObj:GameObject ): void
 		{
-			_sortRequired = true;
-			
 			// Get renderables from the gameobject
-			RemoveRenderables( gameObj );
+			removeRenderable( gameObj );
 
 			// Stop the game object
 			gameObj.stop();
@@ -100,7 +101,7 @@ package core
 		 */
 		public function updateWorld(): void 
 		{
-			for each ( var component:Component in _components[BaseObject.NETWORK_COMPONENT] ) 
+			for each ( var component:BaseObject in _components[BaseObject.NETWORK_COMPONENT] ) 
 			{
 				component.update();
 			}
@@ -140,17 +141,23 @@ package core
 		/** 
 		 * Helper function to get the components off the scripts
 		 */
-		private function AddRenderables( obj:GameObject ) 
+		private function addRenderable( obj:GameObject ):void 
 		{
+			// Tell the scene its dirty
+			_sortRequired = true;
+			
 			// Get the render component
-			var renderable:Component = gameObj.getComponent( BaseObject.RENDER_COMPONENT );
-			_renderables[renderable] = renderable;
+			var renderable:RenderComponent = obj.getComponent( BaseObject.RENDER_COMPONENT );
+			_renderables.push(renderable);
 		}
 		
-		private function RemoveRenderables( obj:GameObject ) 
+		private function removeRenderable( obj:GameObject ):void 
 		{
+			// Tell the scene its dirty
+			_sortRequired = true;
+			
 			// Get the render component
-			var renderable:Component = gameObj.getComponent( BaseObject.RENDER_COMPONENT );
+			var renderable:RenderComponent = obj.getComponent( BaseObject.RENDER_COMPONENT );
 			delete _renderables[renderable];
 		}
 	}

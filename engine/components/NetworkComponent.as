@@ -1,5 +1,7 @@
 package components
 {
+	import com.smartfoxserver.v2.entities.data.ISFSObject;
+	import com.smartfoxserver.v2.entities.data.SFSObject;
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.SmartFox;
 	import com.smartfoxserver.v2.core.SFSEvent;
@@ -9,7 +11,7 @@ package components
 
 	/**
 	 */
-	public class NetworkComponent extends Component
+	public class NetworkComponent extends BaseObject
 	{
 		/****************************************/
 		// Type definition
@@ -23,14 +25,14 @@ package components
 		// Overide function
 		/****************************************/
 
-		public function Awake() 
+		public override function awake():void 
 		{
-			sfs.addEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse)
+			//sfs.addEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse)
 		}
 		
-		public function Destroy() 
+		public override function destroy():void 
 		{
-			sfs.removeEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse)
+			//sfs.removeEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse)
 		}
 		
 		/****************************************/

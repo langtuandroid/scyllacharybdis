@@ -15,8 +15,8 @@
   <classpaths>
     <class path="engine" />
     <class path="examples" />
-    <class path="org" />
     <class path="src" />
+    <class path="util" />
   </classpaths>
   <!-- Build options -->
   <build>

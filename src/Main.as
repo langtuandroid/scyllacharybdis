@@ -10,16 +10,14 @@
 	
 	import components.TransformComponent;
 	
-	import examples.BoardRenderComponent;
-	import examples.BoardScriptComponent;
-	import examples.BoardNetworkComponent;
+	
 	
 	
 	/**
 	 */
 	public class Main extends Sprite 
 	{
-		var _memoryManager:MemoryManager;
+		private var _memoryManager:MemoryManager;
 		
 		public function Main():void 
 		{
@@ -39,12 +37,12 @@
 		
 		private function setupBoard():void
 		{
-			_memoryManager.instantiate(GameObject);
-			
-			GameObject.addComponent(TransformComponent);
-			GameObject.addComponent(BoardRenderComponent);
-			GameObject.addComponent(BoardScriptComponent);
-			GameObject.addComponent(BoardNetworkComponent);
+			//_memoryManager.instantiate(GameObject);
+			//
+			//GameObject.addComponent(TransformComponent);
+			//GameObject.addComponent(BoardRenderComponent);
+			//GameObject.addComponent(BoardScriptComponent);
+			//GameObject.addComponent(BoardNetworkComponent);
 		}
 		
 		private function squaretest():void
