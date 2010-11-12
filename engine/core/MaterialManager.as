@@ -52,14 +52,15 @@ package core
 		// Methods
 		/****************************************/
 		
-		public function getMaterial(name:String):Texture
-		{
-			return _materialList[name];
-		}
-		
 		public function addMaterial( var name:String, var mat:Material ):void
 		{
 			_materialList[name] = mat;
+		}
+
+		public function getMovieClip(name:String, theme:String = "default"):MovieClip
+		{
+			_materialList[name];
+			return _materialList[name].getMaterial(theme);
 		}
 	}
 }
