@@ -43,6 +43,7 @@ package core
 			{
 				// Load the movie clip
 				_materialList[themeName] = new MovieClip();
+				_materialList[themeName].loadMovie(movieClipName);
 			}
 			return _materialList[themeName];
 		}
