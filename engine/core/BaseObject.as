@@ -38,8 +38,9 @@ package core
 		// Variables
 		/****************************************/		
 		protected var _owner:* = null;
-		protected var _components:Dictionary = new Dictionary();
-		protected var _dependencies:Dictionary;
+		protected var _components:Dictionary = new Dictionary(true);
+		protected var _dependencies:Dictionary = new Dictionary(true);
+		protected var _memoryManager:MemoryManager;
 
 		/****************************************/
 		// Construtor and Destructor
@@ -48,7 +49,7 @@ package core
 		/**
 		* Awake is called at the construction of the object
 		*/
-		public function awake( ):void { }
+		public function awake( ):void { _memoryManager = _dependencies[MemoryManager]; }
 		
 		/**
 		* Start is called when the object is added to the scene
@@ -85,7 +86,7 @@ package core
 		 * Return the class dependencies
 		 * @returns [dep1, dep2];
 		 */
-		public static function get dependencyClasses():Array  { return new Array(); }
+		public function get dependencyClasses():Array  { return new Array(); }
 
 		/**
 		 * Set the dependencies
@@ -119,17 +120,11 @@ package core
 				return;
 			}
 			
-			if ( !component is BaseObject )
-			{
-				// Just want to see what happens if I do this
-				throw new Error( "COMPONENTS MUST BE BASE OBJECTS" );
-			}
-
 			// Check to see if there is an old one
 			if ( _components[component.type] != null )
 			{
 				// Remove the old component 
-				removeComponent( component );
+				removeComponentByType( component.type );
 			}
 			
 			// Setup the component
@@ -148,6 +143,11 @@ package core
 		{
 			return _components[type];
 		}
+		
+		public function removeComponentByType( type:String ):void
+		{
+			removeComponent( _components[type] );
+		}
 
 		/**
 		 * Remove a component from the game object
@@ -158,12 +158,6 @@ package core
 			if (component == null)
 			{
 				return;
-			}
-			
-			if ( !component is BaseObject )
-			{
-				// Just want to see what happens if I do this
-				throw new Error( "COMPONENTS MUST BE BASE OBJECTS" );
 			}
 			
 			// Stop the component

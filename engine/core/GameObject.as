@@ -21,16 +21,16 @@ package core
 		 * Return the class dependencies
 		 * @returns [dep1, dep2,etc..];
 		 */
-		public static function get dependencyClasses():Array  
+		public override function get dependencyClasses():Array  
 		{
-			return [SceneGraph, MemoryManager];	
+			var oldDeps:Array = super.dependencyClasses;
+			
+			return oldDeps.concat(new Array( SceneGraph ) );
 		}
 		
 		/****************************************/
 		// Constructors and Allocation 
 		/****************************************/
-		
-		private var _memoryManager:MemoryManager;
 		private var _sceneGraph:SceneGraph;
 		
 		protected var _parent:GameObject = null;
@@ -42,8 +42,9 @@ package core
 		*/
 		public override function awake( ):void
 		{
-			_memoryManager = getDependency(MemoryManager);
-			_sceneGraph = getDependency(SceneGraph);
+			super.awake();
+			
+			_sceneGraph = _dependencies[SceneGraph];
 			
 			// Add itself to the scenegraph
 			_sceneGraph.addGameObject( this );
@@ -68,7 +69,6 @@ package core
 		*/
 		public override function destroy():void		
 		{
-
 			_sceneGraph.removeGameObject( this );
 			
 			// Destroy the children
@@ -146,38 +146,6 @@ package core
 			{
 				_children.splice( index, 1 );
 			}
-		}
-
-		/**
-		 * Add a component to the game object
-		 * @param	component (Class)
-		 */
-		public override function addComponent( component:* ):void 
-		{
-			super.addComponent( component );
-
-			_sceneGraph.updateGameObject( this );
-			
-			// Start the component
-			component.start();
-		}
-
-		/**
-		 * Remove a component from the game object
-		 * @param	component (Class)
-		 */
-		public override function removeComponent( component:* ):void
-		{
-			if ( !(component is BaseObject) )
-			{
-				// Just want to see what happens if I do this
-				throw new Error( "COMPONENTS MUST BE BASE OBJECTS" );
-			}
-			
-			// Stop the component
-			component.stop();
-
-			super.removeComponent( component );
 		}
 	}
 }
