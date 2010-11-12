@@ -88,7 +88,7 @@ package core
 					trace("Unable to load xml");
 				}
 			}
-			book_xml.load("test.xml");
+			_xml.load("scene.xml");
 		}
 		
 		private function parseTree(var sceneName:String):void
