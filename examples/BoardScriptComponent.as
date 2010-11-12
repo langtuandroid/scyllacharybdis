@@ -3,8 +3,8 @@ package
 	import core.MemoryManager;
 	import core.GameObject;
 	import components.ScriptComponent;
-
 	import components.TransformComponent;
+	
 	/**
 	 * ...
 	 * @author ...
@@ -12,12 +12,12 @@ package
 	public class BoardScriptComponent extends ScriptComponent
 	{
 		
-		var whitePieces:Array;
-		var blackPieces:Array;
+		protected var whitePieces:Array;
+		protected var blackPieces:Array;
 		
-		_memoryManager:MemoryManager;
+		protected var _memoryManager:MemoryManager;
 
-		public function Awake() 
+		public override function awake():void 
 		{
 			for ( var i:int = 0; i < 16; i++ ) 
 			{

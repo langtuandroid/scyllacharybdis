@@ -1,5 +1,6 @@
 package  
 {
+	import com.smartfoxserver.v2.entities.data.ISFSObject;
 	import components.NetworkComponent;
 	import com.smartfoxserver.v2.core.SFSEvent;
 	/**
@@ -7,14 +8,14 @@ package
 	public class BoardNetworkComponent  extends NetworkComponent 
 	{
 		
-		public override function awake() 
+		public override function awake():void
 		{
-			sfs.addEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse)
+			//sfs.addEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse)
 		}
 		
-		public override function destroy() 
+		public override function destroy():void
 		{
-			sfs.removeEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse)
+			//sfs.removeEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse)
 		}
 		
 		public override function onExtensionResponse(evt:SFSEvent):void

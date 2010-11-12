@@ -5,10 +5,9 @@ package components
 	import flash.display.MovieClip;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
-	import casalib.math.geom.Point3d;
+	import org.casalib.math.geom.Point3d;
 	
 	import core.BaseObject;	
-	
 	
 	/**
 	 * 
@@ -37,8 +36,8 @@ package components
 		public function set baseclip( value:MovieClip ):void { _baseclip = value; }
 		public function get baseclip():MovieClip { return _baseclip; }
 		
-		// For z-sorting
-		public function get z():Number { return _baseclip.z; }
+		// For sorting
+		public function get comparator():Number { return _baseclip.z; }
 
 		/**
 		 * Add the renderable to the surface
@@ -69,18 +68,18 @@ package components
 			
 			if ( scriptComponent != null )
 			{
-				addEventListener( MouseEvent.CLICK, scriptComponent.onClick);
-				addEventListener( MouseEvent.DOUBLE_CLICK, scriptComponent.onDoubleClick );
-				addEventListener( MouseEvent.MOUSE_DOWN, scriptComponent.onMouseDown );
-				addEventListener( MouseEvent.MOUSE_MOVE, scriptComponent.onMouseMove );
-				addEventListener( MouseEvent.MOUSE_OUT, scriptComponent.onMouseOut );
-				addEventListener( MouseEvent.MOUSE_OVER, scriptComponent.onMouseOver );
-				addEventListener( MouseEvent.MOUSE_UP, scriptComponent.onMouseUp );
-				addEventListener( MouseEvent.MOUSE_WHEEL, scriptComponent.onMouseWheel );
-				addEventListener( MouseEvent.ROLL_OUT, scriptComponent.onRollOut );
-				addEventListener( MouseEvent.ROLL_OVER, scriptComponent.onRollOver );
-				addEventListener( KeyboardEvent.KEY_DOWN, scriptComponent.onKeyDown );
-				addEventListener( KeyboardEvent.KEY_UP, scriptComponent.onKeyUp );
+				_baseclip.addEventListener( MouseEvent.CLICK, scriptComponent.onClick);
+				_baseclip.addEventListener( MouseEvent.DOUBLE_CLICK, scriptComponent.onDoubleClick );
+				_baseclip.addEventListener( MouseEvent.MOUSE_DOWN, scriptComponent.onMouseDown );
+				_baseclip.addEventListener( MouseEvent.MOUSE_MOVE, scriptComponent.onMouseMove );
+				_baseclip.addEventListener( MouseEvent.MOUSE_OUT, scriptComponent.onMouseOut );
+				_baseclip.addEventListener( MouseEvent.MOUSE_OVER, scriptComponent.onMouseOver );
+				_baseclip.addEventListener( MouseEvent.MOUSE_UP, scriptComponent.onMouseUp );
+				_baseclip.addEventListener( MouseEvent.MOUSE_WHEEL, scriptComponent.onMouseWheel );
+				_baseclip.addEventListener( MouseEvent.ROLL_OUT, scriptComponent.onRollOut );
+				_baseclip.addEventListener( MouseEvent.ROLL_OVER, scriptComponent.onRollOver );
+				_baseclip.addEventListener( KeyboardEvent.KEY_DOWN, scriptComponent.onKeyDown );
+				_baseclip.addEventListener( KeyboardEvent.KEY_UP, scriptComponent.onKeyUp );
 			}
 		}
 		
@@ -88,64 +87,64 @@ package components
 		{
 			var scriptComponent:ScriptComponent = _owner.getComponent(SCRIPT_COMPONENT);
 
-			if ( hasEventListener(MouseEvent.CLICK) )
+			if ( _baseclip.hasEventListener(MouseEvent.CLICK) )
 			{
-				removeEventListener( MouseEvent.CLICK, scriptComponent.onClick );
+				_baseclip.removeEventListener( MouseEvent.CLICK, scriptComponent.onClick );
 			}
 			
-			if ( hasEventListener(MouseEvent.DOUBLE_CLICK) )
+			if ( _baseclip.hasEventListener(MouseEvent.DOUBLE_CLICK) )
 			{
-				removeEventListener( MouseEvent.DOUBLE_CLICK, scriptComponent.onDoubleClick );
+				_baseclip.removeEventListener( MouseEvent.DOUBLE_CLICK, scriptComponent.onDoubleClick );
 			}
 			
-			if ( hasEventListener(MouseEvent.MOUSE_DOWN) )
+			if ( _baseclip.hasEventListener(MouseEvent.MOUSE_DOWN) )
 			{
-				removeEventListener( MouseEvent.MOUSE_DOWN, scriptComponent.onMouseDown );
+				_baseclip.removeEventListener( MouseEvent.MOUSE_DOWN, scriptComponent.onMouseDown );
 			}
 			
-			if ( hasEventListener(MouseEvent.MOUSE_MOVE) )
+			if ( _baseclip.hasEventListener(MouseEvent.MOUSE_MOVE) )
 			{
-				removeEventListener( MouseEvent.MOUSE_MOVE, scriptComponent.onMouseMove );
+				_baseclip.removeEventListener( MouseEvent.MOUSE_MOVE, scriptComponent.onMouseMove );
 			}
 			
-			if ( hasEventListener(MouseEvent.MOUSE_OUT) )
+			if ( _baseclip.hasEventListener(MouseEvent.MOUSE_OUT) )
 			{
-				removeEventListener( MouseEvent.MOUSE_OUT, scriptComponent.onMouseOut );
+				_baseclip.removeEventListener( MouseEvent.MOUSE_OUT, scriptComponent.onMouseOut );
 			}
 			
-			if ( hasEventListener(MouseEvent.MOUSE_OVER) )
+			if ( _baseclip.hasEventListener(MouseEvent.MOUSE_OVER) )
 			{
-				removeEventListener( MouseEvent.MOUSE_OVER, scriptComponent.onMouseOver );
+				_baseclip.removeEventListener( MouseEvent.MOUSE_OVER, scriptComponent.onMouseOver );
 			}
 			
-			if ( hasEventListener(MouseEvent.MOUSE_UP) )
+			if ( _baseclip.hasEventListener(MouseEvent.MOUSE_UP) )
 			{
-				removeEventListener( MouseEvent.MOUSE_UP, scriptComponent.onMouseUp );
+				_baseclip.removeEventListener( MouseEvent.MOUSE_UP, scriptComponent.onMouseUp );
 			}
 			
-			if ( hasEventListener(MouseEvent.MOUSE_WHEEL) )
+			if ( _baseclip.hasEventListener(MouseEvent.MOUSE_WHEEL) )
 			{
-				removeEventListener( MouseEvent.MOUSE_WHEEL, scriptComponent.onMouseWheel );
+				_baseclip.removeEventListener( MouseEvent.MOUSE_WHEEL, scriptComponent.onMouseWheel );
 			}
 			
-			if ( hasEventListener(MouseEvent.ROLL_OUT) )
+			if ( _baseclip.hasEventListener(MouseEvent.ROLL_OUT) )
 			{
 				removeEventListener( MouseEvent.ROLL_OUT, scriptComponent.onRollOut );
 			}
 			
-			if ( hasEventListener(MouseEvent.ROLL_OVER) )
+			if ( _baseclip.hasEventListener(MouseEvent.ROLL_OVER) )
 			{
-				removeEventListener( MouseEvent.ROLL_OVER, scriptComponent.onRollOver );
+				_baseclip.removeEventListener( MouseEvent.ROLL_OVER, scriptComponent.onRollOver );
 			}
 			
-			if ( hasEventListener(KeyboardEvent.KEY_DOWN) )
+			if ( _baseclip.hasEventListener(KeyboardEvent.KEY_DOWN) )
 			{
-				removeEventListener( KeyboardEvent.KEY_DOWN, scriptComponent.onKeyDown );
+				_baseclip.removeEventListener( KeyboardEvent.KEY_DOWN, scriptComponent.onKeyDown );
 			}
 			
-			if ( hasEventListener(KeyboardEvent.KEY_UP) )
+			if ( _baseclip.hasEventListener(KeyboardEvent.KEY_UP) )
 			{
-				removeEventListener( KeyboardEvent.KEY_UP, scriptComponent.onKeyUp );
+				_baseclip.removeEventListener( KeyboardEvent.KEY_UP, scriptComponent.onKeyUp );
 			}
 			
 			super.stop();
