@@ -15,8 +15,6 @@ package
 		protected var whitePieces:Array;
 		protected var blackPieces:Array;
 		
-		protected var _memoryManager:MemoryManager;
-
 		public override function awake():void 
 		{
 			for ( var i:int = 0; i < 16; i++ ) 

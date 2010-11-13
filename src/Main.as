@@ -32,6 +32,11 @@
 			
 			_memoryManager.instantiate(TestMaterialLoader);
 			_memoryManager.instantiate(TestSceneLoader);
+			
+			var board:GameObject = _memoryManager.instantiate(GameObject);
+			board.addComponent(BoardRenderComponent);
+			board.addComponent(BoardScriptComponent);
+			board.addComponent(BoardNetworkComponent);
 		}
 		
 		private function init(e:Event = null):void 
