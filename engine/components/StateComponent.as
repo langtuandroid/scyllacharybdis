@@ -2,11 +2,11 @@ package components
 {
 	import flash.utils.Dictionary;
 
-	import core.BaseObject;	
+	import components.Component;	
 
 	/**
 	 */
-	public class StateComponent extends BaseObject
+	public class StateComponent extends Component
 	{
 		/****************************************/
 		// Type definition

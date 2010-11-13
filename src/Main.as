@@ -30,13 +30,13 @@
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
 			
-			_memoryManager.instantiate(TestMaterialLoader);
-			_memoryManager.instantiate(TestSceneLoader);
+			//_memoryManager.instantiate(TestMaterialLoader);
+			//_memoryManager.instantiate(TestSceneLoader);
 			
-			var board:GameObject = _memoryManager.instantiate(GameObject);
-			board.addComponent(BoardRenderComponent);
-			board.addComponent(BoardScriptComponent);
-			board.addComponent(BoardNetworkComponent);
+			//var board:GameObject = _memoryManager.instantiate(GameObject);
+			//board.addComponent(BoardRenderComponent);
+			//board.addComponent(BoardScriptComponent);
+			//board.addComponent(BoardNetworkComponent);
 		}
 		
 		private function init(e:Event = null):void 
@@ -45,9 +45,9 @@
 			// entry point
 			
 			_memoryManager = new MemoryManager();
-			_sceneGraph = _memoryManager.instantiate(SceneGraph);
+			_sceneGraph = MemoryManager.instantiate(SceneGraph);
 			
-			_square = _memoryManager.instantiate( Square );
+			_square = MemoryManager.instantiate( Square );
 			
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
 		}

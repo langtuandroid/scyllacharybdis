@@ -1,45 +1,41 @@
 package core 
 {
 	import flash.utils.Dictionary;
-	import flash.utils.getQualifiedClassName;
-	import flash.utils.getDefinitionByName;
-	
-	import core.BaseObject;
 	
 	/**
 	 * MemoryManager
 	 */
-	public class MemoryManager extends BaseObject 
+	public class MemoryManager
 	{
 		// Create the object lists
-		private var _baseObjects:Dictionary = new Dictionary();
-		private var _singletonList:Dictionary = new Dictionary();
-		private var _objectCounters:Dictionary = new Dictionary();
+		private static var _baseObjects:Dictionary = new Dictionary(true);
+		private static var _singletonList:Dictionary = new Dictionary(true);
+		private static var _objectCounters:Dictionary = new Dictionary(true);
 		
 		/**
 		* Instantiate an object
 		* @param type (Class) The type of object to create
 		*/
-		public function instantiate( type:Class ):*
+		public static function instantiate( type:Class, dependencies:Array = null ):*
 		{
 			// Declare the object variable
 			var obj:* = getObject(type);
 			
-			// Create the dependencies
-			var depMap:Dictionary = new Dictionary();
-			
-			// Add the memory manager to the list
-			depMap[MemoryManager] = this;
-			
-			// Loop through all the dependencies
-			for each ( var dep:Class in obj.dependencyClasses ) 
+			if ( dependencies != null )
 			{
-				// Add the deps to a dictionary
-				depMap[dep] = this.instantiate(dep);
+				// Create the dependencies
+				var depMap:Dictionary = new Dictionary();
+				
+				// Loop through all the dependencies
+				for each ( var dep:Class in dependencies ) 
+				{
+					// Add the deps to a dictionary
+					depMap[dep] = instantiate(dep);
+				}
+				
+				// Inject the dependencies
+				obj.dependencyObjects = depMap;
 			}
-			
-			// Inject the dependencies
-			obj.dependencyObjects = depMap;
 			
 			// Increase the debugging counter
 			incrementCounter(type);
@@ -55,20 +51,17 @@ package core
 		 * Destroy the scene object 
 		 * @param object (SceneObject) The scene object to be destroyed
 		 */
-		public function destroyObject( obj:* ): void 
+		public static function destroyObject( obj:* ): void 
 		{
-			// Get the class details
-			var details:* = BaseObject(getDefinitionByName(getQualifiedClassName(obj) ));
-			
 			// Check to see if its a singleton
-			if ( details.scope == BaseObject.SINGLETON_OBJECT )  
+			if ( (Object( obj ).constructor as Class).scope == BaseObject.SINGLETON_OBJECT )  
 			{
 				trace("Can't delete a singleton");
 				return;
 			}
 
 			// Reduce the debugging counter
-			decrementCounter( details );
+			decrementCounter( Object( obj ).constructor as Class );
 
 			// Let the object run its own destroy methods
 			obj.destroy();
@@ -82,7 +75,7 @@ package core
 		 * @param type (Class) The class type
 		 * @return int 
 		 */
-		public function getObjectCount(type:Class):int
+		public static function getObjectCount(type:Class):int
 		{
 			return _objectCounters[type];
 		}		
@@ -92,7 +85,7 @@ package core
 		 * @param type (Class) Type of object to get
 		 * @return object
 		 */
-		private function getObject(type:Class):* 
+		private static function getObject(type:Class):* 
 		{
 			var obj:*;
 			
@@ -130,7 +123,7 @@ package core
 		 * Debugging Helper Function
 		 * @param type (BaseObject) The created object
 		 */
-		private function incrementCounter(type:Class):void
+		private static function incrementCounter(type:Class):void
 		{
 			if ( type.scope == BaseObject.SINGLETON_OBJECT ) 
 			{
@@ -150,7 +143,7 @@ package core
 		 * Debugging Helper Function
 		 * @param type (BaseObject) The destroyed object
 		 */
-		private function decrementCounter(type:Class):void
+		private static function decrementCounter(type:Class):void
 		{
 			if ( type.scope == BaseObject.SINGLETON_OBJECT ) 
 			{

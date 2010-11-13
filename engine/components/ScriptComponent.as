@@ -4,11 +4,11 @@ package components
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 
-	import core.BaseObject;	
+	import components.Component;	
 
 	/**
 	 */
-	public class ScriptComponent extends BaseObject
+	public class ScriptComponent extends Component
 	{
 		/****************************************/
 		// Type definition

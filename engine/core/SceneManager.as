@@ -100,7 +100,7 @@ package core
 					trace("Unable to load xml");
 				}
 			}
-			_xml.load("scene.xml");
+			//_xml.load("scene.xml");
 		}
 		
 		/**
