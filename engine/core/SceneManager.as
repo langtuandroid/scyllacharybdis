@@ -7,25 +7,10 @@ package core
 	import core.BaseObject
 	import core.MemoryManager;
 
+	[Singleton]
 	public class SceneManager extends BaseObject
 	{
-		/****************************************/
-		// Dependency Information
-		/****************************************/
-		
-		/**
-		 * Return the class scope
-		 */
-		public static function get scope():int { return SINGLETON_OBJECT };		
-		
-		/**
-		 * Return the class dependencies
-		 */
-		public static function get dependencies():Array  
-		{
-			return null;
-		}
-		
+	
 		/****************************************/
 		// Constructors and Allocation 
 		/****************************************/

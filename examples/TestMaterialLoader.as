@@ -3,29 +3,11 @@ package
 	import core.BaseObject;
 	import core.MaterialManager;
 
-	/**
-	 */
+	[Singleton]
+	[Requirements (MaterialManager)]
 	public class TestMaterialLoader extends BaseObject
 	{
-		
 
-		/****************************************/
-		// Dependency Information
-		/****************************************/
-		
-		/**
-		 * Return the class scope
-		 */
-		public static function get scope():int { return SINGLETON_OBJECT };		
-		
-		/**
-		 * Return the class dependencies
-		 */
-		public static function get dependencies():Array  
-		{
-			return [MaterialManager];
-		}
-		
 		/****************************************/
 		// Constructors and Allocation 
 		/****************************************/			

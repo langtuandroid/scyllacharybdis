@@ -5,10 +5,7 @@ package
 	import components.ScriptComponent;
 	import components.TransformComponent;
 	
-	/**
-	 * ...
-	 * @author ...
-	 */
+	[Component (ScriptComponent)]
 	public class BoardScriptComponent extends ScriptComponent
 	{
 		

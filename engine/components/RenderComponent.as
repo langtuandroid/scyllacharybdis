@@ -8,26 +8,10 @@ package components
 	import org.casalib.math.geom.Point3d;
 	
 	import core.BaseObject;	
-	
-	/**
-	 * 
-	 */
+
+	[Component (RenderComponent)]
 	public class RenderComponent extends BaseObject
 	{
-		/****************************************/
-		// Type definition
-		/****************************************/
-		public override function get type():String 
-		{
-			return RENDER_COMPONENT;
-		}				
-		
-		
-		/****************************************/
-		// Overide function
-		/****************************************/
-		
-		
 		/****************************************/
 		// Class specific
 		/****************************************/

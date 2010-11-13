@@ -3,8 +3,8 @@ package
 	import com.smartfoxserver.v2.entities.data.ISFSObject;
 	import components.NetworkComponent;
 	import com.smartfoxserver.v2.core.SFSEvent;
-	/**
-	 */
+
+	[Component (NetworkComponent)]
 	public class BoardNetworkComponent  extends NetworkComponent 
 	{
 		

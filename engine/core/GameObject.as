@@ -9,25 +9,10 @@ package core
 	import core.MemoryManager;
 	import core.BaseObject;
 	
-	/**
-	 */
+	[Requirements (SceneGraph)]
 	public class GameObject extends BaseObject
 	{
-		/****************************************/
-		// Dependency Information
-		/****************************************/
 
-		/**
-		 * Return the class dependencies
-		 * @returns [dep1, dep2,etc..];
-		 */
-		public override function get dependencyClasses():Array  
-		{
-			var oldDeps:Array = super.dependencyClasses;
-			
-			return oldDeps.concat(new Array( SceneGraph ) );
-		}
-		
 		/****************************************/
 		// Constructors and Allocation 
 		/****************************************/
@@ -44,7 +29,7 @@ package core
 		{
 			super.awake();
 			
-			_sceneGraph = _dependencies[SceneGraph];
+			_sceneGraph = getDependency(SceneGraph);
 			
 			// Add itself to the scenegraph
 			_sceneGraph.addGameObject( this );

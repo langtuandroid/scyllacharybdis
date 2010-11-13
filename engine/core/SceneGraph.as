@@ -11,20 +11,10 @@ package core
 	import core.GameObject;
 	import components.RenderComponent
 	
-	/**
-	 */
+	[Singleton]
 	public class SceneGraph extends BaseObject
 	{
-		/****************************************/
-		// Dependency Information
-		/****************************************/
-
-		/**
-		 * Return the class scope
-		 */
-		public static function get scope():int { return SINGLETON_OBJECT };		
-
-		
+	
 		/****************************************/
 		// Constructors and Allocation 
 		/****************************************/

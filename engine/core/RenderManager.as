@@ -4,8 +4,8 @@ package core
 
 	import core.BaseObject;	
 	
-	/**
-	 */
+	[Singleton]
+	[Requirements (SceneGraph)]
 	public class RenderManager extends BaseObject
 	{
 		/****************************************/
