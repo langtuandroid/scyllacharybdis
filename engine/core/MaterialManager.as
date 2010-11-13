@@ -69,14 +69,22 @@ package core
 		}
 
 		/**
+		 * Get the material
+		 * @param	name (String) Material name
+		 */
+		public function getMaterial( name:String ):Material
+		{
+			return _materialList[name];
+		}
+		
+		/**
 		 * Get the movie clip from the material
 		 * @param	name (String) a unique name for the material
 		 * @param	theme (String) the theme you want to use
-		 * @return Move
+		 * @return MovieClip
 		 */
 		public function getMovieClip(name:String, theme:String = "default"):MovieClip
 		{
-			_materialList[name];
 			return _materialList[name].getMaterial(theme);
 		}
 		
