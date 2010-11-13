@@ -17,7 +17,7 @@ package core
 		/**
 		 * Return the class scope
 		 */
-		public static function get scope():int { base.SINGLETON_OBJECT };
+		public static function get scope():int { return SINGLETON_OBJECT };		
 		
 		/**
 		 * Return the class dependencies
@@ -46,10 +46,7 @@ package core
 		public override function destroy():void 
 		{
 			// Should do a better job cleaning this up
-			delete _xml;
 			_xml = null;
-
-			delete _materialList;
 			_materialList = null;
 		}	
 
@@ -62,7 +59,7 @@ package core
 		 * @param	name (String) a unique name for the material
 		 * @param	mat  (Material) the material object
 		 */
-		public function addMaterial( var name:String, var mat:Material ):void
+		public function addMaterial( name:String, mat:Material ):void
 		{
 			if ( _materialList[name] != null ) {
 				trace("Name already taken");
@@ -77,34 +74,38 @@ package core
 		 * @param	theme (String) the theme you want to use
 		 * @return Move
 		 */
-		public function getMovieClip(name:String, theme:String = "default"):movieClip
+		public function getMovieClip(name:String, theme:String = "default"):MovieClip
 		{
 			_materialList[name];
 			return _materialList[name].getMaterial(theme);
 		}
 		
-		private function loadMaterials()
+		/**
+		 * Load the xml material database
+		 */
+		public function loadMaterials():void
 		{
 			// Define a callback method
-			_xml.onLoad = function(success) {
-			if (success) 
+			_xml.onLoad = function(success:Boolean):void
 			{
-				// Parse the xml tree
-				parseTree();
+				if (success) 
+				{
+					// Parse the xml tree
+					parseTree();
+				}
+				// Load the materials
+				_xml.load("materials.xml");
 			}
-			
-			// Load the materials
-			_xml.load("materials.xml");
-		}
 		}
 		
-		private function parseTree()
+		private function parseTree():void
 		{
 			// Loop through the materials
-			for each ( var material:XML in materials.material ) 
+			var materials:XMLList = materials.material;
+			for each ( var material:XML in materials ) 
 			{
 				// Create a new material ( should use memory manager )
-				var mat:Material = new Material();
+				var mat:Material = _memoryManager.instantiate(Material);
 				
 				// Get the name off the material
 				var materialName:String = material.attribute("name");
@@ -114,7 +115,7 @@ package core
 				{
 					var themeName:String = theme.attribute("name");
 					var movieClip:String = theme.movieClip.attribute("name");
-					mat.setTexture(movieClip, themeName);
+					mat.addTexture(movieClip, themeName);
 				}
 				
 				// Add the material to the list

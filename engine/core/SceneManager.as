@@ -1,9 +1,11 @@
 package core 
 {
 	import flash.utils.Dictionary;
-	import core.BaseObject
 	import XML;
 	import flash.utils.getQualifiedClassName;
+	
+	import core.BaseObject
+	import core.MemoryManager;
 
 	public class SceneManager extends BaseObject
 	{
@@ -14,7 +16,7 @@ package core
 		/**
 		 * Return the class scope
 		 */
-		public static function get scope():int { base.SINGLETON_OBJECT };
+		public static function get scope():int { return SINGLETON_OBJECT };		
 		
 		/**
 		 * Return the class dependencies
@@ -30,8 +32,7 @@ package core
 		
 		private var _sceneList:Dictionary = new Dictionary;
 		private var _currentScene:String = "default";
-		
-		private var _xml:XML = new XML();
+		private var _xml:XML;
 		
 		/**
 		* Awake is called at the construction of the object
@@ -39,46 +40,57 @@ package core
 		public override function awake( ):void
 		{
 			_sceneList = new Dictionary;
-			_rootNode = new GameObject();
 			_currentScene = "default";		
 			
 			_xml = new XML();
 			_xml.ignoreWhite=true;
 		}
 		
+		/**
+		* Destroy is called at the destruction of the object
+		*/
 		public override function destroy():void 
 		{
 			_sceneList = null;
-			_rootNode = null;
 			_currentScene = null;
-
-			delete _sceneList;
-			delete _xml;
 		}	
 
 		/****************************************/
 		// Methods
 		/****************************************/
 		
-		public function getSceneRoot():GameObject
+		/**
+		 * Get the root game object
+		 * @return
+		 */
+		public function getRootObject():GameObject
 		{
 			return _sceneList[_currentScene];
 		}
 		
-		public function setSceneRoot( var name:String ):GameObject
+		/**
+		 * Set the root scene object
+		 * @param	var name (String) Name of the scene object
+		 */
+		public function setRootObject( name:String ):GameObject
 		{
 			_sceneList[_currentScene].disable();
 			_currentScene = name;
-			return getSceneRoot();
+			return getRootObject();
 		}
 		
 		/****************************************/
 		// XML crap.. might be interesting
 		/****************************************/
 		
-		public function loadScene(var sceneName:String) 		
+		/**
+		 * Load scene xml database
+		 * @param	var sceneName (String) name of the scene
+		 */
+		public function loadScene(sceneName:String):void	
 		{
-			_xml.onLoad = function(success) {
+			_xml.onLoad = function(success:Boolean):void 
+			{
 				if (success) 
 				{
 					parseTree(sceneName);
@@ -91,18 +103,24 @@ package core
 			_xml.load("scene.xml");
 		}
 		
-		private function parseTree(var sceneName:String):void
+		/**
+		 * XML tree parser
+		 * @param	var sceneName
+		 */
+		private function parseTree(sceneName:String):void
 		{
 			// Set the scene
-			setSceneRoot(sceneName);
+			setRootObject(sceneName);
 			
-			for each ( var scene:XML in scenes.scene.(@name == sceneName) )
+			var scenes:XMLList = scenes.scene.(@name == sceneName);
+			for each ( var scene:XML in scenes )
 			{
-				for each ( var gameObject:XML in scene.gameObject )
+				var gameObjects:XMLList = scene.gameObject;
+				for each ( var gameObject:XML in gameObjects )
 				{
-					var child:GameObject = _memoryManager.Instanciate(GameObject);
+					var child:GameObject = _memoryManager.instantiate(GameObject);
 					
-					var name = gameObject.attribute("name");
+					var objName:String = gameObject.attribute("name");
 					var x:Number = gameObject.position.attribute("x");
 					var y:Number = gameObject.position.attribute("y");
 					var z:Number = gameObject.position.attribute("z");
@@ -118,7 +136,7 @@ package core
 						child.addComponent( getQualifiedClassName(objClass) );
 					}
 
-					getSceneRoot.addChild( child );
+					getRootObject().addChild( child );
 				}
 			}
 		}
