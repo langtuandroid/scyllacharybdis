@@ -1,73 +1,87 @@
 package core 
 {
 	import flash.utils.Dictionary;
-	
-	/**
-	 * MemoryManager
-	 */
-	public class MemoryManager
+	import flash.utils.getQualifiedClassName;
+	import flash.utils.getDefinitionByName;
+	import flash.utils.describeType;
+
+	import core.BaseObject;
+	import core.AllocationDetails;
+
+	[Singleton]
+	public class MemoryManager extends BaseObject 
 	{
-		// Create the object lists
-		private static var _baseObjects:Dictionary = new Dictionary(true);
-		private static var _singletonList:Dictionary = new Dictionary(true);
-		private static var _objectCounters:Dictionary = new Dictionary(true);
+		private var _allocations:Dictionary = new Dictionary();
+
+		public function MemoryManager()
+		{
+			// Adding itself to the list
+			setupAllocationDetails(MemoryManager);
+			_allocations[MemoryManager].object = this;
+		}
 		
 		/**
 		* Instantiate an object
 		* @param type (Class) The type of object to create
 		*/
-		public static function instantiate( type:Class, dependencies:Array = null ):*
+		public function instantiate( type:Class ):*
 		{
-			// Declare the object variable
-			var obj:* = getObject(type);
+			// Setup all the details but don't init anything
+			setupAllocationDetails(type);
 			
-			if ( dependencies != null )
+			if ( _allocations[type].singleton == true ) {
+				
+				if ( _allocations[type].object != null ) {
+					
+					// Return the current object
+					return _allocations[type].object;
+				} 
+			}
+
+			// Allocate the object
+			_allocations[type].object = new type();
+			
+			// Setup its dependencies
+			setupDependencies( _allocations[type] );
+			
+			// Set the component type if there is one
+			if ( _allocations[type].componentType != null ) 
 			{
-				// Create the dependencies
-				var depMap:Dictionary = new Dictionary();
-				
-				// Loop through all the dependencies
-				for each ( var dep:Class in dependencies ) 
-				{
-					// Add the deps to a dictionary
-					depMap[dep] = instantiate(dep);
-				}
-				
-				// Inject the dependencies
-				obj.dependencyObjects = depMap;
+				_allocations[type].object.setType(_allocations[type].componentType);
 			}
 			
 			// Increase the debugging counter
-			incrementCounter(type);
+			incrementCounter( _allocations[type] );
 			
 			// Awaken the object
-			obj.awake();
+			_allocations[type].object.awake();
 			
 			// Return the object
-			return obj;
+			return _allocations[type].object;
 		}
 		
 		/**
 		 * Destroy the scene object 
 		 * @param object (SceneObject) The scene object to be destroyed
 		 */
-		public static function destroyObject( obj:* ): void 
+		public function destroyObject( obj:* ): void 
 		{
-			// Check to see if its a singleton
-			if ( (Object( obj ).constructor as Class).scope == BaseObject.SINGLETON_OBJECT )  
+			if ( _allocations[getQualifiedClassName(obj)].singleton == true ) 
 			{
-				trace("Can't delete a singleton");
+				trace("You can't destory a singleton");
 				return;
 			}
-
-			// Reduce the debugging counter
-			decrementCounter( Object( obj ).constructor as Class );
-
-			// Let the object run its own destroy methods
+			
+			// Run its destructor
 			obj.destroy();
 			
-			// Remove the object from the list
-			delete _baseObjects[obj];
+			var alloc:AllocationDetails = _allocations[getQualifiedClassName(obj)];
+
+			// Reduce the debugging counter
+			decrementCounter( alloc );
+			
+			// Set the object to null
+			alloc.object = null;
 		}
 		
 		/**
@@ -75,87 +89,85 @@ package core
 		 * @param type (Class) The class type
 		 * @return int 
 		 */
-		public static function getObjectCount(type:Class):int
+		public function getObjectCount(type:Class):int
 		{
-			return _objectCounters[type];
-		}		
-		
-		/**
-		 * Get object helper function
-		 * @param type (Class) Type of object to get
-		 * @return object
-		 */
-		private static function getObject(type:Class):* 
-		{
-			var obj:*;
-			
-			if ( type.scope == BaseObject.SINGLETON_OBJECT ) 
-			{ 
-				// if there isn't an instance of the singleton
-				if ( _singletonList[type] == null ) 
-				{
-					// Create the singleton
-					_singletonList[type] = new type();
-					
-					// Add it to the base objects list
-					_baseObjects[_singletonList[type]] = _singletonList[type];
-				}
-				
-				// Set the object
-				obj = _singletonList[type];
-				
-				// Return the object
-				return obj;
-			}
-			else
-			{
-				// Create the object
-				obj = new type();
-				
-				// Add the object to the base objects list
-				_baseObjects[obj] = obj;
-				
-				return obj;
-			}
-		}
+			return _allocations[type].getCounter();
+		}	
 		
 		/**
 		 * Debugging Helper Function
 		 * @param type (BaseObject) The created object
 		 */
-		private static function incrementCounter(type:Class):void
+		private function incrementCounter( alloc:AllocationDetails ):void
 		{
-			if ( type.scope == BaseObject.SINGLETON_OBJECT ) 
-			{
-				_objectCounters[type] = 1;
-				return;
-			}
-			
-			if ( ! _objectCounters[type] ) 
-			{
-				_objectCounters[type] = 0;
-			}
-			
-			_objectCounters[type]++;
+			alloc.incrementCounter();
 		}
 		
 		/**
 		 * Debugging Helper Function
 		 * @param type (BaseObject) The destroyed object
 		 */
-		private static function decrementCounter(type:Class):void
+		private function decrementCounter( alloc:AllocationDetails ):void
 		{
-			if ( type.scope == BaseObject.SINGLETON_OBJECT ) 
-			{
+			alloc.decrementCounter();
+		}
+		
+		
+		private function setupAllocationDetails(type:Class):void
+		{
+			// Has it already been setup
+			if ( _allocations[type] ) {
 				return;
 			}
+			_allocations[type] = new AllocationDetails();
 			
-			_objectCounters[type]--;
-			if ( _objectCounters[type] < 0 )
+			var typeInfo:XML = describeType(type);
+
+			var metaData:XMLList = typeInfo..metadata;
+			
+			for each ( var value:XML in metaData )
 			{
-				_objectCounters[type] == 0;
-			}
+				// Is it a singleton
+				if (value.attribute("name") == "Singleton" ) {
+					_allocations[type].singleton = true;
+				}
+				
+				// Get the requirements
+				if (value.attribute("name") == "Requires" ) 
+				{
+					var list:Array = new Array();
+					for each ( var req:XML in value.arg ) 
+					{
+						list.push(req.attribute("value"));
+					}
+					_allocations[type].requirements = list;
+				}
+				
+				// Get the component type
+				if (value.attribute("name") == "Component" ) 
+				{
+					for each ( var com:XML in value.arg ) 
+					{
+						_allocations[type].componentType = getQualifiedClassName(com.attribute("value"));
+					}
+				}				
+			}			
 		}
+		
+		private function setupDependencies( alloc:AllocationDetails ):void
+		{
+			var depList:Dictionary = new Dictionary();
+			
+			// Loop through all the dependencies
+			for each ( var dep:Class in alloc.requirements ) 
+			{
+				// Add the deps to a dictionary
+				depList[dep] = this.instantiate(dep);
+			}
+			
+			alloc.object.setDependencies( depList );
+		}
+
 	}
 }
 

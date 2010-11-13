@@ -1,5 +1,6 @@
 package core 
 {
+	import flash.display.DisplayObject;
 	import org.casalib.util.ArrayUtil;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
@@ -11,20 +12,10 @@ package core
 	import core.GameObject;
 	import components.RenderComponent
 	
-	/**
-	 */
+	[Singleton]
 	public class SceneGraph extends BaseObject
 	{
-		/****************************************/
-		// Dependency Information
-		/****************************************/
-
-		/**
-		 * Return the class scope
-		 */
-		public static function get scope():int { return SINGLETON_OBJECT };		
-
-		
+	
 		/****************************************/
 		// Constructors and Allocation 
 		/****************************************/
@@ -97,24 +88,6 @@ package core
 
 		
 		/**
-		 * Updates all the components in the world
-		 */
-		public function updateWorld(): void 
-		{
-			for each ( var component:BaseObject in _components[BaseObject.NETWORK_COMPONENT] ) 
-			{
-				component.update();
-			}
-			
-			for each ( component in _components[BaseObject.STATE_COMPONENT] ) 
-			{
-				component.update();
-			}
-			
-			//renderWorld();
-		}
-		
-		/**
 		 * Get Renderables 
 		 */
 		public function renderWorld( surface:DisplayObjectContainer ):void
@@ -147,7 +120,7 @@ package core
 			_sortRequired = true;
 			
 			// Get the render component
-			var renderable:RenderComponent = obj.getComponent( BaseObject.RENDER_COMPONENT );
+			var renderable:RenderComponent = obj.getComponent(RenderComponent);
 			
 			if ( renderable != null )
 			{

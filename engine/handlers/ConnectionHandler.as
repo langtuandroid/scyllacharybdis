@@ -6,19 +6,9 @@ package handlers
 	import core.NetworkManager;
 	import core.BaseObject;	
 	
-	/**
-	 */
+	[Component (NetworkComponent)]
 	public class ConnectionHandler extends BaseObject
 	{
-		
-		/****************************************/
-		// Type definition
-		/****************************************/
-		public override function get type():String 
-		{
-			return CONNECTION_HANDLER;
-		}
-		
 		/****************************************/
 		// Overide function
 		/****************************************/

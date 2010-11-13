@@ -3,10 +3,8 @@ package
 	import components.RenderComponent;
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
-	/**
-	 * ...
-	 * @author Daniel Lamb
-	 */
+
+	[Component (RenderComponent)]
 	public class SquareRenderComponent extends RenderComponent
 	{
 		public function SquareRenderComponent( ) 

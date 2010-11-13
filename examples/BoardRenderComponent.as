@@ -4,26 +4,10 @@ package
 	import core.Material;
 	import core.MaterialManager;
 
+	[Component (RenderComponent)]
+	[Requirements (MaterialManager)]
 	public class BoardRenderComponent extends RenderComponent
 	{
-		
-		/****************************************/
-		// Dependency Information
-		/****************************************/
-		
-		/**
-		 * Return the class scope
-		 */
-		public static function get scope():int { return NEW_OBJECT };		
-		
-		/**
-		 * Return the class dependencies
-		 */
-		public static function get dependencies():Array  
-		{
-			return [MaterialManager];
-		}
-		
 		/****************************************/
 		// Constructors and Allocation 
 		/****************************************/

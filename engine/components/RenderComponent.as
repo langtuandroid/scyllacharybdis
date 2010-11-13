@@ -7,27 +7,11 @@ package components
 	import flash.events.MouseEvent;
 	import org.casalib.math.geom.Point3d;
 	
-	import components.Component;	
-	
-	/**
-	 * 
-	 */
-	public class RenderComponent extends Component
+	import core.BaseObject;	
+
+	[Component (RenderComponent)]
+	public class RenderComponent extends BaseObject
 	{
-		/****************************************/
-		// Type definition
-		/****************************************/
-		public override function get type():String 
-		{
-			return RENDER_COMPONENT;
-		}				
-		
-		
-		/****************************************/
-		// Overide function
-		/****************************************/
-		
-		
 		/****************************************/
 		// Class specific
 		/****************************************/
@@ -74,7 +58,7 @@ package components
 		{
 			super.start();
 			
-			var scriptComponent:ScriptComponent = _owner.getComponent(SCRIPT_COMPONENT);
+			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
 			
 			if ( scriptComponent != null )
 			{
@@ -95,7 +79,7 @@ package components
 		
 		public override function stop():void
 		{
-			var scriptComponent:ScriptComponent = _owner.getComponent(SCRIPT_COMPONENT);
+			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
 			
 			if ( scriptComponent != null )
 			{

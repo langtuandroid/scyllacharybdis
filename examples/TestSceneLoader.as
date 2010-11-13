@@ -3,27 +3,10 @@ package
 	import core.BaseObject;
 	import core.SceneManager
 	
-	/**
-	 */
+	[Singleton]
+	[Requirements (SceneManager)]
 	public class TestSceneLoader extends  BaseObject
 	{
-		/****************************************/
-		// Dependency Information
-		/****************************************/
-		
-		/**
-		 * Return the class scope
-		 */
-		public static function get scope():int { return SINGLETON_OBJECT };		
-		
-		/**
-		 * Return the class dependencies
-		 */
-		public static function get dependencies():Array  
-		{
-			return [SceneManager];
-		}
-		
 		/****************************************/
 		// Constructors and Allocation 
 		/****************************************/			

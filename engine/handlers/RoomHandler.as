@@ -6,19 +6,9 @@ package handlers
 	import core.BaseObject;	
 
 
-	/**
-	*/
+	[Component (NetworkComponent)]
 	public class RoomHandler extends BaseObject
 	{
-
-		/****************************************/
-		// Type definition
-		/****************************************/
-		public override function get type():String 
-		{
-			return ROOM_HANDLER;
-		}
-		
 		/**
 		* Awake is called at the construction of the object
 		* Register all the listeners

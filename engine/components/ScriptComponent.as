@@ -4,33 +4,13 @@ package components
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 
-	import components.Component;	
+	import core.BaseObject;	
 
 	/**
 	 */
-	public class ScriptComponent extends Component
+	[Component (ScriptComponent)]
+	public class ScriptComponent extends BaseObject
 	{
-		/****************************************/
-		// Type definition
-		/****************************************/
-		public override function get type():String 
-		{
-			return SCRIPT_COMPONENT; 
-		}		
-		
-		
-		/****************************************/
-		// Overide function
-		/****************************************/
-		
-		
-		/****************************************/
-		// Class specific
-		/****************************************/
-
-		/****************************************/
-		// Event Handlers
-		/****************************************/
 		/*
 		 * Handler functions for the keyboard and mouse events
 		 */

@@ -9,26 +9,14 @@ package core
 	import core.MemoryManager;
 	import core.BaseObject;
 	
-	/**
-	 */
-	public final class GameObject extends BaseObject
+	[Requirements (MemoryManager, SceneGraph)]
+	public class GameObject extends BaseObject
 	{
-		/****************************************/
-		// Dependency Information
-		/****************************************/
 
-		/**
-		 * Return the class dependencies
-		 * @returns [dep1, dep2,etc..];
-		 */
-		public static function get dependencies():Array  
-		{
-			return new Array( SceneGraph );
-		}
-		
 		/****************************************/
 		// Constructors and Allocation 
 		/****************************************/
+		private var _memoryManager:MemoryManager;
 		private var _sceneGraph:SceneGraph;
 		
 		protected var _parent:GameObject = null;
@@ -42,10 +30,8 @@ package core
 		{
 			super.awake();
 			
-			_sceneGraph = _dependencies[SceneGraph];
-			
-			// Add itself to the scenegraph
-			_sceneGraph.addGameObject( this );
+			_memoryManager = getDependency(MemoryManager);
+			_sceneGraph = getDependency(SceneGraph);
 		}
 
 		/**
@@ -72,15 +58,16 @@ package core
 			// Destroy the children
 			for each ( var gameObj:GameObject in _children )
 			{
-				MemoryManager.destroyObject( gameObj );
+				_memoryManager.destroyObject( gameObj );
 			}
 			
 			// Destroy the components
-			for each ( var component:BaseObject in _components )
+			for each ( var component:BaseObject in components )
 			{
-				MemoryManager.destroyObject( component );
+				_memoryManager.destroyObject( component );
 			}
 			
+			_memoryManager = null;
 			_sceneGraph = null;
 			
 			super.destroy();

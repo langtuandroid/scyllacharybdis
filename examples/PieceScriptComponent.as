@@ -1,10 +1,8 @@
 package  
 {
 	import components.ScriptComponent;
-	/**
-	 * ...
-	 * @author ...
-	 */
+
+	[Component (ScriptComponent)]
 	public class PieceScriptComponent extends ScriptComponent
 	{
 		/****************************************/

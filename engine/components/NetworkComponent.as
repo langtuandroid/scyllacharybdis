@@ -7,20 +7,11 @@ package components
 	import com.smartfoxserver.v2.core.SFSEvent;
 	
 	import core.NetworkManager;
-	import components.Component;	
+	import core.BaseObject;	
 
-	/**
-	 */
-	public class NetworkComponent extends Component
+	[Component (NetworkComponent)]
+	public class NetworkComponent extends BaseObject
 	{
-		/****************************************/
-		// Type definition
-		/****************************************/
-		public override function get type():String 
-		{
-			return NETWORK_COMPONENT;
-		}
-
 		/****************************************/
 		// Overide function
 		/****************************************/
