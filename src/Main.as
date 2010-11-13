@@ -1,5 +1,7 @@
 ﻿package 
 {
+	import TestMetaTags;
+	import flash.utils.describeType;
 	import core.BaseObject;
 	import core.SceneGraph;
 	import flash.display.MovieClip;
@@ -29,14 +31,40 @@
 			
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
+
+			getMetaTag();
 			
-			_memoryManager.instantiate(TestMaterialLoader);
-			_memoryManager.instantiate(TestSceneLoader);
+			//_memoryManager.instantiate(TestMaterialLoader);
+			//_memoryManager.instantiate(TestSceneLoader);
 			
-			var board:GameObject = _memoryManager.instantiate(GameObject);
-			board.addComponent(BoardRenderComponent);
-			board.addComponent(BoardScriptComponent);
-			board.addComponent(BoardNetworkComponent);
+			//var board:GameObject = _memoryManager.instantiate(GameObject);
+			//board.addComponent(BoardRenderComponent);
+			//board.addComponent(BoardScriptComponent);
+			//board.addComponent(BoardNetworkComponent);
+			
+		}
+		
+		private function getMetaTag():void
+		{
+			var typeInfo:XML = describeType(TestMetaTags);
+			trace(typeInfo);
+			var xmlType:XMLList = typeInfo..metadata;
+			trace("Starting Loop");
+			for each ( var value:XML in xmlType )
+			{
+				if (value.attribute("name") == "Singleton" ) {
+					trace("Singleton class");
+				}
+				if (value.attribute("name") == "Requires" ) 
+				{
+					for each ( var req:XML in value.arg ) {
+						trace( req.attribute("value") );
+					}
+					
+				}
+			}
+			trace("Stop Loop");
+	
 		}
 		
 		private function init(e:Event = null):void 
