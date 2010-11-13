@@ -9,18 +9,9 @@ package components
 	import core.NetworkManager;
 	import core.BaseObject;	
 
-	/**
-	 */
+	[Component (NetworkComponent)]
 	public class NetworkComponent extends BaseObject
 	{
-		/****************************************/
-		// Type definition
-		/****************************************/
-		public override function get type():String 
-		{
-			return NETWORK_COMPONENT;
-		}
-
 		/****************************************/
 		// Overide function
 		/****************************************/

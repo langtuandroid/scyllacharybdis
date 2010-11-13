@@ -6,18 +6,10 @@ package core
 	import core.BaseObject;
 	import handlers.*;
 
+	[Singleton]
 	class NetworkManager extends BaseObject
 	{
-		/****************************************/
-		// Dependency Information
-		/****************************************/
-
-		/**
-		 * Return the class scope
-		 */
-		public static function get scope():int { return base.SINGLETON_OBJECT };
-		
-		
+	
 		/****************************************/
 		// Overide function
 		/****************************************/

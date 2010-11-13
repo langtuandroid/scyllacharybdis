@@ -5,18 +5,9 @@ package handlers
 	
 	import core.BaseObject;	
 	
-	/**
-	 */
+	[Component (LoginHandler)]
 	public class LoginHandler extends BaseObject
 	{
-		
-		/****************************************/
-		// Type definition
-		/****************************************/
-		public override function get type():String 
-		{
-			return LOGIN_HANDLER;
-		}
 		
 		/****************************************/
 		// Overide function

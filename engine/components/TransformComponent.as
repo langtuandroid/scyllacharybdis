@@ -7,26 +7,9 @@ package components
 	
 	import core.BaseObject;	
 
-	/**
-	 */
+	[Component (TransformComponent)]
 	public class TransformComponent extends BaseObject 
 	{
-		/****************************************/
-		// Type definition
-		/****************************************/
-		public override function get type():String 
-		{
-			return TRANSFORM_COMPONENT; 
-		}		
-		
-		/****************************************/
-		// Overide function
-		/****************************************/
-		
-		
-		/****************************************/
-		// Class specific
-		/****************************************/
 		protected var _position:Point3d = new Point3d();
 		protected var _scale:Point3d = new Point3d();
 		protected var _rotate:Point3d = new Point3d();

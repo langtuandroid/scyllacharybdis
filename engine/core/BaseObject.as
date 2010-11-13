@@ -10,37 +10,14 @@ package core
 	 */
 	public class BaseObject extends EventDispatcher
 	{
-		/****************************************/
-		// Constants
-		/****************************************/		
 
-		// These objects are base objects
-		public static const BASE_OBJECT:String = "base_object";
-		public static const GAME_OBJECT:String = "game_object";
-
-		// Components
-		public static const TRANSFORM_COMPONENT:String = "transform_component";
-		public static const RENDER_COMPONENT:String = "render_component";
-		public static const SCRIPT_COMPONENT:String = "script_component";
-		public static const NETWORK_COMPONENT:String = "network_component";
-		public static const STATE_COMPONENT:String = "state_component";
-		
-		// Handlers
-		public static const CONNECTION_HANDLER:String = "connection_handler";
-		public static const LOGIN_HANDLER:String = "login_handler";
-		public static const ROOM_HANDLER:String = "room_handler";
-
-		// Scopes
-		public static const NEW_OBJECT:int = 1;
-		public static const SINGLETON_OBJECT:int = 2;
-		
 		/****************************************/
 		// Variables
 		/****************************************/		
-		protected var _owner:* = null;
-		protected var _components:Dictionary = new Dictionary(true);
-		protected var _dependencies:Dictionary = new Dictionary(true);
-		protected var _memoryManager:MemoryManager;
+		private var _owner:* = null;
+		private var _components:Dictionary = new Dictionary(true);
+		private var _dependencies:Dictionary = new Dictionary(true);
+		private var _type:Class;
 
 		/****************************************/
 		// Construtor and Destructor
@@ -49,7 +26,7 @@ package core
 		/**
 		* Awake is called at the construction of the object
 		*/
-		public function awake( ):void { _memoryManager = _dependencies[MemoryManager]; }
+		public function awake( ):void { }
 		
 		/**
 		* Start is called when the object is added to the scene
@@ -73,36 +50,34 @@ package core
 
 		
 		/****************************************/
-		// Dependency Methods
+		// Dependency Methods ( should be all final )
 		/****************************************/
 		
-		/** 
-		 * Get the object scope 
-		 * Override if you want a singleton
-		 */
-		public static function get scope():int { return BaseObject.NEW_OBJECT };
-		
-		/**
-		 * Return the class dependencies
-		 * @returns [dep1, dep2];
-		 */
-		public function get dependencyClasses():Array  { return new Array(); }
-
 		/**
 		 * Set the dependencies
 		 * @param dep (Dictionary) Key = Class and Value is the object
 		 */
-		public function set dependencyObjects( value:Dictionary ):void 
+		public function setDependencies( value:Dictionary ):void 
 		{ 
 			_dependencies = value; 
 		}
 
 		/**
-		 * Get the dependency
+		 * Get the dependency helper function
 		 */
 		public function getDependency( type:Class ):*
 		{
 			return _dependencies[type];
+		}
+		
+		public function getType():Class
+		{
+			return _type;
+		}
+		
+		public function setType( value:Class ):void 
+		{
+			_type = value;
 		}
 		
 		/****************************************/
@@ -166,11 +141,7 @@ package core
 			// Remove reference from the dictionary
 			delete _components[component.type];
 		}
-		
-		public function get type():String 
-		{
-			return BASE_OBJECT;
-		}		
+
 		
 		/****************************************/
 		// Owner Methods
