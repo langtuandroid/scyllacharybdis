@@ -32,7 +32,6 @@ package core
 			
 			_memoryManager = getDependency(MemoryManager);
 			_sceneGraph = getDependency(SceneGraph);
-			
 		}
 
 		/**

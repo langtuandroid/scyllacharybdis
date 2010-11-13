@@ -44,6 +44,12 @@ package core
 			// Setup its dependencies
 			setupDependencies( _allocations[type] );
 			
+			// Set the component type if there is one
+			if ( _allocations[type].componentType != null ) 
+			{
+				_allocations[type].object.setType(_allocations[type].componentType);
+			}
+			
 			// Increase the debugging counter
 			incrementCounter( _allocations[type] );
 			
