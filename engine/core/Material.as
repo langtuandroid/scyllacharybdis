@@ -17,33 +17,33 @@ package core
 		*/
 		public override function awake():void
 		{
-			_materialNameList:Dictionary = new Dictionary();
-			_materialList:Dictionary = new Dictionary();
+			_materialNameList = new Dictionary();
+			_materialList = new Dictionary();
 		}
 		
 		public override function destroy():void 
 		{
 			// Should do a better job here as well
-			_materialNameList:Dictionary = null;
-			_materialList:Dictionary = null;
+			_materialNameList = null;
+			_materialList = null;
 		}	
 		
 		/****************************************/
 		// Methods
 		/****************************************/		
 		
-		public function addTexture(var movieClipName:String, var themeName:String = "default")
+		public function addTexture(movieClipName:String, themeName:String = "default"):void
 		{
 			_materialNameList[themeName] = movieClipName;
 		}
 		
-		public function getMaterial(themeName:String = "default")
+		public function getMaterial(themeName:String = "default"):MovieClip
 		{
 			if ( _materialList[themeName] == null ) 
 			{
 				// Load the movie clip
 				_materialList[themeName] = new MovieClip();
-				_materialList[themeName].loadMovie(movieClipName);
+				_materialList[themeName].loadMovie(_materialNameList[themeName]);
 			}
 			return _materialList[themeName];
 		}

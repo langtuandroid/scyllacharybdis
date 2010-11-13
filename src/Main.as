@@ -11,8 +11,8 @@
 	
 	import components.TransformComponent;
 	
-	
-	
+	import TestMaterialLoader;
+	import TestSceneLoader;
 	
 	/**
 	 */
@@ -29,6 +29,9 @@
 			
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
+			
+			_memoryManager.instantiate(TestMaterialLoader);
+			_memoryManager.instantiate(TestSceneLoader);
 		}
 		
 		private function init(e:Event = null):void 
@@ -40,8 +43,6 @@
 			_sceneGraph = _memoryManager.instantiate(SceneGraph);
 			
 			_square = _memoryManager.instantiate( Square );
-			//_otherSquare = _memoryManager.instantiate( Square );
-			//_otherSquare.addComponent( _memoryManager.instantiate( OtherSquareRenderComponent ) );
 			
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
 		}
