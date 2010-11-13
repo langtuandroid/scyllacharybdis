@@ -11,7 +11,7 @@ package core
 	
 	/**
 	 */
-	public class GameObject extends BaseObject
+	public final class GameObject extends BaseObject
 	{
 		/****************************************/
 		// Dependency Information
@@ -21,11 +21,9 @@ package core
 		 * Return the class dependencies
 		 * @returns [dep1, dep2,etc..];
 		 */
-		public override function get dependencyClasses():Array  
+		public static function get dependencies():Array  
 		{
-			var oldDeps:Array = super.dependencyClasses;
-			
-			return oldDeps.concat(new Array( SceneGraph ) );
+			return new Array( SceneGraph );
 		}
 		
 		/****************************************/
@@ -74,16 +72,15 @@ package core
 			// Destroy the children
 			for each ( var gameObj:GameObject in _children )
 			{
-				_memoryManager.destroyObject( gameObj );
+				MemoryManager.destroyObject( gameObj );
 			}
 			
 			// Destroy the components
 			for each ( var component:BaseObject in _components )
 			{
-				_memoryManager.destroyObject( component );
+				MemoryManager.destroyObject( component );
 			}
 			
-			_memoryManager = null;
 			_sceneGraph = null;
 			
 			super.destroy();

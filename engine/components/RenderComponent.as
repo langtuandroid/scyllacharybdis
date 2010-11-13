@@ -7,12 +7,12 @@ package components
 	import flash.events.MouseEvent;
 	import org.casalib.math.geom.Point3d;
 	
-	import core.BaseObject;	
+	import components.Component;	
 	
 	/**
 	 * 
 	 */
-	public class RenderComponent extends BaseObject
+	public class RenderComponent extends Component
 	{
 		/****************************************/
 		// Type definition

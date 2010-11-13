@@ -37,10 +37,8 @@ package core
 		/****************************************/
 		// Variables
 		/****************************************/		
-		protected var _owner:* = null;
 		protected var _components:Dictionary = new Dictionary(true);
 		protected var _dependencies:Dictionary = new Dictionary(true);
-		protected var _memoryManager:MemoryManager;
 
 		/****************************************/
 		// Construtor and Destructor
@@ -49,7 +47,7 @@ package core
 		/**
 		* Awake is called at the construction of the object
 		*/
-		public function awake( ):void { _memoryManager = _dependencies[MemoryManager]; }
+		public function awake( ):void { }
 		
 		/**
 		* Start is called when the object is added to the scene
@@ -86,13 +84,13 @@ package core
 		 * Return the class dependencies
 		 * @returns [dep1, dep2];
 		 */
-		public function get dependencyClasses():Array  { return new Array(); }
+		public static function get dependencies():Array  { return null }
 
 		/**
 		 * Set the dependencies
 		 * @param dep (Dictionary) Key = Class and Value is the object
 		 */
-		public function set dependencyObjects( value:Dictionary ):void 
+		public function set dependencies( value:Dictionary ):void 
 		{ 
 			_dependencies = value; 
 		}
@@ -170,21 +168,7 @@ package core
 		public function get type():String 
 		{
 			return BASE_OBJECT;
-		}		
-		
-		/****************************************/
-		// Owner Methods
-		/****************************************/
-		
-		/**
-		 * Get the ownering Game Object
-		 */
-		public function get owner():* { return _owner; }
-
-		/**
-		 * Set the ownering Game Object
-		 */
-		public function set owner( value:* ):void { _owner = value; }		
+		}				
 		
 	}
 }

@@ -6,14 +6,15 @@ package
 	 * ...
 	 * @author ...
 	 */
-	public class Square extends GameObject 
+	public class Square 
 	{
 		public function Square() 
 		{
 			
 		}
 		
-		public override function get dependencyClasses():Array	{ 
+		/*
+		public function get dependencyClasses():Array	{ 
 																	var superDeps:Array = super.dependencyClasses;
 																	
 																	var deps:Array = new Array( SquareScriptComponent, SquareRenderComponent );
@@ -21,7 +22,7 @@ package
 																	return deps.concat(superDeps);
 																}
 																
-		public override function awake():void
+		public function awake():void
 		{
 			
 			addComponent( _dependencies[SquareScriptComponent] );
@@ -29,5 +30,6 @@ package
 			
 			super.awake();
 		}
+		*/
 	}
 }

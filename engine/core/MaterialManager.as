@@ -102,7 +102,7 @@ package core
 					parseTree();
 				}
 				// Load the materials
-				_xml.load("materials.xml");
+				//_xml.load("materials.xml");
 			}
 		}
 		
