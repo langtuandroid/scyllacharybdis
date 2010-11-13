@@ -32,7 +32,7 @@
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
 
-			getMetaTag();
+			//getMetaTag();
 			
 			//_memoryManager.instantiate(TestMaterialLoader);
 			//_memoryManager.instantiate(TestSceneLoader);
