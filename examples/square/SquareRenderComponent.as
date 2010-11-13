@@ -1,4 +1,4 @@
-package  
+package square
 {
 	import components.RenderComponent;
 	import flash.display.MovieClip;

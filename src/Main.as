@@ -1,6 +1,6 @@
 ﻿package 
 {
-	import TestMetaTags;
+	//import TestMetaTags;
 	import flash.utils.describeType;
 	import core.BaseObject;
 	import core.SceneGraph;
@@ -13,8 +13,9 @@
 	
 	import components.TransformComponent;
 	
-	import TestMaterialLoader;
-	import TestSceneLoader;
+	import square.Square;
+	//import TestMaterialLoader;
+	//import TestSceneLoader;
 	
 	/**
 	 */
@@ -46,24 +47,24 @@
 		
 		private function getMetaTag():void
 		{
-			var typeInfo:XML = describeType(TestMetaTags);
-			trace(typeInfo);
-			var xmlType:XMLList = typeInfo..metadata;
-			trace("Starting Loop");
-			for each ( var value:XML in xmlType )
-			{
-				if (value.attribute("name") == "Singleton" ) {
-					trace("Singleton class");
-				}
-				if (value.attribute("name") == "Requires" ) 
-				{
-					for each ( var req:XML in value.arg ) {
-						trace( req.attribute("value") );
-					}
-					
-				}
-			}
-			trace("Stop Loop");
+			//var typeInfo:XML = describeType(TestMetaTags);
+			//trace(typeInfo);
+			//var xmlType:XMLList = typeInfo..metadata;
+			//trace("Starting Loop");
+			//for each ( var value:XML in xmlType )
+			//{
+				//if (value.attribute("name") == "Singleton" ) {
+					//trace("Singleton class");
+				//}
+				//if (value.attribute("name") == "Requires" ) 
+				//{
+					//for each ( var req:XML in value.arg ) {
+						//trace( req.attribute("value") );
+					//}
+					//
+				//}
+			//}
+			//trace("Stop Loop");
 	
 		}
 		

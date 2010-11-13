@@ -1,13 +1,11 @@
 package square 
 {
 	import core.GameObject;
-	
-	
 	/**
 	 * ...
 	 * @author ...
 	 */
-	[Requires ( examples.SquareScriptComponent, examples.SquareScriptComponent ) ]
+	[Requires ( square.SquareScriptComponent, square.SquareScriptComponent ) ]
 	public class Square extends GameObject 
 	{
 		public function Square() 

@@ -1,4 +1,4 @@
-package  
+package square
 {
 	import components.ScriptComponent;
 	import flash.events.MouseEvent;

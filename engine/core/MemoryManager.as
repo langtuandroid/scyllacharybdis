@@ -119,6 +119,7 @@ package core
 			if ( _allocations[type] ) {
 				return;
 			}
+			
 			_allocations[type] = new AllocationDetails();
 			
 			var typeInfo:XML = describeType(type);
@@ -159,10 +160,19 @@ package core
 			var depList:Dictionary = new Dictionary();
 			
 			// Loop through all the dependencies
-			for each ( var dep:Class in alloc.requirements ) 
+			for each ( var value:XMLList in alloc.requirements ) 
 			{
-				// Add the deps to a dictionary
-				depList[dep] = this.instantiate(dep);
+				for each ( var xml:XML in value )
+				{
+					trace(xml);
+					 
+					trace( getDefinitionByName( "SquareScriptComponent" ) );
+					var dep:Class = getDefinitionByName( "SquareScriptComponent" ) as Class;
+				
+					// Add the deps to a dictionary
+					depList[dep] = this.instantiate(dep);
+				}
+				
 			}
 			
 			alloc.object.setDependencies( depList );
