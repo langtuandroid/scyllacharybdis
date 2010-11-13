@@ -7,13 +7,18 @@ package core
 
 	import core.BaseObject;
 	import core.AllocationDetails;
-	
-	/**
-	 * MemoryManager
-	 */
+
+	[Singleton]
 	public class MemoryManager extends BaseObject 
 	{
 		private var _allocations:Dictionary = new Dictionary();
+
+		public function MemoryManager()
+		{
+			// Adding itself to the list
+			setupAllocationDetails(MemoryManager);
+			_allocations[MemoryManager].object = this;
+		}
 		
 		/**
 		* Instantiate an object

@@ -6,7 +6,7 @@ package handlers
 	import core.BaseObject;	
 
 
-	[Component (RoomHandler)]
+	[Component (NetworkComponent)]
 	public class RoomHandler extends BaseObject
 	{
 		/**
