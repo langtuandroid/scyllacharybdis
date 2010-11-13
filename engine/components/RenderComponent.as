@@ -58,7 +58,7 @@ package components
 		{
 			super.start();
 			
-			var scriptComponent:ScriptComponent = _owner.getComponent(SCRIPT_COMPONENT);
+			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
 			
 			if ( scriptComponent != null )
 			{
@@ -79,7 +79,7 @@ package components
 		
 		public override function stop():void
 		{
-			var scriptComponent:ScriptComponent = _owner.getComponent(SCRIPT_COMPONENT);
+			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
 			
 			if ( scriptComponent != null )
 			{

@@ -6,7 +6,7 @@ package handlers
 	import core.NetworkManager;
 	import core.BaseObject;	
 	
-	[Component (TransformComponent)]
+	[Component (NetworkComponent)]
 	public class ConnectionHandler extends BaseObject
 	{
 		/****************************************/

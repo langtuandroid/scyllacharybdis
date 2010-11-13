@@ -5,7 +5,7 @@ package handlers
 	
 	import core.BaseObject;	
 	
-	[Component (LoginHandler)]
+	[Component (NetworkComponent)]
 	public class LoginHandler extends BaseObject
 	{
 		

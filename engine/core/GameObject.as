@@ -9,13 +9,14 @@ package core
 	import core.MemoryManager;
 	import core.BaseObject;
 	
-	[Requirements (SceneGraph)]
+	[Requirements (MemoryManager, SceneGraph)]
 	public class GameObject extends BaseObject
 	{
 
 		/****************************************/
 		// Constructors and Allocation 
 		/****************************************/
+		private var _memoryManager:MemoryManager;
 		private var _sceneGraph:SceneGraph;
 		
 		protected var _parent:GameObject = null;
@@ -29,10 +30,9 @@ package core
 		{
 			super.awake();
 			
+			_memoryManager = getDependency(MemoryManager);
 			_sceneGraph = getDependency(SceneGraph);
 			
-			// Add itself to the scenegraph
-			_sceneGraph.addGameObject( this );
 		}
 
 		/**
@@ -63,7 +63,7 @@ package core
 			}
 			
 			// Destroy the components
-			for each ( var component:BaseObject in _components )
+			for each ( var component:BaseObject in components )
 			{
 				_memoryManager.destroyObject( component );
 			}

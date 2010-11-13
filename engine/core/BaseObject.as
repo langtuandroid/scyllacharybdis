@@ -96,15 +96,15 @@ package core
 			}
 			
 			// Check to see if there is an old one
-			if ( _components[component.type] != null )
+			if ( _components[component.getType()] != null )
 			{
 				// Remove the old component 
-				removeComponentByType( component.type );
+				removeComponentByType( component.getType() );
 			}
 			
 			// Setup the component
 			component.owner = this;
-			_components[component.type] =  component;
+			_components[component.getType()] =  component;
 
 			// Start the component
 			component.start();
@@ -114,12 +114,12 @@ package core
 		 * Get a component from the game object
 		 * @param	type (int) The component id
 		 */
-		public function getComponent( type:String ):*
+		public function getComponent( type:Class ):*
 		{
 			return _components[type];
 		}
 		
-		public function removeComponentByType( type:String ):void
+		public function removeComponentByType( type:Class ):void
 		{
 			removeComponent( _components[type] );
 		}
@@ -139,7 +139,12 @@ package core
 			component.stop();
 			
 			// Remove reference from the dictionary
-			delete _components[component.type];
+			delete _components[component.getType()];
+		}
+		
+		public function get components():*
+		{
+			return _components;
 		}
 
 		
