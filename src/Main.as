@@ -65,6 +65,7 @@
 			_scene.addGameObject( _square );
 			_scene.addGameObject( _otherSquare );
 			
+			_renderer.addScene( _scene );
 			_renderer.currentScene = _scene;
 			
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );

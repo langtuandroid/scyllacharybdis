@@ -11,16 +11,21 @@ package core
 	 */
 	public class Scene extends BaseObject 
 	{
+		public static const SCENE:String = "scene";
 		
 		public function Scene() 
 		{
 			
 		}
 		
+		public function get id():String { return _id; }
+		public function set id( value:String ):void { _id = value; }
 		/****************************************/
 		// Constructors and Allocation 
 		/****************************************/
 
+		private var _id:String = null;
+		
 		// All the game object in the world
 		protected var _gameObjects:Dictionary = new Dictionary(true);
 		
@@ -43,9 +48,6 @@ package core
 			
 			// Get renderables from the gameobject
 			addRenderable( gameObj );
-			
-			gameObj.enabled = true;
-
 		}
 		
 		public function updateGameObject( gameObj:GameObject ):void
@@ -64,9 +66,6 @@ package core
 		{
 			// Get renderables from the gameobject
 			removeRenderable( gameObj );
-
-			// Stop the game object
-			gameObj.enabled = false;
 
 			delete _gameObjects[gameObj];
 		}
@@ -121,6 +120,35 @@ package core
 			_renderables = null;
 			
 			super.destroy();
+		}
+		
+		public override function update():void
+		{
+			// Update each game object in the scene
+			for each ( var gameObj:GameObject in _gameObjects )
+			{
+				gameObj.update();
+			}
+		}
+		
+		public override function start():void
+		{
+			super.start();
+			
+			for each ( var gameObj:GameObject in _gameObjects )
+			{
+				gameObj.enabled = true;
+			}
+		}
+		
+		public override function stop():void
+		{
+			for each ( var gameObj:GameObject in _gameObjects )
+			{
+				gameObj.enabled = false;
+			}
+			
+			super.stop();
 		}
 		
 	}
