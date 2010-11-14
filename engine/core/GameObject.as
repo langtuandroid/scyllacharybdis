@@ -6,7 +6,6 @@ package core
 	import flash.utils.Dictionary;
 	import org.casalib.util.ArrayUtil;
 	
-	import core.SceneGraph;
 	import core.MemoryManager;
 	import core.BaseObject;
 	
