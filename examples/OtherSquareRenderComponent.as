@@ -14,11 +14,6 @@ package
 			
 		}
 
-		public override function awake():void
-		{
-			super.awake();
-		}
-		
 		public override function start():void
 		{
 			super.start();

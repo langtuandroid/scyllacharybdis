@@ -23,7 +23,7 @@
 		private var _sceneGraph:SceneGraph;
 		
 		private var _square:GameObject;
-		private var _otherSquare:Square;
+		private var _otherSquare:GameObject;
 		
 		public function Main():void 
 		{
@@ -48,12 +48,18 @@
 			_memoryManager = new MemoryManager();
 			_sceneGraph = MemoryManager.instantiate(SceneGraph);
 			
-			_square = MemoryManager.instantiate( GameObject, Square.dependencies );
+			_square = MemoryManager.instantiate( GameObject, Square.BLUE_SQUARE );
 			
-			_sceneGraph.addGameObject( _square );
 			_square.disabled = false;
-			_square.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 50, 50, 0 );
+			_square.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 50, 50, 1 );
 			_square.getComponent( BaseObject.TRANSFORM_COMPONENT ).rotate = 45;
+			
+			_otherSquare = MemoryManager.instantiate( GameObject, Square.OTHER_SQUARE );
+			_otherSquare.disabled = false;
+			_otherSquare.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 100, 100, 0 );
+
+			_sceneGraph.addGameObject( _square );
+			_sceneGraph.addGameObject( _otherSquare );
 			
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
 		}
