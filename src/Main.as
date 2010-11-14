@@ -14,6 +14,9 @@
 	import components.TransformComponent;
 	
 	import square.Square;
+	
+	import square.IncludeClasses;
+	
 	//import TestMaterialLoader;
 	//import TestSceneLoader;
 	
@@ -29,6 +32,7 @@
 		
 		public function Main():void 
 		{
+			var includeClasses:IncludeClasses;
 			
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
@@ -77,6 +81,7 @@
 			_sceneGraph = _memoryManager.instantiate(SceneGraph);
 			
 			_square = _memoryManager.instantiate( Square );
+			
 			
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
 		}

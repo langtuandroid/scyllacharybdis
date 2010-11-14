@@ -5,7 +5,7 @@ package core
 	import core.BaseObject;	
 	
 	[Singleton]
-	[Requirements (SceneGraph)]
+	[Requires ("core.SceneGraph")]
 	public class RenderManager extends BaseObject
 	{
 		/****************************************/

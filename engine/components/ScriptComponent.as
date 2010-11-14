@@ -9,7 +9,7 @@ package components
 	/**
 	 */
 	[Component (ScriptComponent)]
-	public class ScriptComponent extends BaseObject
+	public class ScriptComponent extends Component
 	{
 		/*
 		 * Handler functions for the keyboard and mouse events

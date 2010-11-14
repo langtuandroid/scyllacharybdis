@@ -47,7 +47,7 @@ package core
 			// Set the component type if there is one
 			if ( _allocations[type].componentType != null ) 
 			{
-				_allocations[type].object.setType(_allocations[type].componentType);
+				_allocations[type].object.type(_allocations[type].componentType);
 			}
 			
 			// Increase the debugging counter
@@ -149,7 +149,7 @@ package core
 				{
 					for each ( var com:XML in value.arg ) 
 					{
-						_allocations[type].componentType = getQualifiedClassName(com.attribute("value"));
+						_allocations[type].componentType = getDefinitionByName(com.attribute("value")) as Class;;
 					}
 				}				
 			}			
@@ -164,10 +164,9 @@ package core
 			{
 				for each ( var xml:XML in value )
 				{
-					trace(xml);
-					 
-					trace( getDefinitionByName( "SquareScriptComponent" ) );
-					var dep:Class = getDefinitionByName( "SquareScriptComponent" ) as Class;
+					var string:String = xml.toString();
+					
+					var dep:Class = getDefinitionByName(string) as Class;
 				
 					// Add the deps to a dictionary
 					depList[dep] = this.instantiate(dep);

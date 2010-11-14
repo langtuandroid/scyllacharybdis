@@ -4,7 +4,7 @@ package square
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 
-	[Component (RenderComponent)]
+	[Component ("components.RenderComponent")]
 	public class SquareRenderComponent extends RenderComponent
 	{
 		public function SquareRenderComponent( ) 

@@ -3,7 +3,7 @@ package square
 	import components.ScriptComponent;
 	import flash.events.MouseEvent;
 
-	[Component (ScriptComponent)]
+	[Component ("components.ScriptComponent")]
 	public class SquareScriptComponent extends ScriptComponent
 	{
 		

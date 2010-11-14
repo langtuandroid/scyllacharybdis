@@ -5,7 +5,7 @@ package square
 	 * ...
 	 * @author ...
 	 */
-	[Requires ( square.SquareScriptComponent, square.SquareScriptComponent ) ]
+	[Requires ( "square.SquareScriptComponent", "square.SquareRenderComponent" ) ]
 	public class Square extends GameObject 
 	{
 		public function Square() 

@@ -10,7 +10,7 @@ package components
 	import core.BaseObject;	
 
 	[Component (RenderComponent)]
-	public class RenderComponent extends BaseObject
+	public class RenderComponent extends Component
 	{
 		/****************************************/
 		// Class specific

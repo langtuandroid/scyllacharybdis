@@ -137,7 +137,7 @@ package core
 				_sortRequired = true;
 			
 				// Get the render component
-				var renderable:RenderComponent = ArrayUtil.getItemByKeys( _renderables, { owner:obj.owner } );
+				var renderable:RenderComponent = ArrayUtil.getItemByKeys( _renderables, { owner:obj } );
 				
 				// Remove the render component from the array
 				ArrayUtil.removeItem( _renderables, renderable );

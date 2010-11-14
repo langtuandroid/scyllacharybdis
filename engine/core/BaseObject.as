@@ -1,5 +1,6 @@
 package core
 {
+	import components.Component;
 	import flash.events.EventDispatcher;
 	import flash.utils.Dictionary;
 	import flash.utils.getQualifiedClassName;
@@ -14,7 +15,6 @@ package core
 		/****************************************/
 		// Variables
 		/****************************************/		
-		private var _owner:* = null;
 		private var _components:Dictionary = new Dictionary(true);
 		private var _dependencies:Dictionary = new Dictionary(true);
 		private var _type:Class;
@@ -26,7 +26,15 @@ package core
 		/**
 		* Awake is called at the construction of the object
 		*/
-		public function awake( ):void { }
+		public function awake( ):void 	{ 	
+											for each ( var dependency:* in _dependencies )
+											{
+												if ( dependency is Component )
+												{
+													addComponent( dependency );
+												}
+											}
+										}
 		
 		/**
 		* Start is called when the object is added to the scene
@@ -70,12 +78,12 @@ package core
 			return _dependencies[type];
 		}
 		
-		public function getType():Class
+		public function get type():Class
 		{
 			return _type;
 		}
 		
-		public function setType( value:Class ):void 
+		public function set type( value:Class ):void 
 		{
 			_type = value;
 		}
@@ -96,15 +104,15 @@ package core
 			}
 			
 			// Check to see if there is an old one
-			if ( _components[component.getType()] != null )
+			if ( _components[component.type] != null )
 			{
 				// Remove the old component 
-				removeComponentByType( component.getType() );
+				removeComponentByType( component.type );
 			}
 			
 			// Setup the component
 			component.owner = this;
-			_components[component.getType()] =  component;
+			_components[component.type] =  component;
 
 			// Start the component
 			component.start();
@@ -142,25 +150,9 @@ package core
 			delete _components[component.getType()];
 		}
 		
-		public function get components():*
+		public function get components():Dictionary
 		{
 			return _components;
 		}
-
-		
-		/****************************************/
-		// Owner Methods
-		/****************************************/
-		
-		/**
-		 * Get the ownering Game Object
-		 */
-		public function get owner():* { return _owner; }
-
-		/**
-		 * Set the ownering Game Object
-		 */
-		public function set owner( value:* ):void { _owner = value; }		
-		
 	}
 }
