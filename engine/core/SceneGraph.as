@@ -38,22 +38,6 @@ package core
 		// Does the scene need to be sorted
 		private var _sortRequired:Boolean = true;
 
-		/**
-		* Awake is called at the construction of the object
-		*/
-		public override function awake():void
-		{
-			super.awake();
-		}
-		
-		/**
-		* Destroy is called at the removal of the object
-		*/	
-		public override function destroy():void
-		{
-			
-		}
-		
 		/** 
 		 * Add a scene object to the graph
 		 */
@@ -67,9 +51,6 @@ package core
 			
 			// Get renderables from the gameobject
 			addRenderable( gameObj );
-			
-			// Start the game object
-			gameObj.start();
 		}
 		
 		public function updateGameObject( gameObj:GameObject ):void
@@ -164,7 +145,7 @@ package core
 				_sortRequired = true;
 			
 				// Get the render component
-				var renderable:RenderComponent = ArrayUtil.getItemByKeys( _renderables, { owner:obj.owner } );
+				var renderable:RenderComponent = ArrayUtil.getItemByKeys( _renderables, { owner:obj } );
 				
 				// Remove the render component from the array
 				ArrayUtil.removeItem( _renderables, renderable );

@@ -14,74 +14,27 @@ package core
 	public final class GameObject extends BaseObject
 	{
 		/****************************************/
-		// Dependency Information
-		/****************************************/
-
-		/**
-		 * Return the class dependencies
-		 * @returns [dep1, dep2,etc..];
-		 */
-		public static function get dependencies():Array  
-		{
-			return new Array( SceneGraph );
-		}
-		
-		/****************************************/
 		// Constructors and Allocation 
-		/****************************************/
-		private var _sceneGraph:SceneGraph;
-		
+		/****************************************/		
 		protected var _parent:GameObject = null;
 		protected var _children:Array = new Array();
 		protected var _disabled:Boolean = false;				
-		
-		/**
-		* Awake is called at the construction of the object
-		*/
-		public override function awake( ):void
-		{
-			super.awake();
-			
-			_sceneGraph = _dependencies[SceneGraph];
-			
-			// Add itself to the scenegraph
-			_sceneGraph.addGameObject( this );
-		}
-
-		/**
-		* Start is called when the object is added to the scene
-		*/
-		public override function start( ):void		
-		{
-		}
-
-		/**
-		* Stop is called when the object is removed from the scene
-		*/
-		public override function stop():void
-		{
-		}
 		
 		/**
 		* Destroy is called at the removal of the object
 		*/
 		public override function destroy():void		
 		{
-			_sceneGraph.removeGameObject( this );
-			
 			// Destroy the children
 			for each ( var gameObj:GameObject in _children )
 			{
+				delete _children[gameObj];
+				
 				MemoryManager.destroyObject( gameObj );
 			}
 			
-			// Destroy the components
-			for each ( var component:BaseObject in _components )
-			{
-				MemoryManager.destroyObject( component );
-			}
-			
-			_sceneGraph = null;
+			_children = null;
+			_parent = null;
 			
 			super.destroy();
 		}

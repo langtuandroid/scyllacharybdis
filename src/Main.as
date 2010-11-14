@@ -21,7 +21,7 @@
 		private var _memoryManager:MemoryManager;
 		private var _sceneGraph:SceneGraph;
 		
-		private var _square:Square;
+		private var _square:GameObject;
 		private var _otherSquare:Square;
 		
 		public function Main():void 
@@ -47,7 +47,10 @@
 			_memoryManager = new MemoryManager();
 			_sceneGraph = MemoryManager.instantiate(SceneGraph);
 			
-			_square = MemoryManager.instantiate( Square );
+			_square = MemoryManager.instantiate( GameObject, Square.dependencies );
+			
+			_sceneGraph.addGameObject( _square );
+			_square.disabled = false;
 			
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
 		}

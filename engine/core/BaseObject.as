@@ -1,5 +1,6 @@
 package core
 {
+	import components.Component;
 	import flash.events.EventDispatcher;
 	import flash.utils.Dictionary;
 	import flash.utils.getQualifiedClassName;
@@ -47,12 +48,31 @@ package core
 		/**
 		* Awake is called at the construction of the object
 		*/
-		public function awake( ):void { }
+		public function awake( ):void 
+		{ 
+			if ( _dependencies != null )
+			{
+				for each ( var dependency:* in _dependencies )
+				{
+					if ( dependency is Component )
+					{
+						addComponent(dependency);
+					}
+				}
+			}
+			
+		}
 		
 		/**
 		* Start is called when the object is added to the scene
 		*/
-		public function start( ):void  { }
+		public function start( ):void  
+		{ 
+			for each ( var component:Component in _components )
+			{
+				component.start();
+			}
+		}
 		
 		/**
 		 * Update is called every frame
@@ -62,12 +82,28 @@ package core
 		/**
 		* Stop is called when the object is removed from the scene
 		*/
-		public function stop( ):void { }
+		public function stop( ):void 
+		{ 
+			for each ( var component:Component in _components )
+			{
+				component.stop();
+			}
+		}
 		
 		/**
 		* Destroy is called at the removal of the object
 		*/
-		public function destroy( ):void	 { } 
+		public function destroy( ):void	 
+		{ 
+			// Destroy the components
+			for each ( var component:BaseObject in _components )
+			{
+				delete _components[component.type];
+				MemoryManager.destroyObject( component );
+			}
+			
+			_components = null;
+		} 
 
 		
 		/****************************************/
@@ -80,12 +116,6 @@ package core
 		 */
 		public static function get scope():int { return BaseObject.NEW_OBJECT };
 		
-		/**
-		 * Return the class dependencies
-		 * @returns [dep1, dep2];
-		 */
-		public static function get dependencies():Array  { return null }
-
 		/**
 		 * Set the dependencies
 		 * @param dep (Dictionary) Key = Class and Value is the object
@@ -128,9 +158,6 @@ package core
 			// Setup the component
 			component.owner = this;
 			_components[component.type] =  component;
-
-			// Start the component
-			component.start();
 		}
 
 		/**
@@ -157,9 +184,6 @@ package core
 			{
 				return;
 			}
-			
-			// Stop the component
-			component.stop();
 			
 			// Remove reference from the dictionary
 			delete _components[component.type];
