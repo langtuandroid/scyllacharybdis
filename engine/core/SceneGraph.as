@@ -110,7 +110,7 @@ package core
 			}
 			
 			// Sort the renderables array (bigger numbers are closer to the screen) 
-			_renderables.sortOn( "comparator", Array.NUMERIC | Array.DESCENDING );
+			_renderables.sortOn( "comparator", Array.NUMERIC );
 			
 			// Render children in order
 			for ( var i:int = 0; i < _renderables.length; i++ )
