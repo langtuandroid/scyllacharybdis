@@ -47,15 +47,15 @@ package components
 			_worldPosition = _position;
 			
 			// If the parent exists
-			if ( _owner.parent != null )
+			if ( owner.parent != null )
 			{
 				// Set world position from parent's world position
-				var parentPos:Point3d = (_owner.parent.getComponent(TRANSFORM_COMPONENT) as TransformComponent).worldPosition;
+				var parentPos:Point3d = ( owner.parent.getComponent(TRANSFORM_COMPONENT) as TransformComponent).worldPosition;
 				_worldPosition = _position.add(parentPos);
 			}
 			
 			// Set the render component
-			var renderComponent:RenderComponent = (_owner.getComponent(RENDER_COMPONENT) as RenderComponent);
+			var renderComponent:RenderComponent = ( owner.getComponent(RENDER_COMPONENT) as RenderComponent);
 			renderComponent.baseclip.x = _worldPosition.x;
 			renderComponent.baseclip.y = _worldPosition.y;
 			renderComponent.baseclip.z = _worldPosition.z;
@@ -73,17 +73,17 @@ package components
 			_worldScale = _scale;
 			
 			// If the parent exists
-			if ( _owner.parent != null )
+			if (  owner.parent != null )
 			{
 				// Set world scale from parent's world scale
-				var parentScale:Point3d = (_owner.parent.getComponent(TRANSFORM_COMPONENT) as TransformComponent).scale;
+				var parentScale:Point3d = ( owner.parent.getComponent(TRANSFORM_COMPONENT) as TransformComponent).scale;
 				_worldScale.x = parentScale.x * _scale.x;
 				_worldScale.y = parentScale.y * _scale.y;
 				_worldScale.z = parentScale.z * _scale.z;
 			}
 			
 			// Set the render component
-			var renderComponent:RenderComponent = (_owner.getComponent(RENDER_COMPONENT) as RenderComponent);
+			var renderComponent:RenderComponent = ( owner.getComponent(RENDER_COMPONENT) as RenderComponent);
 			renderComponent.baseclip.scaleX = _worldScale.x;
 			renderComponent.baseclip.scaleY = _worldScale.y;
 			renderComponent.baseclip.scaleZ = _worldScale.z;
@@ -101,15 +101,15 @@ package components
 			_worldRotate = _rotate;
 			
 			// If the parent exists
-			if ( _owner.parent != null )
+			if (  owner.parent != null )
 			{
 				// Set world rotation from parent's world rotation
-				var parentRotate:Point3d = (_owner.parent.getComponent(TRANSFORM_COMPONENT) as TransformComponent).rotate;
+				var parentRotate:Point3d = ( owner.parent.getComponent(TRANSFORM_COMPONENT) as TransformComponent).rotate;
 				_worldRotate = _rotate.add(parentRotate);
 			}
 			
 			// Set the render component
-			var renderComponent:RenderComponent = (_owner.getComponent(RENDER_COMPONENT) as RenderComponent);
+			var renderComponent:RenderComponent = ( owner.getComponent(RENDER_COMPONENT) as RenderComponent);
 			renderComponent.baseclip.rotationX = _worldRotate.x;
 			renderComponent.baseclip.rotationY = _worldRotate.y;
 			renderComponent.baseclip.rotationZ = _worldRotate.z;
@@ -124,7 +124,7 @@ package components
 			_dimensions = value;
 			
 			// Set the render component
-			var renderComponent:RenderComponent = (_owner.getComponent(RENDER_COMPONENT) as RenderComponent);
+			var renderComponent:RenderComponent = ( owner.getComponent(RENDER_COMPONENT) as RenderComponent);
 			renderComponent.baseclip.width = _dimensions.x;
 			renderComponent.baseclip.height = _dimensions.y;
 		}

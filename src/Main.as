@@ -5,6 +5,7 @@
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import org.casalib.math.geom.Point3d;
 
 	import core.MemoryManager;
 	import core.GameObject;
@@ -51,6 +52,7 @@
 			
 			_sceneGraph.addGameObject( _square );
 			_square.disabled = false;
+			_square.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 50, 50, 0 );
 			
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
 		}
