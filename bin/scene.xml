@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<scenes>
+	<scene name="gamescene">
+		<gameObject name="board">
+			<position x=0, y=0, z=0 />
+			<material name="board" />
+			<component type="RenderComponent" class="BoardRenderComponent" />
+			<component type="ScriptComponent" class="BoardScriptComponent" />
+			<component type="NetworkComponent" class="BoardNetworkComponent" />
+		</gameObject>
+		<gameObject name="whitepawn1">
+			<position x=0, y=0, z=0 />
+			<material name="whitepawn" />
+			<component type="RenderComponent" class="PawnRenderComponent" />
+			<component type="ScriptComponent" class="PawnScriptComponent" />
+		</gameObject>
+		<gameObject name="blackpawn1">
+			<position x=0, y=0, z=0 />
+			<material name="blackpawn" />
+			<component type="RenderComponent" class="PawnRenderComponent" />
+			<component type="ScriptComponent" class="PawnScriptComponent" />
+		</gameObject>
+	</scene>
+</scenes>			
+		
