@@ -1,29 +1,21 @@
 package core 
 {
-	import org.casalib.util.ArrayUtil;
-	import flash.display.DisplayObjectContainer;
-	import flash.display.MovieClip;
-	import flash.events.Event;
-	import flash.events.EventDispatcher;
-	import flash.utils.getQualifiedClassName;
+	import components.RenderComponent;
+	import events.EngineEvent;
 	import flash.utils.Dictionary;
-	
-	import core.GameObject;
-	import components.RenderComponent
+	import org.casalib.util.ArrayUtil;
 	
 	/**
+	 * ...
+	 * @author ...
 	 */
-	public class SceneGraph extends BaseObject
+	public class Scene extends BaseObject 
 	{
-		/****************************************/
-		// Dependency Information
-		/****************************************/
-
-		/**
-		 * Return the class scope
-		 */
-		public static function get scope():int { return SINGLETON_OBJECT };		
-
+		
+		public function Scene() 
+		{
+			
+		}
 		
 		/****************************************/
 		// Constructors and Allocation 
@@ -34,9 +26,7 @@ package core
 		
 		// Extra array of just the renderables
 		private var _renderables:Array = new Array();
-
-		// Does the scene need to be sorted
-		private var _sortRequired:Boolean = true;
+		public function get renderables():Array { return _renderables; }
 
 		/** 
 		 * Add a scene object to the graph
@@ -47,9 +37,6 @@ package core
 			{
 				addGameObject( child );
 			}
-			
-			// Tell the scene its dirty
-			_sortRequired = true;
 			
 			// Add the object to the list
 			_gameObjects[gameObj] = gameObj;
@@ -83,35 +70,6 @@ package core
 
 			delete _gameObjects[gameObj];
 		}
-
-		/**
-		 * Get Renderables 
-		 */
-		public function renderWorld( surface:DisplayObjectContainer ):void
-		{
-			if ( _sortRequired )
-			{
-				// Erase the world
-				for each ( var renderable:RenderComponent in _renderables )
-				{
-					if ( surface.contains( renderable.baseclip ) )
-					{
-						renderable.erase(surface);
-					}
-				}
-				
-				// Sort the renderables array (bigger numbers are closer to the screen) 
-				_renderables.sortOn( "comparator", Array.NUMERIC );
-				
-				// Render children in order
-				for ( var i:int = 0; i < _renderables.length; i++ )
-				{
-					_renderables[i].render(surface);
-				}
-				
-				_sortRequired = false;
-			}
-		}
 		
 		/** 
 		 * Helper function to get the components off the scripts
@@ -119,7 +77,7 @@ package core
 		private function addRenderable( obj:GameObject ):void 
 		{
 			// Tell the scene its dirty
-			_sortRequired = true;
+			dispatchEvent(new EngineEvent(EngineEvent.DIRTY));
 			
 			// Get the render component
 			var renderable:RenderComponent = obj.getComponent( BaseObject.RENDER_COMPONENT );
@@ -136,7 +94,7 @@ package core
 			if ( _renderables.length > 0 )
 			{
 				// Tell the scene its dirty
-				_sortRequired = true;
+				dispatchEvent(new EngineEvent(EngineEvent.DIRTY));
 			
 				// Get the render component
 				var renderable:RenderComponent = ArrayUtil.getItemByKeys( _renderables, { owner:obj } );
@@ -145,5 +103,26 @@ package core
 				ArrayUtil.removeItem( _renderables, renderable );
 			}
 		}
+		
+		public override function destroy():void
+		{
+			for each ( var gameObj:GameObject in _gameObjects )
+			{
+				delete _gameObjects[gameObj]
+			}
+			
+			_gameObjects = null;
+			
+			for each ( var renderable:RenderComponent in _renderables )
+			{
+				_renderables = null;
+			}
+			
+			_renderables = null;
+			
+			super.destroy();
+		}
+		
 	}
+
 }

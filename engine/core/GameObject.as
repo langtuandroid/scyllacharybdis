@@ -4,6 +4,7 @@ package core
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
 	import flash.utils.Dictionary;
+	import org.casalib.util.ArrayUtil;
 	
 	import core.SceneGraph;
 	import core.MemoryManager;
@@ -16,9 +17,9 @@ package core
 		/****************************************/
 		// Constructors and Allocation 
 		/****************************************/		
-		protected var _parent:GameObject = null;
-		protected var _children:Array = new Array();
-		protected var _disabled:Boolean = false;				
+		private var _parent:GameObject = null;
+		private var _children:Array = new Array();
+		private var _enabled:Boolean = false;				
 		
 		/**
 		* Destroy is called at the removal of the object
@@ -46,23 +47,26 @@ package core
 		public function get parent():GameObject { return _parent; }
 		public function set parent( value:GameObject ):void { _parent = value; }
 		
-		public function get disabled():Boolean { return _disabled; }
-		public function set disabled( value:Boolean ):void 
+		public function get children():Array { return _children; }
+		
+		public function get enabled():Boolean { return _enabled; }
+		public function set enabled( value:Boolean ):void 
 		{
-			_disabled = value;
-			
-			if ( _disabled )
+			for each ( var child:GameObject in _children )
 			{
-				stop();
+				child.enabled = value;
 			}
-			else
+			
+			var prevEnabled:Boolean = _enabled;
+			_enabled = value;
+			
+			if ( _enabled && !prevEnabled )
 			{
 				start();
 			}
-
-			for each ( var obj:GameObject in _children )
+			else if ( !_enabled && prevEnabled ) 
 			{
-				obj.disabled = value;
+				stop();
 			}			
 		}
 
@@ -76,8 +80,7 @@ package core
 			child.parent = this;
 			_children.push( child );
 			
-			// Start the game object
-			child.start();
+			child.enabled = _enabled;
 		}
 
 		/**
@@ -87,15 +90,13 @@ package core
 		public function removeChild( child:GameObject ):void
 		{
 			// Stop the child before removing it
-			child.stop();
+			if ( child.enabled )
+			{
+				child.enabled = false;
+			}
 			
 			// Remove the child from the list
-			var index:int = _children.indexOf( child );
-			
-			if ( index >= 0 )
-			{
-				_children.splice( index, 1 );
-			}
+			ArrayUtil.removeItem( _children, child );
 		}
 	}
 }

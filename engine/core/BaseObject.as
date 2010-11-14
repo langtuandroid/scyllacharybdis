@@ -38,8 +38,8 @@ package core
 		/****************************************/
 		// Variables
 		/****************************************/		
-		protected var _components:Dictionary = new Dictionary(true);
-		protected var _dependencies:Dictionary = new Dictionary(true);
+		private var _components:Dictionary = new Dictionary(true);
+		private var _dependencies:Dictionary = new Dictionary(true);
 
 		/****************************************/
 		// Construtor and Destructor

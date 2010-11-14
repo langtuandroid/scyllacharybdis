@@ -1,6 +1,8 @@
 ﻿package 
 {
 	import core.BaseObject;
+	import core.Renderer;
+	import core.Scene;
 	import core.SceneGraph;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -20,7 +22,8 @@
 	public class Main extends Sprite 
 	{
 		private var _memoryManager:MemoryManager;
-		private var _sceneGraph:SceneGraph;
+		private var _scene:Scene;
+		private var _renderer:Renderer;
 		
 		private var _square:GameObject;
 		private var _otherSquare:GameObject;
@@ -46,27 +49,30 @@
 			// entry point
 			
 			_memoryManager = new MemoryManager();
-			_sceneGraph = MemoryManager.instantiate(SceneGraph);
+			_scene = MemoryManager.instantiate(Scene);
+			_renderer = MemoryManager.instantiate(Renderer);
 			
 			_square = MemoryManager.instantiate( GameObject, Square.BLUE_SQUARE );
 			
-			_square.disabled = false;
+			_square.enabled = false;
 			_square.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 50, 50, 1 );
 			_square.getComponent( BaseObject.TRANSFORM_COMPONENT ).rotate = 45;
 			
 			_otherSquare = MemoryManager.instantiate( GameObject, Square.OTHER_SQUARE );
-			_otherSquare.disabled = false;
+			_otherSquare.enabled = false;
 			_otherSquare.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 100, 100, 0 );
 
-			_sceneGraph.addGameObject( _square );
-			_sceneGraph.addGameObject( _otherSquare );
+			_scene.addGameObject( _square );
+			_scene.addGameObject( _otherSquare );
+			
+			_renderer.currentScene = _scene;
 			
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
 		}
 		
 		private function onEnterFrame( e:Event ):void
 		{
-			_sceneGraph.renderWorld(this);
+			_renderer.render(this);
 		}
 	}
 }
