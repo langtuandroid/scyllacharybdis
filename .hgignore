@@ -1,0 +1,6 @@
+glob:server/ChessExtension/bin/
+glob:server/SFS2X/lib/cachedir/packages/*.pkc
+glob:server/SFS2X/logs/boot/*.log
+glob:server/SFS2X/logs/http/*.request.log
+glob:server/SFS2X/logs/*.log
+glob:server/SFS2X/lib/cachedir/packages/*.idx
