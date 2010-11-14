@@ -18,32 +18,19 @@ package core
 		 */
 		public static function get scope():int { return SINGLETON_OBJECT };		
 		
-		/**
-		 * Return the class dependencies
-		 */
-		public static function get dependencies():Array  
-		{
-			return null;
-		}
-		
 		/****************************************/
 		// Constructors and Allocation 
 		/****************************************/
 		
-		private var _sceneList:Dictionary = new Dictionary;
-		private var _currentScene:String = "default";
-		private var _xml:XML;
+		private var _scenes:Dictionary = new Dictionary(true);
+		private var _currentScene:Scene = null;
 		
 		/**
 		* Awake is called at the construction of the object
 		*/
 		public override function awake( ):void
 		{
-			_sceneList = new Dictionary;
-			_currentScene = "default";		
 			
-			_xml = new XML();
-			_xml.ignoreWhite=true;
 		}
 		
 		/**

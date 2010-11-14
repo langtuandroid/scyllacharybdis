@@ -13,7 +13,7 @@ package components
 		/****************************************/
 		// Type definition
 		/****************************************/
-		public override function get type():String 
+		public override final function get type():String 
 		{
 			return SCRIPT_COMPONENT; 
 		}		
