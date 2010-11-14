@@ -14,7 +14,7 @@ package components
 		/****************************************/
 		// Type definition
 		/****************************************/
-		public override function get type():String 
+		public override final function get type():String 
 		{
 			return TRANSFORM_COMPONENT; 
 		}		
@@ -29,12 +29,12 @@ package components
 		/****************************************/
 		protected var _position:Point3d = new Point3d();
 		protected var _scale:Point3d = new Point3d();
-		protected var _rotate:Point3d = new Point3d();
+		protected var _rotate:Number = 0;
 		protected var _dimensions:Point = new Point();
 		
 		protected var _worldPosition:Point3d = new Point3d();
 		protected var _worldScale:Point3d = new Point3d();
-		protected var _worldRotate:Point3d = new Point3d();
+		protected var _worldRotate:Number = 0;
 		
 		public function get position():Point3d { return _position; }
 		
@@ -91,8 +91,8 @@ package components
 		
 		public function get worldScale():Point3d { return _worldScale; }		
 	
-		public function get rotate():Point3d { return _rotate; }
-		public function set rotate ( value:Point3d ):void 
+		public function get rotate():Number { return _rotate; }
+		public function set rotate ( value:Number ):void 
 		{ 
 			// Set the local rotation
 			_rotate = value;
@@ -104,18 +104,16 @@ package components
 			if (  owner.parent != null )
 			{
 				// Set world rotation from parent's world rotation
-				var parentRotate:Point3d = ( owner.parent.getComponent(TRANSFORM_COMPONENT) as TransformComponent).rotate;
-				_worldRotate = _rotate.add(parentRotate);
+				var parentRotate:Number = ( owner.parent.getComponent(TRANSFORM_COMPONENT) as TransformComponent).rotate;
+				_worldRotate = parentRotate + _rotate;
 			}
 			
 			// Set the render component
 			var renderComponent:RenderComponent = ( owner.getComponent(RENDER_COMPONENT) as RenderComponent);
-			renderComponent.baseclip.rotationX = _worldRotate.x;
-			renderComponent.baseclip.rotationY = _worldRotate.y;
-			renderComponent.baseclip.rotationZ = _worldRotate.z;
+			renderComponent.baseclip.rotation = _worldRotate;
 		}
 		
-		public function get worldRotate():Point3d { return _worldRotate; }
+		public function get worldRotate():Number { return _worldRotate; }
 		
 		public function get dimensions():Point { return _dimensions; }
 		public function set dimensions( value:Point ):void 

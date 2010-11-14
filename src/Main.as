@@ -53,6 +53,7 @@
 			_sceneGraph.addGameObject( _square );
 			_square.disabled = false;
 			_square.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 50, 50, 0 );
+			_square.getComponent( BaseObject.TRANSFORM_COMPONENT ).rotate = 45;
 			
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
 		}
