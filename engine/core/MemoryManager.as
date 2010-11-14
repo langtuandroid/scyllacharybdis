@@ -134,7 +134,7 @@ package core
 				}
 				
 				// Get the requirements
-				if (value.attribute("name") == "Requires" ) 
+				if (value.attribute("name") == "Requirements" ) 
 				{
 					var list:Array = new Array();
 					for each ( var req:XML in value.arg ) 
