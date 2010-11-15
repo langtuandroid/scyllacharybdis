@@ -10,6 +10,7 @@ package
 		
 		public override function awake():void
 		{
+			trace ( "BoardNetworkComponent is starting!");
 			//sfs.addEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse)
 		}
 		
