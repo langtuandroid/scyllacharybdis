@@ -1,5 +1,6 @@
 package handlers 
 {
+	import components.Component;
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
 	
@@ -8,7 +9,7 @@ package handlers
 	
 	/**
 	 */
-	public class ConnectionHandler extends BaseObject
+	public class ConnectionHandler extends Component
 	{
 		
 		/****************************************/
@@ -53,10 +54,10 @@ package handlers
 
 		protected var _connected:Boolean = false;
 		protected var _isConnecting:Boolean = false;
-		protected var configFile:String = "config.xml";
+		protected var _configFile:String = "config.xml";
 
 		protected function get connected():Boolean { return _connected; }
-		protected function set connected( value:Boolean ) 
+		protected function set connected( value:Boolean ):void
 		{
 			_connected = value;
 		}
@@ -69,7 +70,7 @@ package handlers
 			_isConnecting = true;
 
 			// Check if connection is already available
-			if (!sfs.isConnected)
+			if ( ! owner.sfs.isConnected )
 			{
 				if (owner.sfs.config == null) 
 				{
@@ -82,14 +83,14 @@ package handlers
 			}
 			else 
 			{
-				connected(true);
+				connected = true;
 			}
 		}
 		
-		private function disconnect():void
+		public function disconnect():void
 		{
-			connect(false);
-			sfs.disconnect();
+			owner.sfs.connect(false);
+			owner.sfs.disconnect();
 		}				
 
 		/****************************************/
@@ -104,12 +105,12 @@ package handlers
 		{
 			if (evt.params.success)
 			{
-				connected(true);
+				connected = true;
 				owner.sfs.dTrace("Connection Success!")
 			}
 			else
 			{
-				connected(false);
+				connected = false;
 				owner.sfs.dTrace("Connection Failure: " + evt.params.errorMessage)
 			}
 		}
@@ -130,7 +131,7 @@ package handlers
 		protected function onConfigLoadSuccess(evt:SFSEvent):void
 		{
 			owner.sfs.dTrace("Config load success!")
-			owner.sfs.dTrace("Server settings: "  + sfs.config.host + ":" + sfs.config.port)
+			owner.sfs.dTrace("Server settings: "  + owner.sfs.config.host + ":" + owner.sfs.config.port)
 		}
 		
 		/**

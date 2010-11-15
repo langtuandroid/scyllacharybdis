@@ -4,9 +4,11 @@ package core
 	import com.smartfoxserver.v2.SmartFox;
 
 	import core.BaseObject;
-	import handlers.*;
+	import handlers.ConnectionHandler;
+	import handlers.LoginHandler;
+	import handlers.RoomHandler;
 
-	class NetworkManager extends BaseObject
+	public class NetworkManager extends BaseObject
 	{
 		/****************************************/
 		// Dependency Information
@@ -15,16 +17,17 @@ package core
 		/**
 		 * Return the class scope
 		 */
-		public static function get scope():int { return base.SINGLETON_OBJECT };
+		public static function get scope():int { return SINGLETON_OBJECT };
 		
 		
 		/****************************************/
 		// Overide function
 		/****************************************/
 		
-		private var _connectionHandler;
-		private var _loginHandler;
-		private var _roomHandler;
+		private var _connectionHandler:ConnectionHandler;
+		private var _loginHandler:LoginHandler;
+		private var _roomHandler:RoomHandler;
+		
 		private var _sfs:SmartFox = new SmartFox(true);
 		
 		/**
@@ -55,17 +58,17 @@ package core
 		/**
 		 * Get the connection handler
 		 */
-		public function get connectionHandler():void { return _connectionHandler; }
+		public function get connectionHandler():ConnectionHandler { return _connectionHandler; }
 		
 		/**
 		 * Get the login handler
 		 */
-		public function get loginHandler():void { return _loginHandler; }
+		public function get loginHandler():LoginHandler { return _loginHandler; }
 		
 		/**
 		 * Get the room handler
 		 */
-		public function get roomHandler():void { return _roomHandler; }		
+		public function get roomHandler():RoomHandler { return _roomHandler; }		
 		
 		/** 
 		 * Connect to the server
@@ -99,7 +102,7 @@ package core
 		/**
 		* Join the passed room.
 		*/
-		private function joinRoom(name:String = "The Lobby"):void
+		public function joinRoom(name:String = "The Lobby"):void
 		{
 			_roomHandler.joinRoom(name);
 		}		
@@ -115,7 +118,7 @@ package core
 		 */
 		public function createGameRoom(roomName:String, roomPwd:String=null, roomMaxS:int=0, extensionId:String="sfsChess", extensionClass:String = "sfs2x.extensions.games.tris.SFSTrisGame"):void
 		{
-			_roomHandler.joinRoom(roomName, roomPwd, roomMaxS, extensionId, extensionClass);
+			_roomHandler.createGameRoom(roomName, roomPwd, roomMaxS, extensionId, extensionClass);
 		}
 		
 		/**

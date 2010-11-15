@@ -3,12 +3,15 @@
 	import core.BaseObject;
 	import core.Renderer;
 	import core.Scene;
+	import core.NetworkManager;
+	
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import org.casalib.math.geom.Point3d;
 
 	import core.MemoryManager;
+	
 	import core.GameObject;
 	
 	import components.TransformComponent;
@@ -23,6 +26,7 @@
 		private var _memoryManager:MemoryManager;
 		private var _scene:Scene;
 		private var _renderer:Renderer;
+		private var _networkManager:NetworkManager;
 		
 		private var _square:GameObject;
 		private var _otherSquare:GameObject;
@@ -40,6 +44,7 @@
 			//board.addComponent(BoardRenderComponent);
 			//board.addComponent(BoardScriptComponent);
 			//board.addComponent(BoardNetworkComponent);
+			
 		}
 		
 		private function init(e:Event = null):void 
@@ -48,16 +53,17 @@
 			// entry point
 			
 			_memoryManager = new MemoryManager();
+			
 			_scene = MemoryManager.instantiate(Scene);
 			_renderer = MemoryManager.instantiate(Renderer);
 			
-			_square = MemoryManager.instantiate( GameObject, Square.BLUE_SQUARE );
+			_square = MemoryManager.instantiate( GameObject, [SquareScriptComponent, SquareRenderComponent, TransformComponent, BoardNetworkComponent ] );
 			
 			_square.enabled = false;
 			_square.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 50, 50, 1 );
 			_square.getComponent( BaseObject.TRANSFORM_COMPONENT ).rotate = 45;
 			
-			_otherSquare = MemoryManager.instantiate( GameObject, Square.OTHER_SQUARE );
+			_otherSquare = MemoryManager.instantiate( GameObject, [SquareScriptComponent, OtherSquareRenderComponent, TransformComponent] );
 			_otherSquare.enabled = false;
 			_otherSquare.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 100, 100, 0 );
 

@@ -1,13 +1,15 @@
 package handlers 
 {
+	import components.Component;
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
+	import com.smartfoxserver.v2.requests.LoginRequest;
 	
 	import core.BaseObject;	
 	
 	/**
 	 */
-	public class LoginHandler extends BaseObject
+	public class LoginHandler extends Component
 	{
 		
 		/****************************************/
@@ -53,7 +55,7 @@ package handlers
 		 */
 		public function login(userName:String, password:String):void
 		{
-			var request:LoginRequest = new LoginRequest(username, password);
+			var request:LoginRequest = new LoginRequest(userName, password);
 			owner.sfs.send(request);
 		}
 		

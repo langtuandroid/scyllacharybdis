@@ -1,14 +1,20 @@
 package handlers 
 {
+	import components.Component;
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
+	import com.smartfoxserver.v2.requests.JoinRoomRequest;
+	import com.smartfoxserver.v2.requests.RoomSettings;
+	import com.smartfoxserver.v2.requests.RoomExtension;
+	import com.smartfoxserver.v2.requests.CreateRoomRequest;
+	import com.smartfoxserver.v2.entities.Room;
+
 	import core.NetworkManager;
 	import core.BaseObject;	
 
-
 	/**
 	*/
-	public class RoomHandler extends BaseObject
+	public class RoomHandler extends Component
 	{
 
 		/****************************************/
@@ -50,7 +56,7 @@ package handlers
 		/**
 		* Join the passed room.
 		*/
-		private function joinRoom(name:String):void
+		public function joinRoom(name:String):void
 		{
 			_roomName = name;
 			var request:JoinRoomRequest = new JoinRoomRequest(name);
@@ -76,9 +82,9 @@ package handlers
 				settings.isGame = true
 				settings.maxUsers = 2
 				settings.maxSpectators = roomMaxS
-				settings.extension = new RoomExtension(EXTENSION_ID, EXTENSIONS_CLASS)
+				settings.extension = new RoomExtension(extensionId, extensionClass)
 				
-				owner.ssfs.send( new CreateRoomRequest(settings, true, sfs.lastJoinedRoom) )
+				owner.ssfs.send( new CreateRoomRequest(settings, true, owner.sfs.lastJoinedRoom) )
 			}		
 		}
 		
@@ -86,13 +92,13 @@ package handlers
 		* Leave game and return them to the lobby
 		* Join the lobby room. 
 		*/
-		private function leaveGameRoom(name:String = ""):void
+		public function leaveGameRoom(name:String = ""):void
 		{
 			if ( name == null ) {
 				name = _roomName;
 			}
 			
-			var request:JoinRoomRequest = new JoinRoomRequest(THE_LOBBY_NAME);
+			var request:JoinRoomRequest = new JoinRoomRequest(name);
 			owner.ssfs.send(request);
 		}		
 
