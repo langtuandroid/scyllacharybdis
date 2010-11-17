@@ -11,6 +11,7 @@
 	import core.Renderer;
 	import core.Scene;
 	import core.MemoryManager;
+	import core.EventManager;
 	import core.NetworkManager;
 	import components.TransformComponent;
 	
@@ -38,15 +39,6 @@
 			
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
-			
-			//_memoryManager.instantiate(TestMaterialLoader);
-			//_memoryManager.instantiate(TestSceneLoader);
-			
-			//var board:GameObject = _memoryManager.instantiate(GameObject);
-			//board.addComponent(BoardRenderComponent);
-			//board.addComponent(BoardScriptComponent);
-			//board.addComponent(BoardNetworkComponent);
-			
 		}
 		
 		private function init(e:Event = null):void 
@@ -54,6 +46,7 @@
 			setup(e);
 			setupTestSquares(e);
 			setupChessBoard(e);
+			testEvent();
 		}
 		
 		private function setup(e:Event = null):void
@@ -116,6 +109,17 @@
 			_scene.addGameObject( _board );
 		}
 		
+		private function testEvent():void
+		{
+			// Create the event manager
+			var eventManager:EventManager = MemoryManager.instantiate(EventManager);
+			
+			// Create a listener
+			var listerner:EventListener = MemoryManager.instantiate( EventListener, [EventManager] );
+			
+			eventManager.fireEvent("myevent", null);
+			
+		}
 		
 		private function onEnterFrame( e:Event ):void
 		{
