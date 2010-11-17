@@ -24,14 +24,18 @@ package components
 		// Overide function
 		/****************************************/
 
-		public override function awake():void 
+		public override function engine_awake():void 
 		{
-			owner.sfs.addEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse)
+			owner.sfs.addEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse);
+			
+			super.engine_awake();
 		}
 		
-		public override function destroy():void 
+		public override function engine_destroy():void 
 		{
-			owner.sfs.removeEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse)
+			super.engine_destroy();
+			
+			owner.sfs.removeEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse);
 		}
 		
 		/****************************************/

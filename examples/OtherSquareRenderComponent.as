@@ -16,8 +16,6 @@ package
 
 		public override function start():void
 		{
-			super.start();
-			
 			trace("OtherSquareRenderComponent is starting!");
 			
 			_baseclip.graphics

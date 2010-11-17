@@ -29,13 +29,13 @@ package handlers
 		*/
 		public override function engine_awake():void
 		{
-			super.engine_awake();
 			
 			owner.sfs.addEventListener(SFSEvent.CONNECTION, onConnection);
 			owner.sfs.addEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
 			owner.sfs.addEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess);
 			owner.sfs.addEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure);
 			
+			super.engine_awake();
 		}
 		
 		/**
@@ -50,6 +50,7 @@ package handlers
 			owner.sfs.removeEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
 			owner.sfs.removeEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess);
 			owner.sfs.removeEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure);
+
 		}
 
 		/****************************************/

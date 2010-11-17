@@ -76,8 +76,6 @@
 			_square.addComponent(SquareRenderComponent);
 			_square.addComponent(TransformComponent);
 			
-			trace(getQualifiedSuperclassName(_square))
-
 			// Set the square
 			_otherSquare = MemoryManager.instantiate( GameObject );
 			_otherSquare.addComponent(SquareScriptComponent);

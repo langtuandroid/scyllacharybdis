@@ -31,6 +31,8 @@ package core
 		
 		public override function engine_destroy():void 
 		{
+			super.engine_destroy();
+
 			if ( _currentScene )
 			{
 				if ( _currentScene.hasEventListener(EngineEvent.DIRTY) )
@@ -48,7 +50,6 @@ package core
 			
 			_currentScene = null;
 			
-			super.engine_destroy();
 		}
 		
 		public function get currentScene():Scene 

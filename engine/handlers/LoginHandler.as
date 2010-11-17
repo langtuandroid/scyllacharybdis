@@ -31,6 +31,8 @@ package handlers
 		{
 			owner.sfs.addEventListener(SFSEvent.LOGIN_ERROR, onLoginError);
 			owner.sfs.addEventListener(SFSEvent.LOGIN, onLogin);
+			
+			super.engine_start();
 		}
 		
 		/**
@@ -39,6 +41,8 @@ package handlers
 		*/
 		public override function engine_destroy():void
 		{
+			super.engine_destroy();
+			
 			owner.sfs.removeEventListener(SFSEvent.LOGIN_ERROR, onLoginError);
 			owner.sfs.removeEventListener(SFSEvent.LOGIN, onLogin);
 		}

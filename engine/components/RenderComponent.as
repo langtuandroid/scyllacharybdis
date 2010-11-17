@@ -89,10 +89,14 @@ package components
 				_baseclip.addEventListener( KeyboardEvent.KEY_DOWN, scriptComponent.onKeyDown, false, 0, true );
 				_baseclip.addEventListener( KeyboardEvent.KEY_UP, scriptComponent.onKeyUp, false, 0, true );
 			}
+			
+			super.engine_start();
 		}
 		
 		public override function engine_stop():void
 		{
+			super.engine_stop();
+
 			var scriptComponent:ScriptComponent = owner.getComponent(SCRIPT_COMPONENT);
 			
 			if ( scriptComponent != null )

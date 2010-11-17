@@ -33,18 +33,22 @@ package core
 		/**
 		* Awake is called at the construction of the object
 		*/
-		public function Awake():void
+		public override function engine_awake():void
 		{
 			_connectionHandler = getDependency(ConnectionHandler);
 			_loginHandler = getDependency(LoginHandler);
 			_roomHandler = getDependency(RoomHandler);
+			
+			super.engine_awake();
 		}
 		
 		/**
 		* Destroy is called at the removal of the object
 		*/	
-		public function Destroy():void
+		public override function engine_destroy():void
 		{
+			super.engine_destroy();
+
 			_connectionHandler = null;
 			_loginHandler = null;
 			_roomHandler = null;

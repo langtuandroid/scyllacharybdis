@@ -25,18 +25,19 @@ package core
 		*/
 		public override function engine_destroy():void		
 		{
+			super.engine_destroy();
+
 			// Destroy the children
 			for each ( var gameObj:GameObject in _children )
 			{
 				delete _children[gameObj];
 				
-				MemoryManager.destroyObject( gameObj );
+				MemoryManager.destroy( gameObj );
 			}
 			
 			_children = null;
 			_parent = null;
 			
-			super.engine_destroy();
 		}
 		
 		/****************************************/

@@ -33,6 +33,8 @@ package handlers
 			owner.sfs.addEventListener(SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError);
 			owner.sfs.addEventListener(SFSEvent.ROOM_JOIN, onJoinRoom);
 			owner.sfs.addEventListener(SFSEvent.ROOM_JOIN_ERROR, onJoinRoomError);
+			
+			super.engine_start();
 		}
 		
 		/**
@@ -41,6 +43,8 @@ package handlers
 		*/
 		public override function engine_destroy():void
 		{
+			super.engine_destroy();
+
 			owner.sfs.temoveEventListener(SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError);
 			owner.sfs.removeEventListener(SFSEvent.ROOM_JOIN, onJoinRoom);
 			owner.sfs.removeEventListener(SFSEvent.ROOM_JOIN_ERROR, onJoinRoomError);
