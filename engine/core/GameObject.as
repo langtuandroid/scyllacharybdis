@@ -7,7 +7,7 @@ package core
 	import org.casalib.util.ArrayUtil;
 	
 	import core.MemoryManager;
-	import core.ComponentObject;
+	import core.ContainerObject;
 	
 	/**
 	 */

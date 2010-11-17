@@ -4,6 +4,8 @@ package components
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import core.BaseObject;
+	import flash.utils.Timer;
+	import flash.events.TimerEvent;
 
 	/**
 	 */
@@ -21,6 +23,34 @@ package components
 		/****************************************/
 		// Overide function
 		/****************************************/
+		private var _updateTimer:Timer = new Timer(1/16, 0); 
+
+		public override function engine_awake():void
+		{
+			super.engine_awake();
+			// setup the timer
+			_updateTimer.addEventListener(TimerEvent.TIMER, update);
+			_updateTimer.start();
+
+			// Call the users awake function
+			awake();
+		}
+
+		public function update(event:TimerEvent):void
+		{
+		}
+
+		public override function engine_destroy():void
+		{
+			// Call the users destroy
+			destroy();
+
+			// Stop the timer
+			_updateTimer.stop();
+			_updateTimer = null;
+
+			super.engine_destroy();
+		}
 		
 		
 		/****************************************/
