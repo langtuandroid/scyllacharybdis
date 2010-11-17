@@ -11,7 +11,7 @@ package core
 	
 	/**
 	 */
-	public final class GameObject extends ComponentObject
+	public final class GameObject extends ContainerObject
 	{
 		/****************************************/
 		// Constructors and Allocation 

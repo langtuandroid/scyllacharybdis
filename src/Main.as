@@ -4,6 +4,7 @@
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.utils.getQualifiedSuperclassName;
 	import org.casalib.math.geom.Point3d;
 	import core.BaseObject;
 	import core.GameObject;
@@ -74,6 +75,8 @@
 			_square.addComponent(SquareScriptComponent);
 			_square.addComponent(SquareRenderComponent);
 			_square.addComponent(TransformComponent);
+			
+			trace(getQualifiedSuperclassName(_square))
 
 			// Set the square
 			_otherSquare = MemoryManager.instantiate( GameObject );
