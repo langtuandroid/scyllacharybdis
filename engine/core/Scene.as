@@ -105,6 +105,8 @@ package core
 		
 		public override function engine_destroy():void
 		{
+			super.engine_destroy();
+
 			for each ( var gameObj:GameObject in _gameObjects )
 			{
 				delete _gameObjects[gameObj]
@@ -119,27 +121,26 @@ package core
 			
 			_renderables = null;
 			
-			super.engine_destroy();
 		}
 		
 		public override function engine_start():void
 		{
-			super.engine_start();
-			
 			for each ( var gameObj:GameObject in _gameObjects )
 			{
 				gameObj.enabled = true;
 			}
+			super.engine_start();
 		}
 		
 		public override function engine_stop():void
 		{
+			super.engine_stop();
+
 			for each ( var gameObj:GameObject in _gameObjects )
 			{
 				gameObj.enabled = false;
 			}
 			
-			super.engine_stop();
 		}
 		
 	}

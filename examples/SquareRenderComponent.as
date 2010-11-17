@@ -9,20 +9,8 @@ package
 	 */
 	public class SquareRenderComponent extends RenderComponent
 	{
-		public function SquareRenderComponent( ) 
-		{
-			
-		}
-		
-		public override function awake():void
-		{
-			super.awake();
-		}
-		
 		public override function start():void
 		{
-			super.start();
-			
 			trace("SquareRenderComponent is starting!");
 			
 			_baseclip.graphics

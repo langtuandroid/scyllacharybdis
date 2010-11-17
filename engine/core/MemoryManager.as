@@ -51,7 +51,7 @@ package core
 		 * Destroy the scene object 
 		 * @param object (SceneObject) The scene object to be destroyed
 		 */
-		public static function destroyObject( obj:* ): void 
+		public static function destroy( obj:* ): void 
 		{
 			// Check to see if its a singleton
 			if ( (Object( obj ).constructor as Class).scope == BaseObject.SINGLETON_OBJECT )  

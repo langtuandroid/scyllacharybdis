@@ -25,7 +25,6 @@ package core
 				removeComponentByType( component.getType() );
 			}
 
-			trace ( component.getType() );
 			_components[component.getType()] =  component;
 
 			// Setup the component
@@ -38,8 +37,6 @@ package core
 		 */
 		public function getComponent( type:String ):*
 		{
-			trace ( type );
-			trace ( _components[type] );
 			return _components[type];
 		}
 		
@@ -62,7 +59,7 @@ package core
 			// Remove reference from the dictionary
 			delete _components[component.getType()];
 			
-			MemoryManager.destroyObject(component);
+			MemoryManager.destroy(component);
 		}
 	}
 }
