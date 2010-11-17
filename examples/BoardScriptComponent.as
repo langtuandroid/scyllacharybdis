@@ -5,6 +5,7 @@ package
 	import core.MemoryManager;
 	import components.ScriptComponent;
 	import components.TransformComponent;
+	import core.Scene;
 	import org.casalib.math.geom.Point3d;
 
 	/**
@@ -41,7 +42,15 @@ package
 				
 				whitePiece.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( i*10, 200, i );
 				whitePiece.getComponent( BaseObject.TRANSFORM_COMPONENT ).rotate = 45;
-				
+
+				var scene:Scene = getDependency(Scene);
+				if ( scene == null ) {
+					trace("scene is null");
+					return;
+				}
+				scene.addGameObject( whitePiece );
+				scene.addGameObject( blackPiece );
+
 			}
 		}
 	}

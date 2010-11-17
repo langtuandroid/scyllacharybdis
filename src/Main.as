@@ -106,12 +106,14 @@
 		{
 			// Set the square
 			_board = MemoryManager.instantiate( GameObject );
-			_board.addComponent(BoardScriptComponent);
+			_board.addComponent(BoardScriptComponent, [Scene]);
 			_board.addComponent(BoardRenderComponent);
 			_board.addComponent(TransformComponent);			
 
-			_board.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 200, 200, 0 );
-			_board.getComponent( BaseObject.TRANSFORM_COMPONENT ).rotate = 45;
+			_board.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d(0, 0, 0);
+			_board.getComponent( BaseObject.TRANSFORM_COMPONENT ).rotate = 0;
+
+			_scene.addGameObject( _board );
 		}
 		
 		
