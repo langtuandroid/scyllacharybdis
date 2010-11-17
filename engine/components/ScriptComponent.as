@@ -27,13 +27,11 @@ package components
 
 		public override function engine_awake():void
 		{
-			super.engine_awake();
 			// setup the timer
 			_updateTimer.addEventListener(TimerEvent.TIMER, update);
 			_updateTimer.start();
 
-			// Call the users awake function
-			awake();
+			super.engine_awake();
 		}
 
 		public function update(event:TimerEvent):void
@@ -42,14 +40,13 @@ package components
 
 		public override function engine_destroy():void
 		{
-			// Call the users destroy
-			destroy();
+
+			super.engine_destroy();
 
 			// Stop the timer
 			_updateTimer.stop();
 			_updateTimer = null;
 
-			super.engine_destroy();
 		}
 		
 		

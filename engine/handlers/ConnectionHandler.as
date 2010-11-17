@@ -27,20 +27,25 @@ package handlers
 		* Awake is called at the construction of the object
 		* Register all the listeners
 		*/
-		public override function awake():void
+		public override function engine_awake():void
 		{
+			super.engine_awake();
+			
 			owner.sfs.addEventListener(SFSEvent.CONNECTION, onConnection);
 			owner.sfs.addEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
 			owner.sfs.addEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess);
 			owner.sfs.addEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure);
+			
 		}
 		
 		/**
 		* Destroy is called at the removal of the object
 		* Unregister listeners
 		*/
-		public override function destroy():void
+		public override function engine_destroy():void
 		{
+			super.engine_destroy();
+
 			owner.sfs.removeEventListener(SFSEvent.CONNECTION, onConnection);
 			owner.sfs.removeEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
 			owner.sfs.removeEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess);

@@ -28,7 +28,7 @@ package handlers
 		* Awake is called at the construction of the object
 		* Register all the listeners
 		*/
-		public override function awake():void
+		public override function engine_awake():void
 		{
 			owner.sfs.addEventListener(SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError);
 			owner.sfs.addEventListener(SFSEvent.ROOM_JOIN, onJoinRoom);
@@ -39,7 +39,7 @@ package handlers
 		* Destroy is called at the removal of the object
 		* Unregister listeners
 		*/
-		public override function destroy():void
+		public override function engine_destroy():void
 		{
 			owner.sfs.temoveEventListener(SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError);
 			owner.sfs.removeEventListener(SFSEvent.ROOM_JOIN, onJoinRoom);

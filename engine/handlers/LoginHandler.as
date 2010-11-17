@@ -27,7 +27,7 @@ package handlers
 		* Awake is called at the construction of the object
 		* Register all the listeners
 		*/
-		public override function awake():void
+		public override function engine_awake():void
 		{
 			owner.sfs.addEventListener(SFSEvent.LOGIN_ERROR, onLoginError);
 			owner.sfs.addEventListener(SFSEvent.LOGIN, onLogin);
@@ -37,7 +37,7 @@ package handlers
 		* Destroy is called at the removal of the object
 		* Unregister listeners
 		*/
-		public override function destroy():void
+		public override function engine_destroy():void
 		{
 			owner.sfs.removeEventListener(SFSEvent.LOGIN_ERROR, onLoginError);
 			owner.sfs.removeEventListener(SFSEvent.LOGIN, onLogin);

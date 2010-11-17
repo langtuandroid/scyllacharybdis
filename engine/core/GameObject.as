@@ -23,7 +23,7 @@ package core
 		/**
 		* Destroy is called at the removal of the object
 		*/
-		public override function destroy():void		
+		public override function engine_destroy():void		
 		{
 			// Destroy the children
 			for each ( var gameObj:GameObject in _children )
@@ -35,6 +35,8 @@ package core
 			
 			_children = null;
 			_parent = null;
+			
+			super.engine_destroy();
 		}
 		
 		/****************************************/
@@ -59,11 +61,11 @@ package core
 			
 			if ( _enabled && !prevEnabled )
 			{
-				start();
+				engine_start();
 			}
 			else if ( !_enabled && prevEnabled ) 
 			{
-				stop();
+				engine_stop();
 			}			
 		}
 

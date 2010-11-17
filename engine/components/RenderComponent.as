@@ -60,15 +60,17 @@ package components
 		/**
 		 * Instantiate the baseclip upon construction
 		 */
-		public override function awake():void
+		public override function engine_awake():void
 		{
 			_baseclip = new MovieClip();
+			
+			super.engine_awake();
 		}
 	
 		/**
 		 * Init listeners on start
 		 */ 
-		public override function start(): void 
+		public override function engine_start(): void 
 		{
 			var scriptComponent:ScriptComponent = owner.getComponent(SCRIPT_COMPONENT);
 			
@@ -89,7 +91,7 @@ package components
 			}
 		}
 		
-		public override function stop():void
+		public override function engine_stop():void
 		{
 			var scriptComponent:ScriptComponent = owner.getComponent(SCRIPT_COMPONENT);
 			

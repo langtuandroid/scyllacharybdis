@@ -103,7 +103,7 @@ package core
 			}
 		}
 		
-		public override function destroy():void
+		public override function engine_destroy():void
 		{
 			for each ( var gameObj:GameObject in _gameObjects )
 			{
@@ -119,12 +119,12 @@ package core
 			
 			_renderables = null;
 			
-			super.destroy();
+			super.engine_destroy();
 		}
 		
-		public override function start():void
+		public override function engine_start():void
 		{
-			super.start();
+			super.engine_start();
 			
 			for each ( var gameObj:GameObject in _gameObjects )
 			{
@@ -132,14 +132,14 @@ package core
 			}
 		}
 		
-		public override function stop():void
+		public override function engine_stop():void
 		{
 			for each ( var gameObj:GameObject in _gameObjects )
 			{
 				gameObj.enabled = false;
 			}
 			
-			super.stop();
+			super.engine_stop();
 		}
 		
 	}
