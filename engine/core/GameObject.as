@@ -15,7 +15,7 @@ package core
 		/**
 		 * Get the dependencies to instantiate the class
 		 */
-		public static function get dependencies():Array { return []; }
+		public static function get dependencies():Array { return [SceneGraph]; }
 		
 		/****************************************/
 		// Constructors and Allocation 
@@ -23,9 +23,21 @@ package core
 		private var _parent:GameObject = null;
 		private var _children:Array = new Array();
 		private var _enabled:Boolean = false;
+		private var _sceneGraph:SceneGraph = null;
+		
+		public override function awake():void
+		{
+			super.awake();
+			
+			_sceneGraph = getDependency(SceneGraph);
+			
+			_sceneGraph.addGameObject(this);
+		}
 		
 		public override function destroy():void		
-		{
+		{	
+			_sceneGraph.removeGameObject(this);
+			
 			// Destroy the children
 			for each ( var child:GameObject in _children )
 			{
@@ -36,6 +48,7 @@ package core
 			
 			_children = null;
 			_parent = null;
+			_sceneGraph = null;
 			
 			super.destroy();
 		}

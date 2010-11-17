@@ -2,29 +2,23 @@
 {
 	import core.BaseObject;
 	import core.Renderer;
-	import core.Scene;
 	import core.NetworkManager;
 	
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import org.casalib.math.geom.Point3d;
-
-	import core.MemoryManager;
 	
 	import core.GameObject;
+	import core.MemoryManager;
 	
 	import components.TransformComponent;
-	
-	import TestMaterialLoader;
-	import TestSceneLoader;
+
 	
 	/**
 	 */
 	public class Main extends Sprite 
 	{
-		private var _memoryManager:MemoryManager;
-		private var _scene:Scene;
 		private var _renderer:Renderer;
 		private var _networkManager:NetworkManager;
 		
@@ -52,26 +46,18 @@
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
 			
-			_memoryManager = new MemoryManager();
+			_renderer = MemoryManager.instantiate(Renderer, Renderer.dependencies);
+		
+			_square = MemoryManager.instantiate( GameObject, GameObject.dependencies.concat([SquareScriptComponent, SquareRenderComponent, TransformComponent, BoardNetworkComponent ]) );
 			
-			_scene = MemoryManager.instantiate(Scene);
-			_renderer = MemoryManager.instantiate(Renderer);
-			
-			_square = MemoryManager.instantiate( GameObject, [SquareScriptComponent, SquareRenderComponent, TransformComponent, BoardNetworkComponent ] );
-			
-			_square.enabled = false;
 			_square.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 50, 50, 1 );
 			_square.getComponent( BaseObject.TRANSFORM_COMPONENT ).rotate = 45;
 			
-			_otherSquare = MemoryManager.instantiate( GameObject, [SquareScriptComponent, OtherSquareRenderComponent, TransformComponent] );
-			_otherSquare.enabled = false;
+			_otherSquare = MemoryManager.instantiate( GameObject, GameObject.dependencies.concat([SquareScriptComponent, OtherSquareRenderComponent, TransformComponent]) );
 			_otherSquare.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 100, 100, 0 );
-
-			_scene.addGameObject( _square );
-			_scene.addGameObject( _otherSquare );
-			
-			_renderer.addScene( _scene );
-			_renderer.currentScene = _scene;
+	
+			_square.enabled = true;
+			_otherSquare.enabled = true;
 			
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
 		}
