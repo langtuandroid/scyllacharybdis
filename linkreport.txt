@@ -109,14 +109,12 @@
       <dep id="AS3" />
       <dep id="Error" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\core\Renderer.as" mod="1289771009786" size="2208" optimizedsize="1317">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\core\Renderer.as" mod="1289968355965" size="1352" optimizedsize="788">
       <def id="core:Renderer" />
       <pre id="core:BaseObject" />
-      <dep id="events:EngineEvent" />
       <dep id="AS3" />
       <dep id="flash.display:DisplayObjectContainer" />
-      <dep id="core:Scene" />
-      <dep id="flash.utils:Dictionary" />
+      <dep id="core:SceneGraph" />
     </script>
     <script name="C:\Users\danny\Code\Flash\scyllacharybdis\lib\SFS2X_API_AS3.swc(com.smartfoxserver.v2.entities.data:ISFSArray)" mod="1279015692000" size="7866" optimizedsize="1484">
       <def id="com.smartfoxserver.v2.entities.data:ISFSArray" />
@@ -151,8 +149,8 @@
       <dep id="com.smartfoxserver.v2.entities:SFSRoom" />
       <dep id="com.smartfoxserver.v2.requests:BaseRequest" />
       <dep id="com.smartfoxserver.v2.core:SFSBuddyEvent" />
-      <dep id="com.smartfoxserver.v2.entities.variables:BuddyVariable" />
       <dep id="com.smartfoxserver.v2.entities:SFSUser" />
+      <dep id="com.smartfoxserver.v2.entities.variables:BuddyVariable" />
       <dep id="com.smartfoxserver.v2.entities.variables:UserVariable" />
       <dep id="com.smartfoxserver.v2.requests.buddylist:BlockBuddyRequest" />
       <dep id="com.smartfoxserver.v2.requests:LogoutRequest" />
@@ -199,22 +197,13 @@
       <dep id="com.smartfoxserver.v2.requests:JoinRoomRequest" />
       <dep id="com.smartfoxserver.v2.entities.variables:RoomVariable" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\core\GameObject.as" mod="1289965604768" size="1792" optimizedsize="979">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\core\GameObject.as" mod="1289968334249" size="2012" optimizedsize="1130">
       <def id="core:GameObject" />
       <pre id="core:BaseObject" />
       <dep id="org.casalib.util:ArrayUtil" />
       <dep id="AS3" />
       <dep id="core:MemoryManager" />
-    </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\core\Scene.as" mod="1289771009786" size="2532" optimizedsize="1480">
-      <def id="core:Scene" />
-      <pre id="core:BaseObject" />
-      <dep id="core:GameObject" />
-      <dep id="events:EngineEvent" />
-      <dep id="org.casalib.util:ArrayUtil" />
-      <dep id="AS3" />
-      <dep id="flash.utils:Dictionary" />
-      <dep id="components:RenderComponent" />
+      <dep id="core:SceneGraph" />
     </script>
     <script name="C:\Users\danny\Code\Flash\scyllacharybdis\lib\SFS2X_API_AS3.swc(as3reflect:Constant)" mod="1231598141902" size="550" optimizedsize="254">
       <def id="as3reflect:Constant" />
@@ -368,11 +357,6 @@
       <dep id="com.smartfoxserver.v2.entities.data:ISFSObject" />
       <dep id="com.smartfoxserver.v2.exceptions:SFSError" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\events\EngineEvent.as" mod="1289717523336" size="902" optimizedsize="412">
-      <def id="events:EngineEvent" />
-      <pre id="flash.events:Event" />
-      <dep id="AS3" />
-    </script>
     <script name="C:\Users\danny\Code\Flash\scyllacharybdis\lib\SFS2X_API_AS3.swc(de.polygonal.ds:Set)" mod="1214657885703" size="2696" optimizedsize="1376">
       <def id="de.polygonal.ds:Set" />
       <pre id="de.polygonal.ds:Collection" />
@@ -432,7 +416,7 @@
       <dep id="AS3" />
       <dep id="flash.system:Capabilities" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\handlers\ConnectionHandler.as" mod="1289965604800" size="2849" optimizedsize="1621">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\handlers\ConnectionHandler.as" mod="1289965604800" size="2848" optimizedsize="1621">
       <def id="handlers:ConnectionHandler" />
       <pre id="components:Component" />
       <dep id="com.smartfoxserver.v2.core:SFSEvent" />
@@ -536,7 +520,7 @@
       <dep id="AS3" />
       <dep id="com.smartfoxserver.v2.entities.data:ISFSObject" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\handlers\LoginHandler.as" mod="1289958452447" size="1556" optimizedsize="875">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\handlers\LoginHandler.as" mod="1289958452447" size="1555" optimizedsize="875">
       <def id="handlers:LoginHandler" />
       <pre id="components:Component" />
       <dep id="com.smartfoxserver.v2.core:SFSEvent" />
@@ -559,8 +543,8 @@
       <pre id="com.smartfoxserver.v2.requests:BaseRequest" />
       <dep id="com.smartfoxserver.v2.entities.data:SFSArray" />
       <dep id="com.smartfoxserver.v2.entities.data:ISFSArray" />
-      <dep id="com.smartfoxserver.v2.entities:Room" />
       <dep id="com.smartfoxserver.v2:SmartFox" />
+      <dep id="com.smartfoxserver.v2.entities:Room" />
       <dep id="AS3" />
       <dep id="com.smartfoxserver.v2.exceptions:SFSValidationError" />
       <dep id="com.smartfoxserver.v2.requests:RoomSettings" />
@@ -587,14 +571,14 @@
       <pre id="as3reflect:MetaDataContainer" />
       <pre id="Object" />
       <dep id="as3reflect:AccessorAccess" />
-      <dep id="as3reflect:IMember" />
       <dep id="as3reflect:IMetaDataContainer" />
-      <dep id="ReferenceError" />
+      <dep id="as3reflect:IMember" />
       <dep id="flash.utils:describeType" />
+      <dep id="ReferenceError" />
       <dep id="as3reflect:ClassUtils" />
       <dep id="trace" />
-      <dep id="as3reflect:Constant" />
       <dep id="as3reflect:MetaDataArgument" />
+      <dep id="as3reflect:Constant" />
       <dep id="XMLList" />
       <dep id="as3reflect:Accessor" />
       <dep id="as3reflect:Parameter" />
@@ -734,8 +718,8 @@
       <pre id="Object" />
       <pre id="com.smartfoxserver.v2.entities.managers:IRoomManager" />
       <dep id="com.smartfoxserver.v2.entities:User" />
-      <dep id="com.smartfoxserver.v2.entities:Room" />
       <dep id="com.smartfoxserver.v2:SmartFox" />
+      <dep id="com.smartfoxserver.v2.entities:Room" />
       <dep id="AS3" />
       <dep id="de.polygonal.ds:HashMap" />
       <dep id="com.smartfoxserver.v2.util:ArrayUtil" />
@@ -889,8 +873,8 @@
     </script>
     <script name="C:\Users\danny\Code\Flash\scyllacharybdis\lib\SFS2X_API_AS3.swc(com.smartfoxserver.v2.protocol.serialization:DefaultSFSDataSerializer)" mod="1273053228000" size="20595" optimizedsize="9565">
       <def id="com.smartfoxserver.v2.protocol.serialization:DefaultSFSDataSerializer" />
-      <pre id="com.smartfoxserver.v2.protocol.serialization:ISFSDataSerializer" />
       <pre id="Object" />
+      <pre id="com.smartfoxserver.v2.protocol.serialization:ISFSDataSerializer" />
       <dep id="com.smartfoxserver.v2.entities.data:SFSDataWrapper" />
       <dep id="flash.utils:ByteArray" />
       <dep id="as3reflect:ClassUtils" />
@@ -991,7 +975,7 @@
       <dep id="flash.utils:ByteArray" />
       <dep id="AS3" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\handlers\RoomHandler.as" mod="1289958452451" size="2732" optimizedsize="1683">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\handlers\RoomHandler.as" mod="1289958452451" size="2731" optimizedsize="1683">
       <def id="handlers:RoomHandler" />
       <pre id="components:Component" />
       <dep id="com.smartfoxserver.v2.requests:RoomExtension" />
@@ -1039,6 +1023,14 @@
       <dep id="AS3" />
       <dep id="com.smartfoxserver.v2.exceptions:SFSValidationError" />
       <dep id="com.smartfoxserver.v2.entities.match:MatchExpression" />
+    </script>
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\core\SceneGraph.as" mod="1289968682489" size="1286" optimizedsize="726">
+      <def id="core:SceneGraph" />
+      <pre id="core:BaseObject" />
+      <dep id="core:GameObject" />
+      <dep id="AS3" />
+      <dep id="flash.utils:Dictionary" />
+      <dep id="components:RenderComponent" />
     </script>
     <script name="C:\Users\danny\Code\Flash\scyllacharybdis\lib\SFS2X_API_AS3.swc(com.smartfoxserver.v2.requests:JoinRoomRequest)" mod="1280162776000" size="2238" optimizedsize="1360">
       <def id="com.smartfoxserver.v2.requests:JoinRoomRequest" />
@@ -1107,8 +1099,8 @@
       <pre id="com.smartfoxserver.v2.requests:BaseRequest" />
       <dep id="com.smartfoxserver.v2.entities.data:SFSArray" />
       <dep id="com.smartfoxserver.v2.entities.data:ISFSArray" />
-      <dep id="com.smartfoxserver.v2.entities:Room" />
       <dep id="com.smartfoxserver.v2:SmartFox" />
+      <dep id="com.smartfoxserver.v2.entities:Room" />
       <dep id="AS3" />
       <dep id="com.smartfoxserver.v2.exceptions:SFSValidationError" />
       <dep id="com.smartfoxserver.v2.entities.variables:RoomVariable" />
@@ -1169,15 +1161,14 @@
       <pre id="Object" />
       <dep id="AS3" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\src\Main.as" mod="1289958452468" size="1904" optimizedsize="1398">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\src\Main.as" mod="1289969569716" size="1765" optimizedsize="1297">
       <def id="Main" />
       <pre id="flash.display:Sprite" />
-      <dep id="core:NetworkManager" />
       <dep id="SquareRenderComponent" />
       <dep id="flash.events:Event" />
+      <dep id="core:NetworkManager" />
       <dep id="core:BaseObject" />
       <dep id="core:MemoryManager" />
-      <dep id="core:Scene" />
       <dep id="components:TransformComponent" />
       <dep id="BoardNetworkComponent" />
       <dep id="core:GameObject" />
@@ -1200,7 +1191,7 @@
       <dep id="com.smartfoxserver.v2:SmartFox" />
       <dep id="AS3" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\util\org\casalib\util\ArrayUtil.as" mod="1289539904413" size="5968" optimizedsize="2855">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\util\org\casalib\util\ArrayUtil.as" mod="1289539904413" size="5969" optimizedsize="2855">
       <def id="org.casalib.util:ArrayUtil" />
       <pre id="Object" />
       <dep id="AS3" />
