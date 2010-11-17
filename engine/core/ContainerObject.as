@@ -3,7 +3,7 @@ package core
 	import flash.utils.Dictionary;
 	/**
 	 */
-	public class ComponentObject extends BaseObject
+	public class ContainerObject extends BaseObject
 	{
 
 		private var _components:Dictionary = new Dictionary(true);
