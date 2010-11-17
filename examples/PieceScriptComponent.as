@@ -1,4 +1,4 @@
-package  
+package   
 {
 	import components.ScriptComponent;
 	/**
@@ -7,11 +7,5 @@ package
 	 */
 	public class PieceScriptComponent extends ScriptComponent
 	{
-		/****************************************/
-		// Overide function
-		/****************************************/
-
-		
-		
 	}
 }

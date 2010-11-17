@@ -1,13 +1,13 @@
-package  
+package   
 {
-	import core.MemoryManager;
+	import core.BaseObject;
 	import core.GameObject;
+	import core.MemoryManager;
 	import components.ScriptComponent;
 	import components.TransformComponent;
-	
+	import org.casalib.math.geom.Point3d;
+
 	/**
-	 * ...
-	 * @author ...
 	 */
 	public class BoardScriptComponent extends ScriptComponent
 	{
@@ -15,26 +15,33 @@ package
 		protected var whitePieces:Array;
 		protected var blackPieces:Array;
 		
-		public override function awake():void 
+		public override function start():void 
 		{
 			for ( var i:int = 0; i < 16; i++ ) 
 			{
 				// Create a new piece
-				var whitePiece:GameObject = _memoryManager.instantiate(GameObject);
-				var blackPiece:GameObject = _memoryManager.instantiate(GameObject);
+				var whitePiece:GameObject = MemoryManager.instantiate(GameObject);
+				var blackPiece:GameObject = MemoryManager.instantiate(GameObject);
 				
 				// Add to the board
-				owner.addChild( whitePiece );
-				owner.addChild( blackPiece );
+				//owner.addChild( whitePiece );
+				//owner.addChild( blackPiece );
 			
 				// Add components to the peice
-				whitePiece.addComponent(TransformComponent);
-				whitePiece.addComponent(PieceRenderComponent);
 				whitePiece.addComponent(PieceScriptComponent);
+				whitePiece.addComponent(WhiteRenderComponent);
+				whitePiece.addComponent(TransformComponent);
+
+				whitePiece.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( i*25, 100, i );
+				whitePiece.getComponent( BaseObject.TRANSFORM_COMPONENT ).rotate = 45;
 				
-				blackPiece.addComponent(TransformComponent);
-				blackPiece.addComponent(PieceRenderComponent);
 				blackPiece.addComponent(PieceScriptComponent);
+				blackPiece.addComponent(BlackRenderComponent);
+				blackPiece.addComponent(TransformComponent);
+				
+				whitePiece.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( i*10, 200, i );
+				whitePiece.getComponent( BaseObject.TRANSFORM_COMPONENT ).rotate = 45;
+				
 			}
 		}
 	}

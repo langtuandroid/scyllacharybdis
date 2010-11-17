@@ -1,23 +1,23 @@
 ﻿package 
 {
-	import core.BaseObject;
-	import core.Renderer;
-	import core.Scene;
-	import core.NetworkManager;
 	
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import org.casalib.math.geom.Point3d;
-
-	import core.MemoryManager;
-	
+	import core.BaseObject;
 	import core.GameObject;
-	
+	import core.Renderer;
+	import core.Scene;
+	import core.MemoryManager;
+	import core.NetworkManager;
 	import components.TransformComponent;
 	
-	import TestMaterialLoader;
-	import TestSceneLoader;
+	import BoardRenderComponent;
+	import BoardScriptComponent;
+	import PieceScriptComponent;
+	import WhiteRenderComponent;
+	import BlackRenderComponent;
 	
 	/**
 	 */
@@ -30,6 +30,7 @@
 		
 		private var _square:GameObject;
 		private var _otherSquare:GameObject;
+		private var _board:GameObject;
 		
 		public function Main():void 
 		{
@@ -49,14 +50,22 @@
 		
 		private function init(e:Event = null):void 
 		{
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			// entry point
-			
+			setup(e);
+			setupTestSquares(e);
+			setupChessBoard(e);
+		}
+		
+		private function setup(e:Event = null):void
+		{
 			_memoryManager = new MemoryManager();
-			
 			_scene = MemoryManager.instantiate(Scene);
 			_renderer = MemoryManager.instantiate(Renderer);
-
+		}
+		
+		private function setupTestSquares(e:Event = null):void
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, init);
+			// entry point
 			//_camera = MemoryManager.instantiate( GameObject, [CameraScriptComponent, TransformComponent] );
 			//_camera.enabled = false;
 			
@@ -64,7 +73,6 @@
 			_square = MemoryManager.instantiate( GameObject );
 			_square.addComponent(SquareScriptComponent);
 			_square.addComponent(SquareRenderComponent);
-			_square.addComponent(BoardNetworkComponent);
 			_square.addComponent(TransformComponent);
 
 			// Set the square
@@ -78,9 +86,9 @@
 			_otherSquare.enabled = false;
 
 			// Update the components
-			_square.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 50, 50, 1 );
+			_square.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 50, 50, 11 );
 			_square.getComponent( BaseObject.TRANSFORM_COMPONENT ).rotate = 45;
-			_otherSquare.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 100, 100, 0 );
+			_otherSquare.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 100, 100, 10 );
 
 			//_scene.addCamera( _camera );
 			_scene.addGameObject( _square );
@@ -92,6 +100,19 @@
 			
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
 		}
+		
+		private function setupChessBoard(e:Event = null):void
+		{
+			// Set the square
+			_board = MemoryManager.instantiate( GameObject );
+			_board.addComponent(BoardScriptComponent);
+			_board.addComponent(BoardRenderComponent);
+			_board.addComponent(TransformComponent);			
+
+			_board.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 200, 200, 0 );
+			_board.getComponent( BaseObject.TRANSFORM_COMPONENT ).rotate = 45;
+		}
+		
 		
 		private function onEnterFrame( e:Event ):void
 		{

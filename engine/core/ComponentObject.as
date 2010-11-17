@@ -16,6 +16,7 @@ package core
 		{
 			// Create the new component
 			var component:* = MemoryManager.instantiate( componentType, dependencies);
+			component.owner = this;
 
 			// Check to see if there is an old one
 			if ( _components[ component.getType() ] != null )
@@ -28,7 +29,6 @@ package core
 			_components[component.getType()] =  component;
 
 			// Setup the component
-			component.owner = this;
 			component.engine_start();
 		}
 
