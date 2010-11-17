@@ -53,7 +53,7 @@ package core
 		/**
 		* Awake is called at the construction of the object
 		*/
-		public function engine_awake( ):void 
+		public function engine_awake():void 
 		{ 
 			awake();
 		}
@@ -79,7 +79,7 @@ package core
 		/**
 		* Destroy is called at the removal of the object
 		*/
-		public function engine_destroy( ):void	 
+		public function engine_destroy():void	 
 		{ 
 			// Let the users code destroy
 			destroy();
