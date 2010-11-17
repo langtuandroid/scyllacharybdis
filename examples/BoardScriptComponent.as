@@ -15,7 +15,7 @@ package
 		protected var whitePieces:Array;
 		protected var blackPieces:Array;
 		
-		public override function start():void 
+		public override function engine_start():void 
 		{
 			for ( var i:int = 0; i < 16; i++ ) 
 			{

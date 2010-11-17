@@ -82,7 +82,7 @@ package core
 		public function engine_destroy():void	 
 		{ 
 			// Let the users code destroy
-			destroy();
+			//destroy();
 
 			// Destroy the components
 			for each ( var dependency:* in _dependencies )

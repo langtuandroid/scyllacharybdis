@@ -29,7 +29,7 @@ package core
 			
 		}
 		
-		public override function destroy():void 
+		public override function engine_destroy():void 
 		{
 			if ( _currentScene )
 			{
@@ -38,7 +38,7 @@ package core
 					_currentScene.removeEventListener(EngineEvent.DIRTY, onDirty);
 				}
 				
-				_currentScene.stop();
+				_currentScene.engine_stop();
 			}
 			
 			for each ( var scene:Scene in _scenes )
@@ -48,7 +48,7 @@ package core
 			
 			_currentScene = null;
 			
-			super.destroy();
+			super.engine_destroy();
 		}
 		
 		public function get currentScene():Scene 
@@ -70,14 +70,14 @@ package core
 					_currentScene.removeEventListener(EngineEvent.DIRTY, onDirty);
 				}
 				
-				_currentScene.stop();
+				_currentScene.engine_stop();
 			}
 					
 			_currentScene = value;
 			
 			_currentScene.addEventListener(EngineEvent.DIRTY, onDirty, false, 0, true);
 			
-			_currentScene.start();
+			_currentScene.engine_start();
 		}
 		
 		public function render( surface:DisplayObjectContainer ):void
