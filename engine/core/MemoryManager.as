@@ -34,14 +34,14 @@ package core
 				}
 				
 				// Inject the dependencies
-				obj.dependencies = depMap;
+				obj.setDependencies(depMap);
 			}
 			
 			// Increase the debugging counter
 			incrementCounter(type);
 			
 			// Awaken the object
-			obj.awake();
+			obj.engine_awake();
 			
 			// Return the object
 			return obj;
@@ -64,7 +64,7 @@ package core
 			decrementCounter( Object( obj ).constructor as Class );
 
 			// Let the object run its own destroy methods
-			obj.destroy();
+			obj.engine_destroy();
 			
 			// Remove the object from the list
 			delete _baseObjects[obj];

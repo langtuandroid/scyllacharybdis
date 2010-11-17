@@ -5,16 +5,16 @@ package components
 	import flash.utils.Dictionary;
 	import org.casalib.math.geom.Point3d;
 	
-	import components.Component;	
+	import core.BaseObject;	
 
 	/**
 	 */
-	public class TransformComponent extends Component 
+	public class TransformComponent extends BaseObject 
 	{
 		/****************************************/
 		// Type definition
 		/****************************************/
-		public override final function get type():String 
+		public override final function getType():String 
 		{
 			return TRANSFORM_COMPONENT; 
 		}		

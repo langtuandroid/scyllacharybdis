@@ -56,20 +56,37 @@
 			
 			_scene = MemoryManager.instantiate(Scene);
 			_renderer = MemoryManager.instantiate(Renderer);
+
+			//_camera = MemoryManager.instantiate( GameObject, [CameraScriptComponent, TransformComponent] );
+			//_camera.enabled = false;
 			
-			_square = MemoryManager.instantiate( GameObject, [SquareScriptComponent, SquareRenderComponent, TransformComponent, BoardNetworkComponent ] );
-			
+			// Set the square
+			_square = MemoryManager.instantiate( GameObject );
+			_square.addComponent(SquareScriptComponent);
+			_square.addComponent(SquareRenderComponent);
+			_square.addComponent(BoardNetworkComponent);
+			_square.addComponent(TransformComponent);
+
+			// Set the square
+			_otherSquare = MemoryManager.instantiate( GameObject );
+			_otherSquare.addComponent(SquareScriptComponent);
+			_otherSquare.addComponent(OtherSquareRenderComponent);
+			_otherSquare.addComponent(TransformComponent);
+
+			// Disable the sqares
 			_square.enabled = false;
+			_otherSquare.enabled = false;
+
+			// Update the components
 			_square.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 50, 50, 1 );
 			_square.getComponent( BaseObject.TRANSFORM_COMPONENT ).rotate = 45;
-			
-			_otherSquare = MemoryManager.instantiate( GameObject, [SquareScriptComponent, OtherSquareRenderComponent, TransformComponent] );
-			_otherSquare.enabled = false;
 			_otherSquare.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 100, 100, 0 );
 
+			//_scene.addCamera( _camera );
 			_scene.addGameObject( _square );
 			_scene.addGameObject( _otherSquare );
 			
+			// Add the to the renderer
 			_renderer.addScene( _scene );
 			_renderer.currentScene = _scene;
 			

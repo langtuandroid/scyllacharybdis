@@ -1,6 +1,5 @@
 package handlers 
 {
-	import components.Component;
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
 	import com.smartfoxserver.v2.requests.JoinRoomRequest;
@@ -14,13 +13,13 @@ package handlers
 
 	/**
 	*/
-	public class RoomHandler extends Component
+	public class RoomHandler extends BaseObject
 	{
 
 		/****************************************/
 		// Type definition
 		/****************************************/
-		public override function get type():String 
+		public override function getType():String 
 		{
 			return ROOM_HANDLER;
 		}

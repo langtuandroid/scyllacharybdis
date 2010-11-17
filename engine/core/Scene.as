@@ -122,15 +122,6 @@ package core
 			super.destroy();
 		}
 		
-		public override function update():void
-		{
-			// Update each game object in the scene
-			for each ( var gameObj:GameObject in _gameObjects )
-			{
-				gameObj.update();
-			}
-		}
-		
 		public override function start():void
 		{
 			super.start();

@@ -7,17 +7,17 @@ package components
 	import flash.events.MouseEvent;
 	import org.casalib.math.geom.Point3d;
 	
-	import components.Component;	
+	import core.BaseObject;
 	
 	/**
 	 * 
 	 */
-	public class RenderComponent extends Component
+	public class RenderComponent extends BaseObject
 	{
 		/****************************************/
 		// Type definition
 		/****************************************/
-		public override final function get type():String 
+		public override final function getType():String 
 		{
 			return RENDER_COMPONENT;
 		}				
@@ -63,17 +63,13 @@ package components
 		public override function awake():void
 		{
 			_baseclip = new MovieClip();
-			
-			super.awake();
 		}
-		
+	
 		/**
 		 * Init listeners on start
 		 */ 
 		public override function start(): void 
 		{
-			super.start();
-			
 			var scriptComponent:ScriptComponent = owner.getComponent(SCRIPT_COMPONENT);
 			
 			if ( scriptComponent != null )
@@ -159,8 +155,6 @@ package components
 					_baseclip.removeEventListener( KeyboardEvent.KEY_UP, scriptComponent.onKeyUp );
 				}
 			}
-			
-			super.stop();
 		}
 	}
 }

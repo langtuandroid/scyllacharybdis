@@ -3,17 +3,16 @@ package components
 	import flash.utils.Dictionary;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
-
-	import components.Component;	
+	import core.BaseObject;
 
 	/**
 	 */
-	public class ScriptComponent extends Component
+	public class ScriptComponent extends BaseObject
 	{
 		/****************************************/
 		// Type definition
 		/****************************************/
-		public override final function get type():String 
+		public override final function getType():String 
 		{
 			return SCRIPT_COMPONENT; 
 		}		

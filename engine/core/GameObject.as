@@ -7,11 +7,11 @@ package core
 	import org.casalib.util.ArrayUtil;
 	
 	import core.MemoryManager;
-	import core.BaseObject;
+	import core.ComponentObject;
 	
 	/**
 	 */
-	public final class GameObject extends BaseObject
+	public final class GameObject extends ComponentObject
 	{
 		/****************************************/
 		// Constructors and Allocation 
@@ -35,8 +35,6 @@ package core
 			
 			_children = null;
 			_parent = null;
-			
-			super.destroy();
 		}
 		
 		/****************************************/

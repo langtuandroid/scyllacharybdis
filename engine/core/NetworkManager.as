@@ -8,7 +8,7 @@ package core
 	import handlers.LoginHandler;
 	import handlers.RoomHandler;
 
-	public class NetworkManager extends BaseObject
+	public class NetworkManager extends ComponentObject
 	{
 		/****************************************/
 		// Dependency Information

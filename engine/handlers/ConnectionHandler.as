@@ -1,6 +1,5 @@
 package handlers 
 {
-	import components.Component;
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
 	
@@ -9,13 +8,13 @@ package handlers
 	
 	/**
 	 */
-	public class ConnectionHandler extends Component
+	public class ConnectionHandler extends BaseObject
 	{
 		
 		/****************************************/
 		// Type definition
 		/****************************************/
-		public override function get type():String 
+		public override function getType():String 
 		{
 			return CONNECTION_HANDLER;
 		}
