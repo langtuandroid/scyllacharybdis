@@ -1,10 +1,9 @@
 package core
 {
-	import components.Component;
+	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.utils.Dictionary;
-	import flash.utils.getQualifiedClassName;
-	import flash.utils.getDefinitionByName;
+	import components.Component;
 	
 	/**
 	 * BaseObject is a base object for all game elements
@@ -38,9 +37,17 @@ package core
 		/****************************************/
 		// Variables
 		/****************************************/		
+		protected var _dependencies:Dictionary = new Dictionary(true);
 		private var _components:Dictionary = new Dictionary(true);
-		private var _dependencies:Dictionary = new Dictionary(true);
 
+		/**
+		 * String identifier
+		 */
+		public function get type():String 
+		{
+			return BASE_OBJECT;
+		}		
+		
 		/****************************************/
 		// Construtor and Destructor
 		/****************************************/		
@@ -60,7 +67,6 @@ package core
 					}
 				}
 			}
-			
 		}
 		
 		/**
@@ -77,7 +83,10 @@ package core
 		/**
 		 * Update is called every frame
 		 */
-		public function update():void { }
+		public function update( ):void 
+		{ 
+			
+		}
 		
 		/**
 		* Stop is called when the object is removed from the scene
@@ -102,12 +111,20 @@ package core
 				MemoryManager.destroyObject( component );
 			}
 			
+			for ( var key:String in _dependencies )
+			{
+				delete _dependencies[key];
+			}
+			
 			_components = null;
+			_dependencies = null;
 		} 
 
 		
+		
+		
 		/****************************************/
-		// Dependency Methods
+		// Other Dependency Methods
 		/****************************************/
 		
 		/** 
@@ -116,6 +133,11 @@ package core
 		 */
 		public static function get scope():int { return BaseObject.NEW_OBJECT };
 		
+		/**
+		 * Get the dependencies to instantiate the class
+		 */
+		public static function get dependencies():Array { return []; }
+	
 		/**
 		 * Set the dependencies
 		 * @param dep (Dictionary) Key = Class and Value is the object
@@ -141,7 +163,7 @@ package core
 		 * Add a component to the game object
 		 * @param	component (Component)
 		 */
-		public function addComponent( component:* ):void 
+		public function addComponent( component:Component ):void 
 		{
 			if (component == null)
 			{
@@ -188,11 +210,5 @@ package core
 			// Remove reference from the dictionary
 			delete _components[component.type];
 		}
-		
-		public function get type():String 
-		{
-			return BASE_OBJECT;
-		}				
-		
 	}
 }

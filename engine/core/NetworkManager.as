@@ -35,6 +35,8 @@ package core
 		*/
 		public function Awake():void
 		{
+			super.awake();
+			
 			_connectionHandler = getDependency(ConnectionHandler);
 			_loginHandler = getDependency(LoginHandler);
 			_roomHandler = getDependency(RoomHandler);
@@ -48,6 +50,8 @@ package core
 			_connectionHandler = null;
 			_loginHandler = null;
 			_roomHandler = null;
+			
+			super.destroy();
 		}
 		
 		/**

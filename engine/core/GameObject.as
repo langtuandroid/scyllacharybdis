@@ -6,31 +6,32 @@ package core
 	import flash.utils.Dictionary;
 	import org.casalib.util.ArrayUtil;
 	
-	import core.MemoryManager;
 	import core.BaseObject;
 	
 	/**
 	 */
 	public final class GameObject extends BaseObject
 	{
+		/**
+		 * Get the dependencies to instantiate the class
+		 */
+		public static function get dependencies():Array { return []; }
+		
 		/****************************************/
 		// Constructors and Allocation 
 		/****************************************/		
 		private var _parent:GameObject = null;
 		private var _children:Array = new Array();
-		private var _enabled:Boolean = false;				
+		private var _enabled:Boolean = false;
 		
-		/**
-		* Destroy is called at the removal of the object
-		*/
 		public override function destroy():void		
 		{
 			// Destroy the children
-			for each ( var gameObj:GameObject in _children )
+			for each ( var child:GameObject in _children )
 			{
-				delete _children[gameObj];
+				delete _children[child];
 				
-				MemoryManager.destroyObject( gameObj );
+				MemoryManager.destroyObject( child );
 			}
 			
 			_children = null;

@@ -10,6 +10,11 @@ package components
 	 */
 	public class ScriptComponent extends Component
 	{
+		/**
+		 * Get the dependencies to instantiate the class
+		 */
+		public static function get dependencies():Array { return []; }
+		
 		/****************************************/
 		// Type definition
 		/****************************************/
