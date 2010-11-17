@@ -1,6 +1,7 @@
 package components 
 {
 	import core.BaseObject;
+	import core.GameObject;
 	
 	/**
 	 * ...
@@ -8,6 +9,11 @@ package components
 	 */
 	public class Component extends BaseObject 
 	{
+		/**
+		 * Get the dependencies to instantiate the class
+		 */
+		public static function get dependencies():Array { return []; }
+		
 		/*
 		 * Variables
 		 */

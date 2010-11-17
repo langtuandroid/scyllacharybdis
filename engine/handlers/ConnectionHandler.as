@@ -30,6 +30,8 @@ package handlers
 		*/
 		public override function awake():void
 		{
+			super.awake();
+			
 			owner.sfs.addEventListener(SFSEvent.CONNECTION, onConnection);
 			owner.sfs.addEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
 			owner.sfs.addEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess);
@@ -46,6 +48,8 @@ package handlers
 			owner.sfs.removeEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
 			owner.sfs.removeEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess);
 			owner.sfs.removeEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure);
+			
+			super.destroy();
 		}
 
 		/****************************************/
