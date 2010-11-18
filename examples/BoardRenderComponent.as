@@ -8,8 +8,8 @@ package
 		{
 			trace("BoardRenderComponent is starting!");
 			_baseclip.graphics
-			_baseclip.graphics.beginFill( 0x0000FF );
-			_baseclip.graphics.drawRect( 0, 0, 1000, 1000 );
+			_baseclip.graphics.beginFill( 0xCCCCCC );
+			_baseclip.graphics.drawRect( 0, 0, 800, 600 );
 			_baseclip.graphics.endFill();
 		}
 	}

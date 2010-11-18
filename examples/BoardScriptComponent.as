@@ -17,30 +17,23 @@ package
 		
 		public override function engine_start():void 
 		{
-			for ( var i:int = 0; i < 16; i++ ) 
-			{
-				// Create a new piece
-				var whitePiece:GameObject = MemoryManager.instantiate(GameObject, GameObject.dependencies);
-				var blackPiece:GameObject = MemoryManager.instantiate(GameObject, GameObject.dependencies);
-				
-				// Add to the board
-				owner.addChild( whitePiece );
-				owner.addChild( blackPiece );
+			var depth:int = 1000;
 			
-				// Add components to the peice
-				whitePiece.addComponent(PieceScriptComponent);
-				whitePiece.addComponent(WhiteRenderComponent);
-				whitePiece.addComponent(TransformComponent);
-
-				whitePiece.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( i*25, 100, i );
-				whitePiece.getComponent( BaseObject.TRANSFORM_COMPONENT ).rotate = 45;
-				
-				blackPiece.addComponent(PieceScriptComponent);
-				blackPiece.addComponent(BlackRenderComponent);
-				blackPiece.addComponent(TransformComponent);
-				
-				whitePiece.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( i*10, 200, i );
-				whitePiece.getComponent( BaseObject.TRANSFORM_COMPONENT ).rotate = 45;
+			for ( var i:int = 0; i < 8; i++ ) 
+			{
+				for ( var j:int = 0; j < 8; j++ )
+				{
+					var piece:GameObject = MemoryManager.instantiate(GameObject, GameObject.dependencies);
+					
+					piece.addComponent(PieceScriptComponent);
+					piece.addComponent(TransformComponent);
+					piece.addComponent( ( i % 2 == j % 2 ) ? WhiteRenderComponent : BlackRenderComponent );
+					
+					piece.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( i * 25, j * 25, depth );
+					depth++;
+					
+					owner.addChild( piece );
+				}
 			}
 		}
 	}

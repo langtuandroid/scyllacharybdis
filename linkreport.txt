@@ -523,7 +523,7 @@
       <dep id="AS3" />
       <dep id="trace" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\BoardRenderComponent.as" mod="1290046114759" size="777" optimizedsize="448">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\BoardRenderComponent.as" mod="1290050372500" size="780" optimizedsize="451">
       <def id="BoardRenderComponent" />
       <pre id="components:RenderComponent" />
       <dep id="AS3" />
@@ -901,7 +901,7 @@
       <dep id="com.smartfoxserver.v2.bitswarm:IMessage" />
       <dep id="AS3" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\BoardScriptComponent.as" mod="1290048712043" size="1403" optimizedsize="922">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\BoardScriptComponent.as" mod="1290051101766" size="1337" optimizedsize="883">
       <def id="BoardScriptComponent" />
       <pre id="components:ScriptComponent" />
       <dep id="core:GameObject" />
@@ -1204,7 +1204,7 @@
       <pre id="Object" />
       <dep id="AS3" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\src\Main.as" mod="1290048886152" size="2485" optimizedsize="1697">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\src\Main.as" mod="1290050372500" size="2477" optimizedsize="1692">
       <def id="Main" />
       <pre id="flash.display:Sprite" />
       <dep id="core:NetworkManager" />

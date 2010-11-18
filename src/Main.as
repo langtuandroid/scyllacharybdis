@@ -39,10 +39,14 @@
 		
 		private function init(e:Event = null):void 
 		{
+			removeEventListener(Event.ADDED_TO_STAGE, init);
+
 			setup(e);
-			setupTestSquares(e);
+			//setupTestSquares(e);
 			setupChessBoard(e);
 			testEvent();
+			
+			addEventListener( Event.ENTER_FRAME, onEnterFrame );
 		}
 		
 		private function setup(e:Event = null):void
@@ -52,7 +56,6 @@
 		
 		private function setupTestSquares(e:Event = null):void
 		{
-			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
 			//_camera = MemoryManager.instantiate( GameObject, [CameraScriptComponent, TransformComponent] );
 			//_camera.enabled = false;
@@ -78,7 +81,7 @@
 			_square.getComponent( BaseObject.TRANSFORM_COMPONENT ).rotate = 45;
 			_otherSquare.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 100, 100, 10 );
 
-			addEventListener( Event.ENTER_FRAME, onEnterFrame );
+			
 		}
 		
 		private function setupChessBoard(e:Event = null):void
