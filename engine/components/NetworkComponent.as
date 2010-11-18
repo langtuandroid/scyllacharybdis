@@ -12,6 +12,11 @@ package components
 	 */
 	public class NetworkComponent extends BaseObject
 	{
+		/**
+		 * Get the dependencies to instantiate the class
+		 */
+		public static function get dependencies():Array { return []; }
+		
 		/****************************************/
 		// Type definition
 		/****************************************/

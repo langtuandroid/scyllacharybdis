@@ -8,6 +8,11 @@ package components
 	 */
 	public class StateComponent extends BaseObject
 	{
+		/**
+		 * Get the dependencies to instantiate the class
+		 */
+		public static function get dependencies():Array { return []; }
+		
 		/****************************************/
 		// Type definition
 		/****************************************/
@@ -16,7 +21,6 @@ package components
 			return STATE_COMPONENT; 
 		}		
 
-		
 		/****************************************/
 		// Overide function
 		/****************************************/
@@ -28,7 +32,7 @@ package components
 		
 		public static const BLANK_STATE:String = "blank_state";
 
-		
+		//private var _currentState:State
 		public function enter( owner:GameObject ):void
 		{
 		}
