@@ -35,6 +35,8 @@ package core
 		*/
 		public override function engine_awake():void
 		{
+			super.awake();
+			
 			_connectionHandler = getDependency(ConnectionHandler);
 			_loginHandler = getDependency(LoginHandler);
 			_roomHandler = getDependency(RoomHandler);
@@ -52,6 +54,8 @@ package core
 			_connectionHandler = null;
 			_loginHandler = null;
 			_roomHandler = null;
+			
+			super.destroy();
 		}
 		
 		/**

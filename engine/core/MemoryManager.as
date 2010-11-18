@@ -21,16 +21,16 @@ package core
 			// Declare the object variable
 			var obj:* = getObject(type);
 			
-			if ( dependencies != null )
+			if ( dependencies != null && dependencies.length > 0 )
 			{
 				// Create the dependencies
-				var depMap:Dictionary = new Dictionary();
+				var depMap:Dictionary = new Dictionary(true);
 				
 				// Loop through all the dependencies
 				for each ( var dep:Class in dependencies ) 
 				{
 					// Add the deps to a dictionary
-					depMap[dep] = instantiate(dep);
+					depMap[dep] = instantiate(dep, ( dep.prototype.hasOwnProperty("dependencies") ? dep.dependencies : null ));
 				}
 				
 				// Inject the dependencies
