@@ -17,11 +17,15 @@ package core
 		 */
 		public static function get scope():int { return SINGLETON_OBJECT };
 		
+		/**
+		 * Get the dependencies to instantiate the class
+		 */
+		public static function get dependencies():Array { return [SceneGraph]; }
+		
 		/****************************************/
 		// Constructors and Allocation 
 		/****************************************/
-		private var _scenes:Dictionary = new Dictionary(true);
-		private var _currentScene:Scene = null;
+		private var _sceneGraph:SceneGraph = null;
 		private var _dirty:Boolean = true;
 		
 		public function Renderer()
@@ -29,61 +33,26 @@ package core
 			
 		}
 		
+		public override function engine_awake():void
+		{
+			super.engine_awake();
+			
+			_sceneGraph = getDependency(SceneGraph);
+			_sceneGraph.addEventListener( EngineEvent.DIRTY, onDirty, false, 0, true );
+		}
+		
 		public override function engine_destroy():void 
 		{
 			super.engine_destroy();
 
-			if ( _currentScene )
-			{
-				if ( _currentScene.hasEventListener(EngineEvent.DIRTY) )
-				{
-					_currentScene.removeEventListener(EngineEvent.DIRTY, onDirty);
-				}
-				
-				_currentScene.engine_stop();
-			}
+			_sceneGraph.removeEventListener( EngineEvent.DIRTY, onDirty, false );
+			_sceneGraph = null;
 			
-			for each ( var scene:Scene in _scenes )
-			{
-				delete _scenes[scene];
-			}
-			
-			_currentScene = null;
-			
-		}
-		
-		public function get currentScene():Scene 
-		{
-			return _currentScene;
-		}
-		
-		public function set currentScene( value:Scene ):void
-		{
-			_dirty = true;
-			
-			// Add to scene dictionary if needed
-			addScene( value );
-			
-			if ( _currentScene )
-			{
-				if ( _currentScene.hasEventListener(EngineEvent.DIRTY) )
-				{
-					_currentScene.removeEventListener(EngineEvent.DIRTY, onDirty);
-				}
-				
-				_currentScene.engine_stop();
-			}
-					
-			_currentScene = value;
-			
-			_currentScene.addEventListener(EngineEvent.DIRTY, onDirty, false, 0, true);
-			
-			_currentScene.engine_start();
 		}
 		
 		public function render( surface:DisplayObjectContainer ):void
 		{
-			if ( _dirty )
+			if ( _dirty == true )
 			{
 				// Erase the world
 				for ( var i:int = surface.numChildren - 1; i >= 0; i-- )
@@ -91,44 +60,25 @@ package core
 					surface.removeChildAt(i);
 				}
 				
+				// Get the renderables array
+				var renderables:Array = _sceneGraph.renderables;
+				
 				// Sort the renderables array (bigger numbers are closer to the screen) 
-				_currentScene.renderables.sortOn( "comparator", Array.NUMERIC );
+				renderables.sortOn( "comparator", Array.NUMERIC );
 				
 				// Render children in order
-				for ( i = 0; i < _currentScene.renderables.length; i++ )
+				for ( i = 0; i < renderables.length; i++ )
 				{
-					_currentScene.renderables[i].render(surface);
+					renderables[i].render(surface);
 				}
 				
 				_dirty = false;
 			}
 		}
 		
-		private function onDirty(e:EngineEvent):void
+		private function onDirty( e:EngineEvent ):void
 		{
 			_dirty = true;
-		}
-		
-		public function addScene( value:Scene ):void
-		{
-			// Add to scene dictionary if needed
-			if ( _scenes[value.id] == null )
-			{
-				_scenes[value.id] = value;
-			}
-		}
-		
-		public function removeScene( value:Scene ):void
-		{
-			if ( _scenes[value.id] != null )
-			{
-				delete _scenes[value.id];
-			}
-		}
-		
-		public function getSceneById( value:String ):Scene
-		{
-			return _scenes[value];
 		}
 	}
 }

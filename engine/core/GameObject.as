@@ -13,9 +13,12 @@ package core
 	 */
 	public final class GameObject extends ContainerObject
 	{
+		public static function get dependencies():Array { return [SceneGraph]; }
+		
 		/****************************************/
 		// Constructors and Allocation 
-		/****************************************/		
+		/****************************************/
+		private var _sceneGraph:SceneGraph = null;
 		private var _parent:GameObject = null;
 		private var _children:Array = new Array();
 		private var _enabled:Boolean = false;				
@@ -38,6 +41,15 @@ package core
 			_children = null;
 			_parent = null;
 			
+		}
+		
+		public override function engine_awake():void
+		{
+			super.engine_awake();
+			
+			_sceneGraph = getDependency(SceneGraph);
+			
+			_sceneGraph.addGameObject(this);
 		}
 		
 		/****************************************/

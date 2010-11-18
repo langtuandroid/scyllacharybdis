@@ -1,6 +1,7 @@
 package core 
 {
 	import components.RenderComponent;
+	import events.EngineEvent;
 	import flash.utils.Dictionary;
 	/**
 	 * ...
@@ -20,10 +21,12 @@ package core
 		public function addGameObject( gameObj:GameObject ):void 
 		{
 			_gameObjects[gameObj] = gameObj;
+			dispatchEvent( new EngineEvent( EngineEvent.DIRTY ) );
 		}
 		
 		public function removeGameObject( gameObj:GameObject ):void
 		{
+			dispatchEvent( new EngineEvent( EngineEvent.DIRTY ) );
 			delete _gameObjects[gameObj];
 		}
 		
@@ -34,10 +37,13 @@ package core
 			// Apply frustrum-ish algorithm here
 			for each ( var gameObj:GameObject in _gameObjects )
 			{
-				var renderable:RenderComponent = gameObj.getComponent(RENDER_COMPONENT);
-				if ( renderable != null )
+				if ( gameObj.enabled == true )
 				{
-					renderables.push(renderable);
+					var renderable:RenderComponent = gameObj.getComponent(RENDER_COMPONENT);
+					if ( renderable != null )
+					{
+						renderables.push(renderable);
+					}
 				}
 			}
 			
