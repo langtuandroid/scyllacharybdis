@@ -5,7 +5,6 @@ package
 	import core.MemoryManager;
 	import components.ScriptComponent;
 	import components.TransformComponent;
-	import core.Scene;
 	import org.casalib.math.geom.Point3d;
 
 	/**
@@ -21,12 +20,12 @@ package
 			for ( var i:int = 0; i < 16; i++ ) 
 			{
 				// Create a new piece
-				var whitePiece:GameObject = MemoryManager.instantiate(GameObject);
-				var blackPiece:GameObject = MemoryManager.instantiate(GameObject);
+				var whitePiece:GameObject = MemoryManager.instantiate(GameObject, GameObject.dependencies);
+				var blackPiece:GameObject = MemoryManager.instantiate(GameObject, GameObject.dependencies);
 				
 				// Add to the board
-				//owner.addChild( whitePiece );
-				//owner.addChild( blackPiece );
+				owner.addChild( whitePiece );
+				owner.addChild( blackPiece );
 			
 				// Add components to the peice
 				whitePiece.addComponent(PieceScriptComponent);
@@ -42,15 +41,6 @@ package
 				
 				whitePiece.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( i*10, 200, i );
 				whitePiece.getComponent( BaseObject.TRANSFORM_COMPONENT ).rotate = 45;
-
-				var scene:Scene = getDependency(Scene);
-				if ( scene == null ) {
-					trace("scene is null");
-					return;
-				}
-				scene.addGameObject( whitePiece );
-				scene.addGameObject( blackPiece );
-
 			}
 		}
 	}
