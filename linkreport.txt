@@ -504,7 +504,7 @@
       <pre id="com.smartfoxserver.v2.core:BaseEvent" />
       <dep id="AS3" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\WhiteRenderComponent.as" mod="1290046114783" size="778" optimizedsize="448">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\WhiteRenderComponent.as" mod="1290050086340" size="773" optimizedsize="443">
       <def id="WhiteRenderComponent" />
       <pre id="components:RenderComponent" />
       <dep id="AS3" />
@@ -681,7 +681,7 @@
       <dep id="com.smartfoxserver.v2.requests:RoomEvents" />
       <dep id="com.smartfoxserver.v2.requests:RoomPermissions" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\BlackRenderComponent.as" mod="1290046114737" size="775" optimizedsize="444">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\BlackRenderComponent.as" mod="1290050086340" size="770" optimizedsize="439">
       <def id="BlackRenderComponent" />
       <pre id="components:RenderComponent" />
       <dep id="AS3" />
