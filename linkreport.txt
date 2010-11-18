@@ -504,7 +504,7 @@
       <pre id="com.smartfoxserver.v2.core:BaseEvent" />
       <dep id="AS3" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\WhiteRenderComponent.as" mod="1290050086340" size="773" optimizedsize="443">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\WhiteRenderComponent.as" mod="1290050086340" size="778" optimizedsize="448">
       <def id="WhiteRenderComponent" />
       <pre id="components:RenderComponent" />
       <dep id="AS3" />
@@ -681,7 +681,7 @@
       <dep id="com.smartfoxserver.v2.requests:RoomEvents" />
       <dep id="com.smartfoxserver.v2.requests:RoomPermissions" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\BlackRenderComponent.as" mod="1290050086340" size="770" optimizedsize="439">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\BlackRenderComponent.as" mod="1290052566991" size="775" optimizedsize="444">
       <def id="BlackRenderComponent" />
       <pre id="components:RenderComponent" />
       <dep id="AS3" />
@@ -901,7 +901,7 @@
       <dep id="com.smartfoxserver.v2.bitswarm:IMessage" />
       <dep id="AS3" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\BoardScriptComponent.as" mod="1290051101766" size="1337" optimizedsize="883">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\BoardScriptComponent.as" mod="1290052606983" size="1500" optimizedsize="987">
       <def id="BoardScriptComponent" />
       <pre id="components:ScriptComponent" />
       <dep id="core:GameObject" />
@@ -913,6 +913,7 @@
       <dep id="WhiteRenderComponent" />
       <dep id="core:MemoryManager" />
       <dep id="components:TransformComponent" />
+      <dep id="flash.geom:Point" />
     </script>
     <script name="C:\Users\danny\Code\Flash\scyllacharybdis\lib\SFS2X_API_AS3.swc(com.smartfoxserver.v2.protocol.serialization:DefaultSFSDataSerializer)" mod="1273053228000" size="20595" optimizedsize="9565">
       <def id="com.smartfoxserver.v2.protocol.serialization:DefaultSFSDataSerializer" />
@@ -1204,7 +1205,7 @@
       <pre id="Object" />
       <dep id="AS3" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\src\Main.as" mod="1290050372500" size="2477" optimizedsize="1692">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\src\Main.as" mod="1290051355594" size="2431" optimizedsize="1657">
       <def id="Main" />
       <pre id="flash.display:Sprite" />
       <dep id="core:NetworkManager" />
