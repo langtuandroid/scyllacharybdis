@@ -92,8 +92,8 @@
 			_board.addComponent(BoardRenderComponent);
 			_board.addComponent(TransformComponent);			
 
-			_board.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d(0, 0, 0);
-			_board.getComponent( BaseObject.TRANSFORM_COMPONENT ).rotate = 0;
+			//_board.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d(0, 0, 0);
+			//_board.getComponent( BaseObject.TRANSFORM_COMPONENT ).rotate = 0;
 			
 			_board.enabled = true;
 		}
