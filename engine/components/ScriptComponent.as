@@ -13,11 +13,6 @@ package components
 	 */
 	public class ScriptComponent extends BaseObject
 	{
-		/**
-		 * Get the dependencies to instantiate the class
-		 */
-		public static function get dependencies():Array { return [EventManager]; }
-		
 		/****************************************/
 		// Type definition
 		/****************************************/
