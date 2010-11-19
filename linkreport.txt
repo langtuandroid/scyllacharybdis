@@ -109,7 +109,7 @@
       <dep id="AS3" />
       <dep id="Error" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\core\Renderer.as" mod="1290047688093" size="1656" optimizedsize="990">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\core\Renderer.as" mod="1290047688093" size="1655" optimizedsize="990">
       <def id="core:Renderer" />
       <pre id="core:BaseObject" />
       <dep id="events:EngineEvent" />
@@ -198,7 +198,7 @@
       <dep id="com.smartfoxserver.v2.requests:JoinRoomRequest" />
       <dep id="com.smartfoxserver.v2.entities.variables:RoomVariable" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\core\GameObject.as" mod="1290048619812" size="2070" optimizedsize="1168">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\core\GameObject.as" mod="1290048619812" size="2069" optimizedsize="1168">
       <def id="core:GameObject" />
       <pre id="core:ContainerObject" />
       <dep id="org.casalib.util:ArrayUtil" />
@@ -644,7 +644,7 @@
       <pre id="Object" />
       <dep id="AS3" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\components\RenderComponent.as" mod="1290133192762" size="3243" optimizedsize="1968">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\components\RenderComponent.as" mod="1290134446310" size="3100" optimizedsize="1951">
       <def id="components:RenderComponent" />
       <pre id="core:BaseObject" />
       <dep id="components:ScriptComponent" />
@@ -702,7 +702,7 @@
       <dep id="com.smartfoxserver.v2.exceptions:SFSValidationError" />
       <dep id="com.smartfoxserver.v2.entities:Buddy" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\components\TransformComponent.as" mod="1290133798367" size="3061" optimizedsize="1607">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\components\TransformComponent.as" mod="1290134446310" size="2959" optimizedsize="1542">
       <def id="components:TransformComponent" />
       <pre id="core:BaseObject" />
       <dep id="org.casalib.math.geom:Point3d" />
@@ -896,7 +896,7 @@
       <dep id="com.smartfoxserver.v2.bitswarm:IMessage" />
       <dep id="AS3" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\BoardScriptComponent.as" mod="1290133351139" size="2059" optimizedsize="1300">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\BoardScriptComponent.as" mod="1290134557943" size="2059" optimizedsize="1300">
       <def id="BoardScriptComponent" />
       <pre id="components:ScriptComponent" />
       <dep id="core:GameObject" />
@@ -1071,7 +1071,7 @@
       <dep id="com.smartfoxserver.v2.exceptions:SFSValidationError" />
       <dep id="com.smartfoxserver.v2.entities.match:MatchExpression" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\core\SceneGraph.as" mod="1290047688108" size="1402" optimizedsize="828">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\core\SceneGraph.as" mod="1290047688108" size="1400" optimizedsize="828">
       <def id="core:SceneGraph" />
       <pre id="core:BaseObject" />
       <dep id="core:GameObject" />
