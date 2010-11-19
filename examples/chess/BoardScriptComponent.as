@@ -52,8 +52,13 @@ package chess
 				}
 			}
 			
+			var knight:GameObject = MemoryManager.instantiate( GameObject, GameObject.dependencies );
+			knight.addComponent( TransformComponent );
+			knight.addComponent( BlackKnightRenderComponent );
+			knight.addComponent( PieceScriptComponent );
 			
-	
+			owner.addChild(knight);
+			knight.getComponent( TRANSFORM_COMPONENT ).position = new Point3d( 0, 0, 100);
 		}
 		
 		public override function destroy():void
