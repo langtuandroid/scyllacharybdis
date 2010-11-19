@@ -20,6 +20,11 @@
 	import WhiteRenderComponent;
 	import BlackRenderComponent;
 	
+	import handlers.ConnectionHandler;
+	import handlers.LoginHandler;
+	import handlers.RoomHandler;
+	import handlers.MessageHandler;
+	
 	/**
 	 */
 	public class Main extends Sprite 
@@ -30,6 +35,12 @@
 		private var _square:GameObject;
 		private var _otherSquare:GameObject;
 		private var _board:GameObject;
+		
+		private var _eventManager:EventManager;
+		private var _listerner:EventListener;
+		private var _networkmanager:NetworkManager;
+		
+		
 		
 		public function Main():void 
 		{		
@@ -52,6 +63,18 @@
 		private function setup(e:Event = null):void
 		{
 			_renderer = MemoryManager.instantiate(Renderer, Renderer.dependencies);
+			
+			// Create the event manager
+			_eventManager = MemoryManager.instantiate(EventManager);
+			
+			_listerner = MemoryManager.instantiate( EventListener, [EventManager] );			
+
+			// Create a network layer
+			_networkmanager = MemoryManager.instantiate( NetworkManager);			
+			_networkmanager.addComponent(ConnectionHandler);
+			_networkmanager.addComponent(LoginHandler);
+			_networkmanager.addComponent(RoomHandler);
+			_networkmanager.addComponent(MessageHandler);
 		}
 		
 		private function setupTestSquares(e:Event = null):void
@@ -100,16 +123,11 @@
 		
 		private function testEvent():void
 		{
-			// Create the event manager
-			var eventManager:EventManager = MemoryManager.instantiate(EventManager);
-			
-			// Create a listener
-			var listerner:EventListener = MemoryManager.instantiate( EventListener, [EventManager] );
-			
-			eventManager.fireEvent("myevent", null);
+		
+			_eventManager.fireEvent("myevent", null);
 			
 		}
-		
+
 		private function onEnterFrame( e:Event ):void
 		{
 			_renderer.render(this);

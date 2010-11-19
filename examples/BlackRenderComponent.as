@@ -9,7 +9,6 @@ package
 	{
 		public override function start():void
 		{
-			trace("BlackRenderComponent is starting!");
 			_baseclip.graphics
 			_baseclip.graphics.beginFill( 0x000000 );
 			_baseclip.graphics.drawRect( 0, 0, 25, 25 );

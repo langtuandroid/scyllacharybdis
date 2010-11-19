@@ -3,6 +3,7 @@ package
 	import core.BaseObject;
 	import core.GameObject;
 	import core.MemoryManager;
+	import core.EventManager;
 	import components.ScriptComponent;
 	import components.TransformComponent;
 	import flash.geom.Point;
@@ -16,10 +17,17 @@ package
 		protected var whitePieces:Array;
 		protected var blackPieces:Array;
 		
-		public override function engine_start():void 
+		private var _eventManager:EventManager = null;
+		
+		public override function awake():void
 		{
-			super.engine_start();
-			
+			_eventManager = getDependency(EventManager);		
+			_eventManager.registerListener("ready", this, readyMessage);
+			_eventManager.registerListener("move", this, moveMessage);
+		}
+		
+		public override function start():void 
+		{
 			var depth:int = 1;
 			var size:int = 50;
 			var startingX:int = 800 / 2.0 - ( 8 * size / 2.0 );
@@ -44,5 +52,22 @@ package
 				}
 			}
 		}
+		
+		public override function destroy():void
+		{
+			_eventManager.unregisterListener("ready", this, readyMessage);
+			_eventManager.unregisterListener("move", this, moveMessage);
+			_eventManager = null;
+		}		
+
+		public function readyMessage(event:*):void
+		{
+			trace("readyMessage");
+		}		
+
+		public function moveMessage(event:*):void
+		{
+			trace("moveMessage");
+		}		
 	}
 }

@@ -2,10 +2,7 @@ package
 {
 	import components.ScriptComponent;
 	import flash.events.MouseEvent;
-	/**
-	 * ...
-	 * @author Daniel Lamb
-	 */
+	
 	public class SquareScriptComponent extends ScriptComponent
 	{
 		

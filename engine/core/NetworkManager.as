@@ -24,10 +24,6 @@ package core
 		// Overide function
 		/****************************************/
 		
-		private var _connectionHandler:ConnectionHandler;
-		private var _loginHandler:LoginHandler;
-		private var _roomHandler:RoomHandler;
-		
 		private var _sfs:SmartFox = new SmartFox(true);
 		
 		/**
@@ -35,12 +31,6 @@ package core
 		*/
 		public override function engine_awake():void
 		{
-			super.awake();
-			
-			_connectionHandler = getDependency(ConnectionHandler);
-			_loginHandler = getDependency(LoginHandler);
-			_roomHandler = getDependency(RoomHandler);
-			
 			super.engine_awake();
 		}
 		
@@ -50,42 +40,21 @@ package core
 		public override function engine_destroy():void
 		{
 			super.engine_destroy();
-
-			_connectionHandler = null;
-			_loginHandler = null;
-			_roomHandler = null;
-			
-			super.destroy();
 		}
 		
 		/**
 		 * Get the smartfox server
 		 */
 		public function get sfs():SmartFox { return _sfs; }
-		
-		/**
-		 * Get the connection handler
-		 */
-		public function get connectionHandler():ConnectionHandler { return _connectionHandler; }
-		
-		/**
-		 * Get the login handler
-		 */
-		public function get loginHandler():LoginHandler { return _loginHandler; }
-		
-		/**
-		 * Get the room handler
-		 */
-		public function get roomHandler():RoomHandler { return _roomHandler; }		
-		
+
 		/** 
 		 * Connect to the server
 		 */
 		public function connect():void
 		{
-			if ( _connectionHandler != null ) 
+			if ( getComponent( CONNECTION_HANDLER ) != null ) 
 			{
-				_connectionHandler.connect();
+				getComponent( CONNECTION_HANDLER ).connect();
 			}
 		}
 		
@@ -94,7 +63,7 @@ package core
 		 */
 		private function disconnect():void
 		{
-			_connectionHandler.disconnect();
+			getComponent( CONNECTION_HANDLER ).disconnect();
 		}		
 		
 		/**
@@ -104,7 +73,7 @@ package core
 		 */
 		public function login(userName:String, password:String):void
 		{
-			_loginHandler.login(userName, password);
+			getComponent( LOGIN_HANDLER ).login(userName, password);
 		}
 
 		/**
@@ -112,7 +81,7 @@ package core
 		*/
 		public function joinRoom(name:String = "The Lobby"):void
 		{
-			_roomHandler.joinRoom(name);
+			getComponent( ROOM_HANDLER ).joinRoom(name);
 		}		
 		
 		/**
@@ -126,7 +95,7 @@ package core
 		 */
 		public function createGameRoom(roomName:String, roomPwd:String=null, roomMaxS:int=0, extensionId:String="sfsChess", extensionClass:String = "sfs2x.extensions.games.tris.SFSTrisGame"):void
 		{
-			_roomHandler.createGameRoom(roomName, roomPwd, roomMaxS, extensionId, extensionClass);
+			getComponent( ROOM_HANDLER ).createGameRoom(roomName, roomPwd, roomMaxS, extensionId, extensionClass);
 		}
 		
 		/**
@@ -135,7 +104,7 @@ package core
 		*/
 		private function leaveGameRoom():void
 		{
-			_roomHandler.leaveGameRoom();
+			getComponent( ROOM_HANDLER ).leaveGameRoom();
 		}		
 
 		public function backToLoginScreen():void {}		

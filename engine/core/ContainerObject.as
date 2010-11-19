@@ -15,8 +15,7 @@ package core
 		public function addComponent( componentType:Class, dependencies:Array = null  ):void 
 		{
 			// Create the new component
-			var component:* = MemoryManager.instantiate( componentType, dependencies);
-			component.owner = this;
+			var component:* = MemoryManager.instantiate(componentType, dependencies, this);
 
 			// Check to see if there is an old one
 			if ( _components[ component.getType() ] != null )

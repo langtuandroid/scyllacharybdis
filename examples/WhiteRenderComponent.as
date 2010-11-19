@@ -6,7 +6,6 @@ package
 	{
 		public override function start():void
 		{
-			trace("WhiteRenderComponent is starting!");
 			_baseclip.graphics
 			_baseclip.graphics.beginFill( 0xFFFFFF );
 			_baseclip.graphics.drawRect( 0, 0, 25, 25 );
