@@ -16,7 +16,7 @@ package core
 		* Instantiate an object
 		* @param type (Class) The type of object to create
 		*/
-		public static function instantiate( type:Class, dependencies:Array = null ):*
+		public static function instantiate( type:Class, dependencies:Array = null, owner:* = null ):*
 		{
 			// Declare the object variable
 			var obj:* = getObject(type);
@@ -39,6 +39,11 @@ package core
 			
 			// Increase the debugging counter
 			incrementCounter(type);
+
+			// Add the owner if there is one
+			if ( owner ) {
+				obj.owner = owner;
+			}
 			
 			// Awaken the object
 			obj.engine_awake();

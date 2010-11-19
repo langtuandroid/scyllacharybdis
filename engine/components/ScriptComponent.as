@@ -3,9 +3,11 @@ package components
 	import flash.utils.Dictionary;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
-	import core.BaseObject;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
+
+	import core.BaseObject;
+	import core.EventManager;
 
 	/**
 	 */
@@ -14,7 +16,7 @@ package components
 		/**
 		 * Get the dependencies to instantiate the class
 		 */
-		public static function get dependencies():Array { return []; }
+		public static function get dependencies():Array { return [EventManager]; }
 		
 		/****************************************/
 		// Type definition

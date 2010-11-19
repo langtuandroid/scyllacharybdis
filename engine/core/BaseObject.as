@@ -22,13 +22,13 @@ package core
 		public static const TRANSFORM_COMPONENT:String = "transform_component";
 		public static const RENDER_COMPONENT:String = "render_component";
 		public static const SCRIPT_COMPONENT:String = "script_component";
-		public static const NETWORK_COMPONENT:String = "network_component";
 		public static const STATE_COMPONENT:String = "state_component";
 		
 		// Handlers
 		public static const CONNECTION_HANDLER:String = "connection_handler";
 		public static const LOGIN_HANDLER:String = "login_handler";
 		public static const ROOM_HANDLER:String = "room_handler";
+		public static const MESSAGE_HANDLER:String = "message_handler";
 
 		// Scopes
 		public static const NEW_OBJECT:int = 1;

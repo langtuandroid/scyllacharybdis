@@ -24,12 +24,12 @@ package handlers
 		/****************************************/
 
 		/**
-		* Awake is called at the construction of the object
 		* Register all the listeners
+		* Awake is called at the construction of the object
 		*/
 		public override function engine_awake():void
 		{
-			
+			trace("ConnectionHandler::engine_awake");
 			owner.sfs.addEventListener(SFSEvent.CONNECTION, onConnection);
 			owner.sfs.addEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
 			owner.sfs.addEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess);

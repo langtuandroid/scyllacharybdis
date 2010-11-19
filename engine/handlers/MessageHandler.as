@@ -1,4 +1,4 @@
-package components
+package handlers
 {
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.SmartFox;
@@ -7,30 +7,34 @@ package components
 	import com.smartfoxserver.v2.entities.data.SFSObject;
 	import core.BaseObject;
 	import core.NetworkManager;
+	import core.EventManager;
 
 	/**
 	 */
-	public class NetworkComponent extends BaseObject
+	public class MessageHandler extends BaseObject
 	{
 		/**
 		 * Get the dependencies to instantiate the class
 		 */
-		public static function get dependencies():Array { return []; }
+		public static function get dependencies():Array { return [EventManager]; }
 		
 		/****************************************/
 		// Type definition
 		/****************************************/
 		public override function getType():String 
 		{
-			return NETWORK_COMPONENT;
+			return MESSAGE_HANDLER;
 		}
 
 		/****************************************/
 		// Overide function
 		/****************************************/
 
+		private var _eventManager:EventManager;
+		
 		public override function engine_awake():void 
 		{
+			_eventManager = owner.getComponent(EventManager);
 			owner.sfs.addEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse);
 			
 			super.engine_awake();
@@ -41,11 +45,8 @@ package components
 			super.engine_destroy();
 			
 			owner.sfs.removeEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse);
+			_eventManager = null;
 		}
-		
-		/****************************************/
-		// Class specific
-		/****************************************/
 		
 		
 		/****************************************/
@@ -54,33 +55,11 @@ package components
 		
 		public function onExtensionResponse(evt:SFSEvent):void
 		{
-			// This should be moved to a handler that generates custom events
-			var params:ISFSObject = evt.params.params
-			var cmd:String = evt.params.cmd
+			var params:ISFSObject = evt.params.params;
+			var cmd:String = evt.params.cmd;
+			trace(cmd);
 			
-			switch(cmd)
-			{
-				case "start":
-//					startGame(params)
-					break
-				
-				case "stop":
-//					userLeft()
-					break
-				
-				case "move":
-//					moveReceived(params)
-					break
-				
-				case "specStatus":
-//					setSpectatorBoard(params)
-					break
-				
-				case "win":
-				case "tie":
-//					showWinner(cmd, params)
-					break
-			}
+			_eventManager.fireEvent(cmd, evt);
 		}
 	}
 }
