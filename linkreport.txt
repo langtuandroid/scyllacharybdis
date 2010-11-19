@@ -109,7 +109,7 @@
       <dep id="AS3" />
       <dep id="Error" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\core\Renderer.as" mod="1290047688093" size="1655" optimizedsize="990">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\core\Renderer.as" mod="1290047688093" size="1656" optimizedsize="990">
       <def id="core:Renderer" />
       <pre id="core:BaseObject" />
       <dep id="events:EngineEvent" />
@@ -129,6 +129,11 @@
       <dep id="flash.utils:ByteArray" />
       <dep id="AS3" />
       <dep id="com.smartfoxserver.v2.entities.data:ISFSObject" />
+    </script>
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\chess\WhiteSquareRenderComponent.as" mod="1290138529214" size="820" optimizedsize="440">
+      <def id="chess:WhiteSquareRenderComponent" />
+      <pre id="components:RenderComponent" />
+      <dep id="AS3" />
     </script>
     <script name="C:\Users\danny\Code\Flash\scyllacharybdis\lib\SFS2X_API_AS3.swc(com.smartfoxserver.v2.entities.managers:IUserManager)" mod="1283446794000" size="2392" optimizedsize="577">
       <def id="com.smartfoxserver.v2.entities.managers:IUserManager" />
@@ -198,7 +203,7 @@
       <dep id="com.smartfoxserver.v2.requests:JoinRoomRequest" />
       <dep id="com.smartfoxserver.v2.entities.variables:RoomVariable" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\core\GameObject.as" mod="1290048619812" size="2069" optimizedsize="1168">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\core\GameObject.as" mod="1290048619812" size="2070" optimizedsize="1168">
       <def id="core:GameObject" />
       <pre id="core:ContainerObject" />
       <dep id="org.casalib.util:ArrayUtil" />
@@ -502,11 +507,6 @@
       <pre id="com.smartfoxserver.v2.core:BaseEvent" />
       <dep id="AS3" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\WhiteRenderComponent.as" mod="1290132578245" size="725" optimizedsize="398">
-      <def id="WhiteRenderComponent" />
-      <pre id="components:RenderComponent" />
-      <dep id="AS3" />
-    </script>
     <script name="C:\Users\danny\Code\Flash\scyllacharybdis\lib\SFS2X_API_AS3.swc(com.smartfoxserver.v2.entities.variables:VariableType)" mod="1246547807000" size="1415" optimizedsize="669">
       <def id="com.smartfoxserver.v2.entities.variables:VariableType" />
       <pre id="Object" />
@@ -519,11 +519,6 @@
       <dep id="core:EventManager" />
       <dep id="AS3" />
       <dep id="trace" />
-    </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\BoardRenderComponent.as" mod="1290132578245" size="727" optimizedsize="401">
-      <def id="BoardRenderComponent" />
-      <pre id="components:RenderComponent" />
-      <dep id="AS3" />
     </script>
     <script name="C:\Users\danny\Code\Flash\scyllacharybdis\lib\SFS2X_API_AS3.swc(as3reflect:Method)" mod="1231597543796" size="1823" optimizedsize="963">
       <def id="as3reflect:Method" />
@@ -633,6 +628,22 @@
       <pre id="Object" />
       <dep id="AS3" />
     </script>
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\chess\BoardScriptComponent.as" mod="1290138594033" size="2086" optimizedsize="1304">
+      <def id="chess:BoardScriptComponent" />
+      <pre id="components:ScriptComponent" />
+      <dep id="core:GameObject" />
+      <dep id="chess:PieceScriptComponent" />
+      <dep id="org.casalib.math.geom:Point3d" />
+      <dep id="chess:WhiteSquareRenderComponent" />
+      <dep id="core:EventManager" />
+      <dep id="AS3" />
+      <dep id="core:BaseObject" />
+      <dep id="trace" />
+      <dep id="core:MemoryManager" />
+      <dep id="chess:BlackSquareRenderComponent" />
+      <dep id="components:TransformComponent" />
+      <dep id="flash.geom:Point" />
+    </script>
     <script name="C:\Users\danny\Code\Flash\scyllacharybdis\lib\SFS2X_API_AS3.swc(com.smartfoxserver.v2.bitswarm:IMessage)" mod="1281018506000" size="2001" optimizedsize="427">
       <def id="com.smartfoxserver.v2.bitswarm:IMessage" />
       <pre id="Object" />
@@ -644,7 +655,7 @@
       <pre id="Object" />
       <dep id="AS3" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\components\RenderComponent.as" mod="1290134446310" size="3100" optimizedsize="1951">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\components\RenderComponent.as" mod="1290134446310" size="3101" optimizedsize="1951">
       <def id="components:RenderComponent" />
       <pre id="core:BaseObject" />
       <dep id="components:ScriptComponent" />
@@ -682,11 +693,6 @@
       <pre id="Object" />
       <dep id="AS3" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\BlackRenderComponent.as" mod="1290132578245" size="722" optimizedsize="394">
-      <def id="BlackRenderComponent" />
-      <pre id="components:RenderComponent" />
-      <dep id="AS3" />
-    </script>
     <script name="C:\Users\danny\Code\Flash\scyllacharybdis\lib\SFS2X_API_AS3.swc(as3reflect:Accessor)" mod="1231597123325" size="725" optimizedsize="343">
       <def id="as3reflect:Accessor" />
       <pre id="as3reflect:Field" />
@@ -702,7 +708,7 @@
       <dep id="com.smartfoxserver.v2.exceptions:SFSValidationError" />
       <dep id="com.smartfoxserver.v2.entities:Buddy" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\components\TransformComponent.as" mod="1290134446310" size="2959" optimizedsize="1542">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\components\TransformComponent.as" mod="1290135610606" size="3085" optimizedsize="1617">
       <def id="components:TransformComponent" />
       <pre id="core:BaseObject" />
       <dep id="org.casalib.math.geom:Point3d" />
@@ -878,6 +884,11 @@
       <pre id="Object" />
       <dep id="AS3" />
     </script>
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\chess\PieceScriptComponent.as" mod="1290138529214" size="548" optimizedsize="269">
+      <def id="chess:PieceScriptComponent" />
+      <pre id="components:ScriptComponent" />
+      <dep id="AS3" />
+    </script>
     <script name="C:\Users\danny\Code\Flash\scyllacharybdis\lib\SFS2X_API_AS3.swc(com.smartfoxserver.v2.entities:SFSBuddy)" mod="1280160459000" size="4424" optimizedsize="2142">
       <def id="com.smartfoxserver.v2.entities:SFSBuddy" />
       <pre id="com.smartfoxserver.v2.entities:Buddy" />
@@ -895,22 +906,6 @@
       <dep id="com.smartfoxserver.v2.bitswarm:IoHandler" />
       <dep id="com.smartfoxserver.v2.bitswarm:IMessage" />
       <dep id="AS3" />
-    </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\BoardScriptComponent.as" mod="1290134557943" size="2059" optimizedsize="1300">
-      <def id="BoardScriptComponent" />
-      <pre id="components:ScriptComponent" />
-      <dep id="core:GameObject" />
-      <dep id="BlackRenderComponent" />
-      <dep id="org.casalib.math.geom:Point3d" />
-      <dep id="core:EventManager" />
-      <dep id="PieceScriptComponent" />
-      <dep id="AS3" />
-      <dep id="core:BaseObject" />
-      <dep id="trace" />
-      <dep id="WhiteRenderComponent" />
-      <dep id="core:MemoryManager" />
-      <dep id="components:TransformComponent" />
-      <dep id="flash.geom:Point" />
     </script>
     <script name="C:\Users\danny\Code\Flash\scyllacharybdis\lib\SFS2X_API_AS3.swc(com.smartfoxserver.v2.protocol.serialization:DefaultSFSDataSerializer)" mod="1273053228000" size="20595" optimizedsize="9565">
       <def id="com.smartfoxserver.v2.protocol.serialization:DefaultSFSDataSerializer" />
@@ -934,6 +929,11 @@
     </script>
     <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\SquareRenderComponent.as" mod="1290132578245" size="733" optimizedsize="401">
       <def id="SquareRenderComponent" />
+      <pre id="components:RenderComponent" />
+      <dep id="AS3" />
+    </script>
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\chess\BoardRenderComponent.as" mod="1290138635529" size="785" optimizedsize="436">
+      <def id="chess:BoardRenderComponent" />
       <pre id="components:RenderComponent" />
       <dep id="AS3" />
     </script>
@@ -1071,7 +1071,7 @@
       <dep id="com.smartfoxserver.v2.exceptions:SFSValidationError" />
       <dep id="com.smartfoxserver.v2.entities.match:MatchExpression" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\core\SceneGraph.as" mod="1290047688108" size="1400" optimizedsize="828">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\engine\core\SceneGraph.as" mod="1290047688108" size="1402" optimizedsize="828">
       <def id="core:SceneGraph" />
       <pre id="core:BaseObject" />
       <dep id="core:GameObject" />
@@ -1210,12 +1210,12 @@
       <pre id="Object" />
       <dep id="AS3" />
     </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\src\Main.as" mod="1290133823485" size="2730" optimizedsize="1898">
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\src\Main.as" mod="1290138579369" size="2739" optimizedsize="1906">
       <def id="Main" />
       <pre id="flash.display:Sprite" />
+      <dep id="flash.events:Event" />
       <dep id="SquareRenderComponent" />
       <dep id="core:NetworkManager" />
-      <dep id="flash.events:Event" />
       <dep id="handlers:LoginHandler" />
       <dep id="core:EventManager" />
       <dep id="core:BaseObject" />
@@ -1225,14 +1225,14 @@
       <dep id="handlers:MessageHandler" />
       <dep id="handlers:ConnectionHandler" />
       <dep id="core:GameObject" />
+      <dep id="chess:BoardScriptComponent" />
       <dep id="org.casalib.math.geom:Point3d" />
       <dep id="SquareScriptComponent" />
+      <dep id="chess:BoardRenderComponent" />
       <dep id="AS3" />
       <dep id="OtherSquareRenderComponent" />
       <dep id="core:Renderer" />
       <dep id="EventListener" />
-      <dep id="BoardRenderComponent" />
-      <dep id="BoardScriptComponent" />
     </script>
     <script name="C:\Users\danny\Code\Flash\scyllacharybdis\lib\SFS2X_API_AS3.swc(com.smartfoxserver.v2.entities.match:IMatcher)" mod="1279873964000" size="768" optimizedsize="227">
       <def id="com.smartfoxserver.v2.entities.match:IMatcher" />
@@ -1333,6 +1333,11 @@
       <dep id="com.smartfoxserver.v2.logging:Logger" />
       <dep id="com.smartfoxserver.v2.bitswarm:IUDPManager" />
     </script>
+    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\chess\BlackSquareRenderComponent.as" mod="1290138635513" size="822" optimizedsize="441">
+      <def id="chess:BlackSquareRenderComponent" />
+      <pre id="components:RenderComponent" />
+      <dep id="AS3" />
+    </script>
     <script name="C:\Users\danny\Code\Flash\scyllacharybdis\lib\SFS2X_API_AS3.swc(as3reflect:IMetaDataContainer)" mod="1231857264134" size="891" optimizedsize="286">
       <def id="as3reflect:IMetaDataContainer" />
       <pre id="Object" />
@@ -1360,11 +1365,6 @@
     <script name="C:\Users\danny\Code\Flash\scyllacharybdis\lib\SFS2X_API_AS3.swc(com.smartfoxserver.v2.entities.data:SFSDataWrapper)" mod="1268668047000" size="910" optimizedsize="325">
       <def id="com.smartfoxserver.v2.entities.data:SFSDataWrapper" />
       <pre id="Object" />
-      <dep id="AS3" />
-    </script>
-    <script name="C:\Users\danny\Code\Flash\scyllacharybdis\examples\PieceScriptComponent.as" mod="1290046114776" size="496" optimizedsize="234">
-      <def id="PieceScriptComponent" />
-      <pre id="components:ScriptComponent" />
       <dep id="AS3" />
     </script>
   </scripts>

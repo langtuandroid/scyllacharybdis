@@ -11,6 +11,12 @@ package components
 	 */
 	public class TransformComponent extends BaseObject 
 	{
+		// Find a clever way to get this as some sort global property or something...
+		// But it works for now.  
+		// Determines 2d rendering with z as layers, or 3d rendering with z as a dimension and perspective applied
+		private const MODE_3D:String = "3d";
+		private const MODE_2D:String = "2d";
+		
 		/**
 		 * Get the dependencies to instantiate the class
 		 */
@@ -41,6 +47,8 @@ package components
 		protected var _worldScale:Point3d = new Point3d();
 		protected var _worldRotate:Number = 0;
 		
+		private var _mode:String = MODE_2D;
+		
 		public function get position():Point3d { return _position; }
 		
 		public function set position ( value:Point3d ):void 
@@ -68,6 +76,10 @@ package components
 			{
 				renderComponent.baseclip.x = _worldPosition.x;
 				renderComponent.baseclip.y = _worldPosition.y;
+				if ( _mode == MODE_3D )
+				{
+					renderComponent.baseclip.z = _worldPosition.z;
+				}
 			}
 		}
 		

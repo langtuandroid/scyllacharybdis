@@ -1,11 +1,11 @@
-package  
+package chess
 {
 	import components.RenderComponent;
 	/**
 	 * ...
 	 * @author ...
 	 */
-	public class BlackRenderComponent extends RenderComponent
+	public class BlackSquareRenderComponent extends RenderComponent
 	{
 		public override function start():void
 		{

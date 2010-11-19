@@ -1,4 +1,4 @@
-package   
+package chess
 {
 	import components.RenderComponent;
 
