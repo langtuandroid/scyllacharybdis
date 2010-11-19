@@ -50,7 +50,8 @@ package
 					piece.getComponent( BaseObject.TRANSFORM_COMPONENT ).dimensions = new Point( size, size );
 					piece.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( startingX + i * size, 
 																								 startingY + j * size, 
-																								 depth );	
+																								 depth );
+					depth++;
 				}
 			}
 	
