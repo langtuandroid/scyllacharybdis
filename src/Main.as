@@ -14,11 +14,11 @@
 	import core.NetworkManager;
 	import components.TransformComponent;
 	
-	import BoardRenderComponent;
-	import BoardScriptComponent;
-	import PieceScriptComponent;
-	import WhiteRenderComponent;
-	import BlackRenderComponent;
+	import chess.BoardRenderComponent;
+	import chess.BoardScriptComponent;
+	import chess.PieceScriptComponent;
+	import chess.WhiteSquareRenderComponent;
+	import chess.BlackSquareRenderComponent;
 	
 	import handlers.ConnectionHandler;
 	import handlers.LoginHandler;

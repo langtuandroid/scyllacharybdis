@@ -1,8 +1,8 @@
-package  
+package chess
 {
 	import components.RenderComponent;
 
-	public class WhiteRenderComponent  extends RenderComponent
+	public class WhiteSquareRenderComponent  extends RenderComponent
 	{
 		public override function start():void
 		{

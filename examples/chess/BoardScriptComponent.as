@@ -1,4 +1,4 @@
-package   
+package chess
 {
 	import core.BaseObject;
 	import core.GameObject;
@@ -16,9 +16,6 @@ package
 		/**
 		 * Get the dependencies to instantiate the class
 		 */
-		protected var whitePieces:Array;
-		protected var blackPieces:Array;
-		
 		private var _eventManager:EventManager;
 		
 		public override function awake():void
@@ -45,7 +42,7 @@ package
 					
 					piece.addComponent(PieceScriptComponent);
 					piece.addComponent(TransformComponent);
-					piece.addComponent( ( i % 2 == j % 2 ) ? WhiteRenderComponent : BlackRenderComponent );
+					piece.addComponent( ( i % 2 == j % 2 ) ? WhiteSquareRenderComponent : BlackSquareRenderComponent );
 					
 					piece.getComponent( BaseObject.TRANSFORM_COMPONENT ).dimensions = new Point( size, size );
 					piece.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( startingX + i * size, 
@@ -54,6 +51,8 @@ package
 					depth++;
 				}
 			}
+			
+			
 	
 		}
 		
