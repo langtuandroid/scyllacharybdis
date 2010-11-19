@@ -13,17 +13,19 @@ package
 	 */
 	public class BoardScriptComponent extends ScriptComponent
 	{
-		
+		/**
+		 * Get the dependencies to instantiate the class
+		 */
 		protected var whitePieces:Array;
 		protected var blackPieces:Array;
 		
-		private var _eventManager:EventManager = null;
+		private var _eventManager:EventManager;
 		
 		public override function awake():void
 		{
 			_eventManager = getDependency(EventManager);		
 			_eventManager.registerListener("ready", this, readyMessage);
-			_eventManager.registerListener("move", this, moveMessage);
+			_eventManager.registerListener("move", this, moveMessage);		
 		}
 		
 		public override function start():void 
@@ -51,6 +53,7 @@ package
 																								 depth );	
 				}
 			}
+	
 		}
 		
 		public override function destroy():void

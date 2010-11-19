@@ -12,7 +12,7 @@ package core
 		 * Add a component to the game object
 		 * @param	component (Component)
 		 */
-		public function addComponent( componentType:Class, dependencies:Array = null  ):void 
+		public function addComponent( componentType:Class, dependencies:Array = null ):void 
 		{
 			// Create the new component
 			var component:* = MemoryManager.instantiate(componentType, dependencies, this);

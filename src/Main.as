@@ -70,7 +70,7 @@
 			_listerner = MemoryManager.instantiate( EventListener, [EventManager] );			
 
 			// Create a network layer
-			_networkmanager = MemoryManager.instantiate( NetworkManager);			
+			_networkmanager = MemoryManager.instantiate(NetworkManager, [EventManager]);			
 			_networkmanager.addComponent(ConnectionHandler);
 			_networkmanager.addComponent(LoginHandler);
 			_networkmanager.addComponent(RoomHandler);
@@ -85,13 +85,13 @@
 			
 			// Set the square
 			_square = MemoryManager.instantiate( GameObject, GameObject.dependencies);
-			_square.addComponent(SquareScriptComponent);
+			_square.addComponent(SquareScriptComponent, [EventManager]);
 			_square.addComponent(SquareRenderComponent);
 			_square.addComponent(TransformComponent);
 			
 			// Set the square
 			_otherSquare = MemoryManager.instantiate( GameObject, GameObject.dependencies );
-			_otherSquare.addComponent(SquareScriptComponent);
+			_otherSquare.addComponent(SquareScriptComponent, [EventManager]);
 			_otherSquare.addComponent(OtherSquareRenderComponent);
 			_otherSquare.addComponent(TransformComponent);
 
@@ -111,7 +111,7 @@
 		{
 			// Set the square
 			_board = MemoryManager.instantiate( GameObject, GameObject.dependencies );
-			_board.addComponent(BoardScriptComponent);
+			_board.addComponent(BoardScriptComponent, [EventManager]);
 			_board.addComponent(BoardRenderComponent);
 			_board.addComponent(TransformComponent);			
 
