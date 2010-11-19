@@ -37,16 +37,12 @@ package components
 		// Class specific
 		/****************************************/
 		protected var _baseclip:MovieClip = null;
-		private var _layer:Number;
 		
 		public function set baseclip( value:MovieClip ):void { _baseclip = value; }
 		public function get baseclip():MovieClip { return _baseclip; }
 		
-		public function get layer():Number { return _layer; }
-		public function set layer( value:Number ):void { _layer = value; }
-		
 		// For sorting
-		public function get comparator():Number { return _layer; }
+		public function get comparator():Number { return owner.getComponent( TRANSFORM_COMPONENT ).worldPosition.z }
 
 		/**
 		 * Add the renderable to the surface

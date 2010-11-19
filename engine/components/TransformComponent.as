@@ -58,15 +58,7 @@ package components
 				var parentTransform:TransformComponent = owner.parent.getComponent(TRANSFORM_COMPONENT);
 				if ( parentTransform != null )
 				{
-					_worldPosition.x = _position.x + parentTransform.position.x;
-					_worldPosition.y = _position.y + parentTransform.position.y;
-				}
-				
-				// Set the layer from the graphics component
-				var parentRender:RenderComponent = owner.parent.getComponent(RENDER_COMPONENT);
-				if ( parentRender != null )
-				{
-					_worldPosition.z = _position.z + parentRender.layer;
+					_worldPosition = _position.add(parentTransform.position);
 				}
 			}
 			
@@ -76,7 +68,6 @@ package components
 			{
 				renderComponent.baseclip.x = _worldPosition.x;
 				renderComponent.baseclip.y = _worldPosition.y;
-				renderComponent.layer = _worldPosition.z;
 			}
 		}
 		
