@@ -13,13 +13,6 @@
 	import core.EventManager;
 	import core.NetworkManager;
 	import components.TransformComponent;
-	
-	import chess.BoardRenderComponent;
-	import chess.BoardScriptComponent;
-	import chess.PieceScriptComponent;
-	import chess.WhiteSquareRenderComponent;
-	import chess.BlackSquareRenderComponent;
-	
 	import handlers.ConnectionHandler;
 	import handlers.LoginHandler;
 	import handlers.RoomHandler;
@@ -53,8 +46,7 @@
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 
 			setup(e);
-			//setupTestSquares(e);
-			setupChessBoard(e);
+			setupTestSquares(e);
 			testEvent();
 			
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
@@ -79,10 +71,7 @@
 		
 		private function setupTestSquares(e:Event = null):void
 		{
-			// entry point
-			//_camera = MemoryManager.instantiate( GameObject, [CameraScriptComponent, TransformComponent] );
-			//_camera.enabled = false;
-			
+		
 			// Set the square
 			_square = MemoryManager.instantiate( GameObject, GameObject.dependencies);
 			_square.addComponent(SquareScriptComponent, [EventManager]);
@@ -105,20 +94,6 @@
 			_otherSquare.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 100, 100, 10 );
 
 			
-		}
-		
-		private function setupChessBoard(e:Event = null):void
-		{
-			// Set the square
-			_board = MemoryManager.instantiate( GameObject, GameObject.dependencies );
-			_board.addComponent(BoardScriptComponent, [EventManager]);
-			_board.addComponent(BoardRenderComponent);
-			_board.addComponent(TransformComponent);			
-
-			_board.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d(0, 0, 0);
-			_board.getComponent( BaseObject.TRANSFORM_COMPONENT ).rotate = 0;
-			
-			_board.enabled = true;
 		}
 		
 		private function testEvent():void
