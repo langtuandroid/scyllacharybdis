@@ -111,12 +111,13 @@ package handlers
 			if (evt.params.success)
 			{
 				connected = true;
-				owner.sfs.dTrace("Connection Success!")
+				owner.dTrace("Connection Success!")
+				owner.login("name", "");
 			}
 			else
 			{
 				connected = false;
-				owner.sfs.dTrace("Connection Failure: " + evt.params.errorMessage)
+				owner.dTrace("Connection Failure: " + evt.params.errorMessage)
 			}
 		}
 		
@@ -126,7 +127,7 @@ package handlers
 		 */
 		protected function onConnectionLost(evt:SFSEvent):void
 		{
-			owner.sfs.dTrace("Connection was lost. Reason: " + evt.params.reason)
+			owner.dTrace("Connection was lost. Reason: " + evt.params.reason)
 		}
 		
 		/**
@@ -135,8 +136,8 @@ package handlers
 		 */
 		protected function onConfigLoadSuccess(evt:SFSEvent):void
 		{
-			owner.sfs.dTrace("Config load success!")
-			owner.sfs.dTrace("Server settings: "  + owner.sfs.config.host + ":" + owner.sfs.config.port)
+			owner.dTrace("Config load success!")
+			owner.dTrace("Server settings: "  + owner.sfs.config.host + ":" + owner.sfs.config.port)
 		}
 		
 		/**
@@ -145,7 +146,7 @@ package handlers
 		 */
 		protected function onConfigLoadFailure(evt:SFSEvent):void
 		{
-			owner.sfs.dTrace("Config load failure!!!")
+			owner.dTrace("Config load failure!!!")
 		}
 	}
 }

@@ -78,8 +78,9 @@ package handlers
 		 */
 		private function onLogin(evt:SFSEvent):void
 		{
+			trace("logic sucessful");
 			// Pass this off to the room handler
-			owner.joinRoom();
+			owner.joinRoom(owner.sfs.config.zone);
 		}
 	}
 }

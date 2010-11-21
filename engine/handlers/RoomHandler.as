@@ -63,6 +63,7 @@ package handlers
 		{
 			_roomName = name;
 			var request:JoinRoomRequest = new JoinRoomRequest(name);
+			trace("sending join room request: " + name );
 			owner.sfs.send(request);
 		}		
 		
@@ -95,14 +96,11 @@ package handlers
 		* Leave game and return them to the lobby
 		* Join the lobby room. 
 		*/
-		public function leaveGameRoom(name:String = ""):void
+		public function leaveGameRoom():void
 		{
-			if ( name == null ) {
-				name = _roomName;
-			}
-			
-			var request:JoinRoomRequest = new JoinRoomRequest(name);
-			owner.ssfs.send(request);
+	
+			var request:JoinRoomRequest = new JoinRoomRequest(owner.sfs.config.zone);
+			owner.sfs.send(request);
 		}		
 
 		
@@ -117,8 +115,8 @@ package handlers
 		 */
 		protected function onRoomCreationError(evt:SFSEvent):void
 		{
-			owner.sfs.dTrace("===> " + evt.params.errorMessage);
-			owner.sfs.dTrace("Room creation error:\n" + evt.params.error);
+			owner.dTrace("===> " + evt.params.errorMessage);
+			owner.dTrace("Room creation error:\n" + evt.params.error);
 		}
 
 		/**
@@ -127,7 +125,7 @@ package handlers
 		 */
 		protected function onJoinRoomError(evt:SFSEvent):void
 		{
-			owner.sfs.dTrace("Room join error:\n" + evt.params.errorMessage);
+			owner.dTrace("Room join error:\n" + evt.params.errorMessage);
 		}
 
 		/**
@@ -137,7 +135,6 @@ package handlers
 		protected function onJoinRoom(evt:SFSEvent):void
 		{
 			var room:Room = evt.params.room
-			
 			if (room.isGame)
 			{
 				// viewstack.selectedChild = view_game

@@ -67,6 +67,9 @@
 			_networkmanager.addComponent(LoginHandler);
 			_networkmanager.addComponent(RoomHandler);
 			_networkmanager.addComponent(MessageHandler);
+			
+			// Connect to the server
+			_networkmanager.connect();
 		}
 		
 		private function setupTestSquares(e:Event = null):void
