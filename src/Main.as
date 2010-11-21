@@ -30,7 +30,7 @@
 		private var _board:GameObject;
 		
 		private var _eventManager:EventManager;
-		private var _listerner:EventListener;
+		private var _testlisterner:TestEventListener;
 		private var _networkmanager:NetworkManager;
 		
 		
@@ -47,6 +47,7 @@
 
 			setup(e);
 			setupTestSquares(e);
+			
 			testEvent();
 			
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
@@ -59,7 +60,7 @@
 			// Create the event manager
 			_eventManager = MemoryManager.instantiate(EventManager);
 			
-			_listerner = MemoryManager.instantiate( EventListener, [EventManager] );			
+			_testlisterner = MemoryManager.instantiate( TestEventListener, [EventManager] );			
 
 			// Create a network layer
 			_networkmanager = MemoryManager.instantiate(NetworkManager, [EventManager]);			
@@ -101,7 +102,7 @@
 		
 		private function testEvent():void
 		{
-		
+			trace("testEvent");
 			_eventManager.fireEvent("myevent", null);
 			
 		}
