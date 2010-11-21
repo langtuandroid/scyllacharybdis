@@ -15,6 +15,8 @@ package handlers
 	*/
 	public class RoomHandler extends BaseObject
 	{
+		
+		private var _roomName:String = "The Lobby";
 
 		/****************************************/
 		// Type definition
@@ -54,13 +56,15 @@ package handlers
 		// Class specific
 		/****************************************/
 		
-		private var _roomName:String;
-		
 		/**
 		* Join the passed room.
 		*/
-		public function joinRoom(name:String):void
+		public function joinRoom(name:String = ""):void
 		{
+			if ( name == "" ) 
+			{
+				name = _roomName;
+			} 
 			_roomName = name;
 			var request:JoinRoomRequest = new JoinRoomRequest(name);
 			trace("sending join room request: " + name );
@@ -98,8 +102,7 @@ package handlers
 		*/
 		public function leaveGameRoom():void
 		{
-	
-			var request:JoinRoomRequest = new JoinRoomRequest(owner.sfs.config.zone);
+			var request:JoinRoomRequest = new JoinRoomRequest(_roomName);
 			owner.sfs.send(request);
 		}		
 

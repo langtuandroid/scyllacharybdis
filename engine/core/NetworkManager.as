@@ -69,7 +69,7 @@ package core
 		/**
 		* Join the passed room.
 		*/
-		public function joinRoom(name:String = "The Lobby"):void
+		public function joinRoom(name:String = ""):void
 		{
 			getComponent( ROOM_HANDLER ).joinRoom(name);
 		}	

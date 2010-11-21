@@ -80,7 +80,7 @@ package handlers
 		{
 			trace("logic sucessful");
 			// Pass this off to the room handler
-			owner.joinRoom(owner.sfs.config.zone);
+			owner.joinRoom();
 		}
 	}
 }
