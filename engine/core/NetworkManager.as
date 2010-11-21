@@ -109,17 +109,6 @@ package core
 
 		public function backToLoginScreen():void {}		
 				
-		/**
-		 * Helper function for displaying errors
-		 * @param	msg (String) The error message
-		 */
-		public function dTrace(msg:String):void
-		{
-			trace ( "--> " + msg + "\n" );
-			
-			// Create view to print stuff too
-			//ta_debug.text += "--> " + msg + "\n";
-		}		
 	}
 }
 

@@ -71,6 +71,7 @@ package handlers
 		 */
 		private function onLoginError(evt:SFSEvent):void
 		{
+			trace("onLoginError");
 		}
 
 		/**
@@ -78,7 +79,7 @@ package handlers
 		 */
 		private function onLogin(evt:SFSEvent):void
 		{
-			trace("logic sucessful");
+			trace("onLogin sucessful");
 			// Pass this off to the room handler
 			owner.joinRoom();
 		}

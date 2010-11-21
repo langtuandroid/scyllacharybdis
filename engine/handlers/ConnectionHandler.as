@@ -29,7 +29,6 @@ package handlers
 		*/
 		public override function engine_awake():void
 		{
-			trace("ConnectionHandler::engine_awake");
 			owner.sfs.addEventListener(SFSEvent.CONNECTION, onConnection);
 			owner.sfs.addEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
 			owner.sfs.addEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess);
@@ -111,13 +110,13 @@ package handlers
 			if (evt.params.success)
 			{
 				connected = true;
-				owner.dTrace("Connection Success!")
+				trace("Connection Success!")
 				owner.login("name", "");
 			}
 			else
 			{
 				connected = false;
-				owner.dTrace("Connection Failure: " + evt.params.errorMessage)
+				trace("Connection Failure: " + evt.params.errorMessage)
 			}
 		}
 		
@@ -127,7 +126,7 @@ package handlers
 		 */
 		protected function onConnectionLost(evt:SFSEvent):void
 		{
-			owner.dTrace("Connection was lost. Reason: " + evt.params.reason)
+			trace("Connection was lost. Reason: " + evt.params.reason)
 		}
 		
 		/**
@@ -136,8 +135,8 @@ package handlers
 		 */
 		protected function onConfigLoadSuccess(evt:SFSEvent):void
 		{
-			owner.dTrace("Config load success!")
-			owner.dTrace("Server settings: "  + owner.sfs.config.host + ":" + owner.sfs.config.port)
+			trace("Config load success!")
+			trace("Server settings: "  + owner.sfs.config.host + ":" + owner.sfs.config.port)
 		}
 		
 		/**
@@ -146,7 +145,7 @@ package handlers
 		 */
 		protected function onConfigLoadFailure(evt:SFSEvent):void
 		{
-			owner.dTrace("Config load failure!!!")
+			trace("Config load failure!!!")
 		}
 	}
 }
