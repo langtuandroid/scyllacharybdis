@@ -118,8 +118,8 @@ package handlers
 		 */
 		protected function onRoomCreationError(evt:SFSEvent):void
 		{
-			owner.dTrace("===> " + evt.params.errorMessage);
-			owner.dTrace("Room creation error:\n" + evt.params.error);
+			trace("===> " + evt.params.errorMessage);
+			trace("Room creation error:\n" + evt.params.error);
 		}
 
 		/**
@@ -128,7 +128,7 @@ package handlers
 		 */
 		protected function onJoinRoomError(evt:SFSEvent):void
 		{
-			owner.dTrace("Room join error:\n" + evt.params.errorMessage);
+			trace("Room join error:\n" + evt.params.errorMessage);
 		}
 
 		/**
