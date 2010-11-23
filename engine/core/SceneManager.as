@@ -30,10 +30,10 @@ package core
 			if ( sceneCount > 0 && hide == true) 
 			{
 				var previous:Class = _classStack[sceneCount - 1];
-				_objectList[previous].hide();
+				_objectList[previous].engine_hide();
 			}
 
-			_objectList[sceneClass].show();
+			_objectList[sceneClass].engine_show();
 			_classStack.push(sceneClass);
 		}
 		/**
@@ -48,10 +48,10 @@ package core
 				return;
 			}
 			var sceneObject:SceneObject = _objectList[sceneClass];
-			sceneObject.hide();
+			sceneObject.engine_hide();
 			var previousClass:Class = _classStack[_classStack.length - 1];
 			if ( previousClass != null ) {
-				_objectList[previousClass].show();
+				_objectList[previousClass].engine_show();
 			}
 			
 			if ( destroy ) 
@@ -70,9 +70,9 @@ package core
 		{
 			// Check to see if the object was found
 			var found:Boolean = false;
-			for ( var i:int = _classStack.length - 1; i > 0; i-- )
+			for ( var i:int = _classStack.length; i > 0; i-- )
 			{
-				if ( _classStack[i] == sceneClass ) {
+				if ( _classStack[i-1] == sceneClass ) {
 					found = true;
 					break;
 				}
@@ -81,15 +81,16 @@ package core
 			// Was the class not found
 			if ( ! found ) 
 			{
+				trace("Class not found");
 				// Wasn't found so leave
 				return;
 			}
 			
 			// Unwind the stack
-			for ( i = _classStack.length - 1; i > 0; i-- )
+			for ( i = _classStack.length; i > 0; i-- )
 			{
-				var sceneClass:Class = _classStack.pop();
-				if ( _classStack[i] == sceneClass )
+				var scene:Class = _classStack.pop();
+				if ( scene == sceneClass ) 
 				{
 					// Push it back on the list
 					PushScene( sceneClass );
@@ -97,10 +98,10 @@ package core
 				} 
 				
 				// Get the scene object
-				var sceneObject:SceneObject = _objectList[sceneClass];
+				var sceneObject:SceneObject = _objectList[scene];
 				
 				// Hide the scene
-				sceneObject.hide();
+				sceneObject.engine_hide();
 				
 				// Are we set to destroy
 				if (destroy == true) 
