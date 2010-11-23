@@ -99,9 +99,10 @@
 			_otherSquare.enabled = true;
 
 			// Update the components
-			_square.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 50, 50, 11 );
-			_square.getComponent( BaseObject.TRANSFORM_COMPONENT ).rotate = 45;
-			_otherSquare.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 100, 100, 10 );
+			_square.position = new Point3d( 50, 50, 11 );
+			_square.rotate = 45;
+			_otherSquare.position = new Point3d( 100, 100, 10 );
+			_otherSquare.scale = new Point3d( 5, 5, 1 );
 
 			
 		}
