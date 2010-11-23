@@ -116,14 +116,39 @@
 		private function setupTestScene():void
 		{
 			_sceneManager = new SceneManager();
+			trace("-----------------");
+			trace("Part 1 scene test");
+			trace("-----------------");
+			trace("-Pushing introscene");
 			_sceneManager.PushScene(IntroScene);
+			trace("-Pop intro scene");
 			_sceneManager.PopScene();
 			trace("-----------------");
+			trace("Part 2 scene test");
+			trace("-----------------");
+			trace("-Pushing introscene");
 			_sceneManager.PushScene(IntroScene);
+			trace("-Pushing SecondScene - Should see intro leave first");
 			_sceneManager.PushScene(SecondScene);
 			trace("-----------------");
+			trace("Part 3 scene test");
+			trace("-----------------");
+			trace("-Poping secondscene - Show see show intro after this");
 			_sceneManager.PopScene();
+			trace("-Poping intro scene");
 			_sceneManager.PopScene();
+			trace("-----------------");
+			trace("Part 4 scene test");
+			trace("-----------------");
+			trace("pushing 4 scenes, intro, second, intro, intro");
+			_sceneManager.PushScene(IntroScene);
+			_sceneManager.PushScene(SecondScene);
+			_sceneManager.PushScene(IntroScene);
+			_sceneManager.PushScene(IntroScene);
+			trace("popto intro - should do nothing");
+			_sceneManager.PopToScene(IntroScene);
+			trace("popto second - should remove 2 intro");
+			_sceneManager.PopToScene(SecondScene);
 		}
 
 		private function onEnterFrame( e:Event ):void

@@ -49,6 +49,10 @@ package core
 			}
 			var sceneObject:SceneObject = _objectList[sceneClass];
 			sceneObject.hide();
+			var previousClass:Class = _classStack[_classStack.length - 1];
+			if ( previousClass != null ) {
+				_objectList[previousClass].show();
+			}
 			
 			if ( destroy ) 
 			{
