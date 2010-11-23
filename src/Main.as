@@ -18,6 +18,9 @@
 	import handlers.RoomHandler;
 	import handlers.MessageHandler;
 	
+	import core.SceneManager;
+	import core.SceneObject;
+	
 	/**
 	 */
 	public class Main extends Sprite 
@@ -33,7 +36,7 @@
 		private var _testlisterner:TestEventListener;
 		private var _networkmanager:NetworkManager;
 		
-		
+		private var _sceneManager:SceneManager;
 		
 		public function Main():void 
 		{		
@@ -49,6 +52,8 @@
 			setupTestSquares(e);
 			
 			testEvent();
+			
+			setupTestScene();
 			
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
 		}
@@ -105,6 +110,11 @@
 			trace("testEvent");
 			_eventManager.fireEvent("myevent", null);
 			
+		}
+		
+		private function setupTestScene():void
+		{
+			_sceneManager = new SceneManager();
 		}
 
 		private function onEnterFrame( e:Event ):void
