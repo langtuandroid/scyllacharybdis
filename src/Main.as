@@ -20,6 +20,7 @@
 	
 	import core.SceneManager;
 	import core.SceneObject;
+	import IntroScene;
 	
 	/**
 	 */
@@ -115,6 +116,14 @@
 		private function setupTestScene():void
 		{
 			_sceneManager = new SceneManager();
+			_sceneManager.PushScene(IntroScene);
+			_sceneManager.PopScene();
+			trace("-----------------");
+			_sceneManager.PushScene(IntroScene);
+			_sceneManager.PushScene(SecondScene);
+			trace("-----------------");
+			_sceneManager.PopScene();
+			_sceneManager.PopScene();
 		}
 
 		private function onEnterFrame( e:Event ):void
