@@ -23,34 +23,40 @@ package core
 		public static function get dependencies():Array { return [SceneGraph]; }
 		
 		/****************************************/
-		// Constructors and Allocation 
+		// Class Details
 		/****************************************/
+		
 		private var _sceneGraph:SceneGraph = null;
 		private var _dirty:Boolean = true;
 		
-		public function Renderer()
+		public final override function engine_awake():void
 		{
-			
-		}
-		
-		public override function engine_awake():void
-		{
-			super.engine_awake();
-			
 			_sceneGraph = getDependency(SceneGraph);
 			_sceneGraph.addEventListener( EngineEvent.DIRTY, onDirty, false, 0, true );
+
+			super.engine_awake();
 		}
+
 		
-		public override function engine_destroy():void 
+		public final override function engine_start():void
+		{
+			super.engine_start();
+		}
+
+		public final override function engine_stop():void
+		{
+			super.engine_stop();
+		}
+
+		public final override function engine_destroy():void 
 		{
 			super.engine_destroy();
 
 			_sceneGraph.removeEventListener( EngineEvent.DIRTY, onDirty, false );
 			_sceneGraph = null;
-			
 		}
 		
-		public function render( surface:DisplayObjectContainer ):void
+		public final function render( surface:DisplayObjectContainer ):void
 		{
 			if ( _dirty == true )
 			{
@@ -76,7 +82,7 @@ package core
 			}
 		}
 		
-		private function onDirty( e:EngineEvent ):void
+		private final function onDirty( e:EngineEvent ):void
 		{
 			_dirty = true;
 		}

@@ -10,6 +10,14 @@ package models
 		private var _extensionId:String;
 		private var _extensionClass:String;
 		
+		/**
+		 * Game Room model constructor
+		 * @param	roomName
+		 * @param	roomPwd
+		 * @param	roomMaxS
+		 * @param	extensionId
+		 * @param	extensionClass
+		 */
 		public function GameRoomModel(roomName:String, roomPwd:String=null, roomMaxS:int=0, extensionId:String="sfsChess", extensionClass:String = "sfs2x.extensions.games.tris.SFSTrisGame") 
 		{
 			_name = name;

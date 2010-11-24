@@ -6,13 +6,17 @@ package core
 	public class ContainerObject extends BaseObject
 	{
 
+		/****************************************/
+		// Class Details
+		/****************************************/
+		
 		private var _components:Dictionary = new Dictionary(true);
 
 		/**
 		 * Add a component to the game object
 		 * @param	component (Component)
 		 */
-		public function addComponent( componentType:Class, dependencies:Array = null ):void 
+		public final function addComponent( componentType:Class, dependencies:Array = null ):void 
 		{
 			// Create the new component
 			var component:* = MemoryManager.instantiate(componentType, dependencies, this);
@@ -34,12 +38,12 @@ package core
 		 * Get a component from the game object
 		 * @param	type (int) The component id
 		 */
-		public function getComponent( type:String ):*
+		public final function getComponent( type:String ):*
 		{
 			return _components[type];
 		}
 		
-		public function removeComponentByType( type:String ):void
+		public final function removeComponentByType( type:String ):void
 		{
 			removeComponent( _components[type] );
 		}
@@ -48,7 +52,7 @@ package core
 		 * Remove a component from the game object
 		 * @param	component (Component)
 		 */
-		public function removeComponent( component:* ):void
+		public final function removeComponent( component:* ):void
 		{
 			if (component == null)
 			{
