@@ -10,6 +10,36 @@ package core
 		 */
 		public static function get scope():int { return SINGLETON_OBJECT };
 		
+		/****************************************/
+		// Class Details
+		/****************************************/
+		
+		/**
+		* Awake is called at the construction of the object
+		*/
+		public final override function engine_awake():void
+		{
+			super.engine_awake();
+		}
+		
+		public final override function engine_start():void
+		{
+			super.engine_start();
+		}
+
+		public final override function engine_stop():void
+		{
+			super.engine_stop();
+		}
+		
+		/**
+		* Destroy is called at the removal of the object
+		*/	
+		public final override function engine_destroy():void
+		{
+			super.engine_destroy();
+		}
+		
 		// The stack of scenes
 		private var _objectList:Dictionary = new Dictionary();
 		private var _classStack:Array = new Array();
@@ -19,7 +49,7 @@ package core
 		 * @param	scene (Class) SceneObject class to display
 		 * @param   hide (Boolean) Hide the previous scene. Defaults to autohide.
 		 */
-		public function PushScene( sceneClass:Class, hide:Boolean=true ):void 
+		public final function PushScene( sceneClass:Class, hide:Boolean=true ):void 
 		{
 			if ( _objectList[sceneClass] == null ) 
 			{
@@ -40,7 +70,7 @@ package core
 		 * Hide the scene
 		 * @param	destroy (Boolean) Destroy the object. Default is false.
 		 */
-		public function PopScene(destroy:Boolean=false):void 
+		public final function PopScene(destroy:Boolean=false):void 
 		{
 			var sceneClass:Class = _classStack.pop();
 			if ( sceneClass == null )
@@ -66,7 +96,7 @@ package core
 		 * @param	sceneClass
 		 * @param	destroy
 		 */
-		public function PopToScene( sceneClass:Class, destroy:Boolean=false ):void
+		public final function PopToScene( sceneClass:Class, destroy:Boolean=false ):void
 		{
 			// Check to see if the object was found
 			var found:Boolean = false;
@@ -118,7 +148,7 @@ package core
 		 * @param	sceneClass
 		 * @param	destroy
 		 */
-		public function SwitchScene( sceneClass:Class, destroy:Boolean=false  ):void 
+		public final function SwitchScene( sceneClass:Class, destroy:Boolean=false  ):void 
 		{
 			// pop the old scene
 			PopScene( destroy );

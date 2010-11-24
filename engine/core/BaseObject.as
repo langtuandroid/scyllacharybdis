@@ -115,7 +115,7 @@ package core
 		/**
 		 * Get the dependency
 		 */
-		public function getDependency( type:Class ):*
+		public final function getDependency( type:Class ):*
 		{
 			return _dependencies[type];
 		}
@@ -124,7 +124,7 @@ package core
 		 * Set the dependencies
 		 * @param dep (Dictionary) Key = Class and Value is the object
 		 */
-		public function setDependencies( value:Dictionary ):void 
+		public final function setDependencies( value:Dictionary ):void 
 		{ 
 			_dependencies = value; 
 		}

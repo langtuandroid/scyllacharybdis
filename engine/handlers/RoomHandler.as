@@ -21,15 +21,16 @@ package handlers
 		/****************************************/
 		// Type definition
 		/****************************************/
+		
 		public override function getType():String 
 		{
 			return ROOM_HANDLER;
 		}
 		
 		/****************************************/
-		// Class details
+		// Class Details
 		/****************************************/
-		
+
 		private var _roomName:String = "The Lobby";
 		private var _eventManager:EventManager;
 
@@ -179,8 +180,7 @@ package handlers
 		 */
 		protected function onJoinRoomError(evt:SFSEvent):void
 		{
-			_eventManager.fireEvent("JOINROOM_FAILED");
-			trace("Room join error:\n" + evt.params.errorMessage);
+			_eventManager.fireEvent("JOINROOM_FAILED", evt.params.errorMessage);
 		}
 
 		/**

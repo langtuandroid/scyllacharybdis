@@ -19,17 +19,40 @@ package core
 		public static function get dependencies():Array { return [SceneGraph]; }
 		
 		/****************************************/
-		// Constructors and Allocation 
+		// Class Details
 		/****************************************/
+		
 		private var _sceneGraph:SceneGraph = null;
 		private var _parent:GameObject = null;
 		private var _children:Array = new Array();
 		private var _enabled:Boolean = false;				
 		
+		
+		public final override function engine_awake():void
+		{
+			super.engine_awake();
+			
+			addComponent( TransformComponent );
+			
+			_sceneGraph = getDependency(SceneGraph);
+			
+			_sceneGraph.addGameObject(this);
+		}
+		
+		public final override function engine_start():void
+		{
+			super.engine_start();
+		}
+
+		public final override function engine_stop():void
+		{
+			super.engine_stop();
+		}
+		
 		/**
 		* Destroy is called at the removal of the object
 		*/
-		public override function engine_destroy():void		
+		public final override function engine_destroy():void		
 		{
 			super.engine_destroy();
 
@@ -45,21 +68,6 @@ package core
 			_parent = null;
 			
 		}
-		
-		public override function engine_awake():void
-		{
-			super.engine_awake();
-			
-			addComponent( TransformComponent );
-			
-			_sceneGraph = getDependency(SceneGraph);
-			
-			_sceneGraph.addGameObject(this);
-		}
-		
-		/****************************************/
-		// Trees
-		/****************************************/
 		
 		public function get parent():GameObject { return _parent; }
 		public function set parent( value:GameObject ):void { _parent = value; }
@@ -91,7 +99,7 @@ package core
 		 * Add a child game object.
 		 * @param	child (GameObject)
 		 */
-		public function addChild( child:GameObject ):void
+		public final function addChild( child:GameObject ):void
 		{
 			// Attach to the tree
 			child.parent = this;
@@ -104,7 +112,7 @@ package core
 		 * Remove a child game object.
 		 * @param	child (GameObject)
 		 */
-		public function removeChild( child:GameObject ):void
+		public final function removeChild( child:GameObject ):void
 		{
 			// Stop the child before removing it
 			if ( child.enabled )

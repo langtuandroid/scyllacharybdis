@@ -4,8 +4,68 @@ package core
 	 */
 	public class SceneObject extends BaseObject
 	{
+
+		/****************************************/
+		// Class Details
+		/****************************************/
+		
 		protected var _initialized:Boolean = false;
 		protected var _showing:Boolean = false;
+
+		/**
+		 * Initialize the scene memory
+		 */
+		public final override function engine_awake():void
+		{
+			if ( _initialized ) 
+			{
+				return;
+			}
+			
+			_initialized = true;
+			super.engine_awake();
+		}
+
+		public final override function engine_start():void
+		{
+			super.engine_start();
+		}
+		
+		public final function engine_show():void
+		{
+			if ( _showing == true ) {
+				return;
+			}
+			
+			_showing = true;
+			show();
+		}
+		
+		public final function engine_hide():void
+		{
+			if ( _showing == false ) {
+				return;
+			}
+			_showing = false;
+			hide();
+		}
+		
+
+
+		public final override function engine_stop():void
+		{
+			super.engine_stop();
+		}		
+
+		/**
+		 * Destroy the scene memory
+		 */
+		public final override function engine_destroy():void
+		{
+			super.engine_destroy();
+			
+			_initialized = false;
+		}
 
 		/**
 		 * Animate the scene coming into the frame
@@ -18,50 +78,6 @@ package core
 		 */
 		public function hide():void
 		{
-		}
-		
-		/**
-		 * Initialize the scene memory
-		 */
-		public override function engine_awake():void
-		{
-			if ( _initialized ) 
-			{
-				return;
-			}
-			
-			_initialized = true;
-			super.awake();
-		}
-
-		public function engine_show():void
-		{
-			if ( _showing == true ) {
-				return;
-			}
-			
-			_showing = true;
-			show();
-		}
-
-
-		public function engine_hide():void
-		{
-			if ( _showing == false ) {
-				return;
-			}
-			_showing = false;
-			hide();
-		}
-
-		/**
-		 * Destroy the scene memory
-		 */
-		public override function engine_destroy():void
-		{
-			super.destroy();
-			
-			_initialized = false;
 		}
 	}
 }
