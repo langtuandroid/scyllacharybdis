@@ -11,7 +11,7 @@
 	import core.Renderer;
 	import core.MemoryManager;
 	import core.EventManager;
-	import core.NetworkManager;
+	import core.NetworkObject;
 	import components.TransformComponent;
 	import handlers.ConnectionHandler;
 	import handlers.LoginHandler;
@@ -27,7 +27,7 @@
 	public class Main extends Sprite 
 	{
 		private var _renderer:Renderer;
-		private var _networkManager:NetworkManager;
+		private var _networkObject:NetworkObject;
 		
 		private var _square:GameObject;
 		private var _otherSquare:GameObject;
@@ -35,7 +35,6 @@
 		
 		private var _eventManager:EventManager;
 		private var _testlisterner:TestEventListener;
-		private var _networkmanager:NetworkManager;
 		
 		private var _sceneManager:SceneManager;
 		
@@ -69,14 +68,14 @@
 			_testlisterner = MemoryManager.instantiate( TestEventListener, [EventManager] );			
 
 			// Create a network layer
-			_networkmanager = MemoryManager.instantiate(NetworkManager, [EventManager]);			
-			_networkmanager.addComponent(ConnectionHandler);
-			_networkmanager.addComponent(LoginHandler);
-			_networkmanager.addComponent(RoomHandler);
-			_networkmanager.addComponent(MessageHandler);
-			
-			// Connect to the server
-			_networkmanager.connect();
+			_networkObject = MemoryManager.instantiate(NetworkObject);			
+			_networkObject.addComponent(ConnectionHandler, [EventManager]);
+			_networkObject.addComponent(LoginHandler, [EventManager]);
+			_networkObject.addComponent(RoomHandler, [EventManager]);
+			_networkObject.addComponent(MessageHandler, [EventManager]);
+
+			// Fire a network connection event
+			_eventManager.fireEvent("NETWORK_CONNECT");
 		}
 		
 		private function setupTestSquares(e:Event = null):void

@@ -8,8 +8,9 @@ package handlers
 	import com.smartfoxserver.v2.requests.CreateRoomRequest;
 	import com.smartfoxserver.v2.entities.Room;
 
-	import core.NetworkManager;
+	import core.NetworkObject;
 	import core.BaseObject;	
+	import core.EventManager;
 
 	/**
 	*/
@@ -26,12 +27,17 @@ package handlers
 			return ROOM_HANDLER;
 		}
 		
+		private var _eventManager:EventManager;
+
 		/**
 		* Awake is called at the construction of the object
 		* Register all the listeners
 		*/
-		public override function engine_awake():void
+		public final override function engine_awake():void
 		{
+			// Get the event manager
+			_eventManager = getDependency(EventManager);
+			
 			owner.sfs.addEventListener(SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError);
 			owner.sfs.addEventListener(SFSEvent.ROOM_JOIN, onJoinRoom);
 			owner.sfs.addEventListener(SFSEvent.ROOM_JOIN_ERROR, onJoinRoomError);
@@ -40,10 +46,26 @@ package handlers
 		}
 		
 		/**
+		 * Engine start should handle engine related start. 
+		 */
+		public final override function engine_start():void 
+		{
+			super.engine_start();
+		}
+		
+		/**
+		 * Engine stop should handle engine related stop. 
+		 */
+		public final override function engine_stop():void 
+		{
+			super.engine_stop();
+		}
+		
+		/**
 		* Destroy is called at the removal of the object
 		* Unregister listeners
 		*/
-		public override function engine_destroy():void
+		public final override function engine_destroy():void
 		{
 			super.engine_destroy();
 

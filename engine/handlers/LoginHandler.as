@@ -3,6 +3,7 @@ package handlers
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
 	import com.smartfoxserver.v2.requests.LoginRequest;
+	import core.EventManager;
 	
 	import core.BaseObject;	
 	
@@ -22,13 +23,19 @@ package handlers
 		/****************************************/
 		// Overide function
 		/****************************************/
-		
+
+		private var _eventManager:EventManager;
+
 		/**
 		* Awake is called at the construction of the object
 		* Register all the listeners
 		*/
-		public override function engine_awake():void
+		public final override function engine_awake():void
 		{
+			
+			// Get the event manager
+			_eventManager = getDependency(EventManager);
+		
 			owner.sfs.addEventListener(SFSEvent.LOGIN_ERROR, onLoginError);
 			owner.sfs.addEventListener(SFSEvent.LOGIN, onLogin);
 			
@@ -36,10 +43,26 @@ package handlers
 		}
 		
 		/**
+		 * Engine start should handle engine related start. 
+		 */
+		public final override function engine_start():void 
+		{
+			super.engine_start();
+		}
+		
+		/**
+		 * Engine stop should handle engine related stop. 
+		 */
+		public final override function engine_stop():void 
+		{
+			super.engine_stop();
+		}
+		
+		/**
 		* Destroy is called at the removal of the object
 		* Unregister listeners
 		*/
-		public override function engine_destroy():void
+		public final override function engine_destroy():void
 		{
 			super.engine_destroy();
 			
