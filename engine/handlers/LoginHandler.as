@@ -4,7 +4,7 @@ package handlers
 	import com.smartfoxserver.v2.core.SFSEvent;
 	import com.smartfoxserver.v2.requests.LoginRequest;
 	import core.EventManager;
-	
+	import models.LoginModel;
 	import core.BaseObject;	
 	
 	/**
@@ -21,7 +21,7 @@ package handlers
 		}
 		
 		/****************************************/
-		// Overide function
+		// Class details
 		/****************************************/
 
 		private var _eventManager:EventManager;
@@ -40,6 +40,9 @@ package handlers
 			owner.sfs.addEventListener(SFSEvent.LOGIN, onLogin);
 			
 			super.engine_start();
+			
+			_eventManager.registerListener("NETWORK_LOGIN", this, requestLogin );
+			_eventManager.registerListener("NETWORK_LOGOUT", this, requestLogout );
 		}
 		
 		/**
@@ -64,47 +67,63 @@ package handlers
 		*/
 		public final override function engine_destroy():void
 		{
+			_eventManager.unregisterListener("NETWORK_LOGIN", this, requestLogin );
+			_eventManager.unregisterListener("NETWORK_LOGOUT", this, requestLogout );
+			
 			super.engine_destroy();
 			
 			owner.sfs.removeEventListener(SFSEvent.LOGIN_ERROR, onLoginError);
 			owner.sfs.removeEventListener(SFSEvent.LOGIN, onLogin);
 		}
-
-		/****************************************/
-		// Class specific
-		/****************************************/
+		
+		/**
+		 * Request login handler
+		 * @param	login
+		 */
+		public function requestLogin( login:LoginModel ):void
+		{
+			if ( login.type == LoginModel.USER_LOGIN ) 
+			{
+				login( login.name, login.password);
+			}
+		}
+		
+		/**
+		 * Request logout handler
+		 */
+		public function requestLogout():void
+		{
+			trace("logout");
+		}
 		
 		/**
 		 * Login to the server
 		 * @param	userName (String) Users name
 		 * @param	password (String) Users password
 		 */
-		public function login(userName:String, password:String):void
+		private function login(userName:String, password:String):void
 		{
 			var request:LoginRequest = new LoginRequest(userName, password);
 			owner.sfs.send(request);
 		}
-		
-		/****************************************/
-		// Event Handlers
-		/****************************************/
+
+
+		/**
+		 * On login sucess
+		 */
+		private function onLogin(evt:SFSEvent):void
+		{
+			_eventManager.fireEvent("LOGIN_SUCCESS");
+			trace("onLogin sucessful");
+		}
 		
 		/**
 		 * An error occurred during login; go back to login panel and display error message.
 		 */
 		private function onLoginError(evt:SFSEvent):void
 		{
+			_eventManager.fireEvent("LOGIN_FAILED");
 			trace("onLoginError");
-		}
-
-		/**
-		 * On login, show the chat view.
-		 */
-		private function onLogin(evt:SFSEvent):void
-		{
-			trace("onLogin sucessful");
-			// Pass this off to the room handler
-			owner.joinRoom();
 		}
 	}
 }
