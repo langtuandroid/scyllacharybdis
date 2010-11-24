@@ -121,7 +121,7 @@
       <dep id="com.smartfoxserver.v2.entities.data:ISFSObject" />
       <dep id="com.smartfoxserver.v2.exceptions:SFSError" />
     </script>
-    <script name="C:\Development\scyllacharybdis\engine\handlers\MessageHandler.as" mod="1290569437623" size="1721" optimizedsize="992">
+    <script name="C:\Development\scyllacharybdis\engine\handlers\MessageHandler.as" mod="1290569437623" size="1722" optimizedsize="992">
       <def id="handlers:MessageHandler" />
       <pre id="core:BaseObject" />
       <dep id="core:EventManager" />
@@ -436,6 +436,11 @@
       <dep id="AS3" />
       <dep id="Error" />
     </script>
+    <script name="C:\Development\scyllacharybdis\engine\models\LoginModel.as" mod="1290571492741" size="861" optimizedsize="379">
+      <def id="models:LoginModel" />
+      <pre id="Object" />
+      <dep id="AS3" />
+    </script>
     <script name="C:\Development\scyllacharybdis\lib\SFS2X_API_AS3.swc(com.smartfoxserver.v2.requests:SetRoomVariablesRequest)" mod="1280927876000" size="2240" optimizedsize="1460">
       <def id="com.smartfoxserver.v2.requests:SetRoomVariablesRequest" />
       <pre id="com.smartfoxserver.v2.requests:BaseRequest" />
@@ -472,10 +477,9 @@
       <dep id="AS3" />
       <dep id="as3reflect:Type" />
     </script>
-    <script name="C:\Development\scyllacharybdis\lib\SFS2X_API_AS3.swc(com.hurlant.crypto.hash:IHash)" mod="1177909556000" size="784" optimizedsize="273">
-      <def id="com.hurlant.crypto.hash:IHash" />
+    <script name="C:\Development\scyllacharybdis\engine\models\RoomModel.as" mod="1290570924058" size="514" optimizedsize="206">
+      <def id="models:RoomModel" />
       <pre id="Object" />
-      <dep id="flash.utils:ByteArray" />
       <dep id="AS3" />
     </script>
     <script name="C:\Development\scyllacharybdis\util\org\casalib\math\geom\Point3d.as" mod="1290056108041" size="2259" optimizedsize="938">
@@ -485,6 +489,12 @@
       <dep id="Math" />
       <dep id="org.casalib.math:Percent" />
       <dep id="org.casalib.util:NumberUtil" />
+    </script>
+    <script name="C:\Development\scyllacharybdis\lib\SFS2X_API_AS3.swc(com.hurlant.crypto.hash:IHash)" mod="1177909556000" size="784" optimizedsize="273">
+      <def id="com.hurlant.crypto.hash:IHash" />
+      <pre id="Object" />
+      <dep id="flash.utils:ByteArray" />
+      <dep id="AS3" />
     </script>
     <script name="C:\Development\scyllacharybdis\examples\SecondScene.as" mod="1290475363153" size="807" optimizedsize="448">
       <def id="SecondScene" />
@@ -535,15 +545,15 @@
       <dep id="trace" />
       <dep id="SecondScene" />
       <dep id="core:SceneManager" />
-      <dep id="handlers:RoomHandler" />
       <dep id="core:MemoryManager" />
+      <dep id="handlers:RoomHandler" />
       <dep id="components:TransformComponent" />
       <dep id="handlers:MessageHandler" />
       <dep id="handlers:ConnectionHandler" />
       <dep id="core:GameObject" />
       <dep id="org.casalib.math.geom:Point3d" />
-      <dep id="core:NetworkObject" />
       <dep id="SquareScriptComponent" />
+      <dep id="core:NetworkObject" />
       <dep id="AS3" />
       <dep id="OtherSquareRenderComponent" />
       <dep id="core:Renderer" />
@@ -691,7 +701,7 @@
       <dep id="com.smartfoxserver.v2.requests:ExtensionRequest" />
       <dep id="com.smartfoxserver.v2.entities.data:ISFSObject" />
     </script>
-    <script name="C:\Development\scyllacharybdis\engine\handlers\ConnectionHandler.as" mod="1290569432107" size="3606" optimizedsize="2041">
+    <script name="C:\Development\scyllacharybdis\engine\handlers\ConnectionHandler.as" mod="1290569432107" size="3607" optimizedsize="2041">
       <def id="handlers:ConnectionHandler" />
       <pre id="core:BaseObject" />
       <dep id="core:EventManager" />
@@ -791,6 +801,11 @@
       <dep id="com.smartfoxserver.v2.exceptions:SFSCodecError" />
       <dep id="com.smartfoxserver.v2.exceptions:SFSError" />
     </script>
+    <script name="C:\Development\scyllacharybdis\engine\models\GameRoomModel.as" mod="1290571577496" size="1170" optimizedsize="528">
+      <def id="models:GameRoomModel" />
+      <pre id="Object" />
+      <dep id="AS3" />
+    </script>
     <script name="C:\Development\scyllacharybdis\lib\SFS2X_API_AS3.swc(com.smartfoxserver.v2.util:ConfigLoader)" mod="1280911872000" size="2092" optimizedsize="1325">
       <def id="com.smartfoxserver.v2.util:ConfigLoader" />
       <pre id="flash.events:EventDispatcher" />
@@ -857,17 +872,17 @@
       <pre id="Object" />
       <dep id="AS3" />
     </script>
+    <script name="C:\Development\scyllacharybdis\lib\SFS2X_API_AS3.swc(com.smartfoxserver.v2.bitswarm:IController)" mod="1239028663000" size="890" optimizedsize="246">
+      <def id="com.smartfoxserver.v2.bitswarm:IController" />
+      <pre id="Object" />
+      <dep id="com.smartfoxserver.v2.bitswarm:IMessage" />
+      <dep id="AS3" />
+    </script>
     <script name="C:\Development\scyllacharybdis\lib\SFS2X_API_AS3.swc(com.smartfoxserver.v2.bitswarm:IoHandler)" mod="1239032328000" size="960" optimizedsize="328">
       <def id="com.smartfoxserver.v2.bitswarm:IoHandler" />
       <pre id="Object" />
       <dep id="com.smartfoxserver.v2.protocol:IProtocolCodec" />
       <dep id="flash.utils:ByteArray" />
-      <dep id="com.smartfoxserver.v2.bitswarm:IMessage" />
-      <dep id="AS3" />
-    </script>
-    <script name="C:\Development\scyllacharybdis\lib\SFS2X_API_AS3.swc(com.smartfoxserver.v2.bitswarm:IController)" mod="1239028663000" size="890" optimizedsize="246">
-      <def id="com.smartfoxserver.v2.bitswarm:IController" />
-      <pre id="Object" />
       <dep id="com.smartfoxserver.v2.bitswarm:IMessage" />
       <dep id="AS3" />
     </script>
@@ -1108,7 +1123,7 @@
       <dep id="AS3" />
       <dep id="com.smartfoxserver.v2.exceptions:SFSValidationError" />
     </script>
-    <script name="C:\Development\scyllacharybdis\engine\handlers\LoginHandler.as" mod="1290569453525" size="1838" optimizedsize="1029">
+    <script name="C:\Development\scyllacharybdis\engine\handlers\LoginHandler.as" mod="1290571514285" size="2306" optimizedsize="1359">
       <def id="handlers:LoginHandler" />
       <pre id="core:BaseObject" />
       <dep id="core:EventManager" />
@@ -1116,6 +1131,7 @@
       <dep id="AS3" />
       <dep id="trace" />
       <dep id="com.smartfoxserver.v2.requests:LoginRequest" />
+      <dep id="models:LoginModel" />
     </script>
     <script name="C:\Development\scyllacharybdis\lib\SFS2X_API_AS3.swc(com.smartfoxserver.v2.requests:ManualDisconnectionRequest)" mod="1279956130000" size="998" optimizedsize="385">
       <def id="com.smartfoxserver.v2.requests:ManualDisconnectionRequest" />
@@ -1187,15 +1203,16 @@
       <dep id="flash.utils:Dictionary" />
       <dep id="components:RenderComponent" />
     </script>
-    <script name="C:\Development\scyllacharybdis\engine\handlers\RoomHandler.as" mod="1290569474023" size="3008" optimizedsize="1839">
+    <script name="C:\Development\scyllacharybdis\engine\handlers\RoomHandler.as" mod="1290571537154" size="3599" optimizedsize="2197">
       <def id="handlers:RoomHandler" />
       <pre id="core:BaseObject" />
       <dep id="core:EventManager" />
       <dep id="com.smartfoxserver.v2.requests:RoomExtension" />
+      <dep id="models:RoomModel" />
       <dep id="com.smartfoxserver.v2.core:SFSEvent" />
-      <dep id="com.smartfoxserver.v2.entities:Room" />
       <dep id="AS3" />
       <dep id="trace" />
+      <dep id="models:GameRoomModel" />
       <dep id="com.smartfoxserver.v2.requests:CreateRoomRequest" />
       <dep id="com.smartfoxserver.v2.requests:JoinRoomRequest" />
       <dep id="com.smartfoxserver.v2.requests:RoomSettings" />
