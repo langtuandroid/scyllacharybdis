@@ -4,8 +4,8 @@ package models
 	 */
 	public class LoginModel 
 	{
-		public const var USER_LOGIN = 1;
-		public const var FACEBOOK_LOGIN = 2;
+		public static const USER_LOGIN:int = 1;
+		public static const FACEBOOK_LOGIN:int = 2;
 		
 		private var _name:String;
 		private var _password:String;

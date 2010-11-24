@@ -84,7 +84,7 @@ package handlers
 		{
 			if ( login.type == LoginModel.USER_LOGIN ) 
 			{
-				login( login.name, login.password);
+				this.login(login.name, login.password);
 			}
 		}
 		
