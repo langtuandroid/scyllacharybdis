@@ -1,7 +1,6 @@
 flexhome = C:/Development/FlashDevelop/Tools/flexsdk
 deploydir = C:/Development/scyllacharybdis/lib
-title = Framework
-domainextensions = engine/
+title = "Scylla and Charybdis Framework"
 outputfolder = asdoc/
 asdoc.exe = C:/Development/FlashDevelop/Tools/flexsdk/bin/asdoc.exe
 
