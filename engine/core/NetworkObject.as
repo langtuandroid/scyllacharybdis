@@ -24,7 +24,7 @@ package core
 		// Class Details
 		/****************************************/
 		
-		private var _sfs:SmartFox = new SmartFox(true);
+		private var _sfs:SmartFox = new SmartFox(false);
 		
 		/**
 		* Awake is called at the construction of the object
