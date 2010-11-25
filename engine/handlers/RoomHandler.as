@@ -7,6 +7,7 @@ package handlers
 	import com.smartfoxserver.v2.requests.RoomExtension;
 	import com.smartfoxserver.v2.requests.CreateRoomRequest;
 	import com.smartfoxserver.v2.entities.Room;
+	import com.smartfoxserver.v2.entities.User;
 
 	import core.NetworkObject;
 	import core.BaseObject;	
@@ -46,6 +47,12 @@ package handlers
 			owner.sfs.addEventListener(SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError);
 			owner.sfs.addEventListener(SFSEvent.ROOM_JOIN, onJoinRoom);
 			owner.sfs.addEventListener(SFSEvent.ROOM_JOIN_ERROR, onJoinRoomError);
+			owner.sfs.addEventListener(SFSEvent.ROOM_ADD, onRoomAdd);
+			owner.sfs.addEventListener(SFSEvent.ROOM_REMOVE, onRoomRemove);
+			owner.sfs.addEventListener(SFSEvent.USER_ENTER_ROOM, onUserEnterRoom);
+			owner.sfs.addEventListener(SFSEvent.USER_EXIT_ROOM, onUserExitRoom);
+			owner.sfs.addEventListener(SFSEvent.USER_COUNT_CHANGE, onUserCountChange);
+			
 			
 			super.engine_start();
 			
@@ -85,6 +92,13 @@ package handlers
 			owner.sfs.removeEventListener(SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError);
 			owner.sfs.removeEventListener(SFSEvent.ROOM_JOIN, onJoinRoom);
 			owner.sfs.removeEventListener(SFSEvent.ROOM_JOIN_ERROR, onJoinRoomError);
+
+			owner.sfs.removeEventListener(SFSEvent.ROOM_ADD, onRoomAdd);
+			owner.sfs.removeEventListener(SFSEvent.ROOM_REMOVE, onRoomRemove);
+			owner.sfs.removeEventListener(SFSEvent.USER_ENTER_ROOM, onUserEnterRoom);
+			owner.sfs.removeEventListener(SFSEvent.USER_EXIT_ROOM, onUserExitRoom);
+			owner.sfs.removeEventListener(SFSEvent.USER_COUNT_CHANGE, onUserCountChange);
+			
 		}
 		
 		/**
@@ -191,5 +205,85 @@ package handlers
 		{
 			_eventManager.fireEvent("JOINROOM_SUCESS", evt);
 		}		
+		
+		/**
+		 * On user count change, update the rooms list.
+		 */
+		private function onUserCountChange(evt:SFSEvent):void
+		{
+			_eventManager.fireEvent("USERCOUNT_CHANGED", evt );
+			//ls_rooms.dataProvider.refresh();
+		}
+
+		/**
+		 * On user entering the current room, show his/her name in the users list.
+		 */
+		private function onUserEnterRoom(evt:SFSEvent):void
+		{
+			var user:User = evt.params.user;
+			_eventManager.fireEvent("USER_ENTER_ROOM", evt );
+			
+			// Add user to list
+			//var dataProvider:ArrayCollection = ls_users.dataProvider as ArrayCollection;
+			//dataProvider.addItem(user);
+			
+			// Show system message ( will be switched to an event )
+			//showChatMessage("User " + user.name + " entered the room", null);
+		}
+
+		/**
+		 * On user leaving the current room, remove his/her name from the users list.
+		 */
+		private function onUserExitRoom(evt:SFSEvent):void
+		{
+			var user:User = evt.params.user;
+			_eventManager.fireEvent("USER_EXIT_ROOM", evt );
+			
+			// We are not interested in the user's own exit event, because that would cause his/her username to be removed from the users list
+			// In fact whenever a room is joined, the previous one is left, so we halway receive this event
+			if (!user.isItMe)
+			{
+				// Remove user from list
+				//var dataProvider:ArrayCollection = ls_users.dataProvider as ArrayCollection;
+				//dataProvider.removeItemAt(dataProvider.getItemIndex(user));
+				//dataProvider.refresh();
+				
+				// Show system message
+				//showChatMessage("User " + user.name + " left the room", null);
+			}
+		}
+
+		/**
+		 * On room added, show it in the rooms list.
+		 */
+		private function onRoomAdd(evt:SFSEvent):void
+		{
+			var room:Room = evt.params.room;
+			_eventManager.fireEvent("ROOM_ADD", evt );
+			
+			//var dataProvider:ArrayCollection = ls_rooms.dataProvider as ArrayCollection;
+			//dataProvider.addItem(room);
+		}
+
+		/**
+		 * On room removed, remove it from the rooms list.
+		 */
+		private function onRoomRemove(evt:SFSEvent):void
+		{
+			var room:Room = evt.params.room;
+			_eventManager.fireEvent("ROOM_REMOVE", evt );
+			
+			//var dataProvider:ArrayCollection = ls_rooms.dataProvider as ArrayCollection;
+			
+			//for each (var r:Room in dataProvider)
+			//{
+				//if (r.id == room.id)
+				//{
+					//dataProvider.removeItemAt(dataProvider.getItemIndex(r));
+					//break;
+				//}
+			//}
+		}		
+		
 	}
 }

@@ -29,6 +29,7 @@ package core
 		public static const LOGIN_HANDLER:String = "login_handler";
 		public static const ROOM_HANDLER:String = "room_handler";
 		public static const MESSAGE_HANDLER:String = "message_handler";
+		public static const CHATMESSAGE_HANDLER:String = "chatmessage_handler";
 
 		// Scopes
 		public static const NEW_OBJECT:int = 1;
