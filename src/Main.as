@@ -17,6 +17,7 @@
 	import handlers.LoginHandler;
 	import handlers.RoomHandler;
 	import handlers.MessageHandler;
+	import handlers.ChatMessageHandler;
 	
 	import core.SceneManager;
 	import core.SceneObject;
@@ -72,6 +73,7 @@
 			_networkObject.addComponent(ConnectionHandler, [EventManager]);
 			_networkObject.addComponent(LoginHandler, [EventManager]);
 			_networkObject.addComponent(RoomHandler, [EventManager]);
+			_networkObject.addComponent(ChatMessageHandler, [EventManager]);
 			_networkObject.addComponent(MessageHandler, [EventManager]);
 
 			// Fire a network connection event
