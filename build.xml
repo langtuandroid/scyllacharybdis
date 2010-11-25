@@ -18,17 +18,18 @@
         </compc>
     </target>
     <target name="docs">
-	<exec executable="${asdoc.exe}" failonerror="false">
-            <arg line="-doc-sources ${basedir}/util/org/casalib 
-		${basedir}/engine/events/*.as
-		${basedir}/engine/core/*.as
-		${basedir}/engine/components/*.as
-		${basedir}/engine/models/*.as
-		${basedir}/engine/handlers/*.as "/> 
+	<exec executable="${asdoc.exe}" failonerror="true">
+            <arg line="-doc-sources 
+		${basedir}/engine/events/ 
+		${basedir}/engine/core/ 
+		${basedir}/engine/components/
+		${basedir}/engine/handlers/
+		${basedir}/engine/models/
+            " /> 
             <arg line="-main-title ${title}" />             
             <arg line="-window-title ${title}" /> 
             <arg line="-output ${outputfolder}" /> 
-            <arg line="-compiler.library-path ${basedir}/lib/SFS2X_API_AS3.swc" /> 
+            <arg line="-external-library-path=${basedir}/lib" />
 	</exec>
     </target>
     <target name="clean">
