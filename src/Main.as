@@ -1,43 +1,29 @@
 ﻿package 
 {
-	
-	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.utils.getQualifiedSuperclassName;
-	import org.casalib.math.geom.Point3d;
-	import core.BaseObject;
-	import core.GameObject;
 	import core.Renderer;
 	import core.MemoryManager;
 	import core.EventManager;
+	import core.SceneManager;
 	import core.NetworkObject;
-	import components.TransformComponent;
 	import handlers.ConnectionHandler;
 	import handlers.LoginHandler;
 	import handlers.RoomHandler;
 	import handlers.MessageHandler;
 	import handlers.ChatMessageHandler;
-	
-	import core.SceneManager;
-	import core.SceneObject;
 	import IntroScene;
+	import NetworkDriver;
+	import ChatExample;
 	
-	/**
-	 */
 	public class Main extends Sprite 
 	{
 		private var _renderer:Renderer;
 		private var _networkObject:NetworkObject;
-		
-		private var _square:GameObject;
-		private var _otherSquare:GameObject;
-		private var _board:GameObject;
-		
 		private var _eventManager:EventManager;
-		private var _testlisterner:TestEventListener;
-		
 		private var _sceneManager:SceneManager;
+		private var _networkDriver:NetworkDriver;
+		private var _chatExample:ChatExample;
 		
 		public function Main():void 
 		{		
@@ -48,25 +34,15 @@
 		private function init(e:Event = null):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-
-			setup(e);
-			setupTestSquares(e);
 			
-			testEvent();
-			
-			setupTestScene();
-			
-			addEventListener( Event.ENTER_FRAME, onEnterFrame );
-		}
-		
-		private function setup(e:Event = null):void
-		{
+			// Create a rendering system
 			_renderer = MemoryManager.instantiate(Renderer, Renderer.dependencies);
 			
 			// Create the event manager
 			_eventManager = MemoryManager.instantiate(EventManager);
 			
-			_testlisterner = MemoryManager.instantiate( TestEventListener, [EventManager] );			
+			// Create the scene manager
+			_sceneManager = new SceneManager();
 
 			// Create a network layer
 			_networkObject = MemoryManager.instantiate(NetworkObject);			
@@ -76,81 +52,17 @@
 			_networkObject.addComponent(ChatMessageHandler, [EventManager]);
 			_networkObject.addComponent(MessageHandler, [EventManager]);
 
+			// Create an example network driver
+			_networkDriver = MemoryManager.instantiate( NetworkDriver, [EventManager] );
+			_chatExample = MemoryManager.instantiate( ChatExample, [EventManager] );
+
 			// Fire a network connection event
 			_eventManager.fireEvent("NETWORK_CONNECT");
-		}
-		
-		private function setupTestSquares(e:Event = null):void
-		{
-		
-			// Set the square
-			_square = MemoryManager.instantiate( GameObject, GameObject.dependencies);
-			_square.addComponent(SquareScriptComponent, [EventManager]);
-			_square.addComponent(SquareRenderComponent);
-			_square.addComponent(TransformComponent);
 			
-			// Set the square
-			_otherSquare = MemoryManager.instantiate( GameObject, GameObject.dependencies );
-			_otherSquare.addComponent(SquareScriptComponent, [EventManager]);
-			_otherSquare.addComponent(OtherSquareRenderComponent);
-			_otherSquare.addComponent(TransformComponent);
+			// Display the intro scene
+			//_sceneManager.PushScene(IntroScene);			
 
-			// Disable the sqares
-			_square.enabled = true;
-			_otherSquare.enabled = true;
-
-			// Update the components
-			_square.position = new Point3d( 50, 50, 11 );
-			_square.rotate = 45;
-			_otherSquare.position = new Point3d( 100, 100, 10 );
-			_otherSquare.scale = new Point3d( 5, 5, 1 );
-
-			
-		}
-		
-		private function testEvent():void
-		{
-			trace("testEvent");
-			_eventManager.fireEvent("myevent", null);
-			
-		}
-		
-		private function setupTestScene():void
-		{
-			_sceneManager = new SceneManager();
-			trace("-----------------");
-			trace("Part 1 scene test");
-			trace("-----------------");
-			trace("-Pushing introscene");
-			_sceneManager.PushScene(IntroScene);
-			trace("-Pop intro scene");
-			_sceneManager.PopScene();
-			trace("-----------------");
-			trace("Part 2 scene test");
-			trace("-----------------");
-			trace("-Pushing introscene");
-			_sceneManager.PushScene(IntroScene);
-			trace("-Pushing SecondScene - Should see intro leave first");
-			_sceneManager.PushScene(SecondScene);
-			trace("-----------------");
-			trace("Part 3 scene test");
-			trace("-----------------");
-			trace("-Poping secondscene - Show see show intro after this");
-			_sceneManager.PopScene();
-			trace("-Poping intro scene");
-			_sceneManager.PopScene();
-			trace("-----------------");
-			trace("Part 4 scene test");
-			trace("-----------------");
-			trace("pushing 4 scenes, intro, second, intro, intro");
-			_sceneManager.PushScene(IntroScene);
-			_sceneManager.PushScene(SecondScene);
-			_sceneManager.PushScene(IntroScene);
-			_sceneManager.PushScene(IntroScene);
-			trace("popto intro - should do nothing");
-			_sceneManager.PopToScene(IntroScene);
-			trace("popto second - should remove 2 intro");
-			_sceneManager.PopToScene(SecondScene);
+			addEventListener( Event.ENTER_FRAME, onEnterFrame );
 		}
 
 		private function onEnterFrame( e:Event ):void

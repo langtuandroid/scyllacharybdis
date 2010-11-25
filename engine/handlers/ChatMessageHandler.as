@@ -2,6 +2,7 @@ package handlers
 {
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
+	import com.smartfoxserver.v2.requests.PublicMessageRequest;
 
 	import core.NetworkObject;
 	import core.BaseObject;	
@@ -74,9 +75,10 @@ package handlers
 			owner.sfs.removeEventListener(SFSEvent.PUBLIC_MESSAGE, onPublicMessage);
 		}
 		
-		public final function sendChatMessage():void
+		public final function sendChatMessage( message:* ):void
 		{
-			
+			var request:PublicMessageRequest = new PublicMessageRequest(message);
+			owner.sfs.send(request);
 		}
 		
 		/**

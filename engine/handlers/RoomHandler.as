@@ -32,8 +32,10 @@ package handlers
 		// Class Details
 		/****************************************/
 
-		private var _roomName:String = "The Lobby";
 		private var _eventManager:EventManager;
+		private var _currentRoom:String;
+		private var _previousRoom:String;
+		private var _gameRoom:Boolean = false;
 
 		/**
 		* Awake is called at the construction of the object
@@ -130,13 +132,17 @@ package handlers
 		/**
 		* Join the passed room.
 		*/
-		private function joinRoom(name:String = ""):void
+		private function joinRoom(name:String):void
 		{
-			if ( name == "" ) 
+			_gameRoom = false;
+			if ( _previousRoom == null ) 
 			{
-				name = _roomName;
-			} 
-			_roomName = name;
+				_currentRoom = name;
+			}
+			_previousRoom = _currentRoom;
+			_currentRoom = name;
+
+			_currentRoom = name;
 			var request:JoinRoomRequest = new JoinRoomRequest(name);
 			trace("sending join room request: " + name );
 			owner.sfs.send(request);
@@ -153,6 +159,7 @@ package handlers
 		 */
 		private function createGameRoom(roomName:String, roomPwd:String=null, roomMaxS:int=0, extensionId:String="sfsChess", extensionClass:String = "sfs2x.extensions.games.tris.SFSTrisGame"):void
 		{
+			_gameRoom = true;
 			if (roomName.length > 0)
 			{
 				var settings:RoomSettings = new RoomSettings(roomName)
@@ -163,7 +170,7 @@ package handlers
 				settings.maxSpectators = roomMaxS
 				settings.extension = new RoomExtension(extensionId, extensionClass)
 				
-				owner.ssfs.send( new CreateRoomRequest(settings, true, owner.sfs.lastJoinedRoom) )
+				owner.sfs.send( new CreateRoomRequest(settings, true, owner.sfs.lastJoinedRoom) )
 			}		
 		}
 		
@@ -173,7 +180,7 @@ package handlers
 		*/
 		private function leaveGameRoom():void
 		{
-			var request:JoinRoomRequest = new JoinRoomRequest(_roomName);
+			var request:JoinRoomRequest = new JoinRoomRequest(_previousRoom);
 			owner.sfs.send(request);
 		}		
 
@@ -203,7 +210,15 @@ package handlers
 		 */
 		protected function onJoinRoom(evt:SFSEvent):void
 		{
-			_eventManager.fireEvent("JOINROOM_SUCESS", evt);
+			if ( ! _gameRoom ) 
+			{
+				_eventManager.fireEvent("JOINROOM_SUCCESS", evt);
+			} 
+			else 
+			{
+				_eventManager.fireEvent("JOINGAMEROOM_SUCCESS", evt);
+				
+			}
 		}		
 		
 		/**
