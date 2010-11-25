@@ -13,15 +13,22 @@
             <include-sources dir="${basedir}/engine/core" includes="*.as"/>
             <include-sources dir="${basedir}/engine/components" includes="*.as"/>
             <include-sources dir="${basedir}/engine/handlers" includes="*.as"/>
+            <include-sources dir="${basedir}/engine/models" includes="*.as"/>
             <include-libraries dir="${basedir}/lib" includes="SFS2X_API_AS3.swc"/>
         </compc>
     </target>
     <target name="docs">
-	<exec executable="${asdoc.exe}" failonerror="true">
-            <arg line="-doc-sources ${basedir}/engine" /> 
+	<exec executable="${asdoc.exe}" failonerror="false">
+            <arg line="-doc-sources ${basedir}/util/org/casalib 
+		${basedir}/engine/events/*.as
+		${basedir}/engine/core/*.as
+		${basedir}/engine/components/*.as
+		${basedir}/engine/models/*.as
+		${basedir}/engine/handlers/*.as "/> 
             <arg line="-main-title ${title}" />             
             <arg line="-window-title ${title}" /> 
             <arg line="-output ${outputfolder}" /> 
+            <arg line="-compiler.library-path ${basedir}/lib/SFS2X_API_AS3.swc" /> 
 	</exec>
     </target>
     <target name="clean">
