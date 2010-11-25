@@ -14,7 +14,7 @@ package core
 		/****************************************/
 
 		// A 2d dictornary of events and listeners
-		private var _listeners:Dictionary = new Dictionary();
+		private var _listeners:Dictionary = new Dictionary(true);
 		
 		public final override function engine_awake():void
 		{
@@ -46,11 +46,9 @@ package core
 		{
 			if ( _listeners[eventName] == null ) 
 			{
-				trace("Creating a new event type: " + eventName );
-				_listeners[eventName] = new Dictionary();
+				_listeners[eventName] = new Dictionary(true);
 			}
 			_listeners[eventName][listener] = method;
-			trace("event type: " + _listeners[eventName] + " method: " + _listeners[eventName][listener]);
 		}
 		
 		/**
@@ -61,9 +59,9 @@ package core
 		 */
 		public final function unregisterListener( eventName:String, listener:*, method:Function ):void
 		{
-			//trace("unregisterListener");
-			//_listeners[eventName][listener] = null;
-			//delete _listeners[eventName][listener];
+			trace("unregisterListener");
+			_listeners[eventName][listener] = null;
+			delete _listeners[eventName][listener];
 		}
 		
 		/**
@@ -73,16 +71,14 @@ package core
 		 */
 		public final function fireEvent( eventName:String, data:* = null ):void
 		{
-			trace("fireEvent: " + eventName );
 			var listeners:Dictionary = _listeners[eventName];
-			for each ( var listener:* in listeners ) 
+			for ( var listener:* in listeners ) 
 			{
 				// Get the method
 				var method:Function = listeners[listener];
-				trace("method: " + method);
 				if ( method != null ) 
 				{
-					listeners[listener].method( data );
+					method( data );
 				}
 			}
 		}
