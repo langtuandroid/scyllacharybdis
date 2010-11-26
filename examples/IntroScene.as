@@ -6,6 +6,7 @@ package
 	import core.MemoryManager;
 	import core.EventManager;
 	import components.TransformComponent;
+	import components.SoundComponent;
 	
 	/**
 	 * ...
@@ -26,6 +27,7 @@ package
 		public override function show():void
 		{
 			// Set the square
+			_square.addComponent(SoundComponent);
 			_square.addComponent(SquareScriptComponent, [EventManager]);
 			_square.addComponent(SquareRenderComponent);
 			_square.addComponent(TransformComponent);
