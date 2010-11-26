@@ -32,7 +32,6 @@ package core
 		public final override function engine_awake():void
 		{
 			_sceneGraph = getDependency(SceneGraph);
-			_sceneGraph.addEventListener( EngineEvent.DIRTY, onDirty, false, 0, true );
 
 			super.engine_awake();
 		}
@@ -52,39 +51,28 @@ package core
 		{
 			super.engine_destroy();
 
-			_sceneGraph.removeEventListener( EngineEvent.DIRTY, onDirty, false );
 			_sceneGraph = null;
 		}
 		
 		public final function render( surface:DisplayObjectContainer ):void
 		{
-			if ( _dirty == true )
+			// Erase the world
+			for ( var i:int = surface.numChildren - 1; i >= 0; i-- )
 			{
-				// Erase the world
-				for ( var i:int = surface.numChildren - 1; i >= 0; i-- )
-				{
-					surface.removeChildAt(i);
-				}
-				
-				// Get the renderables array
-				var renderables:Array = _sceneGraph.renderables;
-				
-				// Sort the renderables array (bigger numbers are closer to the screen) 
-				renderables.sortOn( "comparator", Array.NUMERIC );
-				
-				// Render children in order
-				for ( i = 0; i < renderables.length; i++ )
-				{
-					renderables[i].render(surface);
-				}
-				
-				_dirty = false;
+				surface.removeChildAt(i);
 			}
-		}
-		
-		private final function onDirty( e:EngineEvent ):void
-		{
-			_dirty = true;
+			
+			// Get the renderables array
+			var renderables:Array = _sceneGraph.renderables;
+			
+			// Sort the renderables array (bigger numbers are closer to the screen) 
+			renderables.sortOn( "comparator", Array.NUMERIC );
+			
+			// Render children in order
+			for ( i = 0; i < renderables.length; i++ )
+			{
+				renderables[i].render(surface);
+			}
 		}
 	}
 }

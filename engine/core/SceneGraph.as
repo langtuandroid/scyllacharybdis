@@ -46,12 +46,10 @@ package core
 		public final function addGameObject( gameObj:GameObject ):void 
 		{
 			_gameObjects[gameObj] = gameObj;
-			dispatchEvent( new EngineEvent( EngineEvent.DIRTY ) );
 		}
 		
 		public final function removeGameObject( gameObj:GameObject ):void
 		{
-			dispatchEvent( new EngineEvent( EngineEvent.DIRTY ) );
 			delete _gameObjects[gameObj];
 		}
 		
