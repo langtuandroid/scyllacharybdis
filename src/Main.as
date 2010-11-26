@@ -16,6 +16,7 @@
 	import NetworkDriver;
 	import ChatExample;
 	
+	
 	public class Main extends Sprite 
 	{
 		private var _renderer:Renderer;
@@ -63,6 +64,7 @@
 			_sceneManager.PushScene(IntroScene);			
 
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
+			
 		}
 
 		private function onEnterFrame( e:Event ):void
