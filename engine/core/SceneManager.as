@@ -61,6 +61,8 @@ package core
 			{
 				var previous:Class = _classStack[sceneCount - 1];
 				_objectList[previous].engine_hide();
+				
+				
 			}
 
 			_objectList[sceneClass].engine_show();

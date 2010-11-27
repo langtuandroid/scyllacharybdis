@@ -12,6 +12,26 @@ package core
 		
 		private var _components:Dictionary = new Dictionary(true);
 
+		public override function engine_start():void
+		{
+			super.engine_start();
+			
+			for each ( var component:BaseObject in _components )
+			{
+				component.engine_start();
+			}
+		}
+
+		public override function engine_stop():void
+		{
+			super.engine_stop();
+			
+			for each ( var component:BaseObject in _components )
+			{
+				component.engine_stop();
+			}
+		}
+		
 		/**
 		 * Add a component to the game object
 		 * @param	component (Component)
@@ -29,9 +49,6 @@ package core
 			}
 
 			_components[component.getType()] =  component;
-
-			// Setup the component
-			component.engine_start();
 		}
 
 		/**
