@@ -5,7 +5,6 @@ package
 	import core.GameObject;
 	import core.MemoryManager;
 	import core.EventManager;
-	import components.TransformComponent;
 	import components.SoundComponent;
 	
 	/**
