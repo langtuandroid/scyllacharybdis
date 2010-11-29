@@ -7,6 +7,11 @@ package core
 	 */
 	public class MemoryManager
 	{
+		
+		/****************************************/
+		// Class Details
+		/****************************************/
+		
 		// Create the object lists
 		private static var _baseObjects:Dictionary = new Dictionary(true);
 		private static var _singletonList:Dictionary = new Dictionary(true);
@@ -16,32 +21,37 @@ package core
 		* Instantiate an object
 		* @param type (Class) The type of object to create
 		*/
-		public static function instantiate( type:Class, dependencies:Array = null ):*
+		public static function instantiate( type:Class, dependencies:Array = null, owner:* = null ):*
 		{
 			// Declare the object variable
 			var obj:* = getObject(type);
 			
-			if ( dependencies != null )
+			if ( dependencies != null && dependencies.length > 0 )
 			{
 				// Create the dependencies
-				var depMap:Dictionary = new Dictionary();
+				var depMap:Dictionary = new Dictionary(true);
 				
 				// Loop through all the dependencies
 				for each ( var dep:Class in dependencies ) 
 				{
 					// Add the deps to a dictionary
-					depMap[dep] = instantiate(dep);
+					depMap[dep] = instantiate(dep, ( dep.prototype.hasOwnProperty("dependencies") ? dep.dependencies : null ));
 				}
 				
 				// Inject the dependencies
-				obj.dependencies = depMap;
+				obj.setDependencies(depMap);
 			}
 			
 			// Increase the debugging counter
 			incrementCounter(type);
+
+			// Add the owner if there is one
+			if ( owner ) {
+				obj.owner = owner;
+			}
 			
 			// Awaken the object
-			obj.awake();
+			obj.engine_awake();
 			
 			// Return the object
 			return obj;
@@ -51,7 +61,7 @@ package core
 		 * Destroy the scene object 
 		 * @param object (SceneObject) The scene object to be destroyed
 		 */
-		public static function destroyObject( obj:* ): void 
+		public static function destroy( obj:* ): void 
 		{
 			// Check to see if its a singleton
 			if ( (Object( obj ).constructor as Class).scope == BaseObject.SINGLETON_OBJECT )  
@@ -64,7 +74,7 @@ package core
 			decrementCounter( Object( obj ).constructor as Class );
 
 			// Let the object run its own destroy methods
-			obj.destroy();
+			obj.engine_destroy();
 			
 			// Remove the object from the list
 			delete _baseObjects[obj];
