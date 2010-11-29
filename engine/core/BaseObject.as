@@ -1,6 +1,5 @@
 package core
 {
-	import components.Component;
 	import flash.events.EventDispatcher;
 	import flash.utils.Dictionary;
 	import flash.utils.getQualifiedClassName;
@@ -23,13 +22,16 @@ package core
 		public static const TRANSFORM_COMPONENT:String = "transform_component";
 		public static const RENDER_COMPONENT:String = "render_component";
 		public static const SCRIPT_COMPONENT:String = "script_component";
-		public static const NETWORK_COMPONENT:String = "network_component";
 		public static const STATE_COMPONENT:String = "state_component";
+		public static const SOUND_COMPONENT:String = "sound_component";
+		
 		
 		// Handlers
 		public static const CONNECTION_HANDLER:String = "connection_handler";
 		public static const LOGIN_HANDLER:String = "login_handler";
 		public static const ROOM_HANDLER:String = "room_handler";
+		public static const MESSAGE_HANDLER:String = "message_handler";
+		public static const CHATMESSAGE_HANDLER:String = "chatmessage_handler";
 
 		// Scopes
 		public static const NEW_OBJECT:int = 1;
@@ -38,71 +40,83 @@ package core
 		/****************************************/
 		// Variables
 		/****************************************/		
-		private var _components:Dictionary = new Dictionary(true);
 		private var _dependencies:Dictionary = new Dictionary(true);
+		private var _owner:* = null;
 
+		private var _awake:Boolean = false;
+		private var _started:Boolean = false;
+
+		protected function get awaked():Boolean { return _awake; }
+		protected function set awaked(value:Boolean):void  {	_awake = value;	}
+
+		protected function get started():Boolean { return _started; }
+		protected function set started(value:Boolean):void  {_started = value;}
 		/****************************************/
 		// Construtor and Destructor
 		/****************************************/		
+
+		public function awake():void {}
+		public function start():void {}
+		public function stop():void {}
+		public function destroy():void {}
 		
 		/**
 		* Awake is called at the construction of the object
 		*/
-		public function awake( ):void 
+		public function engine_awake():void 
 		{ 
-			if ( _dependencies != null )
-			{
-				for each ( var dependency:* in _dependencies )
-				{
-					if ( dependency is Component )
-					{
-						addComponent(dependency);
-					}
-				}
+			if ( awaked == true ) {
+				return;
 			}
+			awaked = true;
 			
+			// Call the users awake
+			awake();
 		}
 		
 		/**
 		* Start is called when the object is added to the scene
 		*/
-		public function start( ):void  
+		public function engine_start():void  
 		{ 
-			for each ( var component:Component in _components )
-			{
-				component.start();
+			if ( started == true ) {
+				return;
 			}
+			started = true;
+			
+			// Call the users start
+			start();
 		}
-		
-		/**
-		 * Update is called every frame
-		 */
-		public function update():void { }
 		
 		/**
 		* Stop is called when the object is removed from the scene
 		*/
-		public function stop( ):void 
+		public function engine_stop():void 
 		{ 
-			for each ( var component:Component in _components )
-			{
-				component.stop();
-			}
+			started = false;
+			
+			// Call the users stop
+			stop();
 		}
+		
 		
 		/**
 		* Destroy is called at the removal of the object
 		*/
-		public function destroy( ):void	 
+		public function engine_destroy():void	 
 		{ 
+			awaked = false;
+			
+			// Call the users destroy
+			destroy();
+
 			// Destroy the components
-			for each ( var component:BaseObject in _components )
+			for each ( var dependency:* in _dependencies )
 			{
-				delete _components[component.type];
-				MemoryManager.destroyObject( component );
+				MemoryManager.destroy( dependency );
 			}
 			
-			_components = null;
+			_dependencies = null;
 		} 
 
 		
@@ -115,84 +129,44 @@ package core
 		 * Override if you want a singleton
 		 */
 		public static function get scope():int { return BaseObject.NEW_OBJECT };
+
+		/**
+		 * Get the type definition
+		 */
+		public function getType():String 
+		{
+			return BASE_OBJECT;
+		}		
+		
+		/**
+		 * Get the dependency
+		 */
+		public final function getDependency( type:Class ):*
+		{
+			return _dependencies[type];
+		}
 		
 		/**
 		 * Set the dependencies
 		 * @param dep (Dictionary) Key = Class and Value is the object
 		 */
-		public function set dependencies( value:Dictionary ):void 
+		public final function setDependencies( value:Dictionary ):void 
 		{ 
 			_dependencies = value; 
 		}
-
-		/**
-		 * Get the dependency
-		 */
-		public function getDependency( type:Class ):*
-		{
-			return _dependencies[type];
-		}
 		
 		/****************************************/
-		// Component Methods
+		// Owner Methods
 		/****************************************/
 		
 		/**
-		 * Add a component to the game object
-		 * @param	component (Component)
+		 * Get the ownering Game Object
 		 */
-		public function addComponent( component:* ):void 
-		{
-			if (component == null)
-			{
-				return;
-			}
-			
-			// Check to see if there is an old one
-			if ( _components[component.type] != null )
-			{
-				// Remove the old component 
-				removeComponentByType( component.type );
-			}
-			
-			// Setup the component
-			component.owner = this;
-			_components[component.type] =  component;
-		}
+		public function get owner():* { return _owner; }
 
 		/**
-		 * Get a component from the game object
-		 * @param	type (int) The component id
+		 * Set the ownering Game Object
 		 */
-		public function getComponent( type:String ):*
-		{
-			return _components[type];
-		}
-		
-		public function removeComponentByType( type:String ):void
-		{
-			removeComponent( _components[type] );
-		}
-
-		/**
-		 * Remove a component from the game object
-		 * @param	component (Component)
-		 */
-		public function removeComponent( component:* ):void
-		{
-			if (component == null)
-			{
-				return;
-			}
-			
-			// Remove reference from the dictionary
-			delete _components[component.type];
-		}
-		
-		public function get type():String 
-		{
-			return BASE_OBJECT;
-		}				
-		
+		public function set owner( value:* ):void { _owner = value; }		
 	}
 }

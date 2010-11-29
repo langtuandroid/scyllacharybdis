@@ -1,75 +1,73 @@
 ﻿package 
 {
-	import core.BaseObject;
-	import core.Renderer;
-	import core.Scene;
-	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import org.casalib.math.geom.Point3d;
-
+	import core.Renderer;
 	import core.MemoryManager;
-	import core.GameObject;
+	import core.EventManager;
+	import core.SceneManager;
+	import core.NetworkObject;
+	import handlers.ConnectionHandler;
+	import handlers.LoginHandler;
+	import handlers.RoomHandler;
+	import handlers.MessageHandler;
+	import handlers.ChatMessageHandler;
+	import IntroScene;
+	import NetworkDriver;
+	import ChatExample;
+
 	
-	import components.TransformComponent;
 	
-	import TestMaterialLoader;
-	import TestSceneLoader;
-	
-	/**
-	 */
 	public class Main extends Sprite 
 	{
-		private var _memoryManager:MemoryManager;
-		private var _scene:Scene;
 		private var _renderer:Renderer;
-		
-		private var _square:GameObject;
-		private var _otherSquare:GameObject;
+		private var _networkObject:NetworkObject;
+		private var _eventManager:EventManager;
+		private var _sceneManager:SceneManager;
+		private var _networkDriver:NetworkDriver;
+		private var _chatExample:ChatExample;
 		
 		public function Main():void 
-		{
-			
+		{		
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
-			
-			//_memoryManager.instantiate(TestMaterialLoader);
-			//_memoryManager.instantiate(TestSceneLoader);
-			
-			//var board:GameObject = _memoryManager.instantiate(GameObject);
-			//board.addComponent(BoardRenderComponent);
-			//board.addComponent(BoardScriptComponent);
-			//board.addComponent(BoardNetworkComponent);
 		}
 		
 		private function init(e:Event = null):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			// entry point
 			
-			_memoryManager = new MemoryManager();
-			_scene = MemoryManager.instantiate(Scene);
-			_renderer = MemoryManager.instantiate(Renderer);
+			// Create a rendering system
+			_renderer = MemoryManager.instantiate(Renderer, Renderer.dependencies);
 			
-			_square = MemoryManager.instantiate( GameObject, Square.BLUE_SQUARE );
+			// Create the event manager
+			_eventManager = MemoryManager.instantiate(EventManager);
 			
-			_square.enabled = false;
-			_square.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 50, 50, 1 );
-			_square.getComponent( BaseObject.TRANSFORM_COMPONENT ).rotate = 45;
-			
-			_otherSquare = MemoryManager.instantiate( GameObject, Square.OTHER_SQUARE );
-			_otherSquare.enabled = false;
-			_otherSquare.getComponent( BaseObject.TRANSFORM_COMPONENT ).position = new Point3d( 100, 100, 0 );
+			// Create the scene manager
+			_sceneManager = new SceneManager();
 
-			_scene.addGameObject( _square );
-			_scene.addGameObject( _otherSquare );
+			// Create a network layer
+			_networkObject = MemoryManager.instantiate(NetworkObject);			
+			_networkObject.addComponent(ConnectionHandler, [EventManager]);
+			_networkObject.addComponent(LoginHandler, [EventManager]);
+			_networkObject.addComponent(RoomHandler, [EventManager]);
+			_networkObject.addComponent(ChatMessageHandler, [EventManager]);
+			_networkObject.addComponent(MessageHandler, [EventManager]);
+
+			// Create an example network driver
+			//_networkDriver = MemoryManager.instantiate( NetworkDriver, [EventManager] );
+			//_chatExample = MemoryManager.instantiate( ChatExample, [EventManager] );
+
+			// Fire a network connection event
+			_eventManager.fireEvent("NETWORK_CONNECT");
 			
-			_renderer.addScene( _scene );
-			_renderer.currentScene = _scene;
-			
+			// Display the intro scene
+			_sceneManager.PushScene(IntroScene);			
+
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
+			
 		}
-		
+
 		private function onEnterFrame( e:Event ):void
 		{
 			_renderer.render(this);
