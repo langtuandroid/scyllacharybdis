@@ -12,6 +12,37 @@ package core
 		
 		private var _components:Dictionary = new Dictionary(true);
 
+		public override function engine_awake():void
+		{
+			super.engine_awake();
+		}
+		
+		public override function engine_start():void
+		{
+			for each ( var component:BaseObject in _components )
+			{
+				component.engine_start();
+			}
+			super.engine_start();
+		}
+
+		public override function engine_stop():void
+		{
+			for each ( var component:BaseObject in _components )
+			{
+				component.engine_stop();
+			}
+			super.engine_stop();
+		}
+		
+		/**
+		* Destroy is called at the removal of the object
+		*/
+		public override function engine_destroy():void		
+		{
+			super.engine_destroy();
+		}		
+		
 		/**
 		 * Add a component to the game object
 		 * @param	component (Component)
