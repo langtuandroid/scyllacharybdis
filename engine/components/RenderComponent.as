@@ -27,16 +27,44 @@ package components
 			return RENDER_COMPONENT;
 		}				
 		
+		/****************************************/
+		// Class Details
+		/****************************************/
 		
-		/****************************************/
-		// Overide function
-		/****************************************/
-		
-		
-		/****************************************/
-		// Class specific
-		/****************************************/
 		protected var _baseclip:MovieClip = null;
+		
+		/**
+		 * Instantiate the baseclip upon construction
+		 */
+		public final override function engine_awake():void
+		{
+			_baseclip = new MovieClip();
+			
+			super.engine_awake();
+		}
+	
+		/**
+		 * Init listeners on start
+		 */ 
+		public final override function engine_start(): void 
+		{
+			addListeners();
+			
+			super.engine_start();
+		}
+		
+		public final override function engine_stop():void
+		{
+			super.engine_stop();
+			removeListeners();
+		}
+		
+		/**
+		 */
+		public final override function engine_destroy():void
+		{
+			super.engine_destroy();
+		}
 		
 		public function set baseclip( value:MovieClip ):void { _baseclip = value; }
 		public function get baseclip():MovieClip { return _baseclip; }
@@ -61,21 +89,9 @@ package components
 		{
 			surface.removeChild( _baseclip );
 		}
+
 		
-		/**
-		 * Instantiate the baseclip upon construction
-		 */
-		public override function engine_awake():void
-		{
-			_baseclip = new MovieClip();
-			
-			super.engine_awake();
-		}
-	
-		/**
-		 * Init listeners on start
-		 */ 
-		public override function engine_start(): void 
+		private final function addListeners():void
 		{
 			var scriptComponent:ScriptComponent = owner.getComponent(SCRIPT_COMPONENT);
 			
@@ -93,15 +109,11 @@ package components
 				_baseclip.addEventListener( MouseEvent.ROLL_OVER, scriptComponent.onRollOver, false, 0, true );
 				_baseclip.addEventListener( KeyboardEvent.KEY_DOWN, scriptComponent.onKeyDown, false, 0, true );
 				_baseclip.addEventListener( KeyboardEvent.KEY_UP, scriptComponent.onKeyUp, false, 0, true );
-			}
-			
-			super.engine_start();
+			}			
 		}
-		
-		public override function engine_stop():void
-		{
-			super.engine_stop();
 
+		private final function removeListeners():void
+		{
 			var scriptComponent:ScriptComponent = owner.getComponent(SCRIPT_COMPONENT);
 			
 			if ( scriptComponent != null )
@@ -167,5 +179,6 @@ package components
 				}
 			}
 		}
+		
 	}
 }

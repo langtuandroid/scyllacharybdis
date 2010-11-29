@@ -15,6 +15,7 @@ package handlers
 		/****************************************/
 		// Type definition
 		/****************************************/
+		
 		public override function getType():String 
 		{
 			return LOGIN_HANDLER;

@@ -10,6 +10,42 @@ package core
 		 */
 		public static function get scope():int { return SINGLETON_OBJECT };
 		
+		/****************************************/
+		// Class Details
+		/****************************************/
+		
+		/**
+		* Awake is called at the construction of the object
+		*/
+		public final override function engine_awake():void
+		{
+			super.engine_awake();
+		}
+		
+		/**
+		 * Start the core 
+		 */
+		public final override function engine_start():void
+		{
+			super.engine_start();
+		}
+
+		/**
+		 * Stop the core 
+		 */
+		public final override function engine_stop():void
+		{
+			super.engine_stop();
+		}
+		
+		/**
+		* Destroy is called at the removal of the object
+		*/	
+		public final override function engine_destroy():void
+		{
+			super.engine_destroy();
+		}
+		
 		// The stack of scenes
 		private var _objectList:Dictionary = new Dictionary();
 		private var _classStack:Array = new Array();
@@ -19,28 +55,28 @@ package core
 		 * @param	scene (Class) SceneObject class to display
 		 * @param   hide (Boolean) Hide the previous scene. Defaults to autohide.
 		 */
-		public function PushScene( sceneClass:Class, hide:Boolean=true ):void 
+		public final function PushScene( sceneClass:Class, hide:Boolean=true ):void 
 		{
 			if ( _objectList[sceneClass] == null ) 
 			{
-				_objectList[sceneClass] = MemoryManager.instantiate(sceneClass);
+				_objectList[sceneClass] = MemoryManager.instantiate(sceneClass, [SceneGraph]);
 			}
 			
 			var sceneCount:int = _classStack.length;
 			if ( sceneCount > 0 && hide == true) 
 			{
 				var previous:Class = _classStack[sceneCount - 1];
-				_objectList[previous].engine_hide();
+				_objectList[previous].engine_stop();
 			}
 
-			_objectList[sceneClass].engine_show();
+			_objectList[sceneClass].engine_start();
 			_classStack.push(sceneClass);
 		}
 		/**
 		 * Hide the scene
 		 * @param	destroy (Boolean) Destroy the object. Default is false.
 		 */
-		public function PopScene(destroy:Boolean=false):void 
+		public final function PopScene(destroy:Boolean=false):void 
 		{
 			var sceneClass:Class = _classStack.pop();
 			if ( sceneClass == null )
@@ -48,10 +84,10 @@ package core
 				return;
 			}
 			var sceneObject:SceneObject = _objectList[sceneClass];
-			sceneObject.engine_hide();
+			sceneObject.engine_stop();
 			var previousClass:Class = _classStack[_classStack.length - 1];
 			if ( previousClass != null ) {
-				_objectList[previousClass].engine_show();
+				_objectList[previousClass].engine_start();
 			}
 			
 			if ( destroy ) 
@@ -66,7 +102,7 @@ package core
 		 * @param	sceneClass
 		 * @param	destroy
 		 */
-		public function PopToScene( sceneClass:Class, destroy:Boolean=false ):void
+		public final function PopToScene( sceneClass:Class, destroy:Boolean=false ):void
 		{
 			// Check to see if the object was found
 			var found:Boolean = false;
@@ -101,7 +137,7 @@ package core
 				var sceneObject:SceneObject = _objectList[scene];
 				
 				// Hide the scene
-				sceneObject.engine_hide();
+				sceneObject.engine_stop();
 				
 				// Are we set to destroy
 				if (destroy == true) 
@@ -118,7 +154,7 @@ package core
 		 * @param	sceneClass
 		 * @param	destroy
 		 */
-		public function SwitchScene( sceneClass:Class, destroy:Boolean=false  ):void 
+		public final function SwitchScene( sceneClass:Class, destroy:Boolean=false  ):void 
 		{
 			// pop the old scene
 			PopScene( destroy );

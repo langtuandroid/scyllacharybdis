@@ -4,64 +4,77 @@ package core
 	 */
 	public class SceneObject extends BaseObject
 	{
-		protected var _initialized:Boolean = false;
-		protected var _showing:Boolean = false;
 
-		/**
-		 * Animate the scene coming into the frame
-		 */
-		public function show():void 
-		{
-		}
-		/**
-		 * Animate the scene leaving the screen
-		 */
-		public function hide():void
-		{
-		}
+		/****************************************/
+		// Class Details
+		/****************************************/
 		
+		private var _initialized:Boolean = false;
+		private var _rootGameObject:GameObject;
+		private var _sceneGraph:SceneGraph;
+
 		/**
 		 * Initialize the scene memory
 		 */
-		public override function engine_awake():void
+		public final override function engine_awake():void
 		{
-			if ( _initialized ) 
+			if ( _initialized == true ) 
 			{
 				return;
 			}
-			
 			_initialized = true;
-			super.awake();
-		}
-
-		public function engine_show():void
-		{
-			if ( _showing == true ) {
-				return;
-			}
+			_rootGameObject = MemoryManager.instantiate( GameObject );
+			_sceneGraph = getDependency(SceneGraph);
 			
-			_showing = true;
-			show();
+			super.engine_awake();
 		}
 
-
-		public function engine_hide():void
+		/**
+		 * Start the core object
+		 */
+		public final override function engine_start():void
 		{
-			if ( _showing == false ) {
-				return;
-			}
-			_showing = false;
-			hide();
+			super.engine_start();
+			_sceneGraph.addGameObjectToScene(_rootGameObject );
 		}
+		
+		/**
+		 * Stop the core object
+		 */
+		public final override function engine_stop():void
+		{
+			_sceneGraph.removeGameObjectToScene(_rootGameObject );
+			super.engine_stop();
+		}		
 
 		/**
 		 * Destroy the scene memory
 		 */
-		public override function engine_destroy():void
+		public final override function engine_destroy():void
 		{
-			super.destroy();
+			MemoryManager.destroy( _rootGameObject );
+
+			super.engine_destroy();
 			
 			_initialized = false;
+		}
+
+		/**
+		 * Add game object to scene helper function.
+		 * @param	gameObj
+		 */
+		protected function addToScene( gameObj:GameObject ):void
+		{
+			_rootGameObject.addChild( gameObj );
+		}
+
+		/**
+		 * Remove game object from the scene helper function.
+		 * @param	gameObj
+		 */
+		protected function removeFromScene( gameObj:GameObject ):void
+		{
+			_rootGameObject.removeChild( gameObj );
 		}
 	}
 }

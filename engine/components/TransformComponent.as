@@ -26,19 +26,16 @@ package components
 		/****************************************/
 		// Type definition
 		/****************************************/
+		
 		public override final function getType():String 
 		{
 			return TRANSFORM_COMPONENT; 
 		}		
 		
 		/****************************************/
-		// Overide function
+		// Class Details
 		/****************************************/
 		
-		
-		/****************************************/
-		// Class specific
-		/****************************************/
 		protected var _position:Point3d = new Point3d();
 		protected var _scale:Point3d = new Point3d();
 		protected var _rotate:Number = 0;
@@ -48,7 +45,27 @@ package components
 		protected var _worldScale:Point3d = new Point3d();
 		protected var _worldRotate:Number = 0;
 		
-		private var _mode:String = MODE_2D;
+		private var _mode:String = MODE_2D;		
+		
+		public final override function engine_awake():void
+		{
+			super.engine_awake();
+		}
+		
+		public final override function engine_start():void
+		{
+			super.engine_start();
+		}
+
+		public final override function engine_stop():void
+		{
+			super.engine_stop();
+		}
+
+		public final override function engine_destroy():void
+		{
+			super.engine_destroy();
+		}
 		
 		public function get position():Point3d { return _position; }
 		
