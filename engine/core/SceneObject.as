@@ -29,32 +29,17 @@ package core
 			super.engine_awake();
 		}
 
+		/**
+		 * Start the core object
+		 */
 		public final override function engine_start():void
 		{
 			super.engine_start();
 		}
 		
-		public final function engine_show():void
-		{
-			if ( _showing == true ) {
-				return;
-			}
-			
-			_showing = true;
-			show();
-		}
-		
-		public final function engine_hide():void
-		{
-			if ( _showing == false ) {
-				return;
-			}
-			_showing = false;
-			hide();
-		}
-		
-
-
+		/**
+		 * Stop the core object
+		 */
 		public final override function engine_stop():void
 		{
 			super.engine_stop();
@@ -73,19 +58,6 @@ package core
 		}
 
 		/**
-		 * Animate the scene coming into the frame
-		 */
-		public function show():void 
-		{
-		}
-		/**
-		 * Animate the scene leaving the screen
-		 */
-		public function hide():void
-		{
-		}
-		
-		/**
 		 * Add game object to scene helper function.
 		 * @param	gameObj
 		 */
@@ -98,7 +70,7 @@ package core
 		 * Remove game object from the scene helper function.
 		 * @param	gameObj
 		 */
-		protected function removeFrmScene( gameObj:GameObject ):void
+		protected function removeFromScene( gameObj:GameObject ):void
 		{
 			_rootGameObject.removeChild( gameObj );
 		}

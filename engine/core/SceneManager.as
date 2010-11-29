@@ -60,10 +60,10 @@ package core
 			if ( sceneCount > 0 && hide == true) 
 			{
 				var previous:Class = _classStack[sceneCount - 1];
-				_objectList[previous].engine_hide();
+				_objectList[previous].engine_stop();
 			}
 
-			_objectList[sceneClass].engine_show();
+			_objectList[sceneClass].engine_start();
 			_classStack.push(sceneClass);
 		}
 		/**
@@ -78,10 +78,10 @@ package core
 				return;
 			}
 			var sceneObject:SceneObject = _objectList[sceneClass];
-			sceneObject.engine_hide();
+			sceneObject.engine_stop();
 			var previousClass:Class = _classStack[_classStack.length - 1];
 			if ( previousClass != null ) {
-				_objectList[previousClass].engine_show();
+				_objectList[previousClass].engine_start();
 			}
 			
 			if ( destroy ) 
@@ -131,7 +131,7 @@ package core
 				var sceneObject:SceneObject = _objectList[scene];
 				
 				// Hide the scene
-				sceneObject.engine_hide();
+				sceneObject.engine_stop();
 				
 				// Are we set to destroy
 				if (destroy == true) 
