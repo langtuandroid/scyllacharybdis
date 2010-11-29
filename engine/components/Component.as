@@ -11,7 +11,7 @@ package components
 		/*
 		 * Variables
 		 */
-		protected var _owner:* = null;
+		private var _owner:* = null;
 		
 		public function Component() 
 		{

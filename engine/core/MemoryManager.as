@@ -34,7 +34,7 @@ package core
 				}
 				
 				// Inject the dependencies
-				obj.dependencyObjects = depMap;
+				obj.dependencies = depMap;
 			}
 			
 			// Increase the debugging counter
