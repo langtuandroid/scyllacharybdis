@@ -1,94 +1,76 @@
 ﻿package 
 {
-	//import TestMetaTags;
-	import flash.utils.describeType;
-	import core.BaseObject;
-	import core.SceneGraph;
-	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
-
+	import core.Renderer;
 	import core.MemoryManager;
-	import core.GameObject;
+	import core.EventManager;
+	import core.SceneManager;
+	import core.NetworkObject;
+	import handlers.ConnectionHandler;
+	import handlers.LoginHandler;
+	import handlers.RoomHandler;
+	import handlers.MessageHandler;
+	import handlers.ChatMessageHandler;
+	import IntroScene;
+	import NetworkDriver;
+	import ChatExample;
+
 	
-	import components.TransformComponent;
 	
-	import square.Square;
-	
-	import square.IncludeClasses;
-	
-	//import TestMaterialLoader;
-	//import TestSceneLoader;
-	
-	/**
-	 */
 	public class Main extends Sprite 
 	{
-		private var _memoryManager:MemoryManager;
-		private var _sceneGraph:SceneGraph;
-		
-		private var _square:Square;
-		private var _otherSquare:Square;
+		private var _renderer:Renderer;
+		private var _networkObject:NetworkObject;
+		private var _eventManager:EventManager;
+		private var _sceneManager:SceneManager;
+		private var _networkDriver:NetworkDriver;
+		private var _chatExample:ChatExample;
 		
 		public function Main():void 
-		{
-			var includeClasses:IncludeClasses;
-			
+		{		
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
-
-			//getMetaTag();
-			
-			//_memoryManager.instantiate(TestMaterialLoader);
-			//_memoryManager.instantiate(TestSceneLoader);
-			
-			//var board:GameObject = _memoryManager.instantiate(GameObject);
-			//board.addComponent(BoardRenderComponent);
-			//board.addComponent(BoardScriptComponent);
-			//board.addComponent(BoardNetworkComponent);
-			
-		}
-		
-		private function getMetaTag():void
-		{
-			//var typeInfo:XML = describeType(TestMetaTags);
-			//trace(typeInfo);
-			//var xmlType:XMLList = typeInfo..metadata;
-			//trace("Starting Loop");
-			//for each ( var value:XML in xmlType )
-			//{
-				//if (value.attribute("name") == "Singleton" ) {
-					//trace("Singleton class");
-				//}
-				//if (value.attribute("name") == "Requires" ) 
-				//{
-					//for each ( var req:XML in value.arg ) {
-						//trace( req.attribute("value") );
-					//}
-					//
-				//}
-			//}
-			//trace("Stop Loop");
-	
 		}
 		
 		private function init(e:Event = null):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			// entry point
 			
-			_memoryManager = new MemoryManager();
-			_sceneGraph = _memoryManager.instantiate(SceneGraph);
+			// Create a rendering system
+			_renderer = MemoryManager.instantiate(Renderer, Renderer.dependencies);
 			
-			_square = _memoryManager.instantiate( Square );
+			// Create the event manager
+			_eventManager = MemoryManager.instantiate(EventManager);
 			
+			// Create the scene manager
+			_sceneManager = new SceneManager();
+
+			// Create a network layer
+			_networkObject = MemoryManager.instantiate(NetworkObject);			
+			_networkObject.addComponent(ConnectionHandler, [EventManager]);
+			_networkObject.addComponent(LoginHandler, [EventManager]);
+			_networkObject.addComponent(RoomHandler, [EventManager]);
+			_networkObject.addComponent(ChatMessageHandler, [EventManager]);
+			_networkObject.addComponent(MessageHandler, [EventManager]);
+
+			// Create an example network driver
+			//_networkDriver = MemoryManager.instantiate( NetworkDriver, [EventManager] );
+			//_chatExample = MemoryManager.instantiate( ChatExample, [EventManager] );
+
+			// Fire a network connection event
+			_eventManager.fireEvent("NETWORK_CONNECT");
 			
+			// Display the intro scene
+			_sceneManager.PushScene(IntroScene);			
+
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
+			
 		}
-		
+
 		private function onEnterFrame( e:Event ):void
 		{
-			_sceneGraph.renderWorld(this);
+			_renderer.render(this);
 		}
 	}
 }

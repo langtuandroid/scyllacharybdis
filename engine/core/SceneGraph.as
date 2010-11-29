@@ -1,147 +1,140 @@
 package core 
 {
-	import flash.display.DisplayObject;
-	import org.casalib.util.ArrayUtil;
-	import flash.display.DisplayObjectContainer;
-	import flash.display.MovieClip;
-	import flash.events.Event;
-	import flash.events.EventDispatcher;
-	import flash.utils.getQualifiedClassName;
+	import components.RenderComponent;
+	import events.EngineEvent;
 	import flash.utils.Dictionary;
-	
-	import core.GameObject;
-	import components.RenderComponent
-	
-	[Singleton]
-	public class SceneGraph extends BaseObject
+	/**
+	 * ...
+	 * @author ...
+	 */
+	public class SceneGraph extends BaseObject 
 	{
-	
-		/****************************************/
-		// Constructors and Allocation 
-		/****************************************/
-
-		// All the game object in the world
-		protected var _gameObjects:Dictionary = new Dictionary(true);
+		public static function get scope():int { return SINGLETON_OBJECT; }
 		
-		// Extra array of just the renderables
-		protected var _renderables:Array = new Array();
+		/****************************************/
+		// Class Details
+		/****************************************/
 
-		// Does the scene need to be sorted
-		private var _sortRequired:Boolean = true;
-
+		private var _gameObjects:Dictionary = new Dictionary(true);
+		
 		/**
 		* Awake is called at the construction of the object
 		*/
-		public override function awake():void
+		public final override function engine_awake():void
 		{
-			super.awake();
+			super.engine_awake();
+		}
+		
+		public final override function engine_start():void
+		{
+			super.engine_start();
+		}
+
+		public final override function engine_stop():void
+		{
+			super.engine_stop();
 		}
 		
 		/**
 		* Destroy is called at the removal of the object
 		*/	
-		public override function destroy():void
+		public final override function engine_destroy():void
 		{
-			
+			super.engine_destroy();
 		}
-		
-		/** 
-		 * Add a scene object to the graph
-		 */
-		public function addGameObject( gameObj:GameObject ):void 
-		{
-			// Tell the scene its dirty
-			_sortRequired = true;
-			
-			// Add the object to the list
-			_gameObjects[gameObj] = gameObj;
-			
-			// Get renderables from the gameobject
-			addRenderable( gameObj );
-			
-			// Start the game object
-			gameObj.start();
-		}
-		
-		public function updateGameObject( gameObj:GameObject ):void
-		{
-			// Remove the old renderable
-			removeRenderable( gameObj );
-			
-			// Get renderables from the gameobject
-			addRenderable( gameObj );
-		}
-		
-		/** 
-		 * Remove a scene object to the graph
-		 */
-		public function removeGameObject( gameObj:GameObject ): void
-		{
-			// Get renderables from the gameobject
-			removeRenderable( gameObj );
-
-			// Stop the game object
-			gameObj.stop();
-
-			delete _gameObjects[gameObj];
-		}
-
 		
 		/**
-		 * Get Renderables 
+		 * Add the game object and its children to the scene
 		 */
-		public function renderWorld( surface:DisplayObjectContainer ):void
+		public final function addGameObjectToScene(gameObj:GameObject):void
 		{
-			// Erase the world
-			for each ( var renderable:RenderComponent in _renderables )
+			if ( gameObj == null )
 			{
-				if ( surface.contains( renderable.baseclip ) )
+				return;
+			}
+			gameObj.engine_start();
+			addGameObject(gameObj);
+			addChildrenToScene(gameObj);
+		}
+		
+		/**
+		 * Remove the game objects and its children from the scene
+		 */
+		public final function removeGameObjectToScene(gameObj:GameObject):void
+		{
+			if ( gameObj == null )
+			{
+				return;
+			}
+			gameObj.engine_stop();
+			removeChildrenFromScene(gameObj);
+			removeGameObject(gameObj);
+		}
+		
+		/**
+		 * Add all its children to the scene
+		 * @param	gameObj
+		 */
+		private final function addChildrenToScene(gameObj:GameObject):void
+		{
+			for each ( var child:GameObject in gameObj.children )
+			{
+				addGameObjectToScene(child);
+			}			
+		}
+
+		/**
+		 * Remove all its children from the scene
+		 * @param	gameObj
+		 */
+		private final function removeChildrenFromScene(gameObj:GameObject):void
+		{
+			for each ( var child:GameObject in gameObj.children )
+			{
+				removeGameObjectToScene(child);
+			}				
+		}
+
+		/**
+		 * Add a gameobject to the scene
+		 * @param	gameObj
+		 */
+		private final function addGameObject( gameObj:GameObject ):void 
+		{
+			_gameObjects[gameObj] = gameObj;
+		}
+
+		/**
+		 * Remove a game object from the scene
+		 * @param	gameObj
+		 */
+		private final function removeGameObject( gameObj:GameObject ):void
+		{
+			delete _gameObjects[gameObj];
+		}
+		
+		/**
+		 * Get all the renderables for the scene.
+		 * Used by the renderer to display the scene.
+		 */
+		public final function get renderables():Array
+		{
+			//trace("SceneGraph: renderables");
+			var renderables:Array = new Array();
+			
+			// Apply frustrum-ish algorithm here
+			for each ( var gameObj:GameObject in _gameObjects )
+			{
+				if ( gameObj.enabled == true )
 				{
-					renderable.erase(surface);
+					var renderable:RenderComponent = gameObj.getComponent(RENDER_COMPONENT);
+					if ( renderable != null )
+					{
+						renderables.push(renderable);
+					}
 				}
 			}
-			
-			// Sort the renderables array (bigger numbers are closer to the screen) 
-			_renderables.sortOn( "comparator", Array.NUMERIC | Array.DESCENDING );
-			
-			// Render children in order
-			for ( var i:int = 0; i < _renderables.length; i++ )
-			{
-				_renderables[i].render(surface);
-			}
-		}
-		
-		/** 
-		 * Helper function to get the components off the scripts
-		 */
-		private function addRenderable( obj:GameObject ):void 
-		{
-			// Tell the scene its dirty
-			_sortRequired = true;
-			
-			// Get the render component
-			var renderable:RenderComponent = obj.getComponent(RenderComponent);
-			
-			if ( renderable != null )
-			{
-				_renderables.push(renderable);
-			}
-			
-		}
-		
-		private function removeRenderable( obj:GameObject ):void 
-		{
-			if ( _renderables.length > 0 )
-			{
-				// Tell the scene its dirty
-				_sortRequired = true;
-			
-				// Get the render component
-				var renderable:RenderComponent = ArrayUtil.getItemByKeys( _renderables, { owner:obj } );
-				
-				// Remove the render component from the array
-				ArrayUtil.removeItem( _renderables, renderable );
-			}
+			return renderables;
 		}
 	}
 }

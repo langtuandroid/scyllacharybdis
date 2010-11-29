@@ -7,21 +7,70 @@ package components
 	import flash.events.MouseEvent;
 	import org.casalib.math.geom.Point3d;
 	
-	import core.BaseObject;	
-
-	[Component (RenderComponent)]
-	public class RenderComponent extends Component
+	import core.BaseObject;
+	
+	/**
+	 * 
+	 */
+	public class RenderComponent extends BaseObject
 	{
+		/**
+		 * Get the dependencies to instantiate the class
+		 */
+		public static function get dependencies():Array { return []; }
+		
 		/****************************************/
-		// Class specific
+		// Type definition
 		/****************************************/
+		public override final function getType():String 
+		{
+			return RENDER_COMPONENT;
+		}				
+		
+		/****************************************/
+		// Class Details
+		/****************************************/
+		
 		protected var _baseclip:MovieClip = null;
+		
+		/**
+		 * Instantiate the baseclip upon construction
+		 */
+		public final override function engine_awake():void
+		{
+			_baseclip = new MovieClip();
+			
+			super.engine_awake();
+		}
+	
+		/**
+		 * Init listeners on start
+		 */ 
+		public final override function engine_start(): void 
+		{
+			addListeners();
+			
+			super.engine_start();
+		}
+		
+		public final override function engine_stop():void
+		{
+			super.engine_stop();
+			removeListeners();
+		}
+		
+		/**
+		 */
+		public final override function engine_destroy():void
+		{
+			super.engine_destroy();
+		}
 		
 		public function set baseclip( value:MovieClip ):void { _baseclip = value; }
 		public function get baseclip():MovieClip { return _baseclip; }
 		
 		// For sorting
-		public function get comparator():Number { return _baseclip.z; }
+		public function get comparator():Number { return owner.getComponent( TRANSFORM_COMPONENT ).worldPosition.z }
 
 		/**
 		 * Add the renderable to the surface
@@ -40,25 +89,11 @@ package components
 		{
 			surface.removeChild( _baseclip );
 		}
+
 		
-		/**
-		 * Instantiate the baseclip upon construction
-		 */
-		public override function awake():void
+		private final function addListeners():void
 		{
-			_baseclip = new MovieClip();
-			
-			super.awake();
-		}
-		
-		/**
-		 * Init listeners on start
-		 */ 
-		public override function start(): void 
-		{
-			super.start();
-			
-			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
+			var scriptComponent:ScriptComponent = owner.getComponent(SCRIPT_COMPONENT);
 			
 			if ( scriptComponent != null )
 			{
@@ -74,12 +109,12 @@ package components
 				_baseclip.addEventListener( MouseEvent.ROLL_OVER, scriptComponent.onRollOver, false, 0, true );
 				_baseclip.addEventListener( KeyboardEvent.KEY_DOWN, scriptComponent.onKeyDown, false, 0, true );
 				_baseclip.addEventListener( KeyboardEvent.KEY_UP, scriptComponent.onKeyUp, false, 0, true );
-			}
+			}			
 		}
-		
-		public override function stop():void
+
+		private final function removeListeners():void
 		{
-			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
+			var scriptComponent:ScriptComponent = owner.getComponent(SCRIPT_COMPONENT);
 			
 			if ( scriptComponent != null )
 			{
@@ -143,8 +178,7 @@ package components
 					_baseclip.removeEventListener( KeyboardEvent.KEY_UP, scriptComponent.onKeyUp );
 				}
 			}
-			
-			super.stop();
 		}
+		
 	}
 }

@@ -1,23 +1,71 @@
 package components
 {
 	import adobe.utils.ProductManager;
+	import core.ITransformable;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
 	import org.casalib.math.geom.Point3d;
 	
 	import core.BaseObject;	
 
-	[Component (TransformComponent)]
-	public class TransformComponent extends BaseObject 
+	/**
+	 */
+	public class TransformComponent extends BaseObject implements ITransformable
 	{
+		// Find a clever way to get this as some sort global property or something...
+		// But it works for now.  
+		// Determines 2d rendering with z as layers, or 3d rendering with z as a dimension and perspective applied
+		private const MODE_3D:String = "3d";
+		private const MODE_2D:String = "2d";
+		
+		/**
+		 * Get the dependencies to instantiate the class
+		 */
+		public static function get dependencies():Array { return []; }
+		
+		/****************************************/
+		// Type definition
+		/****************************************/
+		
+		public override final function getType():String 
+		{
+			return TRANSFORM_COMPONENT; 
+		}		
+		
+		/****************************************/
+		// Class Details
+		/****************************************/
+		
 		protected var _position:Point3d = new Point3d();
 		protected var _scale:Point3d = new Point3d();
-		protected var _rotate:Point3d = new Point3d();
+		protected var _rotate:Number = 0;
 		protected var _dimensions:Point = new Point();
 		
 		protected var _worldPosition:Point3d = new Point3d();
 		protected var _worldScale:Point3d = new Point3d();
-		protected var _worldRotate:Point3d = new Point3d();
+		protected var _worldRotate:Number = 0;
+		
+		private var _mode:String = MODE_2D;		
+		
+		public final override function engine_awake():void
+		{
+			super.engine_awake();
+		}
+		
+		public final override function engine_start():void
+		{
+			super.engine_start();
+		}
+
+		public final override function engine_stop():void
+		{
+			super.engine_stop();
+		}
+
+		public final override function engine_destroy():void
+		{
+			super.engine_destroy();
+		}
 		
 		public function get position():Point3d { return _position; }
 		
@@ -30,18 +78,27 @@ package components
 			_worldPosition = _position;
 			
 			// If the parent exists
-			if ( _owner.parent != null )
+			if ( owner.parent != null )
 			{
 				// Set world position from parent's world position
-				var parentPos:Point3d = (_owner.parent.getComponent(TRANSFORM_COMPONENT) as TransformComponent).worldPosition;
-				_worldPosition = _position.add(parentPos);
+				var parentTransform:TransformComponent = owner.parent.getComponent(TRANSFORM_COMPONENT);
+				if ( parentTransform != null )
+				{
+					_worldPosition = _position.add(parentTransform.position);
+				}
 			}
 			
 			// Set the render component
-			var renderComponent:RenderComponent = (_owner.getComponent(RENDER_COMPONENT) as RenderComponent);
-			renderComponent.baseclip.x = _worldPosition.x;
-			renderComponent.baseclip.y = _worldPosition.y;
-			renderComponent.baseclip.z = _worldPosition.z;
+			var renderComponent:RenderComponent = owner.getComponent(RENDER_COMPONENT);
+			if ( renderComponent != null )
+			{
+				renderComponent.baseclip.x = _worldPosition.x;
+				renderComponent.baseclip.y = _worldPosition.y;
+				if ( _mode == MODE_3D )
+				{
+					renderComponent.baseclip.z = _worldPosition.z;
+				}
+			}
 		}
 		
 		public function get worldPosition():Point3d { return _worldPosition; }
@@ -56,26 +113,36 @@ package components
 			_worldScale = _scale;
 			
 			// If the parent exists
-			if ( _owner.parent != null )
+			if (  owner.parent != null )
 			{
 				// Set world scale from parent's world scale
-				var parentScale:Point3d = (_owner.parent.getComponent(TRANSFORM_COMPONENT) as TransformComponent).scale;
-				_worldScale.x = parentScale.x * _scale.x;
-				_worldScale.y = parentScale.y * _scale.y;
-				_worldScale.z = parentScale.z * _scale.z;
+				var parentTransform:TransformComponent = owner.parent.getComponent(TRANSFORM_COMPONENT);
+				if ( parentTransform != null )
+				{
+					_worldScale.x = parentTransform.scale.x * _scale.x;
+					_worldScale.y = parentTransform.scale.y * _scale.y;
+					_worldScale.z = parentTransform.scale.z * _scale.z;
+				}		
 			}
 			
 			// Set the render component
-			var renderComponent:RenderComponent = (_owner.getComponent(RENDER_COMPONENT) as RenderComponent);
-			renderComponent.baseclip.scaleX = _worldScale.x;
-			renderComponent.baseclip.scaleY = _worldScale.y;
-			renderComponent.baseclip.scaleZ = _worldScale.z;
+			var renderComponent:RenderComponent = owner.getComponent(RENDER_COMPONENT);
+			if ( renderComponent != null )
+			{
+				renderComponent.baseclip.scaleX = _worldScale.x;
+				renderComponent.baseclip.scaleY = _worldScale.y;
+				
+				if ( _mode == MODE_3D )
+				{
+					renderComponent.baseclip.scaleZ = _worldScale.z;
+				}
+			}
 		}
 		
 		public function get worldScale():Point3d { return _worldScale; }		
 	
-		public function get rotate():Point3d { return _rotate; }
-		public function set rotate ( value:Point3d ):void 
+		public function get rotate():Number { return _rotate; }
+		public function set rotate ( value:Number ):void 
 		{ 
 			// Set the local rotation
 			_rotate = value;
@@ -84,21 +151,25 @@ package components
 			_worldRotate = _rotate;
 			
 			// If the parent exists
-			if ( _owner.parent != null )
+			if (  owner.parent != null )
 			{
 				// Set world rotation from parent's world rotation
-				var parentRotate:Point3d = (_owner.parent.getComponent(TRANSFORM_COMPONENT) as TransformComponent).rotate;
-				_worldRotate = _rotate.add(parentRotate);
+				var parentTransform:TransformComponent = owner.parent.getComponent(TRANSFORM_COMPONENT);
+				if ( parentTransform != null )
+				{
+					_worldRotate = _rotate + parentTransform.rotate;
+				}
 			}
 			
 			// Set the render component
-			var renderComponent:RenderComponent = (_owner.getComponent(RENDER_COMPONENT) as RenderComponent);
-			renderComponent.baseclip.rotationX = _worldRotate.x;
-			renderComponent.baseclip.rotationY = _worldRotate.y;
-			renderComponent.baseclip.rotationZ = _worldRotate.z;
+			var renderComponent:RenderComponent = owner.getComponent(RENDER_COMPONENT);
+			if ( renderComponent != null )
+			{
+				renderComponent.baseclip.rotation = _worldRotate;
+			}
 		}
 		
-		public function get worldRotate():Point3d { return _worldRotate; }
+		public function get worldRotate():Number { return _worldRotate; }
 		
 		public function get dimensions():Point { return _dimensions; }
 		public function set dimensions( value:Point ):void 
@@ -107,9 +178,12 @@ package components
 			_dimensions = value;
 			
 			// Set the render component
-			var renderComponent:RenderComponent = (_owner.getComponent(RENDER_COMPONENT) as RenderComponent);
-			renderComponent.baseclip.width = _dimensions.x;
-			renderComponent.baseclip.height = _dimensions.y;
+			var renderComponent:RenderComponent = owner.getComponent(RENDER_COMPONENT);
+			if ( renderComponent != null )
+			{
+				renderComponent.baseclip.width = _dimensions.x;
+				renderComponent.baseclip.height = _dimensions.y;
+			}
 		}
 	}
 }
