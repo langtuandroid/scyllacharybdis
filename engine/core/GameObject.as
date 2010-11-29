@@ -77,11 +77,6 @@ package core
 		public function get enabled():Boolean { return _enabled; }
 		public function set enabled( value:Boolean ):void 
 		{
-			for each ( var child:GameObject in _children )
-			{
-				child.enabled = value;
-			}
-			
 			var prevEnabled:Boolean = _enabled;
 			_enabled = value;
 			
@@ -92,7 +87,12 @@ package core
 			else if ( !_enabled && prevEnabled ) 
 			{
 				engine_stop();
-			}			
+			}
+			
+			for each ( var child:GameObject in _children )
+			{
+				child.enabled = value;
+			}
 		}
 
 		/**
