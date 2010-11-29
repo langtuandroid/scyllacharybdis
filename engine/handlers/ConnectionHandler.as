@@ -3,8 +3,9 @@ package handlers
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
 	
-	import core.NetworkManager;
+	import core.NetworkObject;
 	import core.BaseObject;	
+	import core.EventManager;
 	
 	/**
 	 */
@@ -20,56 +21,99 @@ package handlers
 		}
 		
 		/****************************************/
-		// Overide function
+		// Class Details
 		/****************************************/
+		
+		private var _eventManager:EventManager;
+		protected var _connected:Boolean = false;
+		protected var _isConnecting:Boolean = false;
+		protected var _configFile:String = "config.xml";		
 
 		/**
 		* Register all the listeners
 		* Awake is called at the construction of the object
 		*/
-		public override function engine_awake():void
+		public final override function engine_awake():void
 		{
+			// Get the event manager
+			_eventManager = getDependency(EventManager);
+			
 			owner.sfs.addEventListener(SFSEvent.CONNECTION, onConnection);
 			owner.sfs.addEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
 			owner.sfs.addEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess);
 			owner.sfs.addEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure);
 			
 			super.engine_awake();
+
+			_eventManager.registerListener("NETWORK_CONNECT", this, requestConnection );
+			_eventManager.registerListener("NETWORK_DISCONNECT", this, requestDisconnection );
+		}
+		
+		/**
+		 * Engine start should handle engine related start. 
+		 */
+		public final override function engine_start():void 
+		{
+			super.engine_start();
+		}
+		
+		/**
+		 * Engine stop should handle engine related stop. 
+		 */
+		public final override function engine_stop():void 
+		{
+			super.engine_stop();
 		}
 		
 		/**
 		* Destroy is called at the removal of the object
 		* Unregister listeners
 		*/
-		public override function engine_destroy():void
+		public final override function engine_destroy():void
 		{
-			super.engine_destroy();
+			_eventManager.unregisterListener("NETWORK_CONNECT", this, requestConnection );
+			_eventManager.unregisterListener("NETWORK_DISCONNECT", this, requestDisconnection );
 
+			super.engine_destroy();
+			
 			owner.sfs.removeEventListener(SFSEvent.CONNECTION, onConnection);
 			owner.sfs.removeEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
 			owner.sfs.removeEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess);
 			owner.sfs.removeEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure);
-
+		}
+		
+		
+		/**
+		 * Request connection event handler
+		 * @param	data
+		 */
+		public function requestConnection( data:* ):void
+		{
+			if ( _connected == true ) 
+			{
+				// Already connected so just call the success callback
+				connectionSuccess();
+				return;
+			}
+			
+			// Connect to the server
+			connect();
 		}
 
-		/****************************************/
-		// Class specific
-		/****************************************/
-
-		protected var _connected:Boolean = false;
-		protected var _isConnecting:Boolean = false;
-		protected var _configFile:String = "config.xml";
-
-		protected function get connected():Boolean { return _connected; }
-		protected function set connected( value:Boolean ):void
+		/**
+		 * Request disconnect handler
+		 * @param	data
+		 */
+		public function requestDisconnection( data:* ):void
 		{
-			_connected = value;
+			// Disconnect from the server
+			disconnect();
 		}
 		
 		/** 
 		 * Connect to the server
 		 */
-		public function connect():void
+		private function connect():void
 		{
 			_isConnecting = true;
 
@@ -87,36 +131,54 @@ package handlers
 			}
 			else 
 			{
-				connected = true;
+				_connected = true;
 			}
 		}
 		
-		public function disconnect():void
+		/**
+		 * Diconnect from the server
+		 */
+		private function disconnect():void
 		{
 			owner.sfs.connect(false);
 			owner.sfs.disconnect();
 		}				
+		
 
-		/****************************************/
-		// Event Handlers
-		/****************************************/
+		/**
+		 * Connection Success callback
+		 */
+		private function connectionSuccess():void
+		{
+			_connected = true;
+			_eventManager.fireEvent("CONNECTION_SUCCESS");
+		}
+		
+		/**
+		 * Connection failed callback
+		 * @param	message
+		 */
+		private function connectionFailed(message:String):void
+		{
+			_connected = false;
+			trace("Connection Failure: " + message)
+			_eventManager.fireEvent("CONNECTION_FAILED", message);
+		}
 		
 		/**
 		 * onConntection event handler
 		 * @param	evt (SFSEvent)
 		 */
-		protected function onConnection(evt:SFSEvent):void
+		private function onConnection(evt:SFSEvent):void
 		{
 			if (evt.params.success)
 			{
-				connected = true;
+				connectionSuccess();
 				trace("Connection Success!")
-				owner.login("name", "");
 			}
 			else
 			{
-				connected = false;
-				trace("Connection Failure: " + evt.params.errorMessage)
+				connectionFailed(evt.params.errorMessage);
 			}
 		}
 		
@@ -124,7 +186,7 @@ package handlers
 		 * onConnectionLost event handler
 		 * @param	evt (SFSEvent)
 		 */
-		protected function onConnectionLost(evt:SFSEvent):void
+		private function onConnectionLost(evt:SFSEvent):void
 		{
 			trace("Connection was lost. Reason: " + evt.params.reason)
 		}
@@ -133,7 +195,7 @@ package handlers
 		 * onConfigLoadSuccess event handler
 		 * @param	evt (SFSEvent)
 		 */
-		protected function onConfigLoadSuccess(evt:SFSEvent):void
+		private function onConfigLoadSuccess(evt:SFSEvent):void
 		{
 			trace("Config load success!")
 			trace("Server settings: "  + owner.sfs.config.host + ":" + owner.sfs.config.port)
@@ -143,7 +205,7 @@ package handlers
 		 * onConfigLoadFailure event handler
 		 * @param	evt (SFSEvent)
 		 */
-		protected function onConfigLoadFailure(evt:SFSEvent):void
+		private function onConfigLoadFailure(evt:SFSEvent):void
 		{
 			trace("Config load failure!!!")
 		}

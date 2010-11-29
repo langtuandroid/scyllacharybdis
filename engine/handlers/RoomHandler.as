@@ -8,16 +8,16 @@ package handlers
 	import com.smartfoxserver.v2.requests.CreateRoomRequest;
 	import com.smartfoxserver.v2.entities.Room;
 
-	import core.NetworkManager;
+	import core.NetworkObject;
 	import core.BaseObject;	
+	import core.EventManager;
+	import models.GameRoomModel;
+	import models.RoomModel;
 
 	/**
 	*/
 	public class RoomHandler extends BaseObject
 	{
-		
-		private var _roomName:String = "The Lobby";
-
 		/****************************************/
 		// Type definition
 		/****************************************/
@@ -26,40 +26,96 @@ package handlers
 			return ROOM_HANDLER;
 		}
 		
+		/****************************************/
+		// Class details
+		/****************************************/
+		
+		private var _roomName:String = "The Lobby";
+		private var _eventManager:EventManager;
+
 		/**
 		* Awake is called at the construction of the object
 		* Register all the listeners
 		*/
-		public override function engine_awake():void
+		public final override function engine_awake():void
 		{
+			// Get the event manager
+			_eventManager = getDependency(EventManager);
+			
 			owner.sfs.addEventListener(SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError);
 			owner.sfs.addEventListener(SFSEvent.ROOM_JOIN, onJoinRoom);
 			owner.sfs.addEventListener(SFSEvent.ROOM_JOIN_ERROR, onJoinRoomError);
 			
 			super.engine_start();
+			
+			_eventManager.registerListener("NETWORK_JOINROOM", this, requestJoinRoom );
+			_eventManager.registerListener("NETWORK_JOINGAMEROOM", this, requestJoinGameRoom );
+			_eventManager.registerListener("NETWORK_LEAVBROOM", this, requestLeaveRoom );
+		}
+		
+		/**
+		 * Engine start should handle engine related start. 
+		 */
+		public final override function engine_start():void 
+		{
+			super.engine_start();
+		}
+		
+		/**
+		 * Engine stop should handle engine related stop. 
+		 */
+		public final override function engine_stop():void 
+		{
+			super.engine_stop();
 		}
 		
 		/**
 		* Destroy is called at the removal of the object
 		* Unregister listeners
 		*/
-		public override function engine_destroy():void
+		public final override function engine_destroy():void
 		{
+			_eventManager.unregisterListener("NETWORK_JOINROOM", this, requestJoinRoom );
+			_eventManager.unregisterListener("NETWORK_JOINGAMEROOM", this, requestJoinGameRoom );
+			_eventManager.unregisterListener("NETWORK_LEAVBROOM", this, requestLeaveRoom );
+			
 			super.engine_destroy();
 
-			owner.sfs.temoveEventListener(SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError);
+			owner.sfs.removeEventListener(SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError);
 			owner.sfs.removeEventListener(SFSEvent.ROOM_JOIN, onJoinRoom);
 			owner.sfs.removeEventListener(SFSEvent.ROOM_JOIN_ERROR, onJoinRoomError);
 		}
 		
-		/****************************************/
-		// Class specific
-		/****************************************/
+		/**
+		 * Request Join Room handler
+		 * @param	room
+		 */
+		public function requestJoinRoom( room:RoomModel ):void
+		{
+			joinRoom( room.name );
+		}
+
+		/**
+		 * Request Join Game Room handler
+		 * @param	room
+		 */
+		public function requestJoinGameRoom( room:GameRoomModel ):void
+		{
+			createGameRoom( room.name, room.roomPass, room.maxSize, room.extensionId, room.extensionClass );
+		}
+		
+		/** 
+		 * Leave the game room
+		 */
+		public function requestLeaveRoom():void
+		{
+			leaveGameRoom();
+		}
 		
 		/**
 		* Join the passed room.
 		*/
-		public function joinRoom(name:String = ""):void
+		private function joinRoom(name:String = ""):void
 		{
 			if ( name == "" ) 
 			{
@@ -80,7 +136,7 @@ package handlers
 		 * @param	extensionId (String) The module name
 		 * @param	extensionClass (String) The fully qualified class
 		 */
-		public function createGameRoom(roomName:String, roomPwd:String=null, roomMaxS:int=0, extensionId:String="sfsChess", extensionClass:String = "sfs2x.extensions.games.tris.SFSTrisGame"):void
+		private function createGameRoom(roomName:String, roomPwd:String=null, roomMaxS:int=0, extensionId:String="sfsChess", extensionClass:String = "sfs2x.extensions.games.tris.SFSTrisGame"):void
 		{
 			if (roomName.length > 0)
 			{
@@ -100,18 +156,13 @@ package handlers
 		* Leave game and return them to the lobby
 		* Join the lobby room. 
 		*/
-		public function leaveGameRoom():void
+		private function leaveGameRoom():void
 		{
 			var request:JoinRoomRequest = new JoinRoomRequest(_roomName);
 			owner.sfs.send(request);
 		}		
 
-		
-		
-		/****************************************/
-		// Event Handlers
-		/****************************************/
-		
+	
 		/**
 		 * onRoomCreationError event handler
 		 * @param	evt (SFSEvent)
@@ -128,6 +179,7 @@ package handlers
 		 */
 		protected function onJoinRoomError(evt:SFSEvent):void
 		{
+			_eventManager.fireEvent("JOINROOM_FAILED");
 			trace("Room join error:\n" + evt.params.errorMessage);
 		}
 
@@ -137,16 +189,7 @@ package handlers
 		 */
 		protected function onJoinRoom(evt:SFSEvent):void
 		{
-			var room:Room = evt.params.room
-			if (room.isGame)
-			{
-				// viewstack.selectedChild = view_game
-				
-				//if (gameViewInited) 
-				// {
-				//	initGame()
-				// }
-			}
+			_eventManager.fireEvent("JOINROOM_SUCESS", evt);
 		}		
 	}
 }
