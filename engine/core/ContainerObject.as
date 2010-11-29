@@ -14,12 +14,12 @@ package core
 
 		public override function engine_start():void
 		{
-			super.engine_start();
-			
 			for each ( var component:BaseObject in _components )
 			{
 				component.engine_start();
 			}
+			
+			super.engine_start();
 		}
 
 		public override function engine_stop():void
