@@ -22,11 +22,17 @@ package core
 			super.engine_awake();
 		}
 		
+		/**
+		 * Start the core 
+		 */
 		public final override function engine_start():void
 		{
 			super.engine_start();
 		}
 
+		/**
+		 * Stop the core 
+		 */
 		public final override function engine_stop():void
 		{
 			super.engine_stop();
@@ -53,7 +59,7 @@ package core
 		{
 			if ( _objectList[sceneClass] == null ) 
 			{
-				_objectList[sceneClass] = MemoryManager.instantiate(sceneClass);
+				_objectList[sceneClass] = MemoryManager.instantiate(sceneClass, [SceneGraph]);
 			}
 			
 			var sceneCount:int = _classStack.length;
