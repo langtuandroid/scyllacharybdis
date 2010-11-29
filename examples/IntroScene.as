@@ -17,6 +17,9 @@ package
 		private var _square:GameObject;
 		private var _otherSquare:GameObject;
 		
+		/**
+		 * Create the scene
+		 */
 		public override function awake():void 
 		{
 			trace("Starting IntroScene");
@@ -24,7 +27,10 @@ package
 			_otherSquare = MemoryManager.instantiate( GameObject );
 		}
 		
-		public override function show():void
+		/**
+		 * Start the scene
+		 */
+		public override function start():void
 		{
 			// Set the square
 			_square.addComponent(SoundComponent);
@@ -35,25 +41,35 @@ package
 			_otherSquare.addComponent(SquareScriptComponent, [EventManager]);
 			_otherSquare.addComponent(OtherSquareRenderComponent);
 
-			// Disable the sqares
-			_square.enabled = true;
-			_otherSquare.enabled = true;
-
 			// Update the components
 			_square.position = new Point3d( 50, 50, 11 );
 			_square.rotate = 45;
 			_otherSquare.position = new Point3d( 100, 100, 10 );
-			_otherSquare.scale = new Point3d( 5, 5, 1 );			trace("Show the IntroScene");
+			_otherSquare.scale = new Point3d( 5, 5, 1 );			
+
+			// Add the to the scene
+			addToScene(_square);
+			addToScene(_otherSquare);
 		}
 		
-		public override function hide():void
+		/**
+		 * Stop the scene
+		 */
+		public override function stop():void
 		{
-			trace("Hide the IntroScene");
+			// Add the to the scene
+			removeFromScene(_square);
+			removeFromScene(_otherSquare);
 		}
 		
+		/**
+		 * Destroy the scene
+		 */
 		public override function destroy():void
 		{
-			trace("Stoping IntroScene");
+			trace("Destroy IntroScene");
+			MemoryManager.destroy( _square );
+			MemoryManager.destroy( _otherSquare );
 		}
 	}
 }
