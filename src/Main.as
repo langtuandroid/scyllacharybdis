@@ -3,7 +3,6 @@
 	import core.BaseObject;
 	import core.Renderer;
 	import core.Scene;
-	import core.SceneGraph;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
