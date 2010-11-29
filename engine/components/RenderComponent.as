@@ -17,7 +17,7 @@ package components
 		/****************************************/
 		// Type definition
 		/****************************************/
-		public override function get type():String 
+		public override final function get type():String 
 		{
 			return RENDER_COMPONENT;
 		}				
@@ -74,7 +74,7 @@ package components
 		{
 			super.start();
 			
-			var scriptComponent:ScriptComponent = _owner.getComponent(SCRIPT_COMPONENT);
+			var scriptComponent:ScriptComponent = owner.getComponent(SCRIPT_COMPONENT);
 			
 			if ( scriptComponent != null )
 			{
@@ -95,7 +95,7 @@ package components
 		
 		public override function stop():void
 		{
-			var scriptComponent:ScriptComponent = _owner.getComponent(SCRIPT_COMPONENT);
+			var scriptComponent:ScriptComponent = owner.getComponent(SCRIPT_COMPONENT);
 			
 			if ( scriptComponent != null )
 			{

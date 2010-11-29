@@ -8,10 +8,7 @@ package
 	 */
 	public class Square 
 	{
-		public function Square() 
-		{
-			
-		}
+		public static function get dependencies():Array { return new Array( SquareScriptComponent, SquareRenderComponent ); }
 		
 		/*
 		public function get dependencyClasses():Array	{ 
