@@ -23,7 +23,7 @@ package core
 		
 		private var _parent:GameObject = null;
 		private var _children:Array = new Array();
-		private var _enabled:Boolean = false;				
+		private var _enabled:Boolean = true;				
 		
 		
 		public final override function engine_awake():void
