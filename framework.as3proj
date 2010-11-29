@@ -4,7 +4,7 @@
   <output>
     <movie disabled="False" />
     <movie input="" />
-    <movie path="bin\chess.swf" />
+    <movie path="bin\framework.swf" />
     <movie fps="30" />
     <movie width="800" />
     <movie height="600" />
@@ -37,7 +37,7 @@
     <option useResourceBundleMetadata="True" />
     <option warnings="True" />
     <option verboseStackTraces="False" />
-    <option linkReport="" />
+    <option linkReport="linkreport.txt" />
     <option loadExterns="" />
     <option staticLinkRSL="True" />
     <option additional="" />
