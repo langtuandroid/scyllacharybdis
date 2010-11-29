@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="My Component Builder" basedir=".">
+    <property file="build.properties.ben" />
     <taskdef resource="flexTasks.tasks" classpath="${basedir}/flexTasks/lib/flexTasks.jar" />
-    <property name="FLEX_HOME" value="C:\Development\FlashDevelop\Tools\flexsdk"/>
-    <property name="DEPLOY_DIR" value="C:\Development\scyllacharybdis\lib"/>
+    <property name="FLEX_HOME" value="${flexhome}" />
+    <property name="DEPLOY_DIR" value="${deploydir}" />
     <target name="main">
         <compc output="${DEPLOY_DIR}/SC.swc" link-report="linkreport.txt" append="true">
             <source-path path-element="${basedir}/engine"/>
@@ -12,8 +13,24 @@
             <include-sources dir="${basedir}/engine/core" includes="*.as"/>
             <include-sources dir="${basedir}/engine/components" includes="*.as"/>
             <include-sources dir="${basedir}/engine/handlers" includes="*.as"/>
+            <include-sources dir="${basedir}/engine/models" includes="*.as"/>
             <include-libraries dir="${basedir}/lib" includes="SFS2X_API_AS3.swc"/>
         </compc>
+    </target>
+    <target name="docs">
+	<exec executable="${asdoc.exe}" failonerror="true">
+            <arg line="-doc-sources 
+		${basedir}/engine/events/ 
+		${basedir}/engine/core/ 
+		${basedir}/engine/components/
+		${basedir}/engine/handlers/
+		${basedir}/engine/models/
+            " /> 
+            <arg line="-main-title ${title}" />             
+            <arg line="-window-title ${title}" /> 
+            <arg line="-output ${outputfolder}" /> 
+            <arg line="-external-library-path=${basedir}/lib" />
+	</exec>
     </target>
     <target name="clean">
         <delete>

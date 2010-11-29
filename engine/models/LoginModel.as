@@ -11,6 +11,12 @@ package models
 		private var _password:String;
 		private var _type:int;
 		
+		/**
+		 * Login Model constructor
+		 * @param	name
+		 * @param	pass
+		 * @param	type
+		 */
 		public function LoginModel( name:String, pass:String, type:int ) 
 		{
 			_name = name;

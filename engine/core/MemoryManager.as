@@ -7,6 +7,11 @@ package core
 	 */
 	public class MemoryManager
 	{
+		
+		/****************************************/
+		// Class Details
+		/****************************************/
+		
 		// Create the object lists
 		private static var _baseObjects:Dictionary = new Dictionary(true);
 		private static var _singletonList:Dictionary = new Dictionary(true);

@@ -1,5 +1,6 @@
 package components 
 {
+	import adobe.utils.CustomActions;
 	import flash.utils.Dictionary;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
@@ -21,13 +22,13 @@ package components
 			return SCRIPT_COMPONENT; 
 		}		
 		
+		/****************************************/
+		// Class Details
+		/****************************************/
 		
-		/****************************************/
-		// Overide function
-		/****************************************/
 		private var _updateTimer:Timer = new Timer(1/16, 0); 
 
-		public override function engine_awake():void
+		public final override function engine_awake():void
 		{
 			// setup the timer
 			_updateTimer.addEventListener(TimerEvent.TIMER, update);
@@ -39,8 +40,18 @@ package components
 		public function update(event:TimerEvent):void
 		{
 		}
+		
+		public final override function engine_start():void
+		{
+			super.engine_start();
+		}
 
-		public override function engine_destroy():void
+		public final override function engine_stop():void
+		{
+			super.engine_stop();
+		}
+
+		public final override function engine_destroy():void
 		{
 
 			super.engine_destroy();
@@ -50,73 +61,98 @@ package components
 			_updateTimer = null;
 
 		}
-		
-		
-		/****************************************/
-		// Class specific
-		/****************************************/
 
-		/****************************************/
-		// Event Handlers
-		/****************************************/
 		/*
-		 * Handler functions for the keyboard and mouse events
+		 * Handler mouse down 
 		 */
 		public function onMouseDown( e:MouseEvent ):void
 		{
 			
 		}
 		
+		/*
+		 * Handler mouse up
+		 */
 		public function onMouseUp( e:MouseEvent ):void
 		{
 			
 		}
 		
+		/*
+		 * Handler click
+		 */
 		public function onClick( e:MouseEvent ):void
 		{
 			
 		}
 		
+		/*
+		 * Handler double click
+		 */
 		public function onDoubleClick( e:MouseEvent ):void
 		{
 			
 		}
 		
+		/*
+		 * Handler mouse move
+		 */
 		public function onMouseMove( e:MouseEvent ):void
 		{
 			
 		}
 		
+		/*
+		 * Handler mouse lost focus
+		 */
 		public function onMouseOut( e:MouseEvent ):void
 		{
 			
 		}
 		
+		/*
+		 * Handler mouse over
+		 */
 		public function onMouseOver( e:MouseEvent ):void
 		{
 			
 		}
 		
+		/*
+		 * Handler wheel mouse
+		 */
 		public function onMouseWheel( e:MouseEvent ):void
 		{
 			
 		}
 		
+		/*
+		 * Handler roll over
+		 */
 		public function onRollOver( e:MouseEvent ):void
 		{
 			
 		}
-		
+
+		/*
+		 * Handler roll out (Whatever that is)
+		 */
 		public function onRollOut( e:MouseEvent ):void
 		{
 			
 		}
 		
+		/*
+		 * Handler key down
+		 */
 		public function onKeyDown( e:KeyboardEvent ):void
 		{
 			
 		}
 		
+		/*
+		 * Handler key up
+		 */
 		public function onKeyUp( e:KeyboardEvent ):void
 		{
 			

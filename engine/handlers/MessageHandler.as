@@ -21,13 +21,14 @@ package handlers
 		/****************************************/
 		// Type definition
 		/****************************************/
+		
 		public override function getType():String 
 		{
 			return MESSAGE_HANDLER;
 		}
 
 		/****************************************/
-		// Overide function
+		// Class Details
 		/****************************************/
 
 		private var _eventManager:EventManager;
@@ -78,11 +79,6 @@ package handlers
 			// Release the event manager
 			_eventManager = null;
 		}
-		
-		
-		/****************************************/
-		// Event Handlers
-		/****************************************/
 		
 		public function onExtensionResponse(evt:SFSEvent):void
 		{
