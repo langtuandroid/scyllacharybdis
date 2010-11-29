@@ -31,7 +31,7 @@ package core
 			_components[component.getType()] =  component;
 
 			// Setup the component
-			component.engine_start();
+			//component.engine_start();
 		}
 
 		/**

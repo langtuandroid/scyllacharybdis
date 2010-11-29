@@ -14,6 +14,8 @@ package core
 		/****************************************/
 		// Class Details
 		/****************************************/
+
+		private var _gameObjects:Dictionary = new Dictionary(true);
 		
 		/**
 		* Awake is called at the construction of the object
@@ -41,18 +43,78 @@ package core
 			super.engine_destroy();
 		}
 		
-		private var _gameObjects:Dictionary = new Dictionary(true);
+		/**
+		 * Add the game object and its children to the scene
+		 */
+		public final function addGameObjectToScene(gameObj:GameObject):void
+		{
+			if ( gameObj == null )
+			{
+				return;
+			}
+			addGameObject(gameObj);
+			addChildrenToScene(gameObj);
+		}
 		
-		public final function addGameObject( gameObj:GameObject ):void 
+		/**
+		 * Remove the game objects and its children from the scene
+		 */
+		public final function removeGameObjectToScene(gameObj:GameObject):void
+		{
+			if ( gameObj == null )
+			{
+				return;
+			}
+			removeChildrenFromScene(gameObj);
+			removeGameObject(gameObj);
+		}
+		
+		/**
+		 * Add all its children to the scene
+		 * @param	gameObj
+		 */
+		private final function addChildrenToScene(gameObj:GameObject):void
+		{
+			for each ( var child:GameObject in gameObj.children )
+			{
+				addGameObjectToScene(child);
+			}			
+		}
+
+		/**
+		 * Remove all its children from the scene
+		 * @param	gameObj
+		 */
+		private final function removeChildrenFromScene(gameObj:GameObject):void
+		{
+			for each ( var child:GameObject in gameObj.children )
+			{
+				removeGameObjectToScene(child);
+			}				
+		}
+
+		/**
+		 * Add a gameobject to the scene
+		 * @param	gameObj
+		 */
+		private final function addGameObject( gameObj:GameObject ):void 
 		{
 			_gameObjects[gameObj] = gameObj;
 		}
-		
-		public final function removeGameObject( gameObj:GameObject ):void
+
+		/**
+		 * Remove a game object from the scene
+		 * @param	gameObj
+		 */
+		private final function removeGameObject( gameObj:GameObject ):void
 		{
 			delete _gameObjects[gameObj];
 		}
 		
+		/**
+		 * Get all the renderables for the scene.
+		 * Used by the renderer to display the scene.
+		 */
 		public final function get renderables():Array
 		{
 			var renderables:Array = new Array();
@@ -69,9 +131,7 @@ package core
 					}
 				}
 			}
-			
 			return renderables;
 		}
 	}
-
 }

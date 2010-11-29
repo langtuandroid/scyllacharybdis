@@ -20,8 +20,8 @@ package
 		public override function awake():void 
 		{
 			trace("Starting IntroScene");
-			_square = MemoryManager.instantiate( GameObject, GameObject.dependencies);
-			_otherSquare = MemoryManager.instantiate( GameObject, GameObject.dependencies );
+			_square = MemoryManager.instantiate( GameObject );
+			_otherSquare = MemoryManager.instantiate( GameObject );
 		}
 		
 		public override function show():void
@@ -30,12 +30,10 @@ package
 			_square.addComponent(SoundComponent);
 			_square.addComponent(SquareScriptComponent, [EventManager]);
 			_square.addComponent(SquareRenderComponent);
-			_square.addComponent(TransformComponent);
 			
 			// Set the square
 			_otherSquare.addComponent(SquareScriptComponent, [EventManager]);
 			_otherSquare.addComponent(OtherSquareRenderComponent);
-			_otherSquare.addComponent(TransformComponent);
 
 			// Disable the sqares
 			_square.enabled = true;

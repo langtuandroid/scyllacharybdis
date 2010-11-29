@@ -16,13 +16,11 @@ package core
 	 */
 	public final class GameObject extends ContainerObject implements ITransformable
 	{
-		public static function get dependencies():Array { return [SceneGraph]; }
 		
 		/****************************************/
 		// Class Details
 		/****************************************/
 		
-		private var _sceneGraph:SceneGraph = null;
 		private var _parent:GameObject = null;
 		private var _children:Array = new Array();
 		private var _enabled:Boolean = false;				
@@ -31,12 +29,7 @@ package core
 		public final override function engine_awake():void
 		{
 			super.engine_awake();
-			
 			addComponent( TransformComponent );
-			
-			_sceneGraph = getDependency(SceneGraph);
-			
-			_sceneGraph.addGameObject(this);
 		}
 		
 		public final override function engine_start():void
@@ -77,22 +70,22 @@ package core
 		public function get enabled():Boolean { return _enabled; }
 		public function set enabled( value:Boolean ):void 
 		{
-			for each ( var child:GameObject in _children )
-			{
-				child.enabled = value;
-			}
+			//for each ( var child:GameObject in _children )
+			//{
+			//	child.enabled = value;
+			//}
 			
-			var prevEnabled:Boolean = _enabled;
+			//var prevEnabled:Boolean = _enabled;
 			_enabled = value;
 			
-			if ( _enabled && !prevEnabled )
-			{
-				engine_start();
-			}
-			else if ( !_enabled && prevEnabled ) 
-			{
-				engine_stop();
-			}			
+			//if ( _enabled && !prevEnabled )
+			//{
+			//	engine_start();
+			//}
+			//else if ( !_enabled && prevEnabled ) 
+			//{
+			//	engine_stop();
+			//}			
 		}
 
 		/**
@@ -149,5 +142,6 @@ package core
 		public function get worldPosition():Point3d { return getComponent( TRANSFORM_COMPONENT).worldPosition; }
 		public function get worldScale():Point3d { return getComponent( TRANSFORM_COMPONENT).worldScale; }
 		public function get worldRotate():Number { return getComponent( TRANSFORM_COMPONENT).worldRotate; }
+		
 	}
 }

@@ -11,6 +11,7 @@ package core
 		
 		protected var _initialized:Boolean = false;
 		protected var _showing:Boolean = false;
+		protected var _rootGameObject:GameObject;
 
 		/**
 		 * Initialize the scene memory
@@ -23,6 +24,8 @@ package core
 			}
 			
 			_initialized = true;
+			_rootGameObject = MemoryManager.instantiate( GameObject );
+			
 			super.engine_awake();
 		}
 
@@ -62,6 +65,8 @@ package core
 		 */
 		public final override function engine_destroy():void
 		{
+			MemoryManager.destroy( _rootGameObject );
+
 			super.engine_destroy();
 			
 			_initialized = false;
@@ -78,6 +83,24 @@ package core
 		 */
 		public function hide():void
 		{
+		}
+		
+		/**
+		 * Add game object to scene helper function.
+		 * @param	gameObj
+		 */
+		protected function addToScene( gameObj:GameObject ):void
+		{
+			_rootGameObject.addChild( gameObj );
+		}
+
+		/**
+		 * Remove game object from the scene helper function.
+		 * @param	gameObj
+		 */
+		protected function removeFrmScene( gameObj:GameObject ):void
+		{
+			_rootGameObject.removeChild( gameObj );
 		}
 	}
 }
