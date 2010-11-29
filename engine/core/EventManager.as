@@ -48,7 +48,7 @@ package core
 		 * @param	eventName (String) The event name to fire.
 		 * @param	data (*) The data associated with the event.
 		 */
-		public function fireEvent( eventName:String, data:* ):void
+		public function fireEvent( eventName:String, data:* = null ):void
 		{
 			trace("fireEvent: " + eventName );
 			var listeners:Dictionary = _listeners[eventName];
