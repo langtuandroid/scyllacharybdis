@@ -48,6 +48,7 @@ package core
 		 */
 		public final function addGameObjectToScene(gameObj:GameObject):void
 		{
+			trace("SceneGraph: addGameObjectToScene");
 			if ( gameObj == null )
 			{
 				return;
@@ -61,6 +62,7 @@ package core
 		 */
 		public final function removeGameObjectToScene(gameObj:GameObject):void
 		{
+			trace("SceneGraph: removeGameObjectToScene");
 			if ( gameObj == null )
 			{
 				return;
@@ -75,6 +77,7 @@ package core
 		 */
 		private final function addChildrenToScene(gameObj:GameObject):void
 		{
+			trace("SceneGraph: addChildrenToScene");
 			for each ( var child:GameObject in gameObj.children )
 			{
 				addGameObjectToScene(child);
@@ -87,6 +90,7 @@ package core
 		 */
 		private final function removeChildrenFromScene(gameObj:GameObject):void
 		{
+			trace("SceneGraph: removeChildrenFromScene");
 			for each ( var child:GameObject in gameObj.children )
 			{
 				removeGameObjectToScene(child);
@@ -99,6 +103,7 @@ package core
 		 */
 		private final function addGameObject( gameObj:GameObject ):void 
 		{
+			trace("SceneGraph: addGameObject" + gameObj);
 			_gameObjects[gameObj] = gameObj;
 		}
 
@@ -108,6 +113,7 @@ package core
 		 */
 		private final function removeGameObject( gameObj:GameObject ):void
 		{
+			trace("SceneGraph: removeGameObject" + gameObj);
 			delete _gameObjects[gameObj];
 		}
 		
@@ -117,6 +123,7 @@ package core
 		 */
 		public final function get renderables():Array
 		{
+			//trace("SceneGraph: renderables");
 			var renderables:Array = new Array();
 			
 			// Apply frustrum-ish algorithm here
@@ -131,6 +138,7 @@ package core
 					}
 				}
 			}
+			//trace("SceneGraph: Render count = " + renderables.length );
 			return renderables;
 		}
 	}
