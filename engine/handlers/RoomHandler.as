@@ -15,6 +15,8 @@ package handlers
 	*/
 	public class RoomHandler extends BaseObject
 	{
+		
+		private var _roomName:String = "The Lobby";
 
 		/****************************************/
 		// Type definition
@@ -54,15 +56,18 @@ package handlers
 		// Class specific
 		/****************************************/
 		
-		private var _roomName:String;
-		
 		/**
 		* Join the passed room.
 		*/
-		public function joinRoom(name:String):void
+		public function joinRoom(name:String = ""):void
 		{
+			if ( name == "" ) 
+			{
+				name = _roomName;
+			} 
 			_roomName = name;
 			var request:JoinRoomRequest = new JoinRoomRequest(name);
+			trace("sending join room request: " + name );
 			owner.sfs.send(request);
 		}		
 		
@@ -95,14 +100,10 @@ package handlers
 		* Leave game and return them to the lobby
 		* Join the lobby room. 
 		*/
-		public function leaveGameRoom(name:String = ""):void
+		public function leaveGameRoom():void
 		{
-			if ( name == null ) {
-				name = _roomName;
-			}
-			
-			var request:JoinRoomRequest = new JoinRoomRequest(name);
-			owner.ssfs.send(request);
+			var request:JoinRoomRequest = new JoinRoomRequest(_roomName);
+			owner.sfs.send(request);
 		}		
 
 		
@@ -117,8 +118,8 @@ package handlers
 		 */
 		protected function onRoomCreationError(evt:SFSEvent):void
 		{
-			owner.sfs.dTrace("===> " + evt.params.errorMessage);
-			owner.sfs.dTrace("Room creation error:\n" + evt.params.error);
+			trace("===> " + evt.params.errorMessage);
+			trace("Room creation error:\n" + evt.params.error);
 		}
 
 		/**
@@ -127,7 +128,7 @@ package handlers
 		 */
 		protected function onJoinRoomError(evt:SFSEvent):void
 		{
-			owner.sfs.dTrace("Room join error:\n" + evt.params.errorMessage);
+			trace("Room join error:\n" + evt.params.errorMessage);
 		}
 
 		/**
@@ -137,7 +138,6 @@ package handlers
 		protected function onJoinRoom(evt:SFSEvent):void
 		{
 			var room:Room = evt.params.room
-			
 			if (room.isGame)
 			{
 				// viewstack.selectedChild = view_game

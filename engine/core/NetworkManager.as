@@ -67,6 +67,14 @@ package core
 		}		
 		
 		/**
+		* Join the passed room.
+		*/
+		public function joinRoom(name:String = ""):void
+		{
+			getComponent( ROOM_HANDLER ).joinRoom(name);
+		}	
+		
+		/**
 		 * Login to the server
 		 * @param	userName (String) Users name
 		 * @param	password (String) Users password
@@ -75,14 +83,6 @@ package core
 		{
 			getComponent( LOGIN_HANDLER ).login(userName, password);
 		}
-
-		/**
-		* Join the passed room.
-		*/
-		public function joinRoom(name:String = "The Lobby"):void
-		{
-			getComponent( ROOM_HANDLER ).joinRoom(name);
-		}		
 		
 		/**
 		 * Create a game room
@@ -109,17 +109,6 @@ package core
 
 		public function backToLoginScreen():void {}		
 				
-		/**
-		 * Helper function for displaying errors
-		 * @param	msg (String) The error message
-		 */
-		protected function dTrace(msg:String):void
-		{
-			trace ( "--> " + msg + "\n" );
-			
-			// Create view to print stuff too
-			//ta_debug.text += "--> " + msg + "\n";
-		}		
 	}
 }
 
