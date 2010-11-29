@@ -53,6 +53,7 @@ package core
 			{
 				return;
 			}
+			gameObj.engine_start();
 			addGameObject(gameObj);
 			addChildrenToScene(gameObj);
 		}
@@ -67,6 +68,7 @@ package core
 			{
 				return;
 			}
+			gameObj.engine_stop();
 			removeChildrenFromScene(gameObj);
 			removeGameObject(gameObj);
 		}
