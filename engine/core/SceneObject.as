@@ -22,7 +22,6 @@ package core
 			{
 				return;
 			}
-			trace ("SceneObject: engine_awake");
 			_initialized = true;
 			_rootGameObject = MemoryManager.instantiate( GameObject );
 			_sceneGraph = getDependency(SceneGraph);
@@ -35,7 +34,6 @@ package core
 		 */
 		public final override function engine_start():void
 		{
-			trace ("SceneObject: engine_start");
 			super.engine_start();
 			_sceneGraph.addGameObjectToScene(_rootGameObject );
 		}
@@ -45,7 +43,6 @@ package core
 		 */
 		public final override function engine_stop():void
 		{
-			trace ("SceneObject: engine_stop");
 			_sceneGraph.removeGameObjectToScene(_rootGameObject );
 			super.engine_stop();
 		}		
@@ -55,7 +52,6 @@ package core
 		 */
 		public final override function engine_destroy():void
 		{
-			trace ("SceneObject: engine_destroy");
 			MemoryManager.destroy( _rootGameObject );
 
 			super.engine_destroy();
@@ -69,7 +65,6 @@ package core
 		 */
 		protected function addToScene( gameObj:GameObject ):void
 		{
-			trace ("SceneObject: addToScene");
 			_rootGameObject.addChild( gameObj );
 		}
 
@@ -79,7 +74,6 @@ package core
 		 */
 		protected function removeFromScene( gameObj:GameObject ):void
 		{
-			trace ("SceneObject: removeFromScene");
 			_rootGameObject.removeChild( gameObj );
 		}
 	}

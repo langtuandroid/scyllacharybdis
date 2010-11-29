@@ -43,7 +43,14 @@ package core
 		private var _dependencies:Dictionary = new Dictionary(true);
 		private var _owner:* = null;
 
-		
+		private var _awake:Boolean = false;
+		private var _started:Boolean = false;
+
+		protected function get awaked():Boolean { return _awake; }
+		protected function set awaked(value:Boolean):void  {	_awake = value;	}
+
+		protected function get started():Boolean { return _started; }
+		protected function set started(value:Boolean):void  {_started = value;}
 		/****************************************/
 		// Construtor and Destructor
 		/****************************************/		
@@ -58,6 +65,12 @@ package core
 		*/
 		public function engine_awake():void 
 		{ 
+			if ( awaked == true ) {
+				return;
+			}
+			awaked = true;
+			
+			// Call the users awake
 			awake();
 		}
 		
@@ -66,6 +79,12 @@ package core
 		*/
 		public function engine_start():void  
 		{ 
+			if ( started == true ) {
+				return;
+			}
+			started = true;
+			
+			// Call the users start
 			start();
 		}
 		
@@ -74,7 +93,9 @@ package core
 		*/
 		public function engine_stop():void 
 		{ 
-			// Let the users code 
+			started = false;
+			
+			// Call the users stop
 			stop();
 		}
 		
@@ -84,7 +105,9 @@ package core
 		*/
 		public function engine_destroy():void	 
 		{ 
-			// Let the users code destroy
+			awaked = false;
+			
+			// Call the users destroy
 			destroy();
 
 			// Destroy the components
