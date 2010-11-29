@@ -19,10 +19,23 @@ package core
 		
 		public override function engine_start():void
 		{
+			// Start up anything that has requirements
+			if ( _components[SOUND_COMPONENT] ) {
+				_components[SOUND_COMPONENT].engine_start();
+			}
+			if ( _components[SCRIPT_COMPONENT] ) {
+				_components[SCRIPT_COMPONENT].engine_start();
+			}
+			if ( _components[RENDER_COMPONENT] ) {
+				_components[RENDER_COMPONENT].engine_start();
+			}
+
+			// Start everything else
 			for each ( var component:BaseObject in _components )
 			{
 				component.engine_start();
 			}
+			
 			super.engine_start();
 		}
 
