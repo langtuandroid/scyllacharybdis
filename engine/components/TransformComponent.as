@@ -1,6 +1,7 @@
 package components
 {
 	import adobe.utils.ProductManager;
+	import core.ITransformable;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
 	import org.casalib.math.geom.Point3d;
@@ -9,7 +10,7 @@ package components
 
 	/**
 	 */
-	public class TransformComponent extends BaseObject 
+	public class TransformComponent extends BaseObject implements ITransformable
 	{
 		// Find a clever way to get this as some sort global property or something...
 		// But it works for now.  
@@ -113,7 +114,11 @@ package components
 			{
 				renderComponent.baseclip.scaleX = _worldScale.x;
 				renderComponent.baseclip.scaleY = _worldScale.y;
-				renderComponent.baseclip.scaleZ = _worldScale.z;
+				
+				if ( _mode == MODE_3D )
+				{
+					renderComponent.baseclip.scaleZ = _worldScale.z;
+				}
 			}
 		}
 		

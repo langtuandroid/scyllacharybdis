@@ -1,9 +1,12 @@
 package core 
 {
+	import components.TransformComponent;
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
+	import flash.geom.Point;
 	import flash.utils.Dictionary;
+	import org.casalib.math.geom.Point3d;
 	import org.casalib.util.ArrayUtil;
 	
 	import core.MemoryManager;
@@ -11,7 +14,7 @@ package core
 	
 	/**
 	 */
-	public final class GameObject extends ContainerObject
+	public final class GameObject extends ContainerObject implements ITransformable
 	{
 		public static function get dependencies():Array { return [SceneGraph]; }
 		
@@ -46,6 +49,8 @@ package core
 		public override function engine_awake():void
 		{
 			super.engine_awake();
+			
+			addComponent( TransformComponent );
 			
 			_sceneGraph = getDependency(SceneGraph);
 			
@@ -110,5 +115,31 @@ package core
 			// Remove the child from the list
 			ArrayUtil.removeItem( _children, child );
 		}
+		
+		//====================================================
+		//	For ITransformable Interface
+		//
+		// 	Just relegate everything back to the transform
+		//	component.
+		//
+		//  Saves the hassle of having to get the transform
+		// 	component each and every time you want to 
+		//	something...
+		//====================================================
+		public function get position():Point3d { return getComponent( TRANSFORM_COMPONENT).position; }
+		public function set position( value:Point3d ):void { getComponent( TRANSFORM_COMPONENT).position = value; }
+		
+		public function get scale():Point3d { return getComponent( TRANSFORM_COMPONENT).scale; }
+		public function set scale( value:Point3d ):void { getComponent( TRANSFORM_COMPONENT).scale = value; }
+		
+		public function get rotate():Number { return getComponent( TRANSFORM_COMPONENT).rotate; }
+		public function set rotate( value:Number):void { getComponent( TRANSFORM_COMPONENT).rotate = value; }
+		
+		public function get dimensions():Point { return getComponent( TRANSFORM_COMPONENT).dimensions; }
+		public function set dimensions( value:Point ):void { getComponent( TRANSFORM_COMPONENT).dimensions = value; }
+		
+		public function get worldPosition():Point3d { return getComponent( TRANSFORM_COMPONENT).worldPosition; }
+		public function get worldScale():Point3d { return getComponent( TRANSFORM_COMPONENT).worldScale; }
+		public function get worldRotate():Number { return getComponent( TRANSFORM_COMPONENT).worldRotate; }
 	}
 }
