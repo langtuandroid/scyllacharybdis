@@ -71,6 +71,7 @@ package core
 			// Render children in order
 			for ( i = 0; i < renderables.length; i++ )
 			{
+				trace("render: " + renderables[i]);
 				renderables[i].render(surface);
 			}
 		}

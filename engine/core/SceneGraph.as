@@ -131,16 +131,18 @@ package core
 			// Apply frustrum-ish algorithm here
 			for each ( var gameObj:GameObject in _gameObjects )
 			{
+				trace("get renderables: gameobject enabled  = " + gameObj.enabled );
 				if ( gameObj.enabled == true )
 				{
 					var renderable:RenderComponent = gameObj.getComponent(RENDER_COMPONENT);
 					if ( renderable != null )
 					{
+						trace("get renderables: rendercomponent  = " + renderable );
 						renderables.push(renderable);
 					}
 				}
 			}
-			//trace("SceneGraph: Render count = " + renderables.length );
+			trace("SceneGraph: Render count = " + renderables.length );
 			return renderables;
 		}
 	}
