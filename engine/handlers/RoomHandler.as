@@ -170,7 +170,7 @@ package handlers
 				settings.maxSpectators = roomMaxS
 				settings.extension = new RoomExtension(extensionId, extensionClass)
 				
-				owner.sfs.send( new CreateRoomRequest(settings, true, owner.sfs.lastJoinedRoom) )
+				owner.sfs.send( new CreateRoomRequest(settings, true) )
 			}		
 		}
 		

@@ -55,7 +55,7 @@
 			_networkObject.addComponent(MessageHandler, [EventManager]);
 
 			// Create an example network driver
-			//_networkDriver = MemoryManager.instantiate( NetworkDriver, [EventManager] );
+			_networkDriver = MemoryManager.instantiate( NetworkDriver, [EventManager] );
 			//_chatExample = MemoryManager.instantiate( ChatExample, [EventManager] );
 
 			// Fire a network connection event
