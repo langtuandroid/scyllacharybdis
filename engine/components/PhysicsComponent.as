@@ -1,9 +1,5 @@
 package components 
 {
-	import adobe.utils.CustomActions;
-	import flash.utils.Dictionary;
-	import flash.events.KeyboardEvent;
-	import flash.events.MouseEvent;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
 
@@ -12,38 +8,91 @@ package components
 
 	/**
 	 */
-	public class ScriptComponent extends BaseObject
+	public class PhysicsComponent extends BaseObject
 	{
+		var body:b2Body;
+		var bodyDef:b2BodyDef;
+		var boxShape:b2PolygonShape;
+		var circleShape:b2CircleShape;
+			
 		/****************************************/
 		// Type definition
 		/****************************************/
 		public override final function getType():String 
 		{
-			return SCRIPT_COMPONENT; 
+			return PHYSICS_COMPONENT; 
 		}		
 		
 		/****************************************/
 		// Class Details
 		/****************************************/
 		
-		private var _updateTimer:Timer = new Timer(1/30, 0); 
 
 		public final override function engine_awake():void
 		{
 			super.engine_awake();
 		}
 
-		public function update(event:TimerEvent):void
-		{
-		}
 		
 		public final override function engine_start():void
 		{
+			// Add ground body
+			bodyDef = new b2BodyDef();
+			//bodyDef.position.Set(15, 19);
+			bodyDef.position.Set(10, 12);
+			//bodyDef.angle = 0.1;
+			boxShape = new b2PolygonShape();
+			boxShape.SetAsBox(30, 3);
+			var fixtureDef:b2FixtureDef = new b2FixtureDef();
+			fixtureDef.shape = boxShape;
+			fixtureDef.friction = 0.3;
+			fixtureDef.density = 0; // static bodies require zero density
+			// Add sprite to body userData
+			bodyDef.userData = new PhysGround();
+			bodyDef.userData.width = 30 * 2 * 30; 
+			bodyDef.userData.height = 30 * 2 * 3; 
+			addChild(bodyDef.userData);
+			body = m_world.CreateBody(bodyDef);
+			body.CreateFixture(fixtureDef);
+			
+			// Add some objects
+			for (var i:int = 1; i < 10; i++){
+				bodyDef = new b2BodyDef();
+				bodyDef.position.x = Math.random() * 15 + 5;
+				bodyDef.position.y = Math.random() * 10;
+				var rX:Number = Math.random() + 0.5;
+				var rY:Number = Math.random() + 0.5;
+				// Box
+				if (Math.random() < 0.5){
+					boxShape = new b2PolygonShape();
+					boxShape.SetAsBox(rX, rY);
+					fixtureDef.shape = boxShape;
+					fixtureDef.density = 1.0;
+					fixtureDef.friction = 0.5;
+					fixtureDef.restitution = 0.2;
+					bodyDef.userData = new PhysBox();
+					bodyDef.userData.width = rX * 2 * 30; 
+					bodyDef.userData.height = rY * 2 * 30; 
+					body = m_world.CreateBody(bodyDef);
+					body.CreateFixture(fixtureDef);
+				} 
+				// Circle
+				else {
+					circleShape = new b2CircleShape(rX);
+					fixtureDef.shape = circleShape;
+					fixtureDef.density = 1.0;
+					fixtureDef.friction = 0.5;
+					fixtureDef.restitution = 0.2;
+					bodyDef.userData = new PhysCircle();
+					bodyDef.userData.width = rX * 2 * 30; 
+					bodyDef.userData.height = rX * 2 * 30; 
+					body = m_world.CreateBody(bodyDef);
+					body.CreateFixture(fixtureDef);
+				}
+				addChild(bodyDef.userData);
+			}
+			
 			super.engine_start();
-
-			// setup the timer
-			_updateTimer.addEventListener(TimerEvent.TIMER, update);
-			_updateTimer.start();
 		}
 
 		public final override function engine_stop():void
