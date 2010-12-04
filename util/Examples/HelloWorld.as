@@ -51,17 +51,21 @@
 			//bodyDef.position.Set(15, 19);
 			bodyDef.position.Set(10, 12);
 			//bodyDef.angle = 0.1;
+			
 			boxShape = new b2PolygonShape();
 			boxShape.SetAsBox(30, 3);
+			
 			var fixtureDef:b2FixtureDef = new b2FixtureDef();
 			fixtureDef.shape = boxShape;
 			fixtureDef.friction = 0.3;
 			fixtureDef.density = 0; // static bodies require zero density
+			
 			// Add sprite to body userData
 			bodyDef.userData = new PhysGround();
 			bodyDef.userData.width = 30 * 2 * 30; 
 			bodyDef.userData.height = 30 * 2 * 3; 
 			addChild(bodyDef.userData);
+
 			body = m_world.CreateBody(bodyDef);
 			body.CreateFixture(fixtureDef);
 			
