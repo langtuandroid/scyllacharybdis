@@ -1,5 +1,7 @@
 package  
 {
+	import components.PhysicsComponent;
+	import core.PhysicsWorld;
 	import org.casalib.math.geom.Point3d;
 	import core.SceneObject;
 	import core.GameObject;
@@ -35,10 +37,12 @@ package
 			_square.addComponent(SoundComponent);
 			_square.addComponent(SquareScriptComponent, [EventManager]);
 			_square.addComponent(SquareRenderComponent);
+			_square.addComponent(PhysicsComponent, [PhysicsWorld]);
 			
 			// Set the square
 			_otherSquare.addComponent(SquareScriptComponent, [EventManager]);
 			_otherSquare.addComponent(OtherSquareRenderComponent);
+			_otherSquare.addComponent(PhysicsComponent, [PhysicsWorld]);
 
 			// Update the components
 			_square.position = new Point3d( 50, 50, 11 );

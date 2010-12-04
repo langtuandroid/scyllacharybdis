@@ -83,6 +83,11 @@ package core
 		{
 			super.engine_destroy();
 		}
+
+		/**
+		 * Get the world 
+		 */
+		public function get world():b2World { return _world; }
 		
 		/**
 		 * Get the draw scale that maps pixels to meters.
@@ -112,20 +117,33 @@ package core
 			_world.SetGravity(value);
 			_gravity = value;
 		}
-		
+
+		/**
+		 * No idea just leave it at 10
+		 */
 		public function get velocityIterations():int { return _velocityIterations; }
 		
+		/**
+		 * No idea just leave it at 10
+		 */
 		public function set velocityIterations(value:int):void 
 		{
 			_velocityIterations = value;
 		}
 		
+		/**
+		 * No idea just leave it at 10
+		 */
 		public function get positionIterations():int { return _positionIterations; }
 		
+		/**
+		 * No idea just leave it at 10
+		 */
 		public function set positionIterations(value:int):void 
 		{
 			_positionIterations = value;
 		}
+		
 	}
 }
 

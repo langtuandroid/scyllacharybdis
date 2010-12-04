@@ -1,5 +1,11 @@
 package components 
 {
+	import Box2D.Collision.Shapes.b2CircleShape;
+	import Box2D.Collision.Shapes.b2PolygonShape;
+	import Box2D.Dynamics.b2Body;
+	import Box2D.Dynamics.b2BodyDef;
+	import Box2D.Dynamics.b2FixtureDef;
+	import core.PhysicsWorld;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
 
@@ -10,11 +16,6 @@ package components
 	 */
 	public class PhysicsComponent extends BaseObject
 	{
-		var body:b2Body;
-		var bodyDef:b2BodyDef;
-		var boxShape:b2PolygonShape;
-		var circleShape:b2CircleShape;
-			
 		/****************************************/
 		// Type definition
 		/****************************************/
@@ -26,72 +27,19 @@ package components
 		/****************************************/
 		// Class Details
 		/****************************************/
-		
+
+		private var _physicsWorld:PhysicsWorld;
+		private var _body:b2Body;
+		private var _bodyDef:b2BodyDef;
 
 		public final override function engine_awake():void
 		{
+			_physicsWorld = getDependency( PhysicsWorld );
 			super.engine_awake();
 		}
-
 		
 		public final override function engine_start():void
 		{
-			// Add ground body
-			bodyDef = new b2BodyDef();
-			//bodyDef.position.Set(15, 19);
-			bodyDef.position.Set(10, 12);
-			//bodyDef.angle = 0.1;
-			boxShape = new b2PolygonShape();
-			boxShape.SetAsBox(30, 3);
-			var fixtureDef:b2FixtureDef = new b2FixtureDef();
-			fixtureDef.shape = boxShape;
-			fixtureDef.friction = 0.3;
-			fixtureDef.density = 0; // static bodies require zero density
-			// Add sprite to body userData
-			bodyDef.userData = new PhysGround();
-			bodyDef.userData.width = 30 * 2 * 30; 
-			bodyDef.userData.height = 30 * 2 * 3; 
-			addChild(bodyDef.userData);
-			body = m_world.CreateBody(bodyDef);
-			body.CreateFixture(fixtureDef);
-			
-			// Add some objects
-			for (var i:int = 1; i < 10; i++){
-				bodyDef = new b2BodyDef();
-				bodyDef.position.x = Math.random() * 15 + 5;
-				bodyDef.position.y = Math.random() * 10;
-				var rX:Number = Math.random() + 0.5;
-				var rY:Number = Math.random() + 0.5;
-				// Box
-				if (Math.random() < 0.5){
-					boxShape = new b2PolygonShape();
-					boxShape.SetAsBox(rX, rY);
-					fixtureDef.shape = boxShape;
-					fixtureDef.density = 1.0;
-					fixtureDef.friction = 0.5;
-					fixtureDef.restitution = 0.2;
-					bodyDef.userData = new PhysBox();
-					bodyDef.userData.width = rX * 2 * 30; 
-					bodyDef.userData.height = rY * 2 * 30; 
-					body = m_world.CreateBody(bodyDef);
-					body.CreateFixture(fixtureDef);
-				} 
-				// Circle
-				else {
-					circleShape = new b2CircleShape(rX);
-					fixtureDef.shape = circleShape;
-					fixtureDef.density = 1.0;
-					fixtureDef.friction = 0.5;
-					fixtureDef.restitution = 0.2;
-					bodyDef.userData = new PhysCircle();
-					bodyDef.userData.width = rX * 2 * 30; 
-					bodyDef.userData.height = rX * 2 * 30; 
-					body = m_world.CreateBody(bodyDef);
-					body.CreateFixture(fixtureDef);
-				}
-				addChild(bodyDef.userData);
-			}
-			
 			super.engine_start();
 		}
 
@@ -102,109 +50,75 @@ package components
 
 		public final override function engine_destroy():void
 		{
-
 			super.engine_destroy();
-
-			// Stop the timer
-			_updateTimer.stop();
-			_updateTimer = null;
-
 		}
 
-		/*
-		 * Handler mouse down 
+		/**
+		 * Create the body of the object. The body is the whole object.
+		 * @param	x (int) Width in pixels of the body
+		 * @param	y (int) Height in pixels of the body
 		 */
-		public function onMouseDown( e:MouseEvent ):void
+		public function createBodyDef( x:int, y:int):void
 		{
+			// Create the body definition
+			_bodyDef = new b2BodyDef();
 			
-		}
-		
-		/*
-		 * Handler mouse up
-		 */
-		public function onMouseUp( e:MouseEvent ):void
-		{
+			// Get the world scale
+			var scale:int = _physicsWorld.drawScale;
+
+			//Set its position in the world. 
+			_bodyDef.position.Set(x / scale, y / scale);
 			
-		}
-		
-		/*
-		 * Handler click
-		 */
-		public function onClick( e:MouseEvent ):void
-		{
-			
-		}
-		
-		/*
-		 * Handler double click
-		 */
-		public function onDoubleClick( e:MouseEvent ):void
-		{
-			
-		}
-		
-		/*
-		 * Handler mouse move
-		 */
-		public function onMouseMove( e:MouseEvent ):void
-		{
-			
-		}
-		
-		/*
-		 * Handler mouse lost focus
-		 */
-		public function onMouseOut( e:MouseEvent ):void
-		{
-			
-		}
-		
-		/*
-		 * Handler mouse over
-		 */
-		public function onMouseOver( e:MouseEvent ):void
-		{
-			
-		}
-		
-		/*
-		 * Handler wheel mouse
-		 */
-		public function onMouseWheel( e:MouseEvent ):void
-		{
-			
-		}
-		
-		/*
-		 * Handler roll over
-		 */
-		public function onRollOver( e:MouseEvent ):void
-		{
-			
+			// Add the gameobject to it
+			_bodyDef.userData = owner;
+
+			// Create the body
+			_body = _physicsWorld.world.CreateBody(_bodyDef);
 		}
 
-		/*
-		 * Handler roll out (Whatever that is)
+		/**
+		 * Create a polygon shape to represent all or part of the body
+		 * @param	x (int) Width in pixels
+		 * @param	y (int) Height in pixels
+		 * @param	friction (Number) Friction amount from 0 to 1
+		 * @param	density (Number) Desity amount ( set to 0 for static items )
+		 * @param	restitution (Number) The bounciness of the object from 0 to 1
 		 */
-		public function onRollOut( e:MouseEvent ):void
+		public function CreatePolygonShape(x:int, y:int, friction:Number = 0.3, density:Number = 0, restitution:Number = 0.1):void
 		{
+			var boxShape:b2PolygonShape = new b2PolygonShape();
+			var scale:int = _physicsWorld.drawScale;
+			boxShape.SetAsBox(x / scale, y/scale);
 			
+			var fixtureDef:b2FixtureDef = new b2FixtureDef();
+			fixtureDef.shape = boxShape;
+			fixtureDef.friction = friction;
+			fixtureDef.density = density; 
+			fixtureDef.restitution = restitution;
+					
+			_body.CreateFixture(fixtureDef);			
 		}
 		
-		/*
-		 * Handler key down
-		 */
-		public function onKeyDown( e:KeyboardEvent ):void
+		/**
+		 * Create a circle shape to represent all or part of the body
+		 * @param	radius (int) Radius of the circle in pixels
+		 * @param	friction (Number) Friction amount from 0 to 1
+		 * @param	density (Number) Desity amount ( set to 0 for static items )
+		 * @param	restitution (Number) The bounciness of the object from 0 to 1
+		 */		
+		public function createCircleShape( radius:int, friction:Number = 0.3, density:Number = 0, restitution:Number = 0.1 ):void
 		{
+			var scale:int = _physicsWorld.drawScale;
 			
-		}
-		
-		/*
-		 * Handler key up
-		 */
-		public function onKeyUp( e:KeyboardEvent ):void
-		{
+			var circleShape:b2CircleShape = new b2CircleShape(radius / scale);
 			
+			var fixtureDef:b2FixtureDef = new b2FixtureDef();
+			fixtureDef.shape = circleShape;
+			fixtureDef.friction = friction;
+			fixtureDef.density = density; 
+			fixtureDef.restitution = restitution;
+			
+			_body.CreateFixture(fixtureDef);		
 		}
 	}
 }

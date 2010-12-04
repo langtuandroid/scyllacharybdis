@@ -24,6 +24,7 @@ package core
 		public static const SCRIPT_COMPONENT:String = "script_component";
 		public static const STATE_COMPONENT:String = "state_component";
 		public static const SOUND_COMPONENT:String = "sound_component";
+		public static const PHYSICS_COMPONENT:String = "sound_component";
 		
 		
 		// Handlers
