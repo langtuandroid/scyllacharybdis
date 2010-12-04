@@ -1,5 +1,6 @@
 ﻿package 
 {
+	import core.PhysicsWorld;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import core.Renderer;
@@ -15,6 +16,7 @@
 	import IntroScene;
 	import NetworkDriver;
 	import ChatExample;
+	import org.casalib.math.geom.Point3d;
 
 	
 	
@@ -26,6 +28,7 @@
 		private var _sceneManager:SceneManager;
 		private var _networkDriver:NetworkDriver;
 		private var _chatExample:ChatExample;
+		private var _physicWorld:PhysicsWorld;
 		
 		public function Main():void 
 		{		
@@ -44,7 +47,10 @@
 			_eventManager = MemoryManager.instantiate(EventManager);
 			
 			// Create the scene manager
-			_sceneManager = new SceneManager();
+			_sceneManager = MemoryManager.instantiate(SceneManager);
+			
+			// Create a physics world
+			_physicWorld = MemoryManager.instantiate(PhysicsWorld);
 
 			// Create a network layer
 			_networkObject = MemoryManager.instantiate(NetworkObject);			

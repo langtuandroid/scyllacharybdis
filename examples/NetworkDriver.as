@@ -77,6 +77,7 @@ package
 		{
 			trace("Network Driver: connectionSuccess");
 			_eventManager.fireEvent( "NETWORK_LOGIN", new LoginModel("ben", "test", 1) );
+			//_eventManager.fireEvent( "NETWORK_LOGIN", new LoginModel("ben1", "test", 1) );
 		}
 
 		/**
@@ -94,6 +95,7 @@ package
 		{
 			trace("Network Driver: loginSuccess");
 			_eventManager.fireEvent( "NETWORK_JOINROOM", new RoomModel(_roomName) );
+			//_eventManager.fireEvent( "NETWORK_JOINROOM", new RoomModel("TestGameRoom") );
 		}
 
 		/**
@@ -112,9 +114,9 @@ package
 			trace("Network Driver: joinRoomSuccess");
 			
 			// Commented out the start game since we want to have a chat message ( this works just need a button to attach it to ).
-			//_eventManager.fireEvent( "NETWORK_JOINGAMEROOM", new GameRoomModel("TestGameRoom", "", 2, "sfsTris", "sfs2x.extensions.games.tris.SFSTrisGame") );
+			_eventManager.fireEvent( "NETWORK_JOINGAMEROOM", new GameRoomModel("TestGameRoom", "", 2, "sfsChess", "com.pikitus.games.chess.SFSChess") );
 			
-			_eventManager.fireEvent("SEND_CHATMESSAGE", "this is a test message");
+			//_eventManager.fireEvent("SEND_CHATMESSAGE", "this is a test message");
 			
 		}
 
