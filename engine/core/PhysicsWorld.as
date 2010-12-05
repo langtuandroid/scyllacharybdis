@@ -1,9 +1,11 @@
 package core 
 {
 	import Box2D.Common.Math.b2Vec2;
+	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2World;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
+	import org.casalib.math.geom.Point3d;
 	/**
 	 */
 	public final class PhysicsWorld extends BaseObject
@@ -50,7 +52,8 @@ package core
 			_contactListener = new PhysicsContactListener();
 			
 			// Set the contact listener for the world
-			_world.SetContactListener(_contactListener);
+			_world.SetContactListener(_contactListener);	
+		
 		}
 
 		/**
@@ -74,6 +77,19 @@ package core
 		public final function engine_update(event:TimerEvent):void
 		{
 			_world.Step( 1 / 30, _velocityIterations, _positionIterations );
+			
+			// Update all the game object positions
+			for (var bb:b2Body = _world.GetBodyList(); bb; bb = bb.GetNext())
+			{
+				if (bb.GetUserData() is GameObject){
+					var gameObj:GameObject = bb.GetUserData() as GameObject;
+					if ( gameObj == null ) {
+						continue;
+					}
+					gameObj.worldPosition = new Point3d( bb.GetPosition().x * drawScale, bb.GetPosition().y * drawScale );
+					gameObj.worldRotation = bb.GetAngle() * (180/Math.PI);
+				}
+			}
 		}	
 		
 		/**

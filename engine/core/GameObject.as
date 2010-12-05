@@ -254,6 +254,19 @@ package core
 		}
 		
 		/**
+		 * Set the world position
+		 * @private
+		 */
+		public function set worldPosition( value:Point3d ):void 
+		{ 
+			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			{
+				return;
+			}
+			getComponent( TRANSFORM_COMPONENT).worldPosition = value; 
+		}
+		
+		/**
 		 * Get the world scale
 		 * @private
 		 */		
@@ -279,5 +292,17 @@ package core
 			return getComponent( TRANSFORM_COMPONENT).worldRotate; 
 		}
 		
+		/**
+		 * Set the world position
+		 * @private
+		 */
+		public function set worldRotation( value:Number ):void 
+		{ 
+			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			{
+				return;
+			}
+			getComponent( TRANSFORM_COMPONENT).worldRotation = value; 
+		}		
 	}
 }
