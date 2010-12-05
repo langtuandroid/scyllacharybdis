@@ -2,7 +2,7 @@ package models
 {
 	/**
 	 */
-	public class GameRoomModel 
+	public class CreateRoomModel 
 	{
 		private var _name:String;
 		private var _roomPass:String;
@@ -11,14 +11,14 @@ package models
 		private var _extensionClass:String;
 		
 		/**
-		 * Game Room model constructor
+		 * Create a Room model constructor
 		 * @param	roomName (String) The Room name
 		 * @param	roomPwd (String) The password for the room
 		 * @param	roomMaxS (int) The max number of users in this room
 		 * @param	extensionId (String) The extension id. Example: sfsTris
 		 * @param	extensionClass (String) The extension class. Example: sfs2x.extensions.games.tris.SFSTrisGame
 		 */
-		public function GameRoomModel(roomName:String, roomPwd:String=null, roomMaxS:int=0, extensionId:String="", extensionClass:String = "") 
+		public function CreateRoomModel(roomName:String, roomPwd:String=null, roomMaxS:int=0, extensionId:String="", extensionClass:String = "") 
 		{
 			_name = roomName;
 			_roomPass = roomPwd;

@@ -7,7 +7,6 @@ package handlers
 	import core.NetworkObject;
 	import core.BaseObject;	
 	import core.EventManager;
-	import models.GameRoomModel;
 	import models.RoomModel;
 	import models.ChatMessageModel;
 

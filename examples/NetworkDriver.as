@@ -2,9 +2,9 @@ package
 {
 	import core.BaseObject;
 	import core.EventManager;
+	import models.CreateRoomModel;
 	import models.LoginModel;
 	import models.RoomModel;
-	import models.GameRoomModel;
 	
 	
 	/**
@@ -114,7 +114,7 @@ package
 			trace("Network Driver: joinRoomSuccess");
 			
 			// Commented out the start game since we want to have a chat message ( this works just need a button to attach it to ).
-			_eventManager.fireEvent( "NETWORK_JOINGAMEROOM", new GameRoomModel("TestGameRoom", "", 2, "sfsChess", "com.pikitus.games.chess.SFSChess") );
+			_eventManager.fireEvent( "NETWORK_CREATEROOM", new CreateRoomModel("TestGameRoom", "", 2, "sfsChess", "com.pikitus.games.chess.SFSChess") );
 			
 			//_eventManager.fireEvent("SEND_CHATMESSAGE", "this is a test message");
 			

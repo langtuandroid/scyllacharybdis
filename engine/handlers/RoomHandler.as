@@ -8,11 +8,11 @@ package handlers
 	import com.smartfoxserver.v2.requests.CreateRoomRequest;
 	import com.smartfoxserver.v2.entities.Room;
 	import com.smartfoxserver.v2.entities.User;
+	import models.CreateRoomModel;
 
 	import core.NetworkObject;
 	import core.BaseObject;	
 	import core.EventManager;
-	import models.GameRoomModel;
 	import models.RoomModel;
 
 	/**
@@ -59,8 +59,8 @@ package handlers
 			
 			super.engine_start();
 			
+			_eventManager.registerListener("NETWORK_CREATEROOM", this, requestCreateRoom );
 			_eventManager.registerListener("NETWORK_JOINROOM", this, requestJoinRoom );
-			_eventManager.registerListener("NETWORK_JOINGAMEROOM", this, requestJoinGameRoom );
 			_eventManager.registerListener("NETWORK_LEAVBROOM", this, requestLeaveRoom );
 		}
 		
@@ -89,8 +89,8 @@ package handlers
 		 */
 		public final override function engine_destroy():void
 		{
+			_eventManager.unregisterListener("NETWORK_CREATEROOM", this, requestCreateRoom );
 			_eventManager.unregisterListener("NETWORK_JOINROOM", this, requestJoinRoom );
-			_eventManager.unregisterListener("NETWORK_JOINGAMEROOM", this, requestJoinGameRoom );
 			_eventManager.unregisterListener("NETWORK_LEAVBROOM", this, requestLeaveRoom );
 			
 			super.engine_destroy();
@@ -151,9 +151,9 @@ package handlers
 		 * Request Join Game Room handler
 		 * @param	room
 		 */
-		public function requestJoinGameRoom( room:GameRoomModel ):void
+		public function requestCreateRoom( room:CreateRoomModel ):void
 		{
-			createGameRoom( room.name, room.roomPass, room.maxSize, room.extensionId, room.extensionClass );
+			createRoom( room.name, room.roomPass, room.maxSize, room.extensionId, room.extensionClass );
 		}
 		
 		/** 
@@ -184,15 +184,15 @@ package handlers
 		}		
 		
 		/**
-		 * Create a game room
+		 * Create a room
 		 * 
 		 * @param	roomName (String) Room name
 		 * @param	roomPwd (String Room password
 		 * @param	roomMaxS (int) Room Max size 
-		 * @param	extensionId (String) The module name
-		 * @param	extensionClass (String) The fully qualified class
+		 * @param	extensionId (String) The module name. Example: sfsTris
+		 * @param	extensionClass (String) The fully qualified class. Example: sfs2x.extensions.games.tris.SFSTrisGame
 		 */
-		private function createGameRoom(roomName:String, roomPwd:String=null, roomMaxS:int=0, extensionId:String="sfsChess", extensionClass:String = "sfs2x.extensions.games.tris.SFSTrisGame"):void
+		private function createRoom(roomName:String, roomPwd:String=null, roomMaxS:int=0, extensionId:String="", extensionClass:String = ""):void
 		{
 			_gameRoom = true;
 			if (roomName.length > 0)
@@ -201,12 +201,15 @@ package handlers
 				settings.groupId = "game"
 				settings.password = roomPwd
 				settings.isGame = true
-				settings.maxUsers = 2
-				settings.maxSpectators = roomMaxS
-				settings.extension = new RoomExtension(extensionId, extensionClass)
+				settings.maxUsers = roomMaxS
+				settings.maxSpectators = 0
+				if ( extensionId != "" && extensionClass != null ) 
+				{
+					settings.extension = new RoomExtension(extensionId, extensionClass)
+				}
 				
 				owner.sfs.send( new CreateRoomRequest(settings, true) )
-			}		
+			}
 		}
 		
 		/**
