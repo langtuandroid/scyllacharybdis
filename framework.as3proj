@@ -37,7 +37,7 @@
     <option useResourceBundleMetadata="True" />
     <option warnings="True" />
     <option verboseStackTraces="False" />
-    <option linkReport="linkreport.txt" />
+    <option linkReport="" />
     <option loadExterns="" />
     <option staticLinkRSL="True" />
     <option additional="" />
