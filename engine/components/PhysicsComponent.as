@@ -32,27 +32,75 @@ package components
 		private var _body:b2Body;
 		private var _bodyDef:b2BodyDef;
 
+		/** 
+		 * Engine constructor
+		 * @private
+		 */
 		public final override function engine_awake():void
 		{
 			_physicsWorld = getDependency( PhysicsWorld );
 			super.engine_awake();
 		}
 		
+		/** 
+		 * Engine start
+		 * @private
+		 */
 		public final override function engine_start():void
 		{
 			super.engine_start();
 		}
 
+		/** 
+		 * Engine stop
+		 * @private
+		 */
 		public final override function engine_stop():void
 		{
 			super.engine_stop();
 		}
 
+		/** 
+		 * Engine destructor
+		 * @private
+		 */
 		public final override function engine_destroy():void
 		{
 			super.engine_destroy();
 		}
 
+		/**
+		 * The users constructor. 
+		 * Override awake and create any variables and listeners.
+		 */
+		public override function awake():void
+		{
+		}
+		
+		/**
+		 * The users start method. 
+		 * Start runs when the game object is added to the scene.
+		 */
+		public override function start():void
+		{
+		}
+
+		/**
+		 * The users stop method.
+		 * Stop runs when the game object is added to the scene.
+		 */
+		public override function stop():void
+		{
+		}
+
+		/**
+		 * The users destructor. 
+		 * Override destroy to clean up any variables or listeners.
+		 */
+		public override function destroy():void
+		{
+		}
+		
 		/**
 		 * Create the body of the object. The body is the whole object.
 		 * @param	x (int) Width in pixels of the body

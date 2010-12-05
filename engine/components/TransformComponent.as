@@ -47,28 +47,83 @@ package components
 		
 		private var _mode:String = MODE_2D;		
 		
+		/** 
+		 * Engine constructor
+		 * @private
+		 */
 		public final override function engine_awake():void
 		{
 			super.engine_awake();
 		}
 		
+		/** 
+		 * Engine start
+		 * @private
+		 */
 		public final override function engine_start():void
 		{
 			super.engine_start();
 		}
 
+		/** 
+		 * Engine stop
+		 * @private
+		 */
 		public final override function engine_stop():void
 		{
 			super.engine_stop();
 		}
-
+		
+		/** 
+		 * Engine destructor
+		 * @private
+		 */
 		public final override function engine_destroy():void
 		{
 			super.engine_destroy();
 		}
 		
-		public function get position():Point3d { return _position; }
+		/**
+		 * The users constructor. 
+		 * Override awake and create any variables and listeners.
+		 */
+		public override function awake():void
+		{
+		}
 		
+		/**
+		 * The users start method. 
+		 * Start runs when the game object is added to the scene.
+		 */
+		public override function start():void
+		{
+		}
+
+		/**
+		 * The users stop method.
+		 * Stop runs when the game object is added to the scene.
+		 */
+		public override function stop():void
+		{
+		}
+
+		/**
+		 * The users destructor. 
+		 * Override destroy to clean up any variables or listeners.
+		 */
+		public override function destroy():void
+		{
+		}		
+		
+		/**
+		 * Get the local coordinates position.
+		 */
+		public function get position():Point3d { return _position; }
+
+		/**
+		 * Set the local coordinates position
+		 * @param position (Point3d) The position to set the game object
+		 */
 		public function set position ( value:Point3d ):void 
 		{ 
 			// Set the local position
@@ -101,9 +156,14 @@ package components
 			}
 		}
 		
-		public function get worldPosition():Point3d { return _worldPosition; }
-		
+		/**
+		 * Get the renderobjects local coordinates scale.
+		 */
 		public function get scale():Point3d { return _scale; }
+		
+		/**
+		 * Set the renderobjects local coordinates scale.
+		 */
 		public function set scale ( value:Point3d ):void 
 		{ 
 			// Set the local scale
@@ -139,9 +199,14 @@ package components
 			}
 		}
 		
-		public function get worldScale():Point3d { return _worldScale; }		
-	
+		/**
+		 * Get the local coordinates rotation
+		 */
 		public function get rotate():Number { return _rotate; }
+
+		/**
+		 * Sett the local coordinates rotation
+		 */
 		public function set rotate ( value:Number ):void 
 		{ 
 			// Set the local rotation
@@ -168,10 +233,15 @@ package components
 				renderComponent.baseclip.rotation = _worldRotate;
 			}
 		}
-		
-		public function get worldRotate():Number { return _worldRotate; }
-		
+
+		/**
+		 * Get the dimentions ( what is this )
+		 */
 		public function get dimensions():Point { return _dimensions; }
+
+		/**
+		 * Set the dimentions ( what is this )
+		 */
 		public function set dimensions( value:Point ):void 
 		{
 			// Set the width and height
@@ -185,5 +255,24 @@ package components
 				renderComponent.baseclip.height = _dimensions.y;
 			}
 		}
+		
+		/**
+		 * Get the world position
+		 * @private
+		 */
+		public function get worldPosition():Point3d { return _worldPosition; }
+
+		/**
+		 * Get the world scale
+		 * @private
+		 */
+		public function get worldScale():Point3d { return _worldScale; }		
+
+		/**
+		 * Get the world rotation
+		 * @private
+		 */
+		public function get worldRotate():Number { return _worldRotate; }
+		
 	}
 }
