@@ -30,7 +30,6 @@ package components
 
 		private var _physicsWorld:PhysicsWorld;
 		private var _body:b2Body;
-		private var _bodyDef:b2BodyDef;
 
 		/** 
 		 * Engine constructor
@@ -109,7 +108,7 @@ package components
 		public function createBodyDef(x:int, y:int):void
 		{
 			// Create the body definition
-			_bodyDef = new b2BodyDef();
+			var _bodyDef:b2BodyDef = new b2BodyDef();
 			
 			// Get the world scale
 			var scale:int = _physicsWorld.drawScale;
@@ -122,11 +121,10 @@ package components
 
 			// Create the body
 			_body = _physicsWorld.world.CreateBody(_bodyDef);
-			
-			
+
+			// Add the game object to it.
 			_body.SetUserData( owner );
-			
-			// should calculate the mass
+
 		}
 		
 		/**
@@ -152,9 +150,6 @@ package components
 			// Add the game object to it
 			fixtureDef.userData = owner;
 
-			// Calculate the mass
-			//boxShape.ComputeMass();
-			
 			// Attach to the body
 			_body.CreateFixture(fixtureDef);	
 		}
@@ -163,7 +158,7 @@ package components
 		 * Create a circle shape to represent all or part of the body
 		 * @param	radius (int) Radius of the circle in pixels
 		 * @param	friction (Number) Friction amount from 0 to 1
-		 * @param	density (Number) Desity amount ( set to 0 for static items )
+		 * @param	density (Number) Desity amount ( water is around 1, less for wood, greater for metals )
 		 * @param	restitution (Number) The bounciness of the object from 0 to 1
 		 */		
 		public function createCircleShape( radius:int, friction:Number = 0.3, density:Number = 0, restitution:Number = 0.1 ):void
@@ -181,11 +176,9 @@ package components
 			// Add the game object to it
 			fixtureDef.userData = owner;
 
-			// Calculate the mass
-			//boxShape.ComputeMass();			
-			
 			// Attach to the body
-			_body.CreateFixture(fixtureDef);	
+			_body.CreateFixture(fixtureDef);
 		}
+		
 	}
 }
