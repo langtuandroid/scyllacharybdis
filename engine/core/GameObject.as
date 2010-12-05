@@ -25,26 +25,38 @@ package core
 		private var _children:Array = new Array();
 		private var _enabled:Boolean = true;				
 		
-		
+		/**
+		 * The engine contructor
+		 * @private
+		 */		
 		public final override function engine_awake():void
 		{
 			super.engine_awake();
 			addComponent( TransformComponent );
 		}
 		
+		/**
+		 * The engine start method
+		 * @private
+		 */
 		public final override function engine_start():void
 		{
 			super.engine_start();
 		}
 
+		/**
+		 * The engine stop function
+		 * @private
+		 */
 		public final override function engine_stop():void
 		{
 			super.engine_stop();
 		}
 		
 		/**
-		* Destroy is called at the removal of the object
-		*/
+		 * Destroy is called at the removal of the object
+		 * @private
+		 */
 		public final override function engine_destroy():void		
 		{
 			super.engine_destroy();
@@ -62,30 +74,34 @@ package core
 			
 		}
 		
+		/**
+		 * Get the parent game object
+		 */
 		public function get parent():GameObject { return _parent; }
+		
+		/**
+		 * Set the parent game object
+		 * @param gameObj (GameObject) The parent game object
+		 */
 		public function set parent( value:GameObject ):void { _parent = value; }
 		
+		/**
+		 * Get the children game objects
+		 */
 		public function get children():Array { return _children; }
 		
+		/**
+		 * Is the object enabled
+		 */
 		public function get enabled():Boolean { return _enabled; }
+		
+		/**
+		 * Set if the object is enabled or not
+		 * @param value (Boolean) Enabled
+		 */
 		public function set enabled( value:Boolean ):void 
 		{
-			//for each ( var child:GameObject in _children )
-			//{
-			//	child.enabled = value;
-			//}
-			
-			//var prevEnabled:Boolean = _enabled;
 			_enabled = value;
-			
-			//if ( _enabled && !prevEnabled )
-			//{
-			//	engine_start();
-			//}
-			//else if ( !_enabled && prevEnabled ) 
-			//{
-			//	engine_stop();
-			//}			
 		}
 
 		/**
@@ -127,21 +143,141 @@ package core
 		// 	component each and every time you want to 
 		//	something...
 		//====================================================
-		public function get position():Point3d { return getComponent( TRANSFORM_COMPONENT).position; }
-		public function set position( value:Point3d ):void { getComponent( TRANSFORM_COMPONENT).position = value; }
+		/**
+		 * Get the local coordinates position.
+		 */
+		public function get position():Point3d 
+		{ 
+			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			{
+				return null;
+			}
+			return getComponent( TRANSFORM_COMPONENT).position; 
+		}
+
+		/**
+		 * Set the local coordinates position
+		 * @param position (Point3d) The position to set the game object
+		 */
+		public function set position( value:Point3d ):void 
+		{ 
+			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			{
+				return;
+			}
+			getComponent( TRANSFORM_COMPONENT).position = value; 
+		}
 		
-		public function get scale():Point3d { return getComponent( TRANSFORM_COMPONENT).scale; }
-		public function set scale( value:Point3d ):void { getComponent( TRANSFORM_COMPONENT).scale = value; }
+		/**
+		 * Get the renderobjects local coordinates scale.
+		 */
+		public function get scale():Point3d 
+		{ 
+			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			{
+				return null;
+			}
+			return getComponent( TRANSFORM_COMPONENT).scale; 
+		}
+
+		/**
+		 * Set the renderobjects local coordinates scale.
+		 */
+		public function set scale( value:Point3d ):void 
+		{ 
+			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			{
+				return;
+			}
+			getComponent( TRANSFORM_COMPONENT).scale = value; 
+		}
 		
-		public function get rotate():Number { return getComponent( TRANSFORM_COMPONENT).rotate; }
-		public function set rotate( value:Number):void { getComponent( TRANSFORM_COMPONENT).rotate = value; }
+		/**
+		 * Get the local coordinates rotation
+		 */		
+		public function get rotate():Number 
+		{ 
+			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			{
+				return -1;
+			}
+			return getComponent( TRANSFORM_COMPONENT).rotate; 
+		}
 		
-		public function get dimensions():Point { return getComponent( TRANSFORM_COMPONENT).dimensions; }
-		public function set dimensions( value:Point ):void { getComponent( TRANSFORM_COMPONENT).dimensions = value; }
+		/**
+		 * Set the local coordinates rotation
+		 */
+		public function set rotate( value:Number):void 
+		{ 
+			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			{
+				return;
+			}
+			getComponent( TRANSFORM_COMPONENT).rotate = value; 
+		}
 		
-		public function get worldPosition():Point3d { return getComponent( TRANSFORM_COMPONENT).worldPosition; }
-		public function get worldScale():Point3d { return getComponent( TRANSFORM_COMPONENT).worldScale; }
-		public function get worldRotate():Number { return getComponent( TRANSFORM_COMPONENT).worldRotate; }
+		/**
+		 * Get the dimentions ( what is this )
+		 */
+		public function get dimensions():Point 
+		{ 
+			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			{
+				return null;
+			}
+			return getComponent( TRANSFORM_COMPONENT).dimensions; 
+		}
+		
+		/**
+		 * Set the dimentions ( what is this )
+		 */
+		public function set dimensions( value:Point ):void 
+		{ 
+			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			{
+				return;
+			}
+			getComponent( TRANSFORM_COMPONENT).dimensions = value; 
+		}
+		
+		/**
+		 * Get the world position
+		 * @private
+		 */		
+		public function get worldPosition():Point3d 
+		{ 
+			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			{
+				return null;
+			}
+			return getComponent( TRANSFORM_COMPONENT).worldPosition; 
+		}
+		
+		/**
+		 * Get the world scale
+		 * @private
+		 */		
+		public function get worldScale():Point3d 
+		{ 
+			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			{
+				return null;
+			}
+			return getComponent( TRANSFORM_COMPONENT).worldScale; 
+		}
+		
+		/**
+		 * Get the world rotation
+		 * @private
+		 */
+		public function get worldRotate():Number 
+		{ 
+			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			{
+				return -1;
+			}
+			return getComponent( TRANSFORM_COMPONENT).worldRotate; 
+		}
 		
 	}
 }

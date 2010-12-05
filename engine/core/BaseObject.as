@@ -47,11 +47,6 @@ package core
 		private var _awake:Boolean = false;
 		private var _started:Boolean = false;
 
-		protected function get awaked():Boolean { return _awake; }
-		protected function set awaked(value:Boolean):void  {	_awake = value;	}
-
-		protected function get started():Boolean { return _started; }
-		protected function set started(value:Boolean):void  {_started = value;}
 		/****************************************/
 		// Construtor and Destructor
 		/****************************************/		
@@ -62,8 +57,9 @@ package core
 		public function destroy():void {}
 		
 		/**
-		* Awake is called at the construction of the object
-		*/
+		 * Awake is called at the construction of the object
+		 * @private
+		 */
 		public function engine_awake():void 
 		{ 
 			if ( awaked == true ) {
@@ -76,8 +72,9 @@ package core
 		}
 		
 		/**
-		* Start is called when the object is added to the scene
-		*/
+		 * Start is called when the object is added to the scene
+		 * @private
+		 */
 		public function engine_start():void  
 		{ 
 			if ( started == true ) {
@@ -90,8 +87,9 @@ package core
 		}
 		
 		/**
-		* Stop is called when the object is removed from the scene
-		*/
+		 * Stop is called when the object is removed from the scene
+		 * @private
+		 */
 		public function engine_stop():void 
 		{ 
 			started = false;
@@ -102,8 +100,9 @@ package core
 		
 		
 		/**
-		* Destroy is called at the removal of the object
-		*/
+		 * Destroy is called at the removal of the object
+		 * @private
+		 */
 		public function engine_destroy():void	 
 		{ 
 			awaked = false;
@@ -150,15 +149,32 @@ package core
 		/**
 		 * Set the dependencies
 		 * @param dep (Dictionary) Key = Class and Value is the object
+		 * @private
 		 */
 		public final function setDependencies( value:Dictionary ):void 
 		{ 
 			_dependencies = value; 
 		}
+
+		/**
+		 * Has the object been awaken
+		 */
+		protected function get awaked():Boolean { return _awake; }
 		
-		/****************************************/
-		// Owner Methods
-		/****************************************/
+		/**
+		 * Set if the object has been awakened
+		 */
+		protected function set awaked(value:Boolean):void  {	_awake = value;	}
+
+		/**
+		 * Has the object been started
+		 */
+		protected function get started():Boolean { return _started; }
+		
+		/**
+		 * Set if the object has been started
+		 */
+		protected function set started(value:Boolean):void  {_started = value;}
 		
 		/**
 		 * Get the ownering Game Object

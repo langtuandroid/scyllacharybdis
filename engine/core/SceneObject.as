@@ -14,7 +14,8 @@ package core
 		private var _sceneGraph:SceneGraph;
 
 		/**
-		 * Initialize the scene memory
+		 * The engine contructor
+		 * @private
 		 */
 		public final override function engine_awake():void
 		{
@@ -30,7 +31,8 @@ package core
 		}
 
 		/**
-		 * Start the core object
+		 * The engine start method
+		 * @private
 		 */
 		public final override function engine_start():void
 		{
@@ -39,7 +41,8 @@ package core
 		}
 		
 		/**
-		 * Stop the core object
+		 * The engine stop function
+		 * @private
 		 */
 		public final override function engine_stop():void
 		{
@@ -48,7 +51,8 @@ package core
 		}		
 
 		/**
-		 * Destroy the scene memory
+		 * Destroy is called at the removal of the object
+		 * @private
 		 */
 		public final override function engine_destroy():void
 		{

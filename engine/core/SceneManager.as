@@ -15,15 +15,17 @@ package core
 		/****************************************/
 		
 		/**
-		* Awake is called at the construction of the object
-		*/
+		 * The engine contructor
+		 * @private
+		 */
 		public final override function engine_awake():void
 		{
 			super.engine_awake();
 		}
 		
 		/**
-		 * Start the core 
+		 * The engine start method
+		 * @private
 		 */
 		public final override function engine_start():void
 		{
@@ -31,7 +33,8 @@ package core
 		}
 
 		/**
-		 * Stop the core 
+		 * The engine stop function
+		 * @private
 		 */
 		public final override function engine_stop():void
 		{
@@ -39,8 +42,9 @@ package core
 		}
 		
 		/**
-		* Destroy is called at the removal of the object
-		*/	
+		 * Destroy is called at the removal of the object
+		 * @private
+		 */
 		public final override function engine_destroy():void
 		{
 			super.engine_destroy();

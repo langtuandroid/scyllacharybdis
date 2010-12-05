@@ -6,7 +6,7 @@ package core
 	import flash.utils.Timer;
 	/**
 	 */
-	public class PhysicsWorld extends BaseObject
+	public final class PhysicsWorld extends BaseObject
 	{
 
 		/**
@@ -30,7 +30,8 @@ package core
 		private var _positionIterations:int = 10;
 
 		/**
-		 * Initialize the scene memory
+		 * The engine contructor
+		 * @private
 		 */
 		public final override function engine_awake():void
 		{
@@ -53,7 +54,8 @@ package core
 		}
 
 		/**
-		 * Start the core object
+		 * The engine start method
+		 * @private
 		 */
 		public final override function engine_start():void
 		{
@@ -67,13 +69,16 @@ package core
 		/**
 		 * Update the physics model
 		 * @param	event
+		 * @private
 		 */
 		public final function engine_update(event:TimerEvent):void
 		{
 			_world.Step( 1 / 30, _velocityIterations, _positionIterations );
-		}			
+		}	
+		
 		/**
-		 * Stop the core object
+		 * The engine stop function
+		 * @private
 		 */
 		public final override function engine_stop():void
 		{
@@ -81,7 +86,8 @@ package core
 		}		
 
 		/**
-		 * Destroy the scene memory
+		 * Destroy is called at the removal of the object
+		 * @private
 		 */
 		public final override function engine_destroy():void
 		{

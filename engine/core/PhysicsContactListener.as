@@ -9,8 +9,12 @@ package core
 
 	/**
 	 */
-	public class PhysicsContactListener extends b2ContactListener
+	public final class PhysicsContactListener extends b2ContactListener
 	{
+		/**
+		 * A colision has happened 
+		 * @param	contact (b2Contact) The contact point
+		 */
 		public override function BeginContact(contact:b2Contact):void 
 		{
 			super.BeginContact(contact);
@@ -33,6 +37,10 @@ package core
 			}
 		}
 		
+		/**
+		 * A colision has stoped 
+		 * @param	contact (b2Contact) The contact point
+		 */
 		public override function EndContact(contact:b2Contact):void 
 		{
 			super.EndContact(contact);
