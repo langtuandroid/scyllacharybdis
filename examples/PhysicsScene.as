@@ -1,29 +1,23 @@
 package  
 {
-	import components.PhysicsComponent;
-	import core.PhysicsWorld;
 	import org.casalib.math.geom.Point3d;
+	import core.BaseObject;
+	import core.PhysicsWorld;
 	import core.SceneObject;
 	import core.GameObject;
 	import core.MemoryManager;
 	import core.EventManager;
-	import components.SoundComponent;
 	
 	/**
 	 */
 	public class PhysicsScene extends SceneObject
 	{
-		private var _square:GameObject;
-		private var _otherSquare:GameObject;
-		
 		/**
 		 * Create the scene
 		 */
 		public override function awake():void 
 		{
-			trace("Starting IntroScene");
-			_square = MemoryManager.instantiate( GameObject );
-			_otherSquare = MemoryManager.instantiate( GameObject );
+			trace("Starting PhysicsScene");
 		}
 		
 		/**
@@ -31,26 +25,43 @@ package
 		 */
 		public override function start():void
 		{
-			// Set the square
-			_square.addComponent(SoundComponent);
-			_square.addComponent(SquareScriptComponent, [EventManager]);
-			_square.addComponent(SquareRenderComponent);
-			_square.addComponent(PhysicsComponent, [PhysicsWorld]);
-			
-			// Set the square
-			_otherSquare.addComponent(SquareScriptComponent, [EventManager]);
-			_otherSquare.addComponent(OtherSquareRenderComponent);
-			_otherSquare.addComponent(PhysicsComponent, [PhysicsWorld]);
-
-			// Update the components
-			_square.position = new Point3d( 50, 50, 11 );
-			_square.rotate = 45;
-			_otherSquare.position = new Point3d( 100, 100, 10 );
-			_otherSquare.scale = new Point3d( 5, 5, 1 );			
+			var _ground:GameObject = MemoryManager.instantiate( GameObject );
+			_ground.addComponent(SquareScriptComponent, [EventManager]);
+			_ground.addComponent(PhysicsRenderComponent);
+			_ground.addComponent(GroundPhysicsComponent, [PhysicsWorld]);
 
 			// Add the to the scene
-			addToScene(_square);
-			addToScene(_otherSquare);
+			addToScene(_ground);
+			
+			for (var i:int = 1; i < 10; i++)
+			{
+				// Create a box
+				var _geom:GameObject = MemoryManager.instantiate( GameObject );
+				_geom.addComponent(SquareScriptComponent, [EventManager]);
+				_geom.addComponent(PhysicsRenderComponent);
+				_geom.addComponent(BoxPhysicsComponent, [PhysicsWorld]);
+
+				var x:int = Math.random() * 450 + 150;
+				var y:int = Math.random() * 300;
+				
+				var rX:Number = Math.random() * 30 + 15;
+				var rY:Number = Math.random() * 30 + 15;
+
+			
+				if (Math.random() < 0.5) 
+				{
+					_geom.getComponent(BaseObject.RENDER_COMPONENT).createBox(rX, rY);
+					_geom.getComponent(BaseObject.PHYSICS_COMPONENT).createBox(rX, rY);
+				} 
+				else
+				{
+					_geom.getComponent(BaseObject.RENDER_COMPONENT).createCircle(rX);
+					_geom.getComponent(BaseObject.PHYSICS_COMPONENT).createCircle(rX);
+				}
+			
+				// Add the to the scene
+				addToScene(_geom);
+			}
 		}
 		
 		/**
@@ -58,9 +69,6 @@ package
 		 */
 		public override function stop():void
 		{
-			// Add the to the scene
-			removeFromScene(_square);
-			removeFromScene(_otherSquare);
 		}
 		
 		/**
@@ -68,9 +76,6 @@ package
 		 */
 		public override function destroy():void
 		{
-			trace("Destroy IntroScene");
-			MemoryManager.destroy( _square );
-			MemoryManager.destroy( _otherSquare );
 		}
 	}
 }

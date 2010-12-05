@@ -137,7 +137,7 @@ package components
 		 * @param	density (Number) Desity amount ( set to 0 for static items )
 		 * @param	restitution (Number) The bounciness of the object from 0 to 1
 		 */
-		public function CreatePolygonShape(x:int, y:int, friction:Number = 0.3, density:Number = 0, restitution:Number = 0.1):void
+		public function createPolygonShape(x:int, y:int, friction:Number = 0.3, density:Number = 0, restitution:Number = 0.1):void
 		{
 			var boxShape:b2PolygonShape = new b2PolygonShape();
 			var scale:int = _physicsWorld.drawScale;
