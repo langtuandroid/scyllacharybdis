@@ -57,9 +57,9 @@ package components
 		 * Engine start
 		 * @private
 		 */		
-		private final function engine_update():void
+		private final function engine_update(event:TimerEvent):void
 		{
-			update();
+			update(event);
 		}
 
 		/** 

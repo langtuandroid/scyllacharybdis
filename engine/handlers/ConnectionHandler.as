@@ -30,9 +30,10 @@ package handlers
 		protected var _configFile:String = "config.xml";		
 
 		/**
-		* Register all the listeners
-		* Awake is called at the construction of the object
-		*/
+		 * Register all the listeners
+		 * Awake is called at the construction of the object
+		 * @private
+		 */
 		public final override function engine_awake():void
 		{
 			// Get the event manager
@@ -51,6 +52,7 @@ package handlers
 		
 		/**
 		 * Engine start should handle engine related start. 
+		 * @private
 		 */
 		public final override function engine_start():void 
 		{
@@ -59,6 +61,7 @@ package handlers
 		
 		/**
 		 * Engine stop should handle engine related stop. 
+		 * @private
 		 */
 		public final override function engine_stop():void 
 		{
@@ -66,9 +69,10 @@ package handlers
 		}
 		
 		/**
-		* Destroy is called at the removal of the object
-		* Unregister listeners
-		*/
+		 * Destroy is called at the removal of the object
+ 		 * Unregister listeners
+		 * @private
+		 */
 		public final override function engine_destroy():void
 		{
 			_eventManager.unregisterListener("NETWORK_CONNECT", this, requestConnection );
@@ -82,6 +86,38 @@ package handlers
 			owner.sfs.removeEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure);
 		}
 		
+		/**
+		 * The users constructor. 
+		 * Override awake and create any variables and listeners.
+		 */
+		public override function awake():void
+		{
+		}
+		
+		/**
+		 * The users start method. 
+		 * Start runs when the game object is added to the scene.
+		 */
+		public override function start():void
+		{
+		}
+
+		/**
+		 * The users stop method.
+		 * Stop runs when the game object is added to the scene.
+		 */
+		public override function stop():void
+		{
+		}
+
+		/**
+		 * The users destructor. 
+		 * Override destroy to clean up any variables or listeners.
+		 */
+		public override function destroy():void
+		{
+		}
+
 		
 		/**
 		 * Request connection event handler

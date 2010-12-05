@@ -12,13 +12,13 @@ package models
 		
 		/**
 		 * Game Room model constructor
-		 * @param	roomName
-		 * @param	roomPwd
-		 * @param	roomMaxS
-		 * @param	extensionId
-		 * @param	extensionClass
+		 * @param	roomName (String) The Room name
+		 * @param	roomPwd (String) The password for the room
+		 * @param	roomMaxS (int) The max number of users in this room
+		 * @param	extensionId (String) The extension id. Example: sfsTris
+		 * @param	extensionClass (String) The extension class. Example: sfs2x.extensions.games.tris.SFSTrisGame
 		 */
-		public function GameRoomModel(roomName:String, roomPwd:String=null, roomMaxS:int=0, extensionId:String="sfsTris", extensionClass:String = "sfs2x.extensions.games.tris.SFSTrisGame") 
+		public function GameRoomModel(roomName:String, roomPwd:String=null, roomMaxS:int=0, extensionId:String="", extensionClass:String = "") 
 		{
 			_name = roomName;
 			_roomPass = roomPwd;
@@ -27,10 +27,29 @@ package models
 			_extensionClass = extensionClass;
 		}
 		
+		/**
+		 * Get the room name
+		 */
 		public function get name():String { return _name; };
+		
+		/**
+		 * Get the room password
+		 */
 		public function get roomPass():String { return _roomPass; };
+		
+		/**
+		 * Get the max room size
+		 */
 		public function get maxSize():int { return _maxSize; };
+		
+		/**
+		 * Get the extention id 
+		 */
 		public function get extensionId():String { return _extensionId; };
+		
+		/**
+		 * Get the extention class
+		 */
 		public function get extensionClass():String { return _extensionClass; };
 	}
 }

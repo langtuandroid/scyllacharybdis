@@ -9,7 +9,8 @@ package models
 		
 		/**
 		 * Room Model constructor
-		 * @param	name
+		 * @param	name (String) The players name that sent the message.
+		 * @param   message (String) The message data.
 		 */
 		public function ChatMessageModel(name:String, message:String):void
 		{
@@ -17,7 +18,14 @@ package models
 			_message = message;
 		}
 		
+		/**
+		 * Get the name of the user that sent a message.
+		 */
 		public function get name():String { return _name; };
+		
+		/**
+		 * Get the message content.
+		 */
 		public function get message():String { return _message; };
 	}
 
