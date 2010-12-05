@@ -23,8 +23,7 @@ package
 		public override function start():void
 		{
 			// Defined in pixels
-			createBodyDef(300, 360);
-			createPolygonShape(710, 90, 0.3, 0, 0);
+			createPolygonShape(300, 360, 710, 90, 0.3, 0, 0);
 		}
 
 		/**
