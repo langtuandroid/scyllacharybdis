@@ -8,6 +8,7 @@
         <compc output="${DEPLOY_DIR}/SC.swc" link-report="linkreport.txt" append="true">
             <source-path path-element="${basedir}/engine"/>
             <source-path path-element="${basedir}/util"/>
+            <include-sources dir="${basedir}/util/Box2D" includes="**/**/*.as **/*.as"/>
             <include-sources dir="${basedir}/util/org/casalib" includes="**/**/*.as **/*.as"/>
             <include-sources dir="${basedir}/engine/events" includes="*.as"/>
             <include-sources dir="${basedir}/engine/core" includes="*.as"/>
