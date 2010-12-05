@@ -10,7 +10,7 @@ package core
 	
 	/**
 	 */
-	public class Renderer extends BaseObject
+	public final class Renderer extends BaseObject
 	{
 		/**
 		 * Return the class scope
@@ -29,6 +29,10 @@ package core
 		private var _sceneGraph:SceneGraph = null;
 		private var _dirty:Boolean = true;
 		
+		/**
+		 * The engine contructor
+		 * @private
+		 */
 		public final override function engine_awake():void
 		{
 			_sceneGraph = getDependency(SceneGraph);
@@ -36,17 +40,28 @@ package core
 			super.engine_awake();
 		}
 
-		
+		/**
+		 * The engine start method
+		 * @private
+		 */		
 		public final override function engine_start():void
 		{
 			super.engine_start();
 		}
 
+		/**
+		 * The engine stop function
+		 * @private
+		 */
 		public final override function engine_stop():void
 		{
 			super.engine_stop();
 		}
 
+		/**
+		 * Destroy is called at the removal of the object
+		 * @private
+		 */
 		public final override function engine_destroy():void 
 		{
 			super.engine_destroy();
@@ -54,6 +69,10 @@ package core
 			_sceneGraph = null;
 		}
 		
+		/**
+		 * Render the frame
+		 * @param	surface (DisplayObjectContainer) The surface to render too
+		 */
 		public final function render( surface:DisplayObjectContainer ):void
 		{
 			// Erase the world

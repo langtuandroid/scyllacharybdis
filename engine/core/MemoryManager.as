@@ -5,7 +5,7 @@ package core
 	/**
 	 * MemoryManager
 	 */
-	public class MemoryManager
+	public final class MemoryManager
 	{
 		
 		/****************************************/

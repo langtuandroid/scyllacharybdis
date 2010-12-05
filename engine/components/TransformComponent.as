@@ -205,7 +205,7 @@ package components
 		public function get rotate():Number { return _rotate; }
 
 		/**
-		 * Sett the local coordinates rotation
+		 * Set the local coordinates rotation
 		 */
 		public function set rotate ( value:Number ):void 
 		{ 

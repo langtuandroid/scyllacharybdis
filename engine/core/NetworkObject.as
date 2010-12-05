@@ -8,7 +8,7 @@ package core
 	import handlers.LoginHandler;
 	import handlers.RoomHandler;
 
-	public class NetworkObject extends ContainerObject
+	public final class NetworkObject extends ContainerObject
 	{
 		/****************************************/
 		// Dependency Information
@@ -27,26 +27,36 @@ package core
 		private var _sfs:SmartFox = new SmartFox(false);
 		
 		/**
-		* Awake is called at the construction of the object
-		*/
+		 * The engine contructor
+		 * @private
+		 */
 		public final override function engine_awake():void
 		{
 			super.engine_awake();
 		}
 		
+		/**
+		 * The engine start method
+		 * @private
+		 */
 		public final override function engine_start():void
 		{
 			super.engine_start();
 		}
 
+		/**
+		 * The engine stop function
+		 * @private
+		 */
 		public final override function engine_stop():void
 		{
 			super.engine_stop();
 		}
 		
 		/**
-		* Destroy is called at the removal of the object
-		*/	
+		 * Destroy is called at the removal of the object
+		 * @private
+		 */
 		public final override function engine_destroy():void
 		{
 			super.engine_destroy();

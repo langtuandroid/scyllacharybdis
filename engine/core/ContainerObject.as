@@ -12,11 +12,19 @@ package core
 		
 		private var _components:Dictionary = new Dictionary(true);
 
+		/**
+		 * The engine contructor
+		 * @private
+		 */
 		public override function engine_awake():void
 		{
 			super.engine_awake();
 		}
 		
+		/**
+		 * The engine start method
+		 * @private
+		 */
 		public override function engine_start():void
 		{
 			// Start up anything that has requirements
@@ -39,6 +47,10 @@ package core
 			super.engine_start();
 		}
 
+		/**
+		 * The engine stop function
+		 * @private
+		 */
 		public override function engine_stop():void
 		{
 			for each ( var component:BaseObject in _components )
@@ -49,8 +61,9 @@ package core
 		}
 		
 		/**
-		* Destroy is called at the removal of the object
-		*/
+		 * Destroy is called at the removal of the object
+		 * @private
+		 */
 		public override function engine_destroy():void		
 		{
 			super.engine_destroy();
