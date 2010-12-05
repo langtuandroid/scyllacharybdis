@@ -24,8 +24,13 @@ package core
 			var script1:ScriptComponent = gameObj1.getComponent( BaseObject.SCRIPT_COMPONENT );
 			var script2:ScriptComponent = gameObj2.getComponent( BaseObject.SCRIPT_COMPONENT );
 			
-			script1.onBeginContact( gameObj2 );
-			script2.onBeginContact( gameObj1 );
+			if ( script1 != null ) {
+				script1.onBeginContact( gameObj2 );
+			}
+			
+			if ( script2 != null ) {
+				script2.onBeginContact( gameObj1 );
+			}
 		}
 		
 		public override function EndContact(contact:b2Contact):void 
@@ -40,8 +45,14 @@ package core
 			var script1:ScriptComponent = gameObj1.getComponent( BaseObject.SCRIPT_COMPONENT );
 			var script2:ScriptComponent = gameObj2.getComponent( BaseObject.SCRIPT_COMPONENT );
 			
-			script1.onEndContact( gameObj2 );
-			script2.onEndContact( gameObj1 );
+			if ( script1 != null ) {
+				script1.onEndContact( gameObj2 );
+			}
+			
+			if ( script2 != null ) {
+				script2.onEndContact( gameObj1 );
+			}
+
 		}
 	}
 }
