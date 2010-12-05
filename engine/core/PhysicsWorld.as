@@ -53,6 +53,10 @@ package core
 			
 			// Set the contact listener for the world
 			_world.SetContactListener(_contactListener);	
+
+			// setup the timer
+			_updateTimer.addEventListener(TimerEvent.TIMER, engine_update);
+			_updateTimer.start();
 		
 		}
 
@@ -64,9 +68,6 @@ package core
 		{
 			super.engine_start();
 
-			// setup the timer
-			_updateTimer.addEventListener(TimerEvent.TIMER, engine_update);
-			_updateTimer.start();
 		}
 
 		/**
@@ -76,6 +77,7 @@ package core
 		 */
 		public final function engine_update(event:TimerEvent):void
 		{
+			trace( "PhysicsWorld: engine_update ");
 			_world.Step( 1 / 30, _velocityIterations, _positionIterations );
 			
 			// Update all the game object positions
@@ -86,7 +88,9 @@ package core
 					if ( gameObj == null ) {
 						continue;
 					}
-					gameObj.worldPosition = new Point3d( bb.GetPosition().x * drawScale, bb.GetPosition().y * drawScale );
+					
+					trace( "Setting world position " + bb.GetPosition().x * drawScale + " " + bb.GetPosition().y * drawScale + " " + gameObj.worldPosition.z );
+					gameObj.worldPosition = new Point3d( bb.GetPosition().x * drawScale, bb.GetPosition().y * drawScale, gameObj.worldPosition.z );
 					gameObj.worldRotation = bb.GetAngle() * (180/Math.PI);
 				}
 			}

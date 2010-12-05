@@ -280,10 +280,23 @@ package core
 		}
 		
 		/**
+		 * Set the world scale
+		 * @private
+		 */
+		public function set worldScale( value:Point3d ):void 
+		{ 
+			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			{
+				return;
+			}
+			getComponent( TRANSFORM_COMPONENT).worldScale = value; 
+		}
+		
+		/**
 		 * Get the world rotation
 		 * @private
 		 */
-		public function get worldRotate():Number 
+		public function get worldRotation():Number 
 		{ 
 			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
 			{
