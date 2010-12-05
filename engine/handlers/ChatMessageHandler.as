@@ -31,9 +31,10 @@ package handlers
 		private var _eventManager:EventManager;
 
 		/**
-		* Awake is called at the construction of the object
-		* Register all the listeners
-		*/
+		 * Awake is called at the construction of the object
+		 * Register all the listeners
+		 * @private
+		 */
 		public final override function engine_awake():void
 		{
 			// Get the event manager
@@ -48,6 +49,7 @@ package handlers
 		
 		/**
 		 * Engine start should handle engine related start. 
+		 * @private
 		 */
 		public final override function engine_start():void 
 		{
@@ -56,6 +58,7 @@ package handlers
 		
 		/**
 		 * Engine stop should handle engine related stop. 
+		 * @private
 		 */
 		public final override function engine_stop():void 
 		{
@@ -63,9 +66,10 @@ package handlers
 		}
 		
 		/**
-		* Destroy is called at the removal of the object
-		* Unregister listeners
-		*/
+		 * Destroy is called at the removal of the object
+		 * Unregister listeners
+		 * @private
+		 */
 		public final override function engine_destroy():void
 		{
 			_eventManager.unregisterListener("SEND_CHATMESSAGE", this, sendChatMessage );
@@ -75,6 +79,42 @@ package handlers
 			owner.sfs.removeEventListener(SFSEvent.PUBLIC_MESSAGE, onPublicMessage);
 		}
 		
+		/**
+		 * The users constructor. 
+		 * Override awake and create any variables and listeners.
+		 */
+		public override function awake():void
+		{
+		}
+		
+		/**
+		 * The users start method. 
+		 * Start runs when the game object is added to the scene.
+		 */
+		public override function start():void
+		{
+		}
+
+		/**
+		 * The users stop method.
+		 * Stop runs when the game object is added to the scene.
+		 */
+		public override function stop():void
+		{
+		}
+
+		/**
+		 * The users destructor. 
+		 * Override destroy to clean up any variables or listeners.
+		 */
+		public override function destroy():void
+		{
+		}
+
+		/**
+		 * Send a chat message to the room
+		 * @param	message
+		 */
 		public final function sendChatMessage( message:* ):void
 		{
 			var request:PublicMessageRequest = new PublicMessageRequest(message);
@@ -82,8 +122,8 @@ package handlers
 		}
 		
 		/**
-		* On public message, show it in the chat area.
-		*/
+ 		 * On public message, show it in the chat area.
+ 		 */
 		private function onPublicMessage(evt:SFSEvent):void
 		{
 			trace(evt.params.sender + " - " + evt.params.message );

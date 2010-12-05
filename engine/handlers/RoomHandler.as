@@ -38,9 +38,10 @@ package handlers
 		private var _gameRoom:Boolean = false;
 
 		/**
-		* Awake is called at the construction of the object
-		* Register all the listeners
-		*/
+		 * Awake is called at the construction of the object
+		 * Register all the listeners
+		 * @private
+		 */
 		public final override function engine_awake():void
 		{
 			// Get the event manager
@@ -65,6 +66,7 @@ package handlers
 		
 		/**
 		 * Engine start should handle engine related start. 
+		 * @private
 		 */
 		public final override function engine_start():void 
 		{
@@ -73,6 +75,7 @@ package handlers
 		
 		/**
 		 * Engine stop should handle engine related stop. 
+		 * @private
 		 */
 		public final override function engine_stop():void 
 		{
@@ -80,9 +83,10 @@ package handlers
 		}
 		
 		/**
-		* Destroy is called at the removal of the object
-		* Unregister listeners
-		*/
+ 		 * Destroy is called at the removal of the object
+		 * Unregister listeners
+		 * @private
+		 */
 		public final override function engine_destroy():void
 		{
 			_eventManager.unregisterListener("NETWORK_JOINROOM", this, requestJoinRoom );
@@ -100,7 +104,38 @@ package handlers
 			owner.sfs.removeEventListener(SFSEvent.USER_ENTER_ROOM, onUserEnterRoom);
 			owner.sfs.removeEventListener(SFSEvent.USER_EXIT_ROOM, onUserExitRoom);
 			owner.sfs.removeEventListener(SFSEvent.USER_COUNT_CHANGE, onUserCountChange);
-			
+		}
+
+		/**
+		 * The users constructor. 
+		 * Override awake and create any variables and listeners.
+		 */
+		public override function awake():void
+		{
+		}
+		
+		/**
+		 * The users start method. 
+		 * Start runs when the game object is added to the scene.
+		 */
+		public override function start():void
+		{
+		}
+
+		/**
+		 * The users stop method.
+		 * Stop runs when the game object is added to the scene.
+		 */
+		public override function stop():void
+		{
+		}
+
+		/**
+		 * The users destructor. 
+		 * Override destroy to clean up any variables or listeners.
+		 */
+		public override function destroy():void
+		{
 		}
 		
 		/**
@@ -227,7 +262,6 @@ package handlers
 		private function onUserCountChange(evt:SFSEvent):void
 		{
 			_eventManager.fireEvent("USERCOUNT_CHANGED", evt );
-			//ls_rooms.dataProvider.refresh();
 		}
 
 		/**
@@ -237,13 +271,6 @@ package handlers
 		{
 			var user:User = evt.params.user;
 			_eventManager.fireEvent("USER_ENTER_ROOM", evt );
-			
-			// Add user to list
-			//var dataProvider:ArrayCollection = ls_users.dataProvider as ArrayCollection;
-			//dataProvider.addItem(user);
-			
-			// Show system message ( will be switched to an event )
-			//showChatMessage("User " + user.name + " entered the room", null);
 		}
 
 		/**
@@ -253,19 +280,6 @@ package handlers
 		{
 			var user:User = evt.params.user;
 			_eventManager.fireEvent("USER_EXIT_ROOM", evt );
-			
-			// We are not interested in the user's own exit event, because that would cause his/her username to be removed from the users list
-			// In fact whenever a room is joined, the previous one is left, so we halway receive this event
-			if (!user.isItMe)
-			{
-				// Remove user from list
-				//var dataProvider:ArrayCollection = ls_users.dataProvider as ArrayCollection;
-				//dataProvider.removeItemAt(dataProvider.getItemIndex(user));
-				//dataProvider.refresh();
-				
-				// Show system message
-				//showChatMessage("User " + user.name + " left the room", null);
-			}
 		}
 
 		/**
@@ -275,9 +289,6 @@ package handlers
 		{
 			var room:Room = evt.params.room;
 			_eventManager.fireEvent("ROOM_ADD", evt );
-			
-			//var dataProvider:ArrayCollection = ls_rooms.dataProvider as ArrayCollection;
-			//dataProvider.addItem(room);
 		}
 
 		/**
@@ -287,17 +298,6 @@ package handlers
 		{
 			var room:Room = evt.params.room;
 			_eventManager.fireEvent("ROOM_REMOVE", evt );
-			
-			//var dataProvider:ArrayCollection = ls_rooms.dataProvider as ArrayCollection;
-			
-			//for each (var r:Room in dataProvider)
-			//{
-				//if (r.id == room.id)
-				//{
-					//dataProvider.removeItemAt(dataProvider.getItemIndex(r));
-					//break;
-				//}
-			//}
 		}		
 		
 	}
