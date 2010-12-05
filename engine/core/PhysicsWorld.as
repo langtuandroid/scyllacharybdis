@@ -21,11 +21,10 @@ package core
 		
 		private var _updateTimer:Timer = new Timer(1/30, 0); 
 		private var _world:b2World;
-		private var _debug:Boolean;
+		private var _contactListener:PhysicsContactListener;
 		
 		// map pixels to meters ( 30 pixels = 1 meter );
 		private var _drawScale:int = 30;
-		private var _gravity:b2Vec2;		
 		
 		private var _velocityIterations:int = 10;
 		private var _positionIterations:int = 10;
@@ -37,15 +36,20 @@ package core
 		{
 			super.engine_awake();
 			
-			// Define the gravity vector
-			gravity = new b2Vec2(0.0, 0.0);
-			
 			// Allow bodies to sleep
 			var doSleep:Boolean = true;
 			
+			// Define the gravity vector
+			var gravity:b2Vec2 = new b2Vec2(0.0, 10.0);
+			
 			// Construct a world object
 			_world = new b2World(gravity, doSleep);
+
+			// Create a contact listener
+			_contactListener = new PhysicsContactListener();
 			
+			// Set the contact listener for the world
+			_world.SetContactListener(_contactListener);
 		}
 
 		/**
@@ -104,18 +108,12 @@ package core
 		}
 		
 		/**
-		 * Get the world gravity
-		 */
-		public function get gravity():b2Vec2 { return _gravity; }
-		
-		/**
 		 * Set the world gravity
 		 * @param gravity (beVec2) The gravity in a vector
 		 */
 		public function set gravity(value:b2Vec2):void 
 		{
 			_world.SetGravity(value);
-			_gravity = value;
 		}
 
 		/**
