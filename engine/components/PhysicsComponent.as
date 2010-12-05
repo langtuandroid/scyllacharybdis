@@ -58,7 +58,7 @@ package components
 		 * @param	x (int) Width in pixels of the body
 		 * @param	y (int) Height in pixels of the body
 		 */
-		public function createBodyDef( x:int, y:int):void
+		public function createBodyDef(x:int, y:int):void
 		{
 			// Create the body definition
 			_bodyDef = new b2BodyDef();
@@ -74,8 +74,13 @@ package components
 
 			// Create the body
 			_body = _physicsWorld.world.CreateBody(_bodyDef);
+			
+			
+			_body.SetUserData( owner );
+			
+			// should calculate the mass
 		}
-
+		
 		/**
 		 * Create a polygon shape to represent all or part of the body
 		 * @param	x (int) Width in pixels
@@ -95,8 +100,15 @@ package components
 			fixtureDef.friction = friction;
 			fixtureDef.density = density; 
 			fixtureDef.restitution = restitution;
-					
-			_body.CreateFixture(fixtureDef);			
+
+			// Add the game object to it
+			fixtureDef.userData = owner;
+
+			// Calculate the mass
+			//boxShape.ComputeMass();
+			
+			// Attach to the body
+			_body.CreateFixture(fixtureDef);	
 		}
 		
 		/**
@@ -118,7 +130,14 @@ package components
 			fixtureDef.density = density; 
 			fixtureDef.restitution = restitution;
 			
-			_body.CreateFixture(fixtureDef);		
+			// Add the game object to it
+			fixtureDef.userData = owner;
+
+			// Calculate the mass
+			//boxShape.ComputeMass();			
+			
+			// Attach to the body
+			_body.CreateFixture(fixtureDef);	
 		}
 	}
 }

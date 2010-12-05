@@ -1,6 +1,9 @@
 package components 
 {
 	import adobe.utils.CustomActions;
+	import Box2D.Dynamics.b2Fixture;
+	import Box2D.Dynamics.b2FixtureDef;
+	import core.GameObject;
 	import flash.utils.Dictionary;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
@@ -156,6 +159,16 @@ package components
 		public function onKeyUp( e:KeyboardEvent ):void
 		{
 			
+		}
+		
+		public function onBeginContact( obj:GameObject ):void
+		{
+			trace("Hit something");
+		}
+
+		public function onEndContact( obj:GameObject ):void
+		{
+			trace("Stoped hitting something");
 		}
 	}
 }
