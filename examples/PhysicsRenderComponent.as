@@ -8,7 +8,7 @@ package
 	 */
 	public class PhysicsRenderComponent extends RenderComponent
 	{
-		public function createBox( x:int, y:int, color:Number = 0x123456)
+		public function createBox( x:int, y:int, color:Number = 0x123456):void
 		{
 			_baseclip.graphics
 			_baseclip.graphics.beginFill( color );
@@ -16,7 +16,7 @@ package
 			_baseclip.graphics.endFill();
 		}
 
-		public function createCircle( radius:int, color:Number = 0x123456)
+		public function createCircle( radius:int, color:Number = 0x123456):void
 		{
 			_baseclip.graphics
 			_baseclip.graphics.beginFill( color );

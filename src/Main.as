@@ -68,7 +68,8 @@
 			_eventManager.fireEvent("NETWORK_CONNECT");
 			
 			// Display the intro scene
-			_sceneManager.PushScene(IntroScene);			
+			//_sceneManager.PushScene(IntroScene);			
+			_sceneManager.PushScene(PhysicsScene);			
 
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
 			

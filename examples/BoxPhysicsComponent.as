@@ -23,23 +23,6 @@ package
 		 */
 		public override function start():void
 		{
-			// The example used meters instead of pixels
-			var x:int = (Math.random() * 15 + 5) * _physicsWorld.drawScale;
-			var y:int = (Math.random() * 10) * * _physicsWorld.drawScale;
-			
-			var bodyDef:b2BodyDef = createBodyDef( (x, y);
-
-			var rX:Number = (Math.random() + 0.5) * _physicsWorld.drawScale;
-			var rY:Number = (Math.random() + 0.5) * _physicsWorld.drawScale;			
-
-			if (Math.random() < 0.5) 
-			{
-				var boxShape:b2PolygonShape = CreatePolygonShape(rX, rY, 1.0, 0.5, 0.2);
-			} 
-			else
-			{
-				var circleShape:b2CircleShape = createCircleShape(rX, 1.0, 0.5, 0.2);
-			}
 		}
 
 		/**
@@ -56,6 +39,16 @@ package
 		 */
 		public override function destroy():void
 		{
-		}	
+		}
+		
+		public function createBox( x:int, y:int ):void
+		{
+			createPolygonShape(x, y, 1.0, 0.5, 0.2);
+		}
+		
+		public function createCircle( radius:Number ):void
+		{
+			createCircleShape(radius, 1.0, 0.5, 0.2);
+		}
 	}
 }
