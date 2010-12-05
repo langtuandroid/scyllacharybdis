@@ -35,6 +35,7 @@ package
 			
 			for (var i:int = 1; i < 10; i++)
 			{
+				trace("add to world");
 				// Create a box
 				var _geom:GameObject = MemoryManager.instantiate( GameObject );
 				_geom.addComponent(SquareScriptComponent, [EventManager]);
@@ -44,21 +45,19 @@ package
 				var x:int = Math.random() * 600 + 150;
 				var y:int = Math.random() * 300;
 				
-				var rX:Number = Math.random() * 30 + 15;
-				var rY:Number = Math.random() * 30 + 15;
+				var width:Number = Math.random() * 30 + 15;
+				var height:Number = Math.random() * 30 + 15;
 
 			
 				if (Math.random() < 0.5) 
 				{
-					_geom.getComponent(BaseObject.RENDER_COMPONENT).createBox(rX, rY);
-					_geom.getComponent(BaseObject.PHYSICS_COMPONENT).createBox(rX, rY);
-					_geom.worldPosition = new Point3d( x, y, 1 );
+					_geom.getComponent(BaseObject.RENDER_COMPONENT).createBox(width, height);
+					_geom.getComponent(BaseObject.PHYSICS_COMPONENT).createBox(x, y, width, height);
 				} 
 				else
 				{
-					_geom.getComponent(BaseObject.RENDER_COMPONENT).createCircle(rX);
-					_geom.getComponent(BaseObject.PHYSICS_COMPONENT).createCircle(rX);
-					_geom.worldPosition = new Point3d( x, y, 1 );
+					_geom.getComponent(BaseObject.RENDER_COMPONENT).createCircle(width);
+					_geom.getComponent(BaseObject.PHYSICS_COMPONENT).createCircle(x,y, width);
 				}
 			
 				// Add the to the scene

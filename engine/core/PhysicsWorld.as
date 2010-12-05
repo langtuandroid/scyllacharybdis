@@ -77,7 +77,6 @@ package core
 		 */
 		public final function engine_update(event:TimerEvent):void
 		{
-			trace( "PhysicsWorld: engine_update ");
 			_world.Step( 1 / 30, _velocityIterations, _positionIterations );
 			
 			// Update all the game object positions
@@ -89,7 +88,7 @@ package core
 						continue;
 					}
 					
-					trace( "Setting world position " + bb.GetPosition().x * drawScale + " " + bb.GetPosition().y * drawScale + " " + gameObj.worldPosition.z );
+					//trace( "Setting world position " + bb.GetPosition().x * drawScale + " " + bb.GetPosition().y * drawScale + " " + gameObj.worldPosition.z );
 					gameObj.worldPosition = new Point3d( bb.GetPosition().x * drawScale, bb.GetPosition().y * drawScale, gameObj.worldPosition.z );
 					gameObj.worldRotation = bb.GetAngle() * (180/Math.PI);
 				}
