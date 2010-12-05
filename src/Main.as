@@ -1,5 +1,6 @@
 ﻿package 
 {
+	import Box2D.Common.Math.b2Vec2;
 	import core.PhysicsWorld;
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -28,7 +29,7 @@
 		private var _sceneManager:SceneManager;
 		private var _networkDriver:NetworkDriver;
 		private var _chatExample:ChatExample;
-		private var _physicWorld:PhysicsWorld;
+		private var _physicsWorld:PhysicsWorld;
 		
 		public function Main():void 
 		{		
@@ -49,9 +50,6 @@
 			// Create the scene manager
 			_sceneManager = MemoryManager.instantiate(SceneManager);
 			
-			// Create a physics world
-			_physicWorld = MemoryManager.instantiate(PhysicsWorld);
-
 			// Create a network layer
 			_networkObject = MemoryManager.instantiate(NetworkObject);			
 			_networkObject.addComponent(ConnectionHandler, [EventManager]);
@@ -66,6 +64,10 @@
 
 			// Fire a network connection event
 			_eventManager.fireEvent("NETWORK_CONNECT");
+
+			// Create a physics world
+			_physicsWorld = MemoryManager.instantiate(PhysicsWorld);
+			_physicsWorld.gravity = new b2Vec2(0.0, 10.0);
 			
 			// Display the intro scene
 			//_sceneManager.PushScene(IntroScene);			
