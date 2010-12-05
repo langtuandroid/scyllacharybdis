@@ -67,7 +67,7 @@
 
 			// Create a physics world
 			_physicsWorld = MemoryManager.instantiate(PhysicsWorld);
-			_physicsWorld.gravity = new b2Vec2(0.0, 10.0);
+			//_physicsWorld.gravity = new b2Vec2(0.0, 10.0);
 			
 			// Display the intro scene
 			//_sceneManager.PushScene(IntroScene);			

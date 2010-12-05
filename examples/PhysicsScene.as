@@ -41,7 +41,7 @@ package
 				_geom.addComponent(PhysicsRenderComponent);
 				_geom.addComponent(BoxPhysicsComponent, [PhysicsWorld]);
 
-				var x:int = Math.random() * 450 + 150;
+				var x:int = Math.random() * 600 + 150;
 				var y:int = Math.random() * 300;
 				
 				var rX:Number = Math.random() * 30 + 15;
@@ -52,11 +52,13 @@ package
 				{
 					_geom.getComponent(BaseObject.RENDER_COMPONENT).createBox(rX, rY);
 					_geom.getComponent(BaseObject.PHYSICS_COMPONENT).createBox(rX, rY);
+					_geom.worldPosition = new Point3d( x, y, 1 );
 				} 
 				else
 				{
 					_geom.getComponent(BaseObject.RENDER_COMPONENT).createCircle(rX);
 					_geom.getComponent(BaseObject.PHYSICS_COMPONENT).createCircle(rX);
+					_geom.worldPosition = new Point3d( x, y, 1 );
 				}
 			
 				// Add the to the scene

@@ -28,12 +28,15 @@ package core
 		
 		// World (absolute) position
 		function get worldPosition():Point3d;
+		function set worldPosition( value:Point3d):void;
 
 		// World (absolute) scale
 		function get worldScale():Point3d;
+		function set worldScale(value:Point3d):void;
 		
 		// World (absolute) rotate
-		function get worldRotate():Number;
+		function get worldRotation():Number;
+		function set worldRotation(value:Number):void;
 	}
 	
 }

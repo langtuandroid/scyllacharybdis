@@ -43,7 +43,7 @@ package components
 		
 		protected var _worldPosition:Point3d = new Point3d();
 		protected var _worldScale:Point3d = new Point3d();
-		protected var _worldRotate:Number = 0;
+		protected var _worldRotation:Number = 0;
 		
 		private var _mode:String = MODE_2D;		
 		
@@ -213,7 +213,7 @@ package components
 			_rotate = value;
 			
 			// Cache the world rotation
-			_worldRotate = _rotate;
+			_worldRotation = _rotate;
 			
 			// If the parent exists
 			if (  owner.parent != null )
@@ -222,7 +222,7 @@ package components
 				var parentTransform:TransformComponent = owner.parent.getComponent(TRANSFORM_COMPONENT);
 				if ( parentTransform != null )
 				{
-					_worldRotate = _rotate + parentTransform.rotate;
+					_worldRotation = _rotate + parentTransform.rotate;
 				}
 			}
 			
@@ -230,7 +230,7 @@ package components
 			var renderComponent:RenderComponent = owner.getComponent(RENDER_COMPONENT);
 			if ( renderComponent != null )
 			{
-				renderComponent.baseclip.rotation = _worldRotate;
+				renderComponent.baseclip.rotation = _worldRotation;
 			}
 		}
 
@@ -263,16 +263,43 @@ package components
 		public function get worldPosition():Point3d { return _worldPosition; }
 
 		/**
+		 * Set the world position
+		 * @private
+		 */
+		public function set worldPosition(value:Point3d):void 
+		{
+			_worldPosition = value; 
+		}
+		
+		/**
 		 * Get the world scale
 		 * @private
 		 */
 		public function get worldScale():Point3d { return _worldScale; }		
 
 		/**
+		 * Set the world scale
+		 * @private
+		 */
+		public function set worldScale(value:Point3d):void 
+		{
+			_worldScale = value; 
+		}
+		
+		/**
 		 * Get the world rotation
 		 * @private
 		 */
-		public function get worldRotate():Number { return _worldRotate; }
+		public function get worldRotation():Number { return _worldRotation; }
+
+		/**
+		 * Set the world rotation
+		 * @private
+		 */
+		public function set worldRotation(value:Number):void 
+		{
+			_worldRotation = value; 
+		}
 		
 	}
 }
