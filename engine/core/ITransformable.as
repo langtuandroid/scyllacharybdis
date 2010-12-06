@@ -19,8 +19,8 @@ package core
 		function set scale( value:Point3d ):void;
 		
 		// Rotation relative to parent
-		function get rotate():Number;
-		function set rotate( value:Number ):void;
+		function get rotation():Number;
+		function set rotation( value:Number ):void;
 		
 		// Dimensions
 		function get dimensions():Point;
@@ -28,15 +28,12 @@ package core
 		
 		// World (absolute) position
 		function get worldPosition():Point3d;
-		function set worldPosition( value:Point3d):void;
 
 		// World (absolute) scale
 		function get worldScale():Point3d;
-		function set worldScale(value:Point3d):void;
 		
 		// World (absolute) rotate
 		function get worldRotation():Number;
-		function set worldRotation(value:Number):void;
 	}
 	
 }

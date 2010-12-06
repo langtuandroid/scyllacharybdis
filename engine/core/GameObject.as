@@ -195,7 +195,7 @@ package core
 		/**
 		 * Get the local coordinates rotation
 		 */		
-		public function get rotate():Number 
+		public function get rotation():Number 
 		{ 
 			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
 			{
@@ -207,13 +207,13 @@ package core
 		/**
 		 * Set the local coordinates rotation
 		 */
-		public function set rotate( value:Number):void 
+		public function set rotation( value:Number):void 
 		{ 
 			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
 			{
 				return;
 			}
-			getComponent( TRANSFORM_COMPONENT).rotate = value; 
+			getComponent( TRANSFORM_COMPONENT).rotation = value; 
 		}
 		
 		/**
@@ -254,19 +254,6 @@ package core
 		}
 		
 		/**
-		 * Set the world position
-		 * @private
-		 */
-		public function set worldPosition( value:Point3d ):void 
-		{ 
-			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
-			{
-				return;
-			}
-			getComponent( TRANSFORM_COMPONENT).worldPosition = value; 
-		}
-		
-		/**
 		 * Get the world scale
 		 * @private
 		 */		
@@ -277,19 +264,6 @@ package core
 				return null;
 			}
 			return getComponent( TRANSFORM_COMPONENT).worldScale; 
-		}
-		
-		/**
-		 * Set the world scale
-		 * @private
-		 */
-		public function set worldScale( value:Point3d ):void 
-		{ 
-			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
-			{
-				return;
-			}
-			getComponent( TRANSFORM_COMPONENT).worldScale = value; 
 		}
 		
 		/**
@@ -304,18 +278,5 @@ package core
 			}
 			return getComponent( TRANSFORM_COMPONENT).worldRotate; 
 		}
-		
-		/**
-		 * Set the world position
-		 * @private
-		 */
-		public function set worldRotation( value:Number ):void 
-		{ 
-			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
-			{
-				return;
-			}
-			getComponent( TRANSFORM_COMPONENT).worldRotation = value; 
-		}		
 	}
 }

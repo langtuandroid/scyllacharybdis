@@ -78,6 +78,7 @@ package core
 		{
 			_world.Step( 1 / 30, _velocityIterations, _positionIterations );
 			
+			var counter:int = 0;
 			// Update all the game object positions
 			for (var bb:b2Body = _world.GetBodyList(); bb; bb = bb.GetNext())
 			{
@@ -87,9 +88,9 @@ package core
 						continue;
 					}
 					
-					//trace( "Setting world position " + bb.GetPosition().x * drawScale + " " + bb.GetPosition().y * drawScale + " " + gameObj.worldPosition.z );
-					gameObj.worldPosition = new Point3d( bb.GetPosition().x * drawScale, bb.GetPosition().y * drawScale, gameObj.worldPosition.z );
-					gameObj.worldRotation = bb.GetAngle() * (180/Math.PI);
+					gameObj.position = new Point3d( bb.GetPosition().x * drawScale, bb.GetPosition().y * drawScale, gameObj.worldPosition.z );
+					gameObj.rotation = bb.GetAngle() * (180/Math.PI);
+					counter++;
 				}
 			}
 		}	
@@ -141,12 +142,13 @@ package core
 		}
 
 		/**
-		 * No idea just leave it at 10
+		 * Get Number of iterations before its finished trying to solve a collision
 		 */
 		public function get velocityIterations():int { return _velocityIterations; }
 		
 		/**
-		 * No idea just leave it at 10
+		 * Set Number of iterations before its finished trying to solve a collision
+		 * The recommended number is 10
 		 */
 		public function set velocityIterations(value:int):void 
 		{
@@ -154,12 +156,13 @@ package core
 		}
 		
 		/**
-		 * No idea just leave it at 10
+		 * Get Number of iterations before its finished trying to solve a collision
 		 */
 		public function get positionIterations():int { return _positionIterations; }
 		
 		/**
-		 * No idea just leave it at 10
+		 * Set Number of iterations before its finished trying to solve a collision
+		 * The recommended number is 10
 		 */
 		public function set positionIterations(value:int):void 
 		{
