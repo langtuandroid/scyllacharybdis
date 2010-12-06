@@ -1,9 +1,11 @@
 package core 
 {
 	import Box2D.Common.Math.b2Vec2;
+	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2World;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
+	import org.casalib.math.geom.Point3d;
 	/**
 	 */
 	public final class PhysicsWorld extends BaseObject
@@ -13,13 +15,12 @@ package core
 		 * Return the class scope
 		 */
 		public static function get scope():int { return SINGLETON_OBJECT };
-		
 
 		/****************************************/
 		// Class Details
 		/****************************************/
 		
-		private var _updateTimer:Timer = new Timer(1/30, 0); 
+		private var _updateTimer:Timer = new Timer(1/16, 0); 
 		private var _world:b2World;
 		private var _contactListener:PhysicsContactListener;
 		
@@ -50,7 +51,12 @@ package core
 			_contactListener = new PhysicsContactListener();
 			
 			// Set the contact listener for the world
-			_world.SetContactListener(_contactListener);
+			_world.SetContactListener(_contactListener);	
+
+			// setup the timer
+			_updateTimer.addEventListener(TimerEvent.TIMER, engine_update);
+			_updateTimer.start();
+		
 		}
 
 		/**
@@ -61,9 +67,6 @@ package core
 		{
 			super.engine_start();
 
-			// setup the timer
-			_updateTimer.addEventListener(TimerEvent.TIMER, engine_update);
-			_updateTimer.start();
 		}
 
 		/**
@@ -73,7 +76,23 @@ package core
 		 */
 		public final function engine_update(event:TimerEvent):void
 		{
-			_world.Step( 1 / 30, _velocityIterations, _positionIterations );
+			_world.Step( 1 / 16, _velocityIterations, _positionIterations );
+			
+			var counter:int = 0;
+			// Update all the game object positions
+			for (var bb:b2Body = _world.GetBodyList(); bb; bb = bb.GetNext())
+			{
+				if (bb.GetUserData() is GameObject)
+				{
+					var gameObj:GameObject = bb.GetUserData() as GameObject;
+					if ( gameObj == null ) {
+						continue;
+					}
+					gameObj.position = new Point3d( bb.GetPosition().x * drawScale, bb.GetPosition().y * drawScale, gameObj.worldPosition.z );
+					gameObj.rotation = bb.GetAngle() * (180/Math.PI);
+					counter++;
+				}
+			}
 		}	
 		
 		/**
@@ -123,12 +142,13 @@ package core
 		}
 
 		/**
-		 * No idea just leave it at 10
+		 * Get Number of iterations before its finished trying to solve a collision
 		 */
 		public function get velocityIterations():int { return _velocityIterations; }
 		
 		/**
-		 * No idea just leave it at 10
+		 * Set Number of iterations before its finished trying to solve a collision
+		 * The recommended number is 10
 		 */
 		public function set velocityIterations(value:int):void 
 		{
@@ -136,12 +156,13 @@ package core
 		}
 		
 		/**
-		 * No idea just leave it at 10
+		 * Get Number of iterations before its finished trying to solve a collision
 		 */
 		public function get positionIterations():int { return _positionIterations; }
 		
 		/**
-		 * No idea just leave it at 10
+		 * Set Number of iterations before its finished trying to solve a collision
+		 * The recommended number is 10
 		 */
 		public function set positionIterations(value:int):void 
 		{

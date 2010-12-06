@@ -158,23 +158,27 @@ package core
 
 		/**
 		 * Has the object been awaken
+		 * @private
 		 */
-		protected function get awaked():Boolean { return _awake; }
+		public function get awaked():Boolean { return _awake; }
 		
 		/**
 		 * Set if the object has been awakened
+		 * @private
 		 */
-		protected function set awaked(value:Boolean):void  {	_awake = value;	}
+		public function set awaked(value:Boolean):void  {	_awake = value;	}
 
 		/**
 		 * Has the object been started
+		 * @private
 		 */
-		protected function get started():Boolean { return _started; }
+		public function get started():Boolean { return _started; }
 		
 		/**
 		 * Set if the object has been started
+		 * @private
 		 */
-		protected function set started(value:Boolean):void  {_started = value;}
+		public function set started(value:Boolean):void  {_started = value;}
 		
 		/**
 		 * Get the ownering Game Object

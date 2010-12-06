@@ -8,7 +8,7 @@ package core
 		/**
 		 * Return the class scope
 		 */
-		public static function get scope():int { return SINGLETON_OBJECT };
+		public static function get scope():int { return BaseObject.SINGLETON_OBJECT };
 		
 		/****************************************/
 		// Class Details

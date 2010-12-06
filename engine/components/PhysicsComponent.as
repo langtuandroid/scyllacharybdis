@@ -30,7 +30,6 @@ package components
 
 		private var _physicsWorld:PhysicsWorld;
 		private var _body:b2Body;
-		private var _bodyDef:b2BodyDef;
 
 		/** 
 		 * Engine constructor
@@ -103,46 +102,57 @@ package components
 		
 		/**
 		 * Create the body of the object. The body is the whole object.
-		 * @param	x (int) Width in pixels of the body
-		 * @param	y (int) Height in pixels of the body
+		 * @param	x (int) X position in pixels
+		 * @param	y (int) Y position in pixels
+		 * @param dynamtic (Boolean) Is the object dynamtic
 		 */
-		public function createBodyDef(x:int, y:int):void
+		public function createBody(x:int, y:int, dynamtic:Boolean):void
 		{
 			// Create the body definition
-			_bodyDef = new b2BodyDef();
+			var bodyDef:b2BodyDef = new b2BodyDef();
+			
+			if ( dynamtic == true ) 
+			{
+				// Set the object to be dynamic
+				bodyDef.type = b2Body.b2_dynamicBody;
+			}	
 			
 			// Get the world scale
 			var scale:int = _physicsWorld.drawScale;
 
 			//Set its position in the world. 
-			_bodyDef.position.Set(x / scale, y / scale);
+			bodyDef.position.Set(x / scale, y / scale);
 			
 			// Add the gameobject to it
-			_bodyDef.userData = owner;
+			bodyDef.userData = owner;
 
 			// Create the body
-			_body = _physicsWorld.world.CreateBody(_bodyDef);
-			
-			
+			_body = _physicsWorld.world.CreateBody(bodyDef);
+
+			// Add the game object to it.
 			_body.SetUserData( owner );
-			
-			// should calculate the mass
 		}
 		
 		/**
 		 * Create a polygon shape to represent all or part of the body
-		 * @param	x (int) Width in pixels
-		 * @param	y (int) Height in pixels
+		 * @param	width (int) Width in pixels
+		 * @param	height (int) Height in pixels
 		 * @param	friction (Number) Friction amount from 0 to 1
 		 * @param	density (Number) Desity amount ( set to 0 for static items )
 		 * @param	restitution (Number) The bounciness of the object from 0 to 1
 		 */
-		public function CreatePolygonShape(x:int, y:int, friction:Number = 0.3, density:Number = 0, restitution:Number = 0.1):void
+		public function createPolygonShape(width:int, height:int, friction:Number = 0.3, density:Number = 0, restitution:Number = 0.1):void
 		{
-			var boxShape:b2PolygonShape = new b2PolygonShape();
+			// Get the draw scale
 			var scale:int = _physicsWorld.drawScale;
-			boxShape.SetAsBox(x / scale, y/scale);
+
+			// Create the shape
+			var boxShape:b2PolygonShape = new b2PolygonShape();
 			
+			// Set as a box
+			boxShape.SetAsBox(width / scale, height/scale);
+			
+			// Create the fixture
 			var fixtureDef:b2FixtureDef = new b2FixtureDef();
 			fixtureDef.shape = boxShape;
 			fixtureDef.friction = friction;
@@ -152,9 +162,6 @@ package components
 			// Add the game object to it
 			fixtureDef.userData = owner;
 
-			// Calculate the mass
-			//boxShape.ComputeMass();
-			
 			// Attach to the body
 			_body.CreateFixture(fixtureDef);	
 		}
@@ -163,15 +170,18 @@ package components
 		 * Create a circle shape to represent all or part of the body
 		 * @param	radius (int) Radius of the circle in pixels
 		 * @param	friction (Number) Friction amount from 0 to 1
-		 * @param	density (Number) Desity amount ( set to 0 for static items )
+		 * @param	density (Number) Desity amount ( water is around 1, less for wood, greater for metals )
 		 * @param	restitution (Number) The bounciness of the object from 0 to 1
 		 */		
-		public function createCircleShape( radius:int, friction:Number = 0.3, density:Number = 0, restitution:Number = 0.1 ):void
+		public function createCircleShape( radius:int, friction:Number = 0.3, density:Number = 1, restitution:Number = 0.1 ):void
 		{
+			// Get the draw scale
 			var scale:int = _physicsWorld.drawScale;
 			
+			// Create the shape
 			var circleShape:b2CircleShape = new b2CircleShape(radius / scale);
 			
+			// Create the fixture
 			var fixtureDef:b2FixtureDef = new b2FixtureDef();
 			fixtureDef.shape = circleShape;
 			fixtureDef.friction = friction;
@@ -181,11 +191,9 @@ package components
 			// Add the game object to it
 			fixtureDef.userData = owner;
 
-			// Calculate the mass
-			//boxShape.ComputeMass();			
-			
 			// Attach to the body
-			_body.CreateFixture(fixtureDef);	
+			_body.CreateFixture(fixtureDef);
+			
 		}
 	}
 }

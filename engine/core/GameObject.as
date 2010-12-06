@@ -195,7 +195,7 @@ package core
 		/**
 		 * Get the local coordinates rotation
 		 */		
-		public function get rotate():Number 
+		public function get rotation():Number 
 		{ 
 			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
 			{
@@ -207,13 +207,13 @@ package core
 		/**
 		 * Set the local coordinates rotation
 		 */
-		public function set rotate( value:Number):void 
+		public function set rotation( value:Number):void 
 		{ 
 			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
 			{
 				return;
 			}
-			getComponent( TRANSFORM_COMPONENT).rotate = value; 
+			getComponent( TRANSFORM_COMPONENT).rotation = value; 
 		}
 		
 		/**
@@ -270,7 +270,7 @@ package core
 		 * Get the world rotation
 		 * @private
 		 */
-		public function get worldRotate():Number 
+		public function get worldRotation():Number 
 		{ 
 			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
 			{
@@ -278,6 +278,5 @@ package core
 			}
 			return getComponent( TRANSFORM_COMPONENT).worldRotate; 
 		}
-		
 	}
 }
