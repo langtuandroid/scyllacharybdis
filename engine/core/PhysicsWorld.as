@@ -82,16 +82,12 @@ package core
 			// Update all the game object positions
 			for (var bb:b2Body = _world.GetBodyList(); bb; bb = bb.GetNext())
 			{
-				if (bb.GetUserData() is GameObject){
+				if (bb.GetUserData() is GameObject)
+				{
 					var gameObj:GameObject = bb.GetUserData() as GameObject;
 					if ( gameObj == null ) {
 						continue;
 					}
-					
-					if ( counter == 0 ) {
-						trace( bb.GetPosition().x * drawScale + " " + bb.GetPosition().y * drawScale + " " + gameObj.worldPosition.z);
-					}
-					
 					gameObj.position = new Point3d( bb.GetPosition().x * drawScale, bb.GetPosition().y * drawScale, gameObj.worldPosition.z );
 					gameObj.rotation = bb.GetAngle() * (180/Math.PI);
 					counter++;
