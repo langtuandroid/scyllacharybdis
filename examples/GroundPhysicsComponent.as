@@ -3,6 +3,7 @@ package
 	import Box2D.Collision.Shapes.b2PolygonShape;
 	import Box2D.Dynamics.b2BodyDef;
 	import components.PhysicsComponent;
+	import core.BaseObject;
 	
 	/**
 	 */
@@ -23,7 +24,12 @@ package
 		public override function start():void
 		{
 			// Defined in pixels
-			createPolygonShape(300, 360, 710, 90, 0.3, 0, 0);
+			createBody( 600, 790 );
+			createPolygonShape( 600, 10, 0.3, 0, 0 );
+			if ( owner.getComponent(BaseObject.RENDER_COMPONENT) != null ) 
+			{
+				owner.getComponent(BaseObject.RENDER_COMPONENT).createBox(600, 10, 0x0000FF);
+			}
 		}
 
 		/**

@@ -69,7 +69,6 @@ package core
 		 */
 		protected function addToScene( gameObj:GameObject ):void
 		{
-			trace( "Number of children in scene: " + _rootGameObject.children.length );
 			_rootGameObject.addChild( gameObj );
 		}
 
