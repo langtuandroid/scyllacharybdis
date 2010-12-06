@@ -26,7 +26,6 @@ package
 		 */
 		public override function start():void
 		{
-			trace("creating ground object");
 			var _ground:GameObject = MemoryManager.instantiate( GameObject );
 			_ground.addComponent(SquareScriptComponent, [EventManager]);
 			_ground.addComponent(PhysicsRenderComponent);
@@ -35,7 +34,6 @@ package
 			// Add the to the scene
 			addToScene(_ground);
 			
-			trace("creating boxes object");
 			for (var i:int = 1; i < 10; i++)
 			{
 				// Create a box
@@ -66,12 +64,7 @@ package
 				addToScene( geom );
 				boxes.push( geom );
 			}
-			
-			for ( i = 0; i < boxes.length; i++ ) 
-			{
-				trace( "Box " + i + ": " + boxes[i].getComponent(BaseObject.PHYSICS_COMPONENT) );
-			}
-			
+
 		}
 		
 		/**

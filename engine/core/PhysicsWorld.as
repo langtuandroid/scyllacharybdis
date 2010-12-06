@@ -56,8 +56,6 @@ package core
 			// setup the timer
 			_updateTimer.addEventListener(TimerEvent.TIMER, engine_update);
 			_updateTimer.start();
-			
-			trace("Starting physics world");
 		
 		}
 

@@ -119,17 +119,11 @@ package components
 			// Add the gameobject to it
 			_bodyDef.userData = owner;
 
-			trace ("Body Count Before: " + _physicsWorld.world.GetBodyCount() );
-			
 			// Create the body
 			_body = _physicsWorld.world.CreateBody(_bodyDef);
 
-			trace ("Body Count After: " + _physicsWorld.world.GetBodyCount() );
-
 			// Add the game object to it.
 			_body.SetUserData( owner );
-
-			trace ("Body Count After SetUserData: " + _physicsWorld.world.GetBodyCount() );
 		}
 		
 		/**
@@ -142,8 +136,6 @@ package components
 		 */
 		public function createPolygonShape(width:int, height:int, friction:Number = 0.3, density:Number = 0, restitution:Number = 0.1):void
 		{
-			trace ("Body Count Before CreateShape: " + _physicsWorld.world.GetBodyCount() );
-			
 			// Get the draw scale
 			var scale:int = _physicsWorld.drawScale;
 
@@ -165,9 +157,6 @@ package components
 
 			// Attach to the body
 			_body.CreateFixture(fixtureDef);	
-
-			trace ("Body Count After CreateShape: " + _physicsWorld.world.GetBodyCount() );
-			
 		}
 		
 		/**
@@ -179,7 +168,6 @@ package components
 		 */		
 		public function createCircleShape( radius:int, friction:Number = 0.3, density:Number = 0, restitution:Number = 0.1 ):void
 		{
-			trace ("Body Count Before CreateCircle: " + _physicsWorld.world.GetBodyCount() );
 			// Get the draw scale
 			var scale:int = _physicsWorld.drawScale;
 			
@@ -198,8 +186,6 @@ package components
 
 			// Attach to the body
 			_body.CreateFixture(fixtureDef);
-
-			trace ("Body Count After CreateCircle: " + _physicsWorld.world.GetBodyCount() );
 			
 		}
 	}
