@@ -20,7 +20,7 @@ package core
 		// Class Details
 		/****************************************/
 		
-		private var _updateTimer:Timer = new Timer(1/30, 0); 
+		private var _updateTimer:Timer = new Timer(1/16, 0); 
 		private var _world:b2World;
 		private var _contactListener:PhysicsContactListener;
 		
@@ -76,7 +76,7 @@ package core
 		 */
 		public final function engine_update(event:TimerEvent):void
 		{
-			_world.Step( 1 / 30, _velocityIterations, _positionIterations );
+			_world.Step( 1 / 16, _velocityIterations, _positionIterations );
 			
 			var counter:int = 0;
 			// Update all the game object positions
@@ -86,6 +86,10 @@ package core
 					var gameObj:GameObject = bb.GetUserData() as GameObject;
 					if ( gameObj == null ) {
 						continue;
+					}
+					
+					if ( counter == 0 ) {
+						trace( bb.GetPosition().x * drawScale + " " + bb.GetPosition().y * drawScale + " " + gameObj.worldPosition.z);
 					}
 					
 					gameObj.position = new Point3d( bb.GetPosition().x * drawScale, bb.GetPosition().y * drawScale, gameObj.worldPosition.z );

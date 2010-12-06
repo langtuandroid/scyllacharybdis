@@ -25,7 +25,7 @@ package
 		{
 			// Defined in pixels
 			createBody( 0, 790, false );
-			createPolygonShape( 600, 10, 0.3, 0, 0 );
+			createPolygonShape( 600, 10, 0.3, 0, 0.1 );
 			if ( owner.getComponent(BaseObject.RENDER_COMPONENT) != null ) 
 			{
 				owner.getComponent(BaseObject.RENDER_COMPONENT).createBox(600, 10, 0x0000FF);
