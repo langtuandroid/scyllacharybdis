@@ -50,8 +50,11 @@ package core
 				obj.owner = owner;
 			}
 			
-			// Awaken the object
-			obj.engine_awake();
+			if ( obj.awaked != true ) 
+			{
+				// Awaken the object
+				obj.engine_awake();
+			}
 			
 			// Return the object
 			return obj;

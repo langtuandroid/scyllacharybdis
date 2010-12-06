@@ -43,7 +43,7 @@ package components
 		
 		protected var _worldPosition:Point3d = new Point3d();
 		protected var _worldScale:Point3d = new Point3d();
-		protected var _worldRotate:Number = 0;
+		protected var _worldRotation:Number = 0;
 		
 		private var _mode:String = MODE_2D;		
 		
@@ -202,18 +202,18 @@ package components
 		/**
 		 * Get the local coordinates rotation
 		 */
-		public function get rotate():Number { return _rotate; }
+		public function get rotation():Number { return _rotate; }
 
 		/**
 		 * Set the local coordinates rotation
 		 */
-		public function set rotate ( value:Number ):void 
+		public function set rotation( value:Number ):void 
 		{ 
 			// Set the local rotation
 			_rotate = value;
 			
 			// Cache the world rotation
-			_worldRotate = _rotate;
+			_worldRotation = _rotate;
 			
 			// If the parent exists
 			if (  owner.parent != null )
@@ -222,7 +222,7 @@ package components
 				var parentTransform:TransformComponent = owner.parent.getComponent(TRANSFORM_COMPONENT);
 				if ( parentTransform != null )
 				{
-					_worldRotate = _rotate + parentTransform.rotate;
+					_worldRotation = _rotate + parentTransform.rotation;
 				}
 			}
 			
@@ -230,7 +230,7 @@ package components
 			var renderComponent:RenderComponent = owner.getComponent(RENDER_COMPONENT);
 			if ( renderComponent != null )
 			{
-				renderComponent.baseclip.rotation = _worldRotate;
+				renderComponent.baseclip.rotation = _worldRotation;
 			}
 		}
 
@@ -272,7 +272,7 @@ package components
 		 * Get the world rotation
 		 * @private
 		 */
-		public function get worldRotate():Number { return _worldRotate; }
-		
+		public function get worldRotation():Number { return _worldRotation; }
+
 	}
 }
