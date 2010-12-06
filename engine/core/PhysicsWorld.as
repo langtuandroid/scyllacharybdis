@@ -15,7 +15,6 @@ package core
 		 * Return the class scope
 		 */
 		public static function get scope():int { return SINGLETON_OBJECT };
-		
 
 		/****************************************/
 		// Class Details
@@ -57,6 +56,8 @@ package core
 			// setup the timer
 			_updateTimer.addEventListener(TimerEvent.TIMER, engine_update);
 			_updateTimer.start();
+			
+			trace("Starting physics world");
 		
 		}
 

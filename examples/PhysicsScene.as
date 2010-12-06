@@ -67,6 +67,11 @@ package
 				boxes.push( geom );
 			}
 			
+			for ( i = 0; i < boxes.length; i++ ) 
+			{
+				trace( "Box " + i + ": " + boxes[i].getComponent(BaseObject.PHYSICS_COMPONENT) );
+			}
+			
 		}
 		
 		/**
