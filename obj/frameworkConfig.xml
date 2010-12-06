@@ -21,6 +21,7 @@
       <path-element>C:\Development\scyllacharybdis\examples</path-element>
       <path-element>C:\Development\scyllacharybdis\src</path-element>
       <path-element>C:\Development\scyllacharybdis\util</path-element>
+      <path-element>C:\Development\scyllacharybdis\physics</path-element>
       <path-element>C:\Development\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
     <library-path append="true">

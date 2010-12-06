@@ -17,6 +17,7 @@
     <class path="examples" />
     <class path="src" />
     <class path="util" />
+    <class path="physics" />
   </classpaths>
   <!-- Build options -->
   <build>

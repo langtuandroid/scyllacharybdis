@@ -24,11 +24,11 @@ package
 		public override function start():void
 		{
 			// Defined in pixels
-			createBody( 0, 790, false );
-			createPolygonShape( 600, 10, 0.3, 0, 0.1 );
+			createBody( 0, 500, false );
+			createPolygonShape( 600, 10, 0.6, 1, 0.1 );
 			if ( owner.getComponent(BaseObject.RENDER_COMPONENT) != null ) 
 			{
-				owner.getComponent(BaseObject.RENDER_COMPONENT).createBox(600, 10, 0x0000FF);
+				owner.getComponent(BaseObject.RENDER_COMPONENT).createBox(590, 20, 0x0000FF);
 			}
 		}
 
