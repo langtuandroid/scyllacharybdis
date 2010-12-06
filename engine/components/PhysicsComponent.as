@@ -104,23 +104,30 @@ package components
 		 * Create the body of the object. The body is the whole object.
 		 * @param	x (int) X position in pixels
 		 * @param	y (int) Y position in pixels
+		 * @param dynamtic (Boolean) Is the object dynamtic
 		 */
-		public function createBody(x:int, y:int):void
+		public function createBody(x:int, y:int, dynamtic:Boolean):void
 		{
 			// Create the body definition
-			var _bodyDef:b2BodyDef = new b2BodyDef();
+			var bodyDef:b2BodyDef = new b2BodyDef();
+			
+			if ( dynamtic == true ) 
+			{
+				// Set the object to be dynamic
+				bodyDef.type = b2Body.b2_dynamicBody;
+			}	
 			
 			// Get the world scale
 			var scale:int = _physicsWorld.drawScale;
 
 			//Set its position in the world. 
-			_bodyDef.position.Set(x / scale, y / scale);
+			bodyDef.position.Set(x / scale, y / scale);
 			
 			// Add the gameobject to it
-			_bodyDef.userData = owner;
+			bodyDef.userData = owner;
 
 			// Create the body
-			_body = _physicsWorld.world.CreateBody(_bodyDef);
+			_body = _physicsWorld.world.CreateBody(bodyDef);
 
 			// Add the game object to it.
 			_body.SetUserData( owner );
@@ -166,7 +173,7 @@ package components
 		 * @param	density (Number) Desity amount ( water is around 1, less for wood, greater for metals )
 		 * @param	restitution (Number) The bounciness of the object from 0 to 1
 		 */		
-		public function createCircleShape( radius:int, friction:Number = 0.3, density:Number = 0, restitution:Number = 0.1 ):void
+		public function createCircleShape( radius:int, friction:Number = 0.3, density:Number = 1, restitution:Number = 0.1 ):void
 		{
 			// Get the draw scale
 			var scale:int = _physicsWorld.drawScale;

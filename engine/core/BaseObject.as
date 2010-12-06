@@ -158,21 +158,25 @@ package core
 
 		/**
 		 * Has the object been awaken
+		 * @private
 		 */
 		public function get awaked():Boolean { return _awake; }
 		
 		/**
 		 * Set if the object has been awakened
+		 * @private
 		 */
 		public function set awaked(value:Boolean):void  {	_awake = value;	}
 
 		/**
 		 * Has the object been started
+		 * @private
 		 */
 		public function get started():Boolean { return _started; }
 		
 		/**
 		 * Set if the object has been started
+		 * @private
 		 */
 		public function set started(value:Boolean):void  {_started = value;}
 		

@@ -24,7 +24,7 @@ package
 		public override function start():void
 		{
 			// Defined in pixels
-			createBody( 600, 790 );
+			createBody( 0, 790, false );
 			createPolygonShape( 600, 10, 0.3, 0, 0 );
 			if ( owner.getComponent(BaseObject.RENDER_COMPONENT) != null ) 
 			{
