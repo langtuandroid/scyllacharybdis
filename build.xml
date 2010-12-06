@@ -29,8 +29,6 @@
             <include-sources dir="${basedir}/engine/models" includes="*.as"/>
             <include-libraries dir="${basedir}/lib" includes="casalib.swc"/>
             <include-libraries dir="${basedir}/lib" includes="Box2D.swc"/>
-            <include-libraries dir="${basedir}/lib" includes="AstraLib.swc"/>
-            <include-libraries dir="${basedir}/lib" includes="StandardComponents.swc"/>
             <include-libraries dir="${basedir}/lib" includes="SFS2X_API_AS3.swc"/>
         </compc>
     </target>
