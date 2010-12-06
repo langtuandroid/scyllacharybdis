@@ -43,12 +43,14 @@ package
 		
 		public function createBox( x:int, y:int, width:int, height:int ):void
 		{
-			createPolygonShape(x, y, width, height, 1.0, 1, 0.2);
+			createBody(x, y);
+			createPolygonShape(width, height, 1.0, 1, 0.2);
 		}
 		
 		public function createCircle(x:int, y:int, radius:Number ):void
 		{
-			createCircleShape(x, y, radius, 1.0, 1, 0.2);
+			createBody(x, y);
+			createCircleShape(radius, 1.0, 1, 0.2);
 		}
 	}
 }

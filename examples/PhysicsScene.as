@@ -12,6 +12,7 @@ package
 	 */
 	public class PhysicsScene extends SceneObject
 	{
+		private var boxes:Array = new Array();
 		/**
 		 * Create the scene
 		 */
@@ -25,22 +26,23 @@ package
 		 */
 		public override function start():void
 		{
+			trace("creating ground object");
 			var _ground:GameObject = MemoryManager.instantiate( GameObject );
 			_ground.addComponent(SquareScriptComponent, [EventManager]);
 			_ground.addComponent(PhysicsRenderComponent);
 			_ground.addComponent(GroundPhysicsComponent, [PhysicsWorld]);
-
+					
 			// Add the to the scene
 			addToScene(_ground);
 			
+			trace("creating boxes object");
 			for (var i:int = 1; i < 10; i++)
 			{
-				trace("add to world");
 				// Create a box
-				var _geom:GameObject = MemoryManager.instantiate( GameObject );
-				_geom.addComponent(SquareScriptComponent, [EventManager]);
-				_geom.addComponent(PhysicsRenderComponent);
-				_geom.addComponent(BoxPhysicsComponent, [PhysicsWorld]);
+				var geom:GameObject = MemoryManager.instantiate( GameObject );
+				geom.addComponent(SquareScriptComponent, [EventManager]);
+				geom.addComponent(PhysicsRenderComponent);
+				geom.addComponent(BoxPhysicsComponent, [PhysicsWorld]);
 
 				var x:int = Math.random() * 600 + 150;
 				var y:int = Math.random() * 300;
@@ -51,18 +53,20 @@ package
 			
 				if (Math.random() < 0.5) 
 				{
-					_geom.getComponent(BaseObject.RENDER_COMPONENT).createBox(width, height);
-					_geom.getComponent(BaseObject.PHYSICS_COMPONENT).createBox(x, y, width, height);
+					geom.getComponent(BaseObject.RENDER_COMPONENT).createBox(width, height);
+					geom.getComponent(BaseObject.PHYSICS_COMPONENT).createBox(x, y, width, height);
 				} 
 				else
 				{
-					_geom.getComponent(BaseObject.RENDER_COMPONENT).createCircle(width);
-					_geom.getComponent(BaseObject.PHYSICS_COMPONENT).createCircle(x,y, width);
+					geom.getComponent(BaseObject.RENDER_COMPONENT).createCircle(width);
+					geom.getComponent(BaseObject.PHYSICS_COMPONENT).createCircle(x,y, width);
 				}
 			
 				// Add the to the scene
-				addToScene(_geom);
+				addToScene( geom );
+				boxes.push( geom );
 			}
+			
 		}
 		
 		/**
