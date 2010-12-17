@@ -136,11 +136,11 @@ package handlers
 			_eventManager.fireEvent(cmd, evt);
 		}
 		
-		public function SendServerMessage(data:Dictionary):void
+		public function sendServerMessage(data:Dictionary):void
 		{
 			var sfsObject:ISFSObject = SFSObject.newInstance();
 			sfsObject.putClass(data["messageName"], data["messageModel"]);
-			var request:ExtensionRequest = new ExtensionRequest(data["messageName"], owner.sfs.room);
+			var request:ExtensionRequest = new ExtensionRequest(data["messageName"]);
 			owner.sfs.send(request, sfsObject);	
 		}
 	}
