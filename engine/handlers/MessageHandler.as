@@ -44,7 +44,7 @@ package handlers
 			// Get the event manager
 			_eventManager = getDependency(EventManager);
 
-			_eventManager.registerListener("SEND_SERVER_MESSAGE", this, SendServerMessage );
+			_eventManager.registerListener("SEND_SERVER_MESSAGE", this, sendServerMessage );
 			
 			// Register event handlers
 			owner.sfs.addEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse);
@@ -83,7 +83,7 @@ package handlers
 			// Unregister all the event handlers
 			owner.sfs.removeEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse);
 
-			_eventManager.unregisterListener("SEND_SERVER_MESSAGE", this, SendServerMessage );
+			_eventManager.unregisterListener("SEND_SERVER_MESSAGE", this, sendServerMessage );
 			
 			// Release the event manager
 			_eventManager = null;
@@ -140,8 +140,8 @@ package handlers
 		{
 			var sfsObject:ISFSObject = SFSObject.newInstance();
 			sfsObject.putClass(data["messageName"], data["messageModel"]);
-			var request:ExtensionRequest = new ExtensionRequest(data["messageName"]);
-			owner.sfs.send(request, sfsObject);	
+			var request:ExtensionRequest = new ExtensionRequest(data["messageName"], sfsObject, owner.sfs.lastJoinedRoom);
+			owner.sfs.send(request);	
 		}
 	}
 }
