@@ -98,5 +98,13 @@ package core
 				}
 			}
 		}
+		
+		public final function SendServerMessage( eventName:String, data:* ):void
+		{
+			var message:Dictionary = new Dictionary();
+			message["messageName"] = eventName;
+			message["messageModel"] = data;
+			fireEvent("SEND_SERVER_MESSAGE", message);
+		}
 	}
 }

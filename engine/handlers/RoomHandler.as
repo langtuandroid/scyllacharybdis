@@ -254,7 +254,7 @@ package handlers
 			} 
 			else 
 			{
-				_eventManager.fireEvent("JOINGAMEROOM_SUCCESS", evt);
+				_eventManager.fireEvent("CREATEROOM_SUCCESS", evt);
 				
 			}
 		}		
