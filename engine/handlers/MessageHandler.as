@@ -1,5 +1,6 @@
 package handlers
 {
+	import com.smartfoxserver.v2.requests.ExtensionRequest;
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.SmartFox;
 	import com.smartfoxserver.v2.core.SFSEvent;
@@ -41,7 +42,9 @@ package handlers
 		public final override function engine_awake():void 
 		{
 			// Get the event manager
-			_eventManager = owner.getComponent(EventManager);
+			_eventManager = getDependency(EventManager);
+
+			_eventManager.registerListener("SEND_SERVER_MESSAGE", this, SendServerMessage );
 			
 			// Register event handlers
 			owner.sfs.addEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse);
@@ -79,6 +82,8 @@ package handlers
 			
 			// Unregister all the event handlers
 			owner.sfs.removeEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse);
+
+			_eventManager.unregisterListener("SEND_SERVER_MESSAGE", this, SendServerMessage );
 			
 			// Release the event manager
 			_eventManager = null;
@@ -129,6 +134,14 @@ package handlers
 			
 			// Fire the event using the event name and pass the event object
 			_eventManager.fireEvent(cmd, evt);
+		}
+		
+		public function SendServerMessage(data:Dictionary):void
+		{
+			var sfsObject:ISFSObject = SFSObject.newInstance();
+			sfsObject.putClass(data["messageName"], data["messageModel"]);
+			var request:ExtensionRequest = new ExtensionRequest(data["messageName"], owner.sfs.room);
+			owner.sfs.send(request, sfsObject);	
 		}
 	}
 }
