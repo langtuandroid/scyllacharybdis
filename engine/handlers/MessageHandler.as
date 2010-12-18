@@ -9,6 +9,8 @@ package handlers
 	import core.BaseObject;
 	import core.NetworkObject;
 	import core.EventManager;
+	import models.SendModel;
+	import models.SendSFSObject;
 
 	/**
 	 */
@@ -44,9 +46,9 @@ package handlers
 			// Get the event manager
 			_eventManager = getDependency(EventManager);
 
-			_eventManager.registerListener("SEND_ZONE_SERVER_MESSAGE", this, sendZoneServerMessage );
-			_eventManager.registerListener("SEND_ROOM_SERVER_MESSAGE", this, sendRoomServerMessage );
-			
+			_eventManager.registerListener("SEND_MODEL_TO_SERVER", this, sendModelToServer);
+			_eventManager.registerListener("SEND_OBJECT_TO_SERVER", this, sendObjectToServer );
+
 			// Register event handlers
 			owner.sfs.addEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse);
 			
@@ -84,8 +86,8 @@ package handlers
 			// Unregister all the event handlers
 			owner.sfs.removeEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse);
 
-			_eventManager.unregisterListener("SEND_ZONE_SERVER_MESSAGE", this, sendZoneServerMessage );
-			_eventManager.unregisterListener("SEND_ROOM_SERVER_MESSAGE", this, sendRoomServerMessage );
+			_eventManager.unregisterListener("SEND_MODEL_TO_SERVER", this, sendModelToServer);
+			_eventManager.unregisterListener("SEND_OBJECT_TO_SERVER", this, sendObjectToServer );
 			
 			// Release the event manager
 			_eventManager = null;
@@ -138,21 +140,46 @@ package handlers
 			_eventManager.fireEvent(cmd, evt);
 		}
 		
-		public function sendZoneServerMessage(data:Dictionary):void
+		/**
+		 * @internal
+		 * Send a model to the server
+		 * @param	data (SendModel)
+		 */
+		public function sendModelToServer(data:SendModel):void
 		{
 			var sfsObject:ISFSObject = SFSObject.newInstance();
-			sfsObject.putClass(data["messageName"], data["messageModel"]);
-			var request:ExtensionRequest = new ExtensionRequest(data["messageName"], sfsObject);
+			sfsObject.putClass(data.modelName, data.model);
+			var request:ExtensionRequest;
+			
+			if ( data.room == null ) 
+			{
+				request = new ExtensionRequest(data.eventName, sfsObject);
+			} 
+			else 
+			{
+				request = new ExtensionRequest(data.eventName, sfsObject, data.room);
+			}
 			owner.sfs.send(request);	
 		}
 
-		public function sendRoomServerMessage(data:Dictionary):void
+		/**
+		 * @internal
+		 * Send a SFSobject to the server
+		 * @param	data (SendSFSObject)
+		 */
+		public function sendObjectToServer(data:SendSFSObject):void
 		{
-			var sfsObject:ISFSObject = SFSObject.newInstance();
-			sfsObject.putClass(data["messageName"], data["messageModel"]);
-			var request:ExtensionRequest = new ExtensionRequest(data["messageName"], sfsObject, owner.sfs.lastJoinedRoom);
-			owner.sfs.send(request);	
+			var request:ExtensionRequest;
+			
+			if ( data.room == null ) 
+			{
+				request = new ExtensionRequest(data.eventName, data.sfsObject);
+			} 
+			else 
+			{
+				request = new ExtensionRequest(data.eventName, data.sfsObject, data.room);
+			}
+			owner.sfs.send(request);				
 		}
-
 	}
 }
