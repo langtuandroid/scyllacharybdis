@@ -44,7 +44,8 @@ package handlers
 			// Get the event manager
 			_eventManager = getDependency(EventManager);
 
-			_eventManager.registerListener("SEND_SERVER_MESSAGE", this, sendServerMessage );
+			_eventManager.registerListener("SEND_ZONE_SERVER_MESSAGE", this, sendZoneServerMessage );
+			_eventManager.registerListener("SEND_ROOM_SERVER_MESSAGE", this, sendRoomServerMessage );
 			
 			// Register event handlers
 			owner.sfs.addEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse);
@@ -83,7 +84,8 @@ package handlers
 			// Unregister all the event handlers
 			owner.sfs.removeEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse);
 
-			_eventManager.unregisterListener("SEND_SERVER_MESSAGE", this, sendServerMessage );
+			_eventManager.unregisterListener("SEND_ZONE_SERVER_MESSAGE", this, sendZoneServerMessage );
+			_eventManager.unregisterListener("SEND_ROOM_SERVER_MESSAGE", this, sendRoomServerMessage );
 			
 			// Release the event manager
 			_eventManager = null;
@@ -136,12 +138,21 @@ package handlers
 			_eventManager.fireEvent(cmd, evt);
 		}
 		
-		public function sendServerMessage(data:Dictionary):void
+		public function sendZoneServerMessage(data:Dictionary):void
+		{
+			var sfsObject:ISFSObject = SFSObject.newInstance();
+			sfsObject.putClass(data["messageName"], data["messageModel"]);
+			var request:ExtensionRequest = new ExtensionRequest(data["messageName"], sfsObject);
+			owner.sfs.send(request);	
+		}
+
+		public function sendRoomServerMessage(data:Dictionary):void
 		{
 			var sfsObject:ISFSObject = SFSObject.newInstance();
 			sfsObject.putClass(data["messageName"], data["messageModel"]);
 			var request:ExtensionRequest = new ExtensionRequest(data["messageName"], sfsObject, owner.sfs.lastJoinedRoom);
 			owner.sfs.send(request);	
 		}
+
 	}
 }

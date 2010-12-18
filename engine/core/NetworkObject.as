@@ -24,7 +24,7 @@ package core
 		// Class Details
 		/****************************************/
 		
-		private var _sfs:SmartFox = new SmartFox(false);
+		private var _sfs:SmartFox = new SmartFox(true);
 		
 		/**
 		 * The engine contructor
