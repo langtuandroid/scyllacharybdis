@@ -98,21 +98,5 @@ package core
 				}
 			}
 		}
-		
-		public final function sendZoneServerMessage( eventName:String, data:* ):void
-		{
-			var message:Dictionary = new Dictionary();
-			message["messageName"] = eventName;
-			message["messageModel"] = data;
-			fireEvent("SEND_ZONE_SERVER_MESSAGE", message);
-		}
-
-		public final function sendRoomServerMessage( eventName:String, data:* ):void
-		{
-			var message:Dictionary = new Dictionary();
-			message["messageName"] = eventName;
-			message["messageModel"] = data;
-			fireEvent("SEND_ROOM_SERVER_MESSAGE", message);
-		}
 	}
 }
