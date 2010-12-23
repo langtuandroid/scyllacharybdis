@@ -9,10 +9,6 @@ package core.materials
 	{
 		private var _textureList:Dictionary = new Dictionary();
 		
-		public function TextureManager() 
-		{
-		}
-		
 		public function loadTexture( fileName:String ):Texture
 		{
 			if ( _textureList[fileName] != null ) {

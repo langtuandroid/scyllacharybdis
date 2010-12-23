@@ -1,7 +1,7 @@
 package  
 {
+	import core.managers.EventManager;
 	import core.objects.BaseObject;
-	import core.EventManager;
 	import models.CreateRoomModel;
 	import models.LoginModel;
 	import models.RoomModel;
