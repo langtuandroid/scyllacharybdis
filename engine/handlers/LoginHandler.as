@@ -5,7 +5,7 @@ package handlers
 	import com.smartfoxserver.v2.requests.LoginRequest;
 	import core.EventManager;
 	import models.LoginModel;
-	import core.BaseObject;	
+	import core.objects.BaseObject;	
 	
 	/**
 	 */

@@ -1,5 +1,6 @@
-package core
+package core.objects
 {
+	import core.MemoryManager;
 	import flash.events.EventDispatcher;
 	import flash.utils.Dictionary;
 	import flash.utils.getQualifiedClassName;

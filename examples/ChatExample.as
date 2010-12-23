@@ -1,7 +1,7 @@
 package  
 {
-	import core.BaseObject;
 	import core.EventManager;
+	import core.objects.BaseObject;
 	/**
 	 * ...
 	 * @author ...
