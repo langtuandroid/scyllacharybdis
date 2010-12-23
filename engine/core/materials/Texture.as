@@ -13,7 +13,7 @@ package core.materials
 		{
 			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoaderReady);
 
-			var fileRequest:URLRequest = new URLRequest(fileName);
+			var fileRequest:URLRequest = new URLRequest("textures/" +fileName);
 			_loader.load(fileRequest);
 		}
 
