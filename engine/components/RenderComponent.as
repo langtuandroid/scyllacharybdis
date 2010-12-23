@@ -7,7 +7,7 @@ package components
 	import flash.events.MouseEvent;
 	import org.casalib.math.geom.Point3d;
 	
-	import core.BaseObject;
+	import core.objects.BaseObject;
 	
 	/**
 	 * 

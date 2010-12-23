@@ -1,8 +1,10 @@
-package core 
+package core.physics 
 {
 	import Box2D.Common.Math.b2Vec2;
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2World;
+	import core.objects.BaseObject;
+	import core.objects.GameObject;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	import org.casalib.math.geom.Point3d;

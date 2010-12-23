@@ -1,6 +1,6 @@
 package  
 {
-	import core.BaseObject;
+	import core.objects.BaseObject;
 	import core.EventManager;
 	import models.CreateRoomModel;
 	import models.LoginModel;

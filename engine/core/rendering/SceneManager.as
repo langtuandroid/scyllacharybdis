@@ -1,5 +1,8 @@
-package core 
+package core.rendering 
 {
+	import core.MemoryManager;
+	import core.objects.BaseObject;
+	import core.objects.SceneObject;
 	import flash.utils.Dictionary;
 	/**
 	 */

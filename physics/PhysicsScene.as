@@ -1,10 +1,10 @@
 package  
 {
+	import core.objects.BaseObject;
+	import core.objects.GameObject;
+	import core.objects.SceneObject;
 	import org.casalib.math.geom.Point3d;
-	import core.BaseObject;
-	import core.PhysicsWorld;
-	import core.SceneObject;
-	import core.GameObject;
+	import core.physics.PhysicsWorld;
 	import core.MemoryManager;
 	import core.EventManager;
 	

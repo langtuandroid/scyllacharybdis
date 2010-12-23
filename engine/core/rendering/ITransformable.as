@@ -1,4 +1,4 @@
-package core 
+package core.rendering 
 {
 	import flash.geom.Point;
 	import org.casalib.math.geom.Point3d;

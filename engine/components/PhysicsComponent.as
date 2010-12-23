@@ -5,11 +5,10 @@ package components
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2BodyDef;
 	import Box2D.Dynamics.b2FixtureDef;
-	import core.PhysicsWorld;
+	import core.objects.BaseObject;
+	import core.physics.PhysicsWorld;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
-
-	import core.BaseObject;
 	import core.EventManager;
 
 	/**

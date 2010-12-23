@@ -3,14 +3,14 @@ package components
 	import adobe.utils.CustomActions;
 	import Box2D.Dynamics.b2Fixture;
 	import Box2D.Dynamics.b2FixtureDef;
-	import core.GameObject;
+	import core.objects.GameObject;
 	import flash.utils.Dictionary;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
 
-	import core.BaseObject;
+	import core.objects.BaseObject;
 	import core.EventManager;
 
 	/**

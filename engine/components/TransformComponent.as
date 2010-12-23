@@ -1,12 +1,12 @@
 package components
 {
 	import adobe.utils.ProductManager;
-	import core.ITransformable;
+	import core.rendering.ITransformable;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
 	import org.casalib.math.geom.Point3d;
 	
-	import core.BaseObject;	
+	import core.objects.BaseObject;	
 
 	/**
 	 */

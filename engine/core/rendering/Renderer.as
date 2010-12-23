@@ -1,4 +1,4 @@
-package core 
+package core.rendering 
 {
 	import components.RenderComponent;
 	import events.EngineEvent;
@@ -6,7 +6,7 @@ package core
 	import flash.display.DisplayObjectContainer;
 	import flash.utils.Dictionary;
 
-	import core.BaseObject;	
+	import core.objects.BaseObject;	
 	
 	/**
 	 */

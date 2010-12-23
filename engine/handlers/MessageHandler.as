@@ -6,8 +6,8 @@ package handlers
 	import com.smartfoxserver.v2.core.SFSEvent;
 	import com.smartfoxserver.v2.entities.data.ISFSObject;
 	import com.smartfoxserver.v2.entities.data.SFSObject;
-	import core.BaseObject;
-	import core.NetworkObject;
+	import core.objects.BaseObject;
+	import core.objects.NetworkObject;
 	import core.EventManager;
 	import models.SendModel;
 	import models.SendSFSObject;

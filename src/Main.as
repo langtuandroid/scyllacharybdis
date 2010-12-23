@@ -1,14 +1,14 @@
 ﻿package 
 {
 	import Box2D.Common.Math.b2Vec2;
-	import core.PhysicsWorld;
+	import core.physics.PhysicsWorld;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import core.Renderer;
+	import core.rendering.Renderer;
 	import core.MemoryManager;
 	import core.EventManager;
-	import core.SceneManager;
-	import core.NetworkObject;
+	import core.rendering.SceneManager;
+	import core.objects.NetworkObject;
 	import handlers.ConnectionHandler;
 	import handlers.LoginHandler;
 	import handlers.RoomHandler;
