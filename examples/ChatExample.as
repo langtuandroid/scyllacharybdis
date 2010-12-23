@@ -1,6 +1,6 @@
 package  
 {
-	import core.EventManager;
+	import core.managers.EventManager;
 	import core.objects.BaseObject;
 	/**
 	 * ...

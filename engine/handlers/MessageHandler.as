@@ -1,6 +1,7 @@
 package handlers
 {
 	import com.smartfoxserver.v2.requests.ExtensionRequest;
+	import core.managers.EventManager;
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.SmartFox;
 	import com.smartfoxserver.v2.core.SFSEvent;
@@ -8,7 +9,6 @@ package handlers
 	import com.smartfoxserver.v2.entities.data.SFSObject;
 	import core.objects.BaseObject;
 	import core.objects.NetworkObject;
-	import core.EventManager;
 	import models.SendModel;
 	import models.SendSFSObject;
 

@@ -3,7 +3,7 @@ package handlers
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
 	import com.smartfoxserver.v2.requests.LoginRequest;
-	import core.EventManager;
+	import core.managers.EventManager;
 	import models.LoginModel;
 	import core.objects.BaseObject;	
 	

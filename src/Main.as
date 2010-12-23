@@ -5,9 +5,9 @@
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import core.rendering.Renderer;
-	import core.MemoryManager;
-	import core.EventManager;
-	import core.rendering.SceneManager;
+	import core.managers.MemoryManager;
+	import core.managers.EventManager;
+	import core.managers.SceneManager;
 	import core.objects.NetworkObject;
 	import handlers.ConnectionHandler;
 	import handlers.LoginHandler;
