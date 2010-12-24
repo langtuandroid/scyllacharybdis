@@ -1,6 +1,8 @@
 package core.materials 
 {
 	import flash.utils.Dictionary;
+	import core.materials.TextureManager;
+	import core.materials.Material;
 	/**
 	 */
 	public class MaterialManager 
