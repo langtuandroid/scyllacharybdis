@@ -18,6 +18,7 @@
 	import NetworkDriver;
 	import ChatExample;
 	import org.casalib.math.geom.Point3d;
+	import core.materials.MaterialManager;
 
 	
 	
