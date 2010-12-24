@@ -48,7 +48,7 @@ package core.materials
 		
 		public function onLoaderComplete(event:Event) 
 		{   
-			var loader:Loader = Loader(event.target);
+			var loader:Loader = Loader(event.target.loader);
 			_textureList[_queue.shift].setTextureData( Bitmap(loader.content) );
 			if ( _queue.length > 0 ) 
 			{
