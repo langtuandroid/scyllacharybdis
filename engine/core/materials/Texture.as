@@ -1,35 +1,35 @@
 package core.materials 
 {
+	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Loader;
+	import flash.events.Event;
 	/**
 	 */
 	public class Texture 
 	{
-		private var _ready:Boolean = false;
-		private var _loader:Loader = new Loader();
-		
-		public function Texture( fileName:String ) 
-		{
-			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoaderReady);
-
-			var fileRequest:URLRequest = new URLRequest("textures/" +fileName);
-			_loader.load(fileRequest);
-		}
-
-		public function onLoaderReady(e:Event) 
-		{     
-			_ready = true;
-		}
+		private var _loaded:Boolean = false;
+		private var _bitmap:Bitmap = new Bitmap();
 		
 		public function isLoaded():Boolean
 		{
-			return _ready;
+			return _loaded;
 		}
 		
 		public function getTextureData():BitmapData
 		{
+			if ( ! isLoaded() ) 
+			{
+				return null;
+			}
+			
+			return _bitmap.bitmapData();
+		}
+		
+		public function setTextureData( data:BitmapData ):void
+		{
+			_bitmap = data;
+			_ready = true;
 		}
 	}
-
 }
