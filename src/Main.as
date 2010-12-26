@@ -2,6 +2,8 @@
 {
 	import Box2D.Common.Math.b2Vec2;
 	import core.physics.PhysicsWorld;
+	import core.rendering.Backbuffer;
+	import core.rendering.Window;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import core.rendering.Renderer;
@@ -24,6 +26,7 @@
 	
 	public class Main extends Sprite 
 	{
+		private var _window:Window;
 		private var _renderer:Renderer;
 		private var _networkObject:NetworkObject;
 		private var _eventManager:EventManager;
@@ -41,6 +44,9 @@
 		private function init(e:Event = null):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
+			
+			_window = MemoryManager.instantiate(Window, [Backbuffer]);
+			_window.displayContext = this;
 			
 			// Create a rendering system
 			_renderer = MemoryManager.instantiate(Renderer, Renderer.dependencies);
@@ -80,7 +86,7 @@
 
 		private function onEnterFrame( e:Event ):void
 		{
-			_renderer.render(this);
+			_renderer.render();
 		}
 	}
 }
