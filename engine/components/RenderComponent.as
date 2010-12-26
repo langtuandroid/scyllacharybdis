@@ -6,6 +6,7 @@ package components
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import org.casalib.math.geom.Point3d;
+	import core.rendering.Backbuffer;
 	
 	import core.objects.BaseObject;
 	
@@ -116,20 +117,11 @@ package components
 		 * Add the renderable to the surface
 		 * @param	surface (DisplayObjectContainer) 
 		 */
-		public function render( surface:DisplayObjectContainer ):void
+		public function render( surface:Backbuffer ):void
 		{
-			surface.addChild( _baseclip );
+			surface.draw( owner );
 		}
 		
-		/**
-		 * Erace this from the surface
-		 * @param	surface (DisplayObjectContainer) 
-		 */
-		public function erase( surface:DisplayObjectContainer ):void
-		{
-			surface.removeChild( _baseclip );
-		}
-
 		
 		private final function addListeners():void
 		{
