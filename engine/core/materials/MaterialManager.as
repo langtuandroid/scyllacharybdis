@@ -1,59 +1,82 @@
 package core.materials 
 {
+	import core.objects.BaseObject;
 	import flash.utils.Dictionary;
 	import core.materials.TextureManager;
 	import core.materials.Material;
+	import XML;
+	import XMLList;
+	
 	/**
 	 */
-	public class MaterialManager 
+	public class MaterialManager extends BaseObject
 	{
 		private var _materialList:Dictionary = new Dictionary();
-	
-		private function parseXML(doc:XMLList)
+		
+		public function loadMaterial( fileName:String ):void
 		{
-			for (var i = 0; i < doc.firstChild.childNodes.length; i++) 
+			var material:XML = new XML();
+			material.ignoreWhite = true;
+			material.onLoad = function(success:Boolean):void
 			{
-				if (doc.firstChild.childNodes[n].nodeName == "texture")
+				if (success) 
 				{
-					parseTexture(doc.firstChild.childNode[n]);
+					parseXML( material );
+				}
+				else 
+				{
+					trace( "Error loading xml file");
+				}
+			}
+			fileName = "materials/" + fileName;
+			//material.load( fileName );
+		}
+	
+		private function parseXML(doc:XML):void
+		{
+			for (var i:int = 0; i < doc.firstChild.childNodes.length; i++) 
+			{
+				if (doc.firstChild.childNodes[i].nodeName == "texture")
+				{
+					parseTexture(doc.firstChild.childNode[i]);
 				}
 			}
 		}
 		
-		private function parseTexture(doc:XMLList)
+		private function parseTexture(doc:XMLList):void
 		{
-			var textureName = doc.attributes.name;
-			for (var i = 0; i < doc.firstChild.childNodes.length; i++) 
+			var textureName:String = doc.attributes.name;
+			for (var i:int = 0; i < doc.firstChild.childNodes.length; i++) 
 			{
-				if (doc.firstChild.childNodes[n].nodeName == "area") 
+				if (doc.firstChild.childNodes[i].nodeName == "area") 
 				{
-					parseArea(doc.firstChild.childNodes[n]);
+					parseArea(doc.firstChild.childNodes[i]);
 				} 
-				else if (doc.firstChild.childNodes[n].nodeName == "animation") 
+				else if (doc.firstChild.childNodes[i].nodeName == "animation") 
 				{
-					parseAnimation(doc.firstChild.childNodes[n]);
+					parseAnimation(doc.firstChild.childNodes[i]);
 				}
 				else 
 				{ 
-					trace("Found something weird: " + doc.firstChild.childNodes[n] );
+					trace("Found something weird: " + doc.firstChild.childNodes[i] );
 				}
 			}
 		}
 		
 		private function parseArea(doc:XMLList):void 
 		{
-			var areaName = doc.attributes.name;
-			var areaTopLeft = doc.attributes.topLeft;
-			var areaBottomRight = doc.attributes.bottomRight;
+			var areaName:String = doc.attributes.name;
+			var areaTopLeft:String = doc.attributes.topLeft;
+			var areaBottomRight:String = doc.attributes.bottomRight;
 		}
 		
 		private function parseAnimation(doc:XMLList):void 
 		{
-			var animationName = doc.attributes.name;
-			var animationFrames = doc.attributes.frames;
-			var animationTopLeft = doc.attributes.topLeft;
-			var animationBottomRight = doc.attributes.bottomRight;
-			var animationBackground = doc.attributes.background;
+			var animationName:String = doc.attributes.name;
+			var animationFrames:String = doc.attributes.frames;
+			var animationTopLeft:String = doc.attributes.topLeft;
+			var animationBottomRight:String = doc.attributes.bottomRight;
+			var animationBackground:String = doc.attributes.background;
 		}	
-
+	}
 }

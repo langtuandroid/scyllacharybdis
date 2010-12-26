@@ -1,6 +1,7 @@
 ﻿package 
 {
 	import Box2D.Common.Math.b2Vec2;
+	import core.materials.TextureManager;
 	import core.physics.PhysicsWorld;
 	import core.rendering.Backbuffer;
 	import core.rendering.Window;
@@ -34,6 +35,8 @@
 		private var _networkDriver:NetworkDriver;
 		private var _chatExample:ChatExample;
 		private var _physicsWorld:PhysicsWorld;
+		private var _materialManager:MaterialManager;
+		private var _textureManager:TextureManager;
 		
 		public function Main():void 
 		{		
