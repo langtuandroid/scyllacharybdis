@@ -72,7 +72,11 @@ package core.rendering
 		 */
 		public function draw(gameObj:GameObject):void 
 		{
-			var bitmap:Bitmap = Bitmap( gameObj.getComponent(RENDER_COMPONENT) );
+			var clip:MovieClip = gameObj.getComponent(RENDER_COMPONENT).baseclip;
+			var bitmap:Bitmap = new Bitmap();
+			var data:BitmapData = new BitmapData( clip.width, clip.height );
+			data.draw( clip );
+			bitmap.bitmapData = data;
 			_backBuffer.copyPixels(bitmap.bitmapData, bitmap.bitmapData.rect, new Point(gameObj.position.x, gameObj.position.y), null, null, true)
 		}
 		

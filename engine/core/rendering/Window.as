@@ -61,7 +61,7 @@ package core.rendering
 		public function set displayContext(value:DisplayObjectContainer):void 
 		{
 			_displayContext = value;
-			_backBuffer.setSize(_displayContext.stage.width, _displayContext.stage.height);
+			_backBuffer.setSize(_displayContext.stage.stageWidth, _displayContext.stage.stageHeight);
 		}
 		
 		/**
@@ -110,8 +110,8 @@ package core.rendering
 		 */
 		public function endRendering():void 
 		{
-			_backBuffer.unlock();
 			_backBuffer.swapBuffers();
+			_backBuffer.unlock();
 		}
 	}
 }
