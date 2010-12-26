@@ -23,7 +23,11 @@
         <compc output="${DEPLOY_DIR}/SC.swc" append="true">
             <source-path path-element="${basedir}/engine"/>
             <include-sources dir="${basedir}/engine/events" includes="*.as"/>
-            <include-sources dir="${basedir}/engine/core" includes="*.as"/>
+            <include-sources dir="${basedir}/engine/core/managers" includes="*.as"/>
+            <include-sources dir="${basedir}/engine/core/materials" includes="*.as"/>
+            <include-sources dir="${basedir}/engine/core/objects" includes="*.as"/>
+            <include-sources dir="${basedir}/engine/core/physics" includes="*.as"/>
+            <include-sources dir="${basedir}/engine/core/rendering" includes="*.as"/>
             <include-sources dir="${basedir}/engine/components" includes="*.as"/>
             <include-sources dir="${basedir}/engine/handlers" includes="*.as"/>
             <include-sources dir="${basedir}/engine/models" includes="*.as"/>

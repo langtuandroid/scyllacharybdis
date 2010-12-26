@@ -23,13 +23,13 @@ package core.materials
 				return null;
 			}
 			
-			return _bitmap.bitmapData();
+			return _bitmap.bitmapData;
 		}
 		
 		public function setTextureData( data:BitmapData ):void
 		{
-			_bitmap = data;
-			_ready = true;
+			_bitmap.bitmapData = data;
+			_loaded = true;
 		}
 	}
 }

@@ -1,8 +1,8 @@
 package components
 {
+	import core.objects.BaseObject;
 	import flash.media.Sound;
 	import flash.net.URLRequest;
-	import core.BaseObject;
 	import flash.events.ProgressEvent;
 	import flash.events.IOErrorEvent;
 	
