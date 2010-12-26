@@ -2,7 +2,9 @@ package core.rendering
 {
 	import core.objects.BaseObject;
 	import core.objects.GameObject;
+	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
+	import flash.display.Sprite;
 	import flash.geom.Point;
 	import flash.display.BitmapData;
 	import flash.display.Bitmap;	
@@ -16,6 +18,7 @@ package core.rendering
 		private var _frontBuffer:BitmapData
 		private var _backBuffer:BitmapData
 		private var _origin:Point = new Point(0, 0);
+		private var _canvas:DisplayObjectContainer;
 
 		/**
 		 * Return the class scope
@@ -59,6 +62,24 @@ package core.rendering
 		}
 
 		/**
+		 * Set the screen size
+		 * @param	var width width in pixels
+		 * @param	var height height in pixels
+		 */
+		public function setCanvas( canvas:DisplayObjectContainer, width:int, height:int ):void
+		{
+			_canvas = canvas;
+			_width = width;
+			_height = height;
+
+			// Create the buffers
+			_frontBuffer = new BitmapData(width, height);
+			_backBuffer = new BitmapData(width, height);
+			
+			var surface:Bitmap = new Bitmap(_frontBuffer);
+			_canvas.addChild(surface);
+		}		
+		/**
 		 * Clear the screen
 		 */
 		public function clear(color:uint):void 
@@ -72,30 +93,13 @@ package core.rendering
 		 */
 		public function draw(gameObj:GameObject):void 
 		{
-			var clip:MovieClip = gameObj.getComponent(RENDER_COMPONENT).baseclip;
-			var bitmap:Bitmap = new Bitmap();
-			var data:BitmapData = new BitmapData( clip.width, clip.height );
-			data.draw( clip );
-			bitmap.bitmapData = data;
+			var bitmapData:BitmapData = new BitmapData(gameObj.getComponent(RENDER_COMPONENT).baseclip.width, gameObj.getComponent(RENDER_COMPONENT).baseclip.height, true, 0x0);
+			bitmapData.draw(gameObj.getComponent(RENDER_COMPONENT).baseclip);
+			var bitmap:Bitmap = new Bitmap(bitmapData);
 			_backBuffer.copyPixels(bitmap.bitmapData, bitmap.bitmapData.rect, new Point(gameObj.position.x, gameObj.position.y), null, null, true)
 		}
 		
-		/**
-		 * Set the screen size
-		 * @param	var width width in pixels
-		 * @param	var height height in pixels
-		 */
-		public function setSize( width:int, height:int ):void
-		{
-			// Store the width and height
-			_width = width;
-			_height = height;
 
-			trace( "Size: " + width + " " + height );
-			// Create the buffers
-			_frontBuffer = new BitmapData(width, height);
-			_backBuffer = new BitmapData(width, height);
-		}
 		
 		public function lock():void
 		{

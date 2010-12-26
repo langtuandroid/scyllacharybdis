@@ -61,7 +61,7 @@ package core.rendering
 		public function set displayContext(value:DisplayObjectContainer):void 
 		{
 			_displayContext = value;
-			_backBuffer.setSize(_displayContext.stage.stageWidth, _displayContext.stage.stageHeight);
+			_backBuffer.setCanvas(_displayContext, _displayContext.stage.stageWidth, _displayContext.stage.stageHeight);
 		}
 		
 		/**
