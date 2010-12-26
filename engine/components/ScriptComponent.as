@@ -29,7 +29,7 @@ package components
 		// Class Details
 		/****************************************/
 		
-		private var _updateTimer:Timer = new Timer(1/30, 0); 
+		private var _updateTimer:Timer = new Timer(1/30 * 1000, 0); 
 
 		/** 
 		 * Engine constructor

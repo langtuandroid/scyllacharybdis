@@ -93,13 +93,11 @@ package core.rendering
 		 */
 		public function draw(gameObj:GameObject):void 
 		{
-			var bitmapData:BitmapData = new BitmapData(gameObj.getComponent(RENDER_COMPONENT).baseclip.width, gameObj.getComponent(RENDER_COMPONENT).baseclip.height, true, 0x0);
-			bitmapData.draw(gameObj.getComponent(RENDER_COMPONENT).baseclip);
-			var bitmap:Bitmap = new Bitmap(bitmapData);
-			_backBuffer.copyPixels(bitmap.bitmapData, bitmap.bitmapData.rect, new Point(gameObj.position.x, gameObj.position.y), null, null, true)
+			var clip:MovieClip = gameObj.getComponent(RENDER_COMPONENT).baseclip;
+			var bitmapData:BitmapData = new BitmapData(clip.width, clip.height, true, 0x555555FF);
+			bitmapData.draw(clip);
+			_backBuffer.copyPixels(bitmapData, bitmapData.rect, new Point(gameObj.position.x, gameObj.position.y), null, null, true)
 		}
-		
-
 		
 		public function lock():void
 		{
