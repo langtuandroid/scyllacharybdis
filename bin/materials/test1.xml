@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<material>
+	<texture name="test.png">
+		<area name="tophalf" topLeft="0,0" bottomRight="480,160"/>
+		<area name="bottomhalf" topLeft="0,161" bottomRight="480,320"/>
+	</texture>
+</material>

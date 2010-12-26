@@ -1,6 +1,8 @@
-package core 
+package core.rendering 
 {
 	import components.RenderComponent;
+	import core.objects.BaseObject;
+	import core.objects.GameObject;
 	import events.EngineEvent;
 	import flash.utils.Dictionary;
 	/**

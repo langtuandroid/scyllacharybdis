@@ -1,4 +1,4 @@
-package core 
+package core.rendering 
 {
 	import components.RenderComponent;
 	import events.EngineEvent;
@@ -6,7 +6,7 @@ package core
 	import flash.display.DisplayObjectContainer;
 	import flash.utils.Dictionary;
 
-	import core.BaseObject;	
+	import core.objects.BaseObject;	
 	
 	/**
 	 */
@@ -20,13 +20,14 @@ package core
 		/**
 		 * Get the dependencies to instantiate the class
 		 */
-		public static function get dependencies():Array { return [SceneGraph]; }
+		public static function get dependencies():Array { return [SceneGraph, Window]; }
 		
 		/****************************************/
 		// Class Details
 		/****************************************/
 		
 		private var _sceneGraph:SceneGraph = null;
+		private var _window:Window = null;
 		private var _dirty:Boolean = true;
 		
 		/**
@@ -36,6 +37,7 @@ package core
 		public final override function engine_awake():void
 		{
 			_sceneGraph = getDependency(SceneGraph);
+			_window = getDependency(Window);
 
 			super.engine_awake();
 		}
@@ -67,31 +69,30 @@ package core
 			super.engine_destroy();
 
 			_sceneGraph = null;
+			_window = null;
 		}
 		
 		/**
 		 * Render the frame
-		 * @param	surface (DisplayObjectContainer) The surface to render too
 		 */
-		public final function render( surface:DisplayObjectContainer ):void
+		public final function render():void
 		{
-			// Erase the world
-			for ( var i:int = surface.numChildren - 1; i >= 0; i-- )
-			{
-				surface.removeChildAt(i);
-			}
-			
 			// Get the renderables array
 			var renderables:Array = _sceneGraph.renderables;
 			
 			// Sort the renderables array (bigger numbers are closer to the screen) 
 			renderables.sortOn( "comparator", Array.NUMERIC );
 			
+			_window.beginRendering();
+			_window.surface.clear(0x000000);
+			
 			// Render children in order
-			for ( i = 0; i < renderables.length; i++ )
+			for ( var i:int = 0; i < renderables.length; i++ )
 			{
-				renderables[i].render(surface);
+				renderables[i].render(_window.surface);
 			}
+			
+			_window.endRendering();
 		}
 	}
 }

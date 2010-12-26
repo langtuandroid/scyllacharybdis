@@ -1,5 +1,6 @@
-package core 
+package core.managers 
 {
+	import core.objects.BaseObject;
 	import flash.utils.Dictionary;
 	
 	public final class EventManager extends BaseObject

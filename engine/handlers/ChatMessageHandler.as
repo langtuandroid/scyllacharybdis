@@ -4,9 +4,9 @@ package handlers
 	import com.smartfoxserver.v2.core.SFSEvent;
 	import com.smartfoxserver.v2.requests.PublicMessageRequest;
 
-	import core.NetworkObject;
-	import core.BaseObject;	
-	import core.EventManager;
+	import core.objects.NetworkObject;
+	import core.objects.BaseObject;	
+	import core.managers.EventManager;
 	import models.RoomModel;
 	import models.ChatMessageModel;
 

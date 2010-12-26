@@ -1,14 +1,16 @@
 ﻿package 
 {
 	import Box2D.Common.Math.b2Vec2;
-	import core.PhysicsWorld;
+	import core.physics.PhysicsWorld;
+	import core.rendering.Backbuffer;
+	import core.rendering.Window;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import core.Renderer;
-	import core.MemoryManager;
-	import core.EventManager;
-	import core.SceneManager;
-	import core.NetworkObject;
+	import core.rendering.Renderer;
+	import core.managers.MemoryManager;
+	import core.managers.EventManager;
+	import core.managers.SceneManager;
+	import core.objects.NetworkObject;
 	import handlers.ConnectionHandler;
 	import handlers.LoginHandler;
 	import handlers.RoomHandler;
@@ -18,11 +20,13 @@
 	import NetworkDriver;
 	import ChatExample;
 	import org.casalib.math.geom.Point3d;
+	import core.materials.MaterialManager;
 
 	
 	
 	public class Main extends Sprite 
 	{
+		private var _window:Window;
 		private var _renderer:Renderer;
 		private var _networkObject:NetworkObject;
 		private var _eventManager:EventManager;
@@ -40,6 +44,9 @@
 		private function init(e:Event = null):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
+			
+			_window = MemoryManager.instantiate(Window, [Backbuffer]);
+			_window.displayContext = this;
 			
 			// Create a rendering system
 			_renderer = MemoryManager.instantiate(Renderer, Renderer.dependencies);
@@ -79,7 +86,7 @@
 
 		private function onEnterFrame( e:Event ):void
 		{
-			_renderer.render(this);
+			_renderer.render();
 		}
 	}
 }

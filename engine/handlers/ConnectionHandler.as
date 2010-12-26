@@ -3,9 +3,9 @@ package handlers
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
 	
-	import core.NetworkObject;
-	import core.BaseObject;	
-	import core.EventManager;
+	import core.objects.NetworkObject;
+	import core.objects.BaseObject;	
+	import core.managers.EventManager;
 	
 	/**
 	 */

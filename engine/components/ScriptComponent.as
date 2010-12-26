@@ -3,15 +3,15 @@ package components
 	import adobe.utils.CustomActions;
 	import Box2D.Dynamics.b2Fixture;
 	import Box2D.Dynamics.b2FixtureDef;
-	import core.GameObject;
+	import core.objects.GameObject;
 	import flash.utils.Dictionary;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
 
-	import core.BaseObject;
-	import core.EventManager;
+	import core.objects.BaseObject;
+	import core.managers.EventManager;
 
 	/**
 	 */
@@ -29,7 +29,7 @@ package components
 		// Class Details
 		/****************************************/
 		
-		private var _updateTimer:Timer = new Timer(1/30, 0); 
+		private var _updateTimer:Timer = new Timer(1/30 * 1000, 0); 
 
 		/** 
 		 * Engine constructor
