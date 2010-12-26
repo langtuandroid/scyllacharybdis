@@ -1,6 +1,5 @@
 package components
 {
-	import flash.display.Sprite;
 	import flash.utils.Dictionary;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
@@ -33,7 +32,7 @@ package components
 		// Class Details
 		/****************************************/
 		
-		protected var _baseclip:Sprite = null;
+		protected var _baseclip:MovieClip = null;
 		
 		/** 
 		 * Engine constructor
@@ -41,7 +40,7 @@ package components
 		 */
 		public final override function engine_awake():void
 		{
-			_baseclip = new Sprite();
+			_baseclip = new MovieClip();
 			
 			super.engine_awake();
 		}
@@ -108,8 +107,8 @@ package components
 		{
 		}
 		
-		public function set baseclip( value:Sprite ):void { _baseclip = value; }
-		public function get baseclip():Sprite { return _baseclip; }
+		public function set baseclip( value:MovieClip ):void { _baseclip = value; }
+		public function get baseclip():MovieClip { return _baseclip; }
 		
 		// For sorting
 		public function get comparator():Number { return owner.getComponent( TRANSFORM_COMPONENT ).worldPosition.z }

@@ -22,7 +22,7 @@ package core.physics
 		// Class Details
 		/****************************************/
 		
-		private var _updateTimer:Timer = new Timer(1/30, 0); 
+		private var _updateTimer:Timer = new Timer(1/30 * 1000, 0); 
 		private var _world:b2World;
 		private var _contactListener:PhysicsContactListener;
 		
