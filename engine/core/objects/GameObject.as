@@ -1,6 +1,7 @@
-package core 
+package core.objects 
 {
 	import components.TransformComponent;
+	import core.rendering.ITransformable;
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
@@ -9,8 +10,8 @@ package core
 	import org.casalib.math.geom.Point3d;
 	import org.casalib.util.ArrayUtil;
 	
-	import core.MemoryManager;
-	import core.ContainerObject;
+	import core.managers.MemoryManager;
+	import core.objects.ContainerObject;
 	
 	/**
 	 */

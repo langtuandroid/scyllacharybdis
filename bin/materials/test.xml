@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<material>
+	<texture name="test.png">
+		<animation name="idle" frames="24" topLeft="0,0" bottomRight="40,40" background="0xE2E2E2"/>
+	</texture>
+</material>

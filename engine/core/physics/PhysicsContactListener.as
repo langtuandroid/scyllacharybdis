@@ -1,11 +1,11 @@
-package core 
+package core.physics 
 {
 	import Box2D.Dynamics.b2ContactListener;
 	import Box2D.Dynamics.b2Fixture;
 	import Box2D.Dynamics.Contacts.b2Contact;
 	import components.ScriptComponent;
-	import core.GameObject;
-	import core.BaseObject
+	import core.objects.GameObject;
+	import core.objects.BaseObject
 
 	/**
 	 */

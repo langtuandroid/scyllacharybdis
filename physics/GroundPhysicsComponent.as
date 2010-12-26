@@ -3,7 +3,7 @@ package
 	import Box2D.Collision.Shapes.b2PolygonShape;
 	import Box2D.Dynamics.b2BodyDef;
 	import components.PhysicsComponent;
-	import core.BaseObject;
+	import core.objects.BaseObject;
 	
 	/**
 	 */

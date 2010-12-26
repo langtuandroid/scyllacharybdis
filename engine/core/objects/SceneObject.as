@@ -1,5 +1,7 @@
-package core 
+package core.objects 
 {
+	import core.managers.MemoryManager;
+	import core.rendering.SceneGraph;
 	/**
 	 */
 	public class SceneObject extends BaseObject

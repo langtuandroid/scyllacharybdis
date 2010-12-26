@@ -10,9 +10,9 @@ package handlers
 	import com.smartfoxserver.v2.entities.User;
 	import models.CreateRoomModel;
 
-	import core.NetworkObject;
-	import core.BaseObject;	
-	import core.EventManager;
+	import core.objects.NetworkObject;
+	import core.objects.BaseObject;	
+	import core.managers.EventManager;
 	import models.RoomModel;
 
 	/**

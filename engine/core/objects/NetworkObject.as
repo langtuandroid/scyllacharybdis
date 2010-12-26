@@ -1,9 +1,9 @@
-package core 
+package core.objects 
 {
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.SmartFox;
 
-	import core.BaseObject;
+	import core.objects.BaseObject;
 	import handlers.ConnectionHandler;
 	import handlers.LoginHandler;
 	import handlers.RoomHandler;
