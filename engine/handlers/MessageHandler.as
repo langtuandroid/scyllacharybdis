@@ -14,7 +14,7 @@ package handlers
 
 	/**
 	 */
-	[ComponentType = MessageHandler]
+	[ComponentType (MessageHandler)]
 	[Requires (EventManager)]
 	public class MessageHandler extends BaseObject
 	{

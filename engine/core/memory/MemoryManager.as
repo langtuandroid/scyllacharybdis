@@ -19,12 +19,16 @@ package core.memory
 		private static var _singletonList:Dictionary = new Dictionary(true);
 		private static var _objectCounters:Dictionary = new Dictionary(true);
 		
+		private static var _classParser:DIClassParser = new DIClassParser();
+		
 		/**
 		* Instantiate an object
 		* @param type (Class) The type of object to create
 		*/
 		public static function instantiate( type:Class, dependencies:Array = null, owner:* = null ):*
 		{
+			var classDetails:DIClassDetails = _classParser.loadClass( type );
+			
 			// Declare the object variable
 			var obj:* = getObject(type);
 			

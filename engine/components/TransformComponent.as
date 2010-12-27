@@ -9,7 +9,7 @@ package components
 
 	/**
 	 */
-	[ComponentType=SoundComponent]
+	[ComponentType (TransformComponent)]
 	public class TransformComponent extends BaseObject implements ITransformable
 	{
 		// Find a clever way to get this as some sort global property or something...

@@ -15,7 +15,7 @@ package components
 
 	/**
 	 */
-	[ComponentType=ScriptComponent]
+	[ComponentType (ScriptComponent)]
 	public class ScriptComponent extends BaseObject
 	{
 		/****************************************/

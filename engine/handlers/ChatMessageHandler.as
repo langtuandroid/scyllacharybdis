@@ -12,7 +12,7 @@ package handlers
 
 	/**
 	*/
-	[ComponentType = ChatMessageHandler]
+	[ComponentType (ChatMessageHandler)]
 	[Requires (EventManager)]
 	public class ChatMessageHandler extends BaseObject
 	{

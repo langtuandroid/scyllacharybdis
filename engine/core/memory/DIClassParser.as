@@ -1,6 +1,9 @@
 package core.memory 
 {
+	import flash.utils.describeType;
 	import flash.utils.Dictionary;
+	import flash.utils.getDefinitionByName;
+	import flash.utils.getQualifiedClassName;
 	/**
 	 */
 	public class DIClassParser 
@@ -15,18 +18,17 @@ package core.memory
 				return _classes[className];
 			}
 			
-			populateClassDetails( className );
-			
+			return populateClassDetails( className );
 		}
 		
-		private function populateClassDetails( className:Class ):void 
+		private function populateClassDetails( className:Class ):DIClassDetails 
 		{
 			// Create the class details
 			_classes[className] = new DIClassDetails();
-			_classes[className].className( className );
+			_classes[className].className = className;
 
 			// Get the calss description
-			var typeInfo:XML = describeType(type);
+			var typeInfo:XML = describeType(className);
 			var metaData:XMLList = typeInfo..metadata;
 			
 			for each ( var value:XML in metaData )
@@ -42,7 +44,7 @@ package core.memory
 				{
 					for each ( var com:XML in value.arg ) 
 					{
-						_classes[className].componentType = getQualifiedClassName(com.attribute("value"));
+						_classes[className].componentType = getDefinitionByName(getQualifiedClassName(com.attribute("value"))) as Class;
 					}
 				}
 				
@@ -51,12 +53,14 @@ package core.memory
 				{
 					for each ( var req:XML in value.arg ) 
 					{
-						var depClass:Class = getQualifiedClassName( req.attribute("value") );
+						var reqName:String = req.attribute("value");
+						var depClass:Class = getDefinitionByName(getQualifiedClassName(reqName)) as Class;
 						var classObj:DIClassDetails = loadClass(depClass);
 						_classes[className].addDependency(classObj);
 					}
 				}				
 			}
+			return _classes[className];
 		}
 	}
 }

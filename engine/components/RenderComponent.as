@@ -13,7 +13,7 @@ package components
 	/**
 	 * 
 	 */
-	[ComponentType=RenderComponent]
+	[ComponentType (RenderComponent)]
 	public class RenderComponent extends BaseObject
 	{
 		/**
