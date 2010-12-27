@@ -11,7 +11,7 @@ package core.rendering
 	/**
 	 */
 	[Singleton]
-	[Requires (SceneGraph, Window)]
+	[Requires ("core.rendering.SceneGraph", "core.rendering.Window")]
 	public final class Renderer extends BaseObject
 	{
 		/**

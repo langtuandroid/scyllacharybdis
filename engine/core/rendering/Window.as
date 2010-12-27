@@ -6,7 +6,7 @@ package core.rendering
 	/**
 	 */
 	[Singleton]
-	[Requires (Backbuffer)]
+	[Requires ("core.rendering.Backbuffer")]
 	public class Window extends BaseObject
 	{
 		/**

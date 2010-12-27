@@ -10,7 +10,7 @@ package core.materials
 	/**
 	 */
 	[Singleton]
-	[Requires (TextureManager)]
+	[Requires ("core.materials.TextureManager")]
 	public class MaterialManager extends BaseObject
 	{
 		private var _materialList:Dictionary = new Dictionary();

@@ -10,7 +10,7 @@ package handlers
 	/**
 	 */
 	[ComponentType (ConnectionHandler)]
-	[Requires (EventManager)]
+	[Requires ("core.managers.EventManager")]
 	public class ConnectionHandler extends BaseObject
 	{
 		

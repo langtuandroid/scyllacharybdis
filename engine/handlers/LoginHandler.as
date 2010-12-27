@@ -10,7 +10,7 @@ package handlers
 	/**
 	 */
 	[ComponentType (LoginHandler)]
-	[Requires (EventManager)]
+	[Requires ("core.managers.EventManager")]
 	public class LoginHandler extends BaseObject
 	{
 		
