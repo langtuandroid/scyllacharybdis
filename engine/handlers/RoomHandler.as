@@ -17,7 +17,7 @@ package handlers
 
 	/**
 	*/
-	[ComponentType = RoomHandler]
+	[ComponentType (RoomHandler)]
 	[Requires (EventManager)]
 	public class RoomHandler extends BaseObject
 	{
