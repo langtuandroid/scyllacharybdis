@@ -9,6 +9,8 @@ package handlers
 	
 	/**
 	 */
+	[ComponentType = LoginHandler]
+	[Requires (EventManager)]
 	public class LoginHandler extends BaseObject
 	{
 		

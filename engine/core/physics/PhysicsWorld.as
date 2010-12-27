@@ -12,6 +12,7 @@ package core.physics
 	/**
 	 */
 	[Singleton]
+	[Requires (PhysicsContactListener)]
 	public final class PhysicsWorld extends BaseObject
 	{
 
