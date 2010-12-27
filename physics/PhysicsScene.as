@@ -5,7 +5,7 @@ package
 	import core.objects.SceneObject;
 	import org.casalib.math.geom.Point3d;
 	import core.physics.PhysicsWorld;
-	import core.managers.MemoryManager;
+	import core.memory.MemoryManager;
 	import core.managers.EventManager;
 	
 	/**

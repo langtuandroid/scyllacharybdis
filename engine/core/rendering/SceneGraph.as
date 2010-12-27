@@ -9,6 +9,7 @@ package core.rendering
 	 * ...
 	 * @author ...
 	 */
+	[Singleton]
 	public class SceneGraph extends BaseObject 
 	{
 		public static function get scope():int { return SINGLETON_OBJECT; }

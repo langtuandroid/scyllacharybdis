@@ -5,11 +5,11 @@ package components
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
 	import org.casalib.math.geom.Point3d;
-	
 	import core.objects.BaseObject;	
 
 	/**
 	 */
+	[ComponentType=SoundComponent]
 	public class TransformComponent extends BaseObject implements ITransformable
 	{
 		// Find a clever way to get this as some sort global property or something...

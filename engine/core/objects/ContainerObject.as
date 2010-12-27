@@ -1,6 +1,6 @@
 package core.objects 
 {
-	import core.managers.MemoryManager;
+	import core.memory.MemoryManager;
 	import flash.utils.Dictionary;
 	/**
 	 */

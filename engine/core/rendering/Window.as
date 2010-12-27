@@ -2,8 +2,10 @@ package core.rendering
 {
 	import core.objects.BaseObject;
 	import flash.display.DisplayObjectContainer;
+
 	/**
 	 */
+	[Singleton]
 	public class Window extends BaseObject
 	{
 		/**

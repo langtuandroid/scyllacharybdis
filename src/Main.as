@@ -8,7 +8,7 @@
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import core.rendering.Renderer;
-	import core.managers.MemoryManager;
+	import core.memory.MemoryManager;
 	import core.managers.EventManager;
 	import core.managers.SceneManager;
 	import core.objects.NetworkObject;

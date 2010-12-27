@@ -8,8 +8,10 @@ package core.physics
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	import org.casalib.math.geom.Point3d;
+
 	/**
 	 */
+	[Singleton]
 	public final class PhysicsWorld extends BaseObject
 	{
 
