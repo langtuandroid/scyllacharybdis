@@ -1,9 +1,12 @@
 package core.memory 
 {
+	import core.objects.BaseObject;
+	import flash.events.EventDispatcher;
 	import flash.utils.describeType;
 	import flash.utils.Dictionary;
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
+	import flash.utils.getQualifiedSuperclassName;
 	/**
 	 */
 	public class DIClassParser 
@@ -13,22 +16,55 @@ package core.memory
 		
 		public function loadClass( className:Class ):DIClassDetails
 		{
+			trace("*******************************");
+			trace("Loading class: " + className );
+			trace("*******************************");
+			trace();
 			if ( _classes[className] != null ) 
 			{
 				return _classes[className];
 			}
 			
+	
 			return populateClassDetails( className );
+			trace("Done Loading class: " + className );
+			trace("*******************************");
+			trace();
+		}
+		
+		public function print(className:Class):void
+		{
+			var details:DIClassDetails = _classes[className];
+
+			trace ( "Class Name: " + details.className );
+			trace ( "Component Type: " + details.componentType );
+			trace ( "Singleton: " + details.singleton );
+			
+			var dict:Dictionary = details.getDependencyClass();
+			for each ( var value:String in dict ) 
+			{
+				trace(value.toString());
+			}
+			
+/*
+		for ( var key:String in details.dependencies )
+			{
+				trace(key);
+				trace ( "Dep Name: " + details.dependencies[key].className );
+				trace ( "Dep Type: " + details.dependencies[key].componentType );
+				trace ( "Dep Singleton: " + details.dependencies[key].singleton );
+			}
+*/
 		}
 		
 		private function populateClassDetails( className:Class ):DIClassDetails 
 		{
-			// Create the class details
+			
 			_classes[className] = new DIClassDetails();
-			_classes[className].className = className;
-
+			_classes[className].className = className;		
+			
 			// Get the calss description
-			var typeInfo:XML = describeType(className);
+			var typeInfo:XML = describeType( className );
 			var metaData:XMLList = typeInfo..metadata;
 			
 			for each ( var value:XML in metaData )
@@ -44,7 +80,63 @@ package core.memory
 				{
 					for each ( var com:XML in value.arg ) 
 					{
-						_classes[className].componentType = getDefinitionByName(getQualifiedClassName(com.attribute("value"))) as Class;
+						var comName:String = com.attribute("value");
+						var compType:Class = getQualifiedClassName( comName ) as Class;
+						_classes[className].componentType  = compType;
+					}
+				}
+				
+				// Get the requirements
+				if (value.attribute("name") == "Requires" ) 
+				{
+					for each ( var req:XML in value.arg ) 
+					{
+						var reqName:String = req.attribute("value");
+						trace("reqName: " + reqName );
+						//trace("qualified: " + getDefinitionByName(getQualifiedClassName(reqName)));
+						trace("qualified: " + getDefinitionByName(reqName));
+						var depClass:Class = getDefinitionByName(reqName) as Class;
+						trace("DepClass: " + depClass );
+						_classes[className]..addDependencyClass(depClass);
+					}
+				}				
+			}
+			parseAncestor( className, _classes[className] );
+
+			return _classes[className];
+		}
+		
+		private function parseAncestor( className:Class, details:DIClassDetails ):void 
+		{
+			// Get its parent
+			className = getDefinitionByName(getQualifiedSuperclassName(className)) as Class;
+			
+			if ( className == null || className == Object || className == String || className == EventDispatcher || className == BaseObject ) 
+			{
+				return;
+			}
+			trace("Parse " + details.className + " Ancestor " + className );
+			
+			// Get the calss description
+			var typeInfo:XML = describeType( className );
+			var metaData:XMLList = typeInfo..metadata;
+			
+			for each ( var value:XML in metaData )
+			{
+				// Is it a singleton
+				if (value.attribute("name") == "Singleton" ) 
+				{
+					details.singleton = true;
+				}
+				
+				// Is it a singleton
+				if (value.attribute("name") == "ComponentType" ) 
+				{
+					for each ( var com:XML in value.arg ) 
+					{
+						var comName:String = com.attribute("value");
+						trace("Com Name: " + comName );
+						details.componentType = getQualifiedClassName( comName ) as Class;
 					}
 				}
 				
@@ -55,12 +147,11 @@ package core.memory
 					{
 						var reqName:String = req.attribute("value");
 						var depClass:Class = getDefinitionByName(getQualifiedClassName(reqName)) as Class;
-						var classObj:DIClassDetails = loadClass(depClass);
-						_classes[className].addDependency(classObj);
+						details.addDependencyClass(depClass);
 					}
 				}				
 			}
-			return _classes[className];
+			parseAncestor( className, details );
 		}
 	}
 }
