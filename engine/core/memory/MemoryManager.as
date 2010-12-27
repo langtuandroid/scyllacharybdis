@@ -6,6 +6,7 @@ package core.memory
 	/**
 	 * MemoryManager
 	 */
+	[Singleton]
 	public final class MemoryManager
 	{
 		

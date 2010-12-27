@@ -9,6 +9,8 @@ package handlers
 	
 	/**
 	 */
+	[ComponentType = ConnectionHandler]
+	[Requires (EventManager)]
 	public class ConnectionHandler extends BaseObject
 	{
 		

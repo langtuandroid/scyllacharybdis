@@ -9,6 +9,7 @@ package core.physics
 
 	/**
 	 */
+	[Singleton]
 	public final class PhysicsContactListener extends b2ContactListener
 	{
 		/**
