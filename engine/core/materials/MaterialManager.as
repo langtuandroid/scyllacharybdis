@@ -9,6 +9,7 @@ package core.materials
 	
 	/**
 	 */
+	[Singleton]
 	public class MaterialManager extends BaseObject
 	{
 		private var _materialList:Dictionary = new Dictionary();

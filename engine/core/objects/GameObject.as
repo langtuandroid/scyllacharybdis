@@ -10,7 +10,7 @@ package core.objects
 	import org.casalib.math.geom.Point3d;
 	import org.casalib.util.ArrayUtil;
 	
-	import core.managers.MemoryManager;
+	import core.memory.MemoryManager;
 	import core.objects.ContainerObject;
 	
 	/**

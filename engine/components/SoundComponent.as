@@ -9,6 +9,7 @@ package components
 	/**
 	 * 
 	 */
+	[ComponentType=SoundComponent]
 	public class SoundComponent extends BaseObject
 	{
 		

@@ -11,6 +11,7 @@ package core.rendering
 	
 	/**
 	 */
+	[Singleton]
 	public class Backbuffer extends BaseObject
 	{
 		private var _width:int;

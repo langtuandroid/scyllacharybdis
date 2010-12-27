@@ -13,6 +13,7 @@ package components
 
 	/**
 	 */
+	[ComponentType=PhysicsComponent]
 	public class PhysicsComponent extends BaseObject
 	{
 		/****************************************/

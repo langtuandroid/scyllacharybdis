@@ -10,6 +10,7 @@ package core.rendering
 	
 	/**
 	 */
+	[Singleton]
 	public final class Renderer extends BaseObject
 	{
 		/**

@@ -1,4 +1,4 @@
-package core.managers 
+package core.memory 
 {
 	import core.objects.BaseObject;
 	import flash.utils.Dictionary;

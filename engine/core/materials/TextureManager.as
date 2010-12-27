@@ -7,8 +7,10 @@ package core.materials
 	import flash.events.Event;
 	import flash.net.URLRequest;
 	import flash.utils.Dictionary;
+
 	/**
 	 */
+	[Singleton]
 	public class TextureManager extends BaseObject
 	{
 		private var _queue:Array = new Array();
