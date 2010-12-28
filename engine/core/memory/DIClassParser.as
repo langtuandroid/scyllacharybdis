@@ -62,13 +62,11 @@ package core.memory
 						var reqName:String = req.attribute("value");
 						//trace("qualified: " + getDefinitionByName(getQualifiedClassName(reqName)));
 						var depClass:Class = getDefinitionByName(reqName) as Class;
-						_classes[className]..addDependencyClass(depClass);
+						_classes[className].addDependency(depClass);
 					}
 				}				
 			}
 			parseAncestor( className, _classes[className] );
-			
-			populateDependencies( _classes[className] );
 
 			return _classes[className];
 		}
@@ -114,23 +112,11 @@ package core.memory
 					{
 						var reqName:String = req.attribute("value");
 						var depClass:Class = getDefinitionByName(getQualifiedClassName(reqName)) as Class;
-						details.addDependencyClass(depClass);
+						details.addDependency(depClass);
 					}
 				}				
 			}
 			parseAncestor( className, details );
 		}
-		
-		private function populateDependencies(details:DIClassDetails):void 
-		{
-			var loadedClasses:Dictionary = new Dictionary();
-			var dict:Dictionary = details.getDependencyClass();
-			for each ( var value:String in dict ) 
-			{
-				var tempDetails:DIClassDetails = loadClass( getDefinitionByName(getQualifiedClassName(value)) as Class );
-				loadedClasses[tempDetails.className] = tempDetails;
-			}
-			details.dependencies = loadedClasses;
-		}		
 	}
 }

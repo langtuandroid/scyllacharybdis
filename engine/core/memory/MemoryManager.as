@@ -35,15 +35,17 @@ package core.memory
 			// Declare the object variable
 			var obj:* = createObject(classDetails);
 			
-			if ( classDetails.dependencies != null && classDetails.dependencies.length > 0 )
+			if ( classDetails.getDependencies() != null && classDetails.getDependencies().length > 0 )
 			{
 				// Create the dependencies
 				var depMap:Dictionary = new Dictionary(true);
 				
 				// Loop through all the dependencies
-				for ( var key:String in classDetails.getDependencyClass() ) 
+				for ( var key:String in classDetails.getDependencies() ) 
 				{
-					var tempClass:Class = getDefinitionByName(getQualifiedClassName(key)) as Class;
+					// Get the class name
+					var tempClass:Class = getDefinitionByName(key) as Class;
+					
 					// Add the deps to a dictionary
 					depMap[tempClass] = instantiate(tempClass);
 				}
