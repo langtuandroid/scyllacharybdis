@@ -10,8 +10,7 @@ package core.memory
 		private var _className:Class = null;
 		private var _singleton:Boolean = false;
 		private var _componentType:Class = null;
-		private var _dependencies:Dictionary = null;
-		private var _depList:Dictionary = new Dictionary();
+		private var _dependencies:Dictionary = new Dictionary();
 
 		public function get className():Class { return _className; }
 		
@@ -34,21 +33,14 @@ package core.memory
 			_componentType = value;
 		}
 		
-		public function get dependencies():Dictionary { return _dependencies; }
-
-		public function set dependencies(value:Dictionary):void 
+		public function addDependency( value:Class ):void
 		{
-			_dependencies = value;
-		}
-
-		public function addDependencyClass( value:Class ):void
-		{
-			_depList[value] = value;
+			_dependencies[value] = value;
 		}
 		
-		public function getDependencyClass():Dictionary
+		public function getDependencies():Dictionary
 		{
-			return _depList;
+			return _dependencies;
 		}
 	}
 }
