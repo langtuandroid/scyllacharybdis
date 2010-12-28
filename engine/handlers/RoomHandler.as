@@ -21,19 +21,6 @@ package handlers
 	[Requires ("core.managers.EventManager")]
 	public class RoomHandler extends BaseObject
 	{
-		/****************************************/
-		// Type definition
-		/****************************************/
-		
-		public override function getType():String 
-		{
-			return ROOM_HANDLER;
-		}
-		
-		/****************************************/
-		// Class Details
-		/****************************************/
-
 		private var _eventManager:EventManager;
 		private var _currentRoom:String;
 		private var _previousRoom:String;

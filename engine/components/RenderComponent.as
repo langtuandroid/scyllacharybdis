@@ -16,23 +16,7 @@ package components
 	[ComponentType (RenderComponent)]
 	public class RenderComponent extends BaseObject
 	{
-		/**
-		 * Get the dependencies to instantiate the class
-		 */
-		public static function get dependencies():Array { return []; }
-		
-		/****************************************/
-		// Type definition
-		/****************************************/
-		public override final function getType():String 
-		{
-			return RENDER_COMPONENT;
-		}				
-		
-		/****************************************/
-		// Class Details
-		/****************************************/
-		
+
 		protected var _baseclip:MovieClip = null;
 		
 		/** 
@@ -112,7 +96,7 @@ package components
 		public function get baseclip():MovieClip { return _baseclip; }
 		
 		// For sorting
-		public function get comparator():Number { return owner.getComponent( TRANSFORM_COMPONENT ).worldPosition.z }
+		public function get comparator():Number { return owner.getComponent( "TransformComponent" ).worldPosition.z }
 
 		/**
 		 * Add the renderable to the surface
@@ -126,7 +110,7 @@ package components
 		
 		private final function addListeners():void
 		{
-			var scriptComponent:ScriptComponent = owner.getComponent(SCRIPT_COMPONENT);
+			var scriptComponent:ScriptComponent = owner.getComponent("ScriptComponent");
 			
 			if ( scriptComponent != null )
 			{
@@ -147,7 +131,7 @@ package components
 
 		private final function removeListeners():void
 		{
-			var scriptComponent:ScriptComponent = owner.getComponent(SCRIPT_COMPONENT);
+			var scriptComponent:ScriptComponent = owner.getComponent("ScriptComponent");
 			
 			if ( scriptComponent != null )
 			{

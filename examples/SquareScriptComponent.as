@@ -1,25 +1,26 @@
 package  
 {
 	import components.ScriptComponent;
+	import components.SoundComponent;
 	import flash.events.MouseEvent;
 	
 	public class SquareScriptComponent extends ScriptComponent
 	{
 		public override function start():void 
 		{
-			if ( owner.getComponent( SOUND_COMPONENT ) != null ) 
+			if ( owner.getComponent(SoundComponent) != null ) 
 			{
 				trace("Load sound: aladdin_goodbye.mp3");
-				owner.getComponent( SOUND_COMPONENT ).loadSound("aladdin_goodbye.mp3");
+				owner.getComponent( SoundComponent ).loadSound("aladdin_goodbye.mp3");
 			}
 		}
 		
 		public override function onMouseDown( e:MouseEvent ):void
 		{
 			trace("You just clicked on " + owner.toString());
-			if ( owner.getComponent( SOUND_COMPONENT ) != null ) 
+			if ( owner.getComponent( SoundComponent ) != null ) 
 			{
-				owner.getComponent( SOUND_COMPONENT ).playSound(1);
+				owner.getComponent( SoundComponent ).playSound(1);
 			}
 		}
 	}

@@ -29,14 +29,14 @@ package core.objects
 		public override function engine_start():void
 		{
 			// Start up anything that has requirements
-			if ( _components[SOUND_COMPONENT] ) {
-				_components[SOUND_COMPONENT].engine_start();
+			if ( _components["SoundComponent"] ) {
+				_components["SoundComponent"].engine_start();
 			}
-			if ( _components[SCRIPT_COMPONENT] ) {
-				_components[SCRIPT_COMPONENT].engine_start();
+			if ( _components["ScriptComponent"] ) {
+				_components["ScriptComponent"].engine_start();
 			}
-			if ( _components[RENDER_COMPONENT] ) {
-				_components[RENDER_COMPONENT].engine_start();
+			if ( _components["RenderComponent"] ) {
+				_components["RenderComponent"].engine_start();
 			}
 
 			// Start everything else
@@ -77,7 +77,7 @@ package core.objects
 		public final function addComponent( componentType:Class, dependencies:Array = null ):void 
 		{
 			// Create the new component
-			var component:* = MemoryManager.instantiate(componentType, dependencies, this);
+			var component:* = MemoryManager.instantiate(componentType, this);
 
 			// Check to see if there is an old one
 			if ( _components[ component.getType() ] != null )
@@ -96,12 +96,12 @@ package core.objects
 		 * Get a component from the game object
 		 * @param	type (int) The component id
 		 */
-		public final function getComponent( type:String ):*
+		public final function getComponent( type:Class ):*
 		{
 			return _components[type];
 		}
 		
-		public final function removeComponentByType( type:String ):void
+		public final function removeComponentByType( type:Class ):void
 		{
 			removeComponent( _components[type] );
 		}

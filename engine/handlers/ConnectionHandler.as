@@ -13,19 +13,6 @@ package handlers
 	[Requires ("core.managers.EventManager")]
 	public class ConnectionHandler extends BaseObject
 	{
-		
-		/****************************************/
-		// Type definition
-		/****************************************/
-		public override function getType():String 
-		{
-			return CONNECTION_HANDLER;
-		}
-		
-		/****************************************/
-		// Class Details
-		/****************************************/
-		
 		private var _eventManager:EventManager;
 		protected var _connected:Boolean = false;
 		protected var _isConnecting:Boolean = false;

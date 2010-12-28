@@ -16,15 +16,6 @@ package core.physics
 	public final class PhysicsWorld extends BaseObject
 	{
 
-		/**
-		 * Return the class scope
-		 */
-		public static function get scope():int { return SINGLETON_OBJECT };
-
-		/****************************************/
-		// Class Details
-		/****************************************/
-		
 		private var _updateTimer:Timer = new Timer(1/30 * 1000, 0); 
 		private var _world:b2World;
 		private var _contactListener:PhysicsContactListener;

@@ -14,20 +14,6 @@ package core.rendering
 	[Requires ("core.rendering.SceneGraph", "core.rendering.Window")]
 	public final class Renderer extends BaseObject
 	{
-		/**
-		 * Return the class scope
-		 */
-		public static function get scope():int { return SINGLETON_OBJECT };
-		
-		/**
-		 * Get the dependencies to instantiate the class
-		 */
-		public static function get dependencies():Array { return [SceneGraph, Window]; }
-		
-		/****************************************/
-		// Class Details
-		/****************************************/
-		
 		private var _sceneGraph:SceneGraph = null;
 		private var _window:Window = null;
 		private var _dirty:Boolean = true;

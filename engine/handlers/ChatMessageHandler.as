@@ -16,19 +16,6 @@ package handlers
 	[Requires ("core.managers.EventManager")]
 	public class ChatMessageHandler extends BaseObject
 	{
-		/****************************************/
-		// Type definition
-		/****************************************/
-		
-		public override function getType():String 
-		{
-			return CHATMESSAGE_HANDLER;
-		}
-		
-		/****************************************/
-		// Class Details
-		/****************************************/
-
 		private var _eventManager:EventManager;
 
 		/**

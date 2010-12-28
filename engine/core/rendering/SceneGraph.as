@@ -12,12 +12,6 @@ package core.rendering
 	[Singleton]
 	public class SceneGraph extends BaseObject 
 	{
-		public static function get scope():int { return SINGLETON_OBJECT; }
-		
-		/****************************************/
-		// Class Details
-		/****************************************/
-
 		private var _gameObjects:Dictionary = new Dictionary(true);
 		
 		/**
@@ -140,7 +134,7 @@ package core.rendering
 			{
 				if ( gameObj.enabled == true )
 				{
-					var renderable:RenderComponent = gameObj.getComponent(RENDER_COMPONENT);
+					var renderable:RenderComponent = gameObj.getComponent(RenderComponent);
 					if ( renderable != null )
 					{
 						renderables.push(renderable);
