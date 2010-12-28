@@ -48,11 +48,11 @@
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
-			_window = MemoryManager.instantiate(Window, [Backbuffer]);
+			_window = MemoryManager.instantiate(Window);
 			_window.displayContext = this;
 			
 			// Create a rendering system
-			_renderer = MemoryManager.instantiate(Renderer, Renderer.dependencies);
+			_renderer = MemoryManager.instantiate(Renderer);
 			
 			// Create the event manager
 			_eventManager = MemoryManager.instantiate(EventManager);
@@ -62,15 +62,15 @@
 			
 			// Create a network layer
 			_networkObject = MemoryManager.instantiate(NetworkObject);			
-			_networkObject.addComponent(ConnectionHandler, [EventManager]);
-			_networkObject.addComponent(LoginHandler, [EventManager]);
-			_networkObject.addComponent(RoomHandler, [EventManager]);
-			_networkObject.addComponent(ChatMessageHandler, [EventManager]);
-			_networkObject.addComponent(MessageHandler, [EventManager]);
+			_networkObject.addComponent(ConnectionHandler);
+			_networkObject.addComponent(LoginHandler);
+			_networkObject.addComponent(RoomHandler);
+			_networkObject.addComponent(ChatMessageHandler);
+			_networkObject.addComponent(MessageHandler);
 
 			// Create an example network driver
-			_networkDriver = MemoryManager.instantiate( NetworkDriver, [EventManager] );
-			//_chatExample = MemoryManager.instantiate( ChatExample, [EventManager] );
+			_networkDriver = MemoryManager.instantiate( NetworkDriver);
+			//_chatExample = MemoryManager.instantiate( ChatExample );
 
 			// Fire a network connection event
 			_eventManager.fireEvent("NETWORK_CONNECT");

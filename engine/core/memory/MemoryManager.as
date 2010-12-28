@@ -1,7 +1,10 @@
 package core.memory 
 {
+	import as3reflect.Type;
 	import core.objects.BaseObject;
 	import flash.utils.Dictionary;
+	import flash.utils.getDefinitionByName;
+	import flash.utils.getQualifiedClassName;
 	
 	/**
 	 * MemoryManager
@@ -17,39 +20,37 @@ package core.memory
 		// Create the object lists
 		private static var _baseObjects:Dictionary = new Dictionary(true);
 		private static var _singletonList:Dictionary = new Dictionary(true);
-		private static var _objectCounters:Dictionary = new Dictionary(true);
 		
+		// Create the class parser
 		private static var _classParser:DIClassParser = new DIClassParser();
 		
 		/**
 		* Instantiate an object
 		* @param type (Class) The type of object to create
 		*/
-		public static function instantiate( type:Class, dependencies:Array = null, owner:* = null ):*
+		public static function instantiate( type:Class, owner:* = null ):*
 		{
 			var classDetails:DIClassDetails = _classParser.loadClass( type );
 			
 			// Declare the object variable
-			var obj:* = getObject(type);
+			var obj:* = createObject(classDetails);
 			
-			if ( dependencies != null && dependencies.length > 0 )
+			if ( classDetails.dependencies != null && classDetails.dependencies.length > 0 )
 			{
 				// Create the dependencies
 				var depMap:Dictionary = new Dictionary(true);
 				
 				// Loop through all the dependencies
-				for each ( var dep:Class in dependencies ) 
+				for ( var key:String in classDetails.getDependencyClass() ) 
 				{
+					var tempClass:Class = getDefinitionByName(getQualifiedClassName(key)) as Class;
 					// Add the deps to a dictionary
-					depMap[dep] = instantiate(dep, ( dep.prototype.hasOwnProperty("dependencies") ? dep.dependencies : null ));
+					depMap[tempClass] = instantiate(tempClass);
 				}
 				
 				// Inject the dependencies
 				obj.setDependencies(depMap);
 			}
-			
-			// Increase the debugging counter
-			incrementCounter(type);
 
 			// Add the owner if there is one
 			if ( owner ) {
@@ -72,17 +73,8 @@ package core.memory
 		 */
 		public static function destroy( obj:* ): void 
 		{
-			// Check to see if its a singleton
-			if ( (Object( obj ).constructor as Class).scope == BaseObject.SINGLETON_OBJECT )  
-			{
-				trace("Can't delete a singleton");
-				return;
-			}
-
-			// Reduce the debugging counter
-			decrementCounter( Object( obj ).constructor as Class );
-
 			// Let the object run its own destroy methods
+			obj.engine_stop();
 			obj.engine_destroy();
 			
 			// Remove the object from the list
@@ -90,38 +82,28 @@ package core.memory
 		}
 		
 		/**
-		 * Get the object counter
-		 * @param type (Class) The class type
-		 * @return int 
-		 */
-		public static function getObjectCount(type:Class):int
-		{
-			return _objectCounters[type];
-		}		
-		
-		/**
-		 * Get object helper function
+		 * Create the object helper function
 		 * @param type (Class) Type of object to get
 		 * @return object
 		 */
-		private static function getObject(type:Class):* 
+		private static function createObject(type:DIClassDetails):* 
 		{
 			var obj:*;
 			
-			if ( type.scope == BaseObject.SINGLETON_OBJECT ) 
+			if ( type.singleton ) 
 			{ 
 				// if there isn't an instance of the singleton
-				if ( _singletonList[type] == null ) 
+				if ( _singletonList[type.className] == null ) 
 				{
 					// Create the singleton
-					_singletonList[type] = new type();
+					_singletonList[type.className] = new type.className;
 					
 					// Add it to the base objects list
-					_baseObjects[_singletonList[type]] = _singletonList[type];
+					_baseObjects[ _singletonList[type.className] ] = _singletonList[type.className];
 				}
 				
 				// Set the object
-				obj = _singletonList[type];
+				obj = _singletonList[type.className];
 				
 				// Return the object
 				return obj;
@@ -129,50 +111,12 @@ package core.memory
 			else
 			{
 				// Create the object
-				obj = new type();
+				obj = new type.className;
 				
 				// Add the object to the base objects list
 				_baseObjects[obj] = obj;
 				
 				return obj;
-			}
-		}
-		
-		/**
-		 * Debugging Helper Function
-		 * @param type (BaseObject) The created object
-		 */
-		private static function incrementCounter(type:Class):void
-		{
-			if ( type.scope == BaseObject.SINGLETON_OBJECT ) 
-			{
-				_objectCounters[type] = 1;
-				return;
-			}
-			
-			if ( ! _objectCounters[type] ) 
-			{
-				_objectCounters[type] = 0;
-			}
-			
-			_objectCounters[type]++;
-		}
-		
-		/**
-		 * Debugging Helper Function
-		 * @param type (BaseObject) The destroyed object
-		 */
-		private static function decrementCounter(type:Class):void
-		{
-			if ( type.scope == BaseObject.SINGLETON_OBJECT ) 
-			{
-				return;
-			}
-			
-			_objectCounters[type]--;
-			if ( _objectCounters[type] < 0 )
-			{
-				_objectCounters[type] == 0;
 			}
 		}
 	}

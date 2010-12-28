@@ -12,24 +12,6 @@ package components
 	[ComponentType (SoundComponent)]
 	public class SoundComponent extends BaseObject
 	{
-		
-		/**
-		 * Get the dependencies to instantiate the class
-		 */
-		public static function get dependencies():Array { return []; }
-		
-		/****************************************/
-		// Type definition
-		/****************************************/
-		public override final function getType():String 
-		{
-			return SOUND_COMPONENT;
-		}				
-		
-		/****************************************/
-		// Class Details
-		/****************************************/
-		
 		private var _sound:Sound;
 		
 		/** 

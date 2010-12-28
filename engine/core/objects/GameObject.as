@@ -149,11 +149,11 @@ package core.objects
 		 */
 		public function get position():Point3d 
 		{ 
-			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			if ( getComponent(TransformComponent) == null ) 
 			{
 				return null;
 			}
-			return getComponent( TRANSFORM_COMPONENT).position; 
+			return getComponent(TransformComponent).position; 
 		}
 
 		/**
@@ -162,11 +162,11 @@ package core.objects
 		 */
 		public function set position( value:Point3d ):void 
 		{ 
-			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			if ( getComponent(TransformComponent) == null ) 
 			{
 				return;
 			}
-			getComponent( TRANSFORM_COMPONENT).position = value; 
+			getComponent(TransformComponent).position = value; 
 		}
 		
 		/**
@@ -174,11 +174,11 @@ package core.objects
 		 */
 		public function get scale():Point3d 
 		{ 
-			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			if ( getComponent(TransformComponent) == null ) 
 			{
 				return null;
 			}
-			return getComponent( TRANSFORM_COMPONENT).scale; 
+			return getComponent(TransformComponent).scale; 
 		}
 
 		/**
@@ -186,11 +186,11 @@ package core.objects
 		 */
 		public function set scale( value:Point3d ):void 
 		{ 
-			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			if ( getComponent(TransformComponent) == null ) 
 			{
 				return;
 			}
-			getComponent( TRANSFORM_COMPONENT).scale = value; 
+			getComponent(TransformComponent).scale = value; 
 		}
 		
 		/**
@@ -198,11 +198,11 @@ package core.objects
 		 */		
 		public function get rotation():Number 
 		{ 
-			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			if ( getComponent(TransformComponent) == null ) 
 			{
 				return -1;
 			}
-			return getComponent( TRANSFORM_COMPONENT).rotate; 
+			return getComponent(TransformComponent).rotate; 
 		}
 		
 		/**
@@ -210,11 +210,11 @@ package core.objects
 		 */
 		public function set rotation( value:Number):void 
 		{ 
-			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			if ( getComponent(TransformComponent) == null ) 
 			{
 				return;
 			}
-			getComponent( TRANSFORM_COMPONENT).rotation = value; 
+			getComponent(TransformComponent).rotation = value; 
 		}
 		
 		/**
@@ -222,11 +222,11 @@ package core.objects
 		 */
 		public function get dimensions():Point 
 		{ 
-			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			if ( getComponent(TransformComponent) == null ) 
 			{
 				return null;
 			}
-			return getComponent( TRANSFORM_COMPONENT).dimensions; 
+			return getComponent(TransformComponent).dimensions; 
 		}
 		
 		/**
@@ -234,11 +234,11 @@ package core.objects
 		 */
 		public function set dimensions( value:Point ):void 
 		{ 
-			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			if ( getComponent(TransformComponent) == null ) 
 			{
 				return;
 			}
-			getComponent( TRANSFORM_COMPONENT).dimensions = value; 
+			getComponent(TransformComponent).dimensions = value; 
 		}
 		
 		/**
@@ -247,11 +247,11 @@ package core.objects
 		 */		
 		public function get worldPosition():Point3d 
 		{ 
-			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			if ( getComponent(TransformComponent) == null ) 
 			{
 				return null;
 			}
-			return getComponent( TRANSFORM_COMPONENT).worldPosition; 
+			return getComponent(TransformComponent).worldPosition; 
 		}
 		
 		/**
@@ -260,11 +260,11 @@ package core.objects
 		 */		
 		public function get worldScale():Point3d 
 		{ 
-			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			if ( getComponent(TransformComponent) == null ) 
 			{
 				return null;
 			}
-			return getComponent( TRANSFORM_COMPONENT).worldScale; 
+			return getComponent(TransformComponent).worldScale; 
 		}
 		
 		/**
@@ -273,11 +273,11 @@ package core.objects
 		 */
 		public function get worldRotation():Number 
 		{ 
-			if ( getComponent( TRANSFORM_COMPONENT) == null ) 
+			if ( getComponent(TransformComponent) == null ) 
 			{
 				return -1;
 			}
-			return getComponent( TRANSFORM_COMPONENT).worldRotate; 
+			return getComponent(TransformComponent).worldRotate; 
 		}
 	}
 }

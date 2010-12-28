@@ -9,11 +9,6 @@ package core.rendering
 	[Requires ("core.rendering.Backbuffer")]
 	public class Window extends BaseObject
 	{
-		/**
-		 * Return the class scope
-		 */
-		public static function get scope():int { return SINGLETON_OBJECT };
-		
 		private var _displayContext:DisplayObjectContainer;
 		private var _backBuffer:Backbuffer;
 		

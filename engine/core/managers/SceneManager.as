@@ -11,15 +11,6 @@ package core.managers
 	public final class SceneManager extends BaseObject
 	{
 		/**
-		 * Return the class scope
-		 */
-		public static function get scope():int { return BaseObject.SINGLETON_OBJECT };
-		
-		/****************************************/
-		// Class Details
-		/****************************************/
-		
-		/**
 		 * The engine contructor
 		 * @private
 		 */
@@ -68,7 +59,7 @@ package core.managers
 		{
 			if ( _objectList[sceneClass] == null ) 
 			{
-				_objectList[sceneClass] = MemoryManager.instantiate(sceneClass, [SceneGraph]);
+				_objectList[sceneClass] = MemoryManager.instantiate(sceneClass);
 			}
 			
 			var sceneCount:int = _classStack.length;

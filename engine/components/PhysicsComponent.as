@@ -17,13 +17,6 @@ package components
 	[Requires ("core.physics.PhysicsWorld")]
 	public class PhysicsComponent extends BaseObject
 	{
-		/****************************************/
-		// Type definition
-		/****************************************/
-		public override final function getType():String 
-		{
-			return PHYSICS_COMPONENT; 
-		}		
 		
 		/****************************************/
 		// Class Details

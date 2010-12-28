@@ -8,22 +8,9 @@ package core.objects
 	import handlers.LoginHandler;
 	import handlers.RoomHandler;
 
+	[Singleton]
 	public final class NetworkObject extends ContainerObject
 	{
-		/****************************************/
-		// Dependency Information
-		/****************************************/
-
-		/**
-		 * Return the class scope
-		 */
-		public static function get scope():int { return SINGLETON_OBJECT };
-		
-		
-		/****************************************/
-		// Class Details
-		/****************************************/
-		
 		private var _sfs:SmartFox = new SmartFox(true);
 		
 		/**

@@ -26,8 +26,8 @@ package core.physics
 			var gameObj1:GameObject = obj1.GetUserData();
 			var gameObj2:GameObject = obj2.GetUserData();
 
-			var script1:ScriptComponent = gameObj1.getComponent( BaseObject.SCRIPT_COMPONENT );
-			var script2:ScriptComponent = gameObj2.getComponent( BaseObject.SCRIPT_COMPONENT );
+			var script1:ScriptComponent = gameObj1.getComponent( ScriptComponent );
+			var script2:ScriptComponent = gameObj2.getComponent( ScriptComponent );
 			
 			if ( script1 != null ) {
 				script1.onBeginContact( gameObj2 );
@@ -51,8 +51,8 @@ package core.physics
 			var gameObj1:GameObject = obj1.GetUserData();
 			var gameObj2:GameObject = obj2.GetUserData();
 
-			var script1:ScriptComponent = gameObj1.getComponent( BaseObject.SCRIPT_COMPONENT );
-			var script2:ScriptComponent = gameObj2.getComponent( BaseObject.SCRIPT_COMPONENT );
+			var script1:ScriptComponent = gameObj1.getComponent( ScriptComponent );
+			var script2:ScriptComponent = gameObj2.getComponent( ScriptComponent );
 			
 			if ( script1 != null ) {
 				script1.onEndContact( gameObj2 );

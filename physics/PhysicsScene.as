@@ -1,5 +1,7 @@
 package  
 {
+	import components.PhysicsComponent;
+	import components.RenderComponent;
 	import core.objects.BaseObject;
 	import core.objects.GameObject;
 	import core.objects.SceneObject;
@@ -51,13 +53,13 @@ package
 			
 				if (Math.random() < 0.5) 
 				{
-					geom.getComponent(BaseObject.RENDER_COMPONENT).createBox(width, height);
-					geom.getComponent(BaseObject.PHYSICS_COMPONENT).createBox(x, y, width, height);
+					geom.getComponent(RenderComponent).createBox(width, height);
+					geom.getComponent(PhysicsComponent).createBox(x, y, width, height);
 				} 
 				else
 				{
-					geom.getComponent(BaseObject.RENDER_COMPONENT).createCircle(width);
-					geom.getComponent(BaseObject.PHYSICS_COMPONENT).createCircle(x,y, width);
+					geom.getComponent(RenderComponent).createCircle(width);
+					geom.getComponent(PhysicsComponent).createCircle(x,y, width);
 				}
 			
 				// Add the to the scene

@@ -13,20 +13,6 @@ package handlers
 	[Requires ("core.managers.EventManager")]
 	public class LoginHandler extends BaseObject
 	{
-		
-		/****************************************/
-		// Type definition
-		/****************************************/
-		
-		public override function getType():String 
-		{
-			return LOGIN_HANDLER;
-		}
-		
-		/****************************************/
-		// Class details
-		/****************************************/
-
 		private var _eventManager:EventManager;
 
 		/**

@@ -18,24 +18,6 @@ package handlers
 	[Requires ("core.managers.EventManager")]
 	public class MessageHandler extends BaseObject
 	{
-		/**
-		 * Get the dependencies to instantiate the class
-		 */
-		public static function get dependencies():Array { return [EventManager]; }
-		
-		/****************************************/
-		// Type definition
-		/****************************************/
-		
-		public override function getType():String 
-		{
-			return MESSAGE_HANDLER;
-		}
-
-		/****************************************/
-		// Class Details
-		/****************************************/
-
 		private var _eventManager:EventManager;
 		
 		/**

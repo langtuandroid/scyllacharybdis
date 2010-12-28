@@ -6,14 +6,6 @@ package core.managers
 	[Singleton]
 	public final class EventManager extends BaseObject
 	{
-		/**
-		 * Return the class scope
-		 */
-		public static function get scope():int { return SINGLETON_OBJECT };
-		
-		/****************************************/
-		// Class Details
-		/****************************************/
 
 		// A 2d dictornary of events and listeners
 		private var _listeners:Dictionary = new Dictionary(true);

@@ -128,7 +128,7 @@ package core.memory
 			for each ( var value:String in dict ) 
 			{
 				var tempDetails:DIClassDetails = loadClass( getDefinitionByName(getQualifiedClassName(value)) as Class );
-				loadedClasses[tempDetails] = tempDetails;
+				loadedClasses[tempDetails.className] = tempDetails;
 			}
 			details.dependencies = loadedClasses;
 		}		

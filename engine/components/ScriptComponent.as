@@ -18,18 +18,6 @@ package components
 	[ComponentType (ScriptComponent)]
 	public class ScriptComponent extends BaseObject
 	{
-		/****************************************/
-		// Type definition
-		/****************************************/
-		public override final function getType():String 
-		{
-			return SCRIPT_COMPONENT; 
-		}		
-		
-		/****************************************/
-		// Class Details
-		/****************************************/
-		
 		private var _updateTimer:Timer = new Timer(1/30 * 1000, 0); 
 
 		/** 
