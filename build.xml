@@ -23,6 +23,7 @@
         <compc output="${DEPLOY_DIR}/SC.swc" append="true">
             <source-path path-element="${basedir}/engine"/>
             <include-sources dir="${basedir}/engine/events" includes="*.as"/>
+            <include-sources dir="${basedir}/engine/core/memory" includes="*.as"/>
             <include-sources dir="${basedir}/engine/core/managers" includes="*.as"/>
             <include-sources dir="${basedir}/engine/core/materials" includes="*.as"/>
             <include-sources dir="${basedir}/engine/core/objects" includes="*.as"/>
@@ -37,15 +38,23 @@
         </compc>
     </target>
 
-    <target name="main" depends="clean,casalib,Box2D,sc,docs">
+    <target name="main" depends="sc,docs">
     </target>
 
+    <target name="full" depends="clean,casalib,Box2D,sc,docs">
+    </target>
 
     <target name="docs">
 	<exec executable="${asdoc.exe}" failonerror="true">
             <arg line="-doc-sources 
 		${basedir}/engine/events/ 
 		${basedir}/engine/core/ 
+        ${basedir}/engine/core/memory/
+        ${basedir}/engine/core/managers/
+        ${basedir}/engine/core/materials/
+        ${basedir}/engine/core/objects/
+        ${basedir}/engine/core/physics/
+        ${basedir}/engine/core/rendering/
 		${basedir}/engine/components/
 		${basedir}/engine/handlers/
 		${basedir}/engine/models/
