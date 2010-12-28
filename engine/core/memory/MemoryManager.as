@@ -28,7 +28,6 @@ package core.memory
 		public static function instantiate( type:Class, dependencies:Array = null, owner:* = null ):*
 		{
 			var classDetails:DIClassDetails = _classParser.loadClass( type );
-			_classParser.print( type );
 			
 			// Declare the object variable
 			var obj:* = getObject(type);
