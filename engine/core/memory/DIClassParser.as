@@ -16,6 +16,7 @@ package core.memory
 		
 		public function loadClass( className:Class ):DIClassDetails
 		{
+			trace("loadClass: " + className );
 			if ( _classes[className] != null ) 
 			{
 				return _classes[className];
@@ -49,8 +50,8 @@ package core.memory
 					for each ( var com:XML in value.arg ) 
 					{
 						var comName:String = com.attribute("value");
-						var compType:Class = getQualifiedClassName( comName ) as Class;
-						_classes[className].componentType  = compType;
+						//var compType:Class = getQualifiedClassName( comName ) as Class;
+						_classes[className].componentType  = comName;
 					}
 				}
 				
@@ -61,8 +62,8 @@ package core.memory
 					{
 						var reqName:String = req.attribute("value");
 						//trace("qualified: " + getDefinitionByName(getQualifiedClassName(reqName)));
-						var depClass:Class = getDefinitionByName(reqName) as Class;
-						_classes[className].addDependency(depClass);
+						//var depClass:Class = getDefinitionByName(reqName) as Class;
+						_classes[className].addDependency(reqName);
 					}
 				}				
 			}
@@ -73,11 +74,13 @@ package core.memory
 		
 		private function parseAncestor( className:Class, details:DIClassDetails ):void 
 		{
+			trace("parseAncestors: " + className );
 			// Get its parent
 			className = getDefinitionByName(getQualifiedSuperclassName(className)) as Class;
 			
 			if ( className == null || className == Object || className == String || className == EventDispatcher || className == BaseObject ) 
 			{
+				//trace("Done parsing ancestors")
 				return;
 			}
 			trace("Parse " + details.className + " Ancestor " + className );
@@ -99,9 +102,9 @@ package core.memory
 				{
 					for each ( var com:XML in value.arg ) 
 					{
-						var comName:String = com.attribute("value");
-						trace("Com Name: " + comName );
-						details.componentType = getQualifiedClassName( comName ) as Class;
+						details.componentType = com.attribute("value");
+						//trace("Com Name: " + comName );
+						//details.componentType = getQualifiedClassName( comName ) as Class;
 					}
 				}
 				
@@ -111,8 +114,8 @@ package core.memory
 					for each ( var req:XML in value.arg ) 
 					{
 						var reqName:String = req.attribute("value");
-						var depClass:Class = getDefinitionByName(getQualifiedClassName(reqName)) as Class;
-						details.addDependency(depClass);
+						//var depClass:Class = getDefinitionByName(getQualifiedClassName(reqName)) as Class;
+						details.addDependency(reqName);
 					}
 				}				
 			}

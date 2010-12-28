@@ -1,5 +1,6 @@
 package core.objects
 {
+	import core.memory.DIClassDetails;
 	import core.memory.MemoryManager;
 	import flash.events.EventDispatcher;
 	import flash.utils.Dictionary;
@@ -15,6 +16,7 @@ package core.objects
 		// Variables
 		/****************************************/		
 		private var _dependencies:Dictionary = new Dictionary(true);
+		private var _classDetails:DIClassDetails;
 		private var _owner:* = null;
 
 		private var _awake:Boolean = false;
@@ -28,6 +30,10 @@ package core.objects
 		public function start():void {}
 		public function stop():void {}
 		public function destroy():void {}
+		
+		/****************************************/
+		// Engine Construtor and Destructor
+		/****************************************/		
 		
 		/**
 		 * Awake is called at the construction of the object
@@ -91,12 +97,54 @@ package core.objects
 			
 			_dependencies = null;
 		} 
+
+		/****************************************/
+		// Interface calls
+		/****************************************/		
+		
 		/**
 		 * Get the dependency
 		 */
 		public final function getDependency( type:Class ):*
 		{
 			return _dependencies[type];
+		}
+
+		/**
+		 * Get the component type
+		 */
+		public final function getComponentType():String
+		{
+			return _classDetails.componentType;
+		}
+
+		/**
+		 * Get the ownering Game Object
+		 */
+		public final function get owner():* { return _owner; }		
+				
+		/****************************************/
+		// DI methods
+		/****************************************/		
+
+		/**
+		 * Get the class details
+		 * @return
+		 * @private
+		 */
+		public final function getClassDetails():DIClassDetails
+		{
+			return _classDetails;
+		}
+		
+		/**
+		 * Set the class details
+		 * @param	value
+		 * @private
+		 */
+		public final function setClassDetails(value:DIClassDetails):void
+		{
+			_classDetails = value;
 		}
 		
 		/**
@@ -132,14 +180,10 @@ package core.objects
 		 * @private
 		 */
 		public function set started(value:Boolean):void  {_started = value;}
-		
-		/**
-		 * Get the ownering Game Object
-		 */
-		public function get owner():* { return _owner; }
 
 		/**
 		 * Set the ownering Game Object
+		 * @private
 		 */
 		public function set owner( value:* ):void { _owner = value; }		
 	}

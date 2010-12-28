@@ -1,6 +1,7 @@
 package core.memory 
 {
 	import flash.utils.Dictionary;
+	
 	/**
 	 * ...
 	 * @author 
@@ -9,9 +10,10 @@ package core.memory
 	{
 		private var _className:Class = null;
 		private var _singleton:Boolean = false;
-		private var _componentType:Class = null;
+		private var _componentType:String = null;
 		private var _dependencies:Dictionary = new Dictionary();
-
+		private var _depCounter:int = 0;
+		
 		public function get className():Class { return _className; }
 		
 		public function set className(value:Class):void 
@@ -26,21 +28,30 @@ package core.memory
 			_singleton = value;
 		}
 		
-		public function get componentType():Class { return _componentType; }
+		public function get componentType():String { return _componentType; }
 		
-		public function set componentType(value:Class):void 
+		public function set componentType(value:String):void 
 		{
 			_componentType = value;
 		}
 		
-		public function addDependency( value:Class ):void
+		public function addDependency( value:String ):void
 		{
+			if ( _dependencies[value] != null ) {
+				return;
+			}
+			_depCounter++;
 			_dependencies[value] = value;
 		}
 		
 		public function getDependencies():Dictionary
 		{
 			return _dependencies;
+		}
+		
+		public function getDependencyCount():int
+		{
+			return _depCounter;
 		}
 	}
 }
