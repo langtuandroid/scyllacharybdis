@@ -16,10 +16,6 @@ package core.memory
 		
 		public function loadClass( className:Class ):DIClassDetails
 		{
-			trace("*******************************");
-			trace("Loading class: " + className );
-			trace("*******************************");
-			trace();
 			if ( _classes[className] != null ) 
 			{
 				return _classes[className];
@@ -27,34 +23,6 @@ package core.memory
 			
 	
 			return populateClassDetails( className );
-			trace("Done Loading class: " + className );
-			trace("*******************************");
-			trace();
-		}
-		
-		public function print(className:Class):void
-		{
-			var details:DIClassDetails = _classes[className];
-
-			trace ( "Class Name: " + details.className );
-			trace ( "Component Type: " + details.componentType );
-			trace ( "Singleton: " + details.singleton );
-			
-			var dict:Dictionary = details.getDependencyClass();
-			for each ( var value:String in dict ) 
-			{
-				trace(value.toString());
-			}
-			
-/*
-		for ( var key:String in details.dependencies )
-			{
-				trace(key);
-				trace ( "Dep Name: " + details.dependencies[key].className );
-				trace ( "Dep Type: " + details.dependencies[key].componentType );
-				trace ( "Dep Singleton: " + details.dependencies[key].singleton );
-			}
-*/
 		}
 		
 		private function populateClassDetails( className:Class ):DIClassDetails 
@@ -92,16 +60,15 @@ package core.memory
 					for each ( var req:XML in value.arg ) 
 					{
 						var reqName:String = req.attribute("value");
-						trace("reqName: " + reqName );
 						//trace("qualified: " + getDefinitionByName(getQualifiedClassName(reqName)));
-						trace("qualified: " + getDefinitionByName(reqName));
 						var depClass:Class = getDefinitionByName(reqName) as Class;
-						trace("DepClass: " + depClass );
 						_classes[className]..addDependencyClass(depClass);
 					}
 				}				
 			}
 			parseAncestor( className, _classes[className] );
+			
+			populateDependencies( _classes[className] );
 
 			return _classes[className];
 		}
@@ -153,5 +120,17 @@ package core.memory
 			}
 			parseAncestor( className, details );
 		}
+		
+		private function populateDependencies(details:DIClassDetails):void 
+		{
+			var loadedClasses:Dictionary = new Dictionary();
+			var dict:Dictionary = details.getDependencyClass();
+			for each ( var value:String in dict ) 
+			{
+				var tempDetails:DIClassDetails = loadClass( getDefinitionByName(getQualifiedClassName(value)) as Class );
+				loadedClasses[tempDetails] = tempDetails;
+			}
+			details.dependencies = loadedClasses;
+		}		
 	}
 }
