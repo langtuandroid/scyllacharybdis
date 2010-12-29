@@ -10,7 +10,7 @@ package core.memory
 	{
 		private var _className:Class = null;
 		private var _singleton:Boolean = false;
-		private var _componentType:String = null;
+		private var _componentType:Class = null;
 		private var _dependencies:Dictionary = new Dictionary();
 		private var _depCounter:int = 0;
 		
@@ -28,9 +28,9 @@ package core.memory
 			_singleton = value;
 		}
 		
-		public function get componentType():String { return _componentType; }
+		public function get componentType():Class { return _componentType; }
 		
-		public function set componentType(value:String):void 
+		public function set componentType(value:Class):void 
 		{
 			_componentType = value;
 		}

@@ -14,8 +14,8 @@ package handlers
 
 	/**
 	 */
-	[ComponentType (MessageHandler)]
-	[Requires ("core.managers.EventManager")]
+	[ComponentType ("handlers.MessageHandler")]
+	[Requires ("core.events.EventManager")]
 	public class MessageHandler extends BaseObject
 	{
 		private var _eventManager:EventManager;

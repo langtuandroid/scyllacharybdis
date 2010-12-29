@@ -13,7 +13,7 @@ package components
 	/**
 	 * 
 	 */
-	[ComponentType (RenderComponent)]
+	[ComponentType ("components.RenderComponent")]
 	public class RenderComponent extends BaseObject
 	{
 
@@ -96,7 +96,7 @@ package components
 		public function get baseclip():MovieClip { return _baseclip; }
 		
 		// For sorting
-		public function get comparator():Number { return owner.getComponent( "TransformComponent" ).worldPosition.z }
+		public function get comparator():Number { return owner.getComponent(TransformComponent).worldPosition.z }
 
 		/**
 		 * Add the renderable to the surface
@@ -110,7 +110,7 @@ package components
 		
 		private final function addListeners():void
 		{
-			var scriptComponent:ScriptComponent = owner.getComponent("ScriptComponent");
+			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
 			
 			if ( scriptComponent != null )
 			{
@@ -131,7 +131,7 @@ package components
 
 		private final function removeListeners():void
 		{
-			var scriptComponent:ScriptComponent = owner.getComponent("ScriptComponent");
+			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
 			
 			if ( scriptComponent != null )
 			{

@@ -113,7 +113,7 @@ package core.objects
 		/**
 		 * Get the component type
 		 */
-		public final function getComponentType():String
+		public final function getComponentType():Class
 		{
 			return _classDetails.componentType;
 		}

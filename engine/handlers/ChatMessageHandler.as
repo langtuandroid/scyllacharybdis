@@ -12,8 +12,8 @@ package handlers
 
 	/**
 	*/
-	[ComponentType (ChatMessageHandler)]
-	[Requires ("core.managers.EventManager")]
+	[ComponentType ("handlers.ChatMessageHandler")]
+	[Requires ("core.events.EventManager")]
 	public class ChatMessageHandler extends BaseObject
 	{
 		private var _eventManager:EventManager;

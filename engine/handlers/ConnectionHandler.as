@@ -9,8 +9,8 @@ package handlers
 	
 	/**
 	 */
-	[ComponentType (ConnectionHandler)]
-	[Requires ("core.managers.EventManager")]
+	[ComponentType ("handlers.ConnectionHandler")]
+	[Requires ("core.events.EventManager")]
 	public class ConnectionHandler extends BaseObject
 	{
 		private var _eventManager:EventManager;
@@ -186,7 +186,6 @@ package handlers
 		private function connectionFailed(message:String):void
 		{
 			_connected = false;
-			trace("Connection Failure: " + message)
 			_eventManager.fireEvent("CONNECTION_FAILED", message);
 		}
 		
@@ -199,7 +198,6 @@ package handlers
 			if (evt.params.success)
 			{
 				connectionSuccess();
-				trace("Connection Success!")
 			}
 			else
 			{
@@ -222,7 +220,6 @@ package handlers
 		 */
 		private function onConfigLoadSuccess(evt:SFSEvent):void
 		{
-			trace("Config load success!")
 			trace("Server settings: "  + owner.sfs.config.host + ":" + owner.sfs.config.port)
 		}
 		

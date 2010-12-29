@@ -7,6 +7,7 @@ package core.memory
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
 	import flash.utils.getQualifiedSuperclassName;
+	import handlers.ConnectionHandler;
 	/**
 	 */
 	public class DIClassParser 
@@ -16,13 +17,10 @@ package core.memory
 		
 		public function loadClass( className:Class ):DIClassDetails
 		{
-			trace("loadClass: " + className );
 			if ( _classes[className] != null ) 
 			{
 				return _classes[className];
 			}
-			
-	
 			return populateClassDetails( className );
 		}
 		
@@ -50,8 +48,8 @@ package core.memory
 					for each ( var com:XML in value.arg ) 
 					{
 						var comName:String = com.attribute("value");
-						//var compType:Class = getQualifiedClassName( comName ) as Class;
-						_classes[className].componentType  = comName;
+						var comClass:Class = Class(getDefinitionByName(comName));
+						_classes[className].componentType  = comClass;
 					}
 				}
 				
@@ -74,7 +72,6 @@ package core.memory
 		
 		private function parseAncestor( className:Class, details:DIClassDetails ):void 
 		{
-			trace("parseAncestors: " + className );
 			// Get its parent
 			className = getDefinitionByName(getQualifiedSuperclassName(className)) as Class;
 			
@@ -83,7 +80,6 @@ package core.memory
 				//trace("Done parsing ancestors")
 				return;
 			}
-			trace("Parse " + details.className + " Ancestor " + className );
 			
 			// Get the calss description
 			var typeInfo:XML = describeType( className );
@@ -102,9 +98,9 @@ package core.memory
 				{
 					for each ( var com:XML in value.arg ) 
 					{
-						details.componentType = com.attribute("value");
-						//trace("Com Name: " + comName );
-						//details.componentType = getQualifiedClassName( comName ) as Class;
+						var comName:String = com.attribute("value");
+						var comClass:Class = Class(getDefinitionByName(comName));
+						details.componentType  = comClass;
 					}
 				}
 				
