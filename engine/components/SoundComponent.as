@@ -89,7 +89,7 @@ package components
 		 */
 		public function loadSound( value:String ):void 
 		{ 
-			_sound = new Sound( new URLRequest(value) ); 
+			_sound = new Sound( new URLRequest("sounds/" + value) ); 
 		}
 		
 		/**
