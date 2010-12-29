@@ -52,7 +52,8 @@ package core.materials
 		public function onLoaderComplete(event:Event):void
 		{   
 			var loader:Loader = Loader(event.target.loader);
-			_textureList[_queue.shift].setTextureData( Bitmap(loader.content) );
+			var fileName:String = _queue.shift();
+			_textureList[fileName].setTextureData( Bitmap(loader.content).bitmapData );
 			if ( _queue.length > 0 ) 
 			{
 				loadFile( _queue[0] );
