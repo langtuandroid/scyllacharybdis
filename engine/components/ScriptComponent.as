@@ -11,7 +11,7 @@ package components
 	import flash.events.TimerEvent;
 
 	import core.objects.BaseObject;
-	import core.managers.EventManager;
+	import core.events.EventManager;
 
 	/**
 	 */

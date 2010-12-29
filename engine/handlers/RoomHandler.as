@@ -12,7 +12,7 @@ package handlers
 
 	import core.objects.NetworkObject;
 	import core.objects.BaseObject;	
-	import core.managers.EventManager;
+	import core.events.EventManager;
 	import models.RoomModel;
 
 	/**

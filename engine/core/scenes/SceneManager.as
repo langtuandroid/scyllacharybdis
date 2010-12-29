@@ -1,4 +1,4 @@
-package core.managers
+package core.scenes
 {
 	import core.memory.MemoryManager;
 	import core.objects.BaseObject;

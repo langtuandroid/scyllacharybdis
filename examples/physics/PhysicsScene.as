@@ -9,7 +9,7 @@ package physics
 	import org.casalib.math.geom.Point3d;
 	import core.physics.PhysicsWorld;
 	import core.memory.MemoryManager;
-	import core.managers.EventManager;
+	import core.events.EventManager;
 	
 	/**
 	 */
@@ -54,11 +54,13 @@ package physics
 			
 				if (Math.random() < 0.5) 
 				{
+					trace("geom.getComponent(RenderComponent): " + geom.getComponent(RenderComponent));
 					geom.getComponent(RenderComponent).createBox(width, height);
 					geom.getComponent(PhysicsComponent).createBox(x, y, width, height);
 				} 
 				else
 				{
+					trace("geom.getComponent(RenderComponent): " + geom.getComponent(RenderComponent));
 					geom.getComponent(RenderComponent).createCircle(width);
 					geom.getComponent(PhysicsComponent).createCircle(x,y, width);
 				}

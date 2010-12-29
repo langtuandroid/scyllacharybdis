@@ -9,7 +9,7 @@ package components
 	import core.physics.PhysicsWorld;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
-	import core.managers.EventManager;
+	import core.events.EventManager;
 
 	/**
 	 */
