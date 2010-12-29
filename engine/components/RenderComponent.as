@@ -1,5 +1,6 @@
 package components
 {
+	import core.materials.Texture;
 	import flash.utils.Dictionary;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
@@ -18,6 +19,7 @@ package components
 	{
 
 		protected var _baseclip:MovieClip = null;
+		protected var _texture:Texture;
 		
 		/** 
 		 * Engine constructor

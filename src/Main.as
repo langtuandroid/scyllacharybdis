@@ -58,6 +58,8 @@
 			// Create the event manager
 			_eventManager = MemoryManager.instantiate(EventManager);
 			
+			_textureManager = MemoryManager.instantiate(TextureManager);
+			
 			// Create the scene manager
 			_sceneManager = MemoryManager.instantiate(SceneManager);
 			
