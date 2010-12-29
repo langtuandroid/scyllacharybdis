@@ -1,4 +1,4 @@
-package  
+package physics
 {
 	import components.RenderComponent;
 	import flash.display.MovieClip;

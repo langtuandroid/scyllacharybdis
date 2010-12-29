@@ -1,10 +1,11 @@
-package  
+package physics 
 {
 	import components.PhysicsComponent;
 	import components.RenderComponent;
 	import core.objects.BaseObject;
 	import core.objects.GameObject;
 	import core.objects.SceneObject;
+	import intro.SquareScriptComponent;
 	import org.casalib.math.geom.Point3d;
 	import core.physics.PhysicsWorld;
 	import core.memory.MemoryManager;

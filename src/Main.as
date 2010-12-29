@@ -17,11 +17,12 @@
 	import handlers.RoomHandler;
 	import handlers.MessageHandler;
 	import handlers.ChatMessageHandler;
-	import IntroScene;
-	import NetworkDriver;
-	import ChatExample;
+	import intro.IntroScene;
+	import intro.NetworkDriver;
+	import intro.ChatExample;
 	import org.casalib.math.geom.Point3d;
 	import core.materials.MaterialManager;
+	import physics.PhysicsScene;
 
 	
 	
