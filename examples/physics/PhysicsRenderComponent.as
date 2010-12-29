@@ -26,20 +26,20 @@ package physics
 		
 		public function createBox( x:int, y:int, color:Number = 0x123456):void
 		{
-			_texture = _square;
-			_baseclip.graphics
-			_baseclip.graphics.beginFill( color );
-			_baseclip.graphics.drawRect( 0, 0, x, y );
-			_baseclip.graphics.endFill();
+			texture = _square;
+			baseclip.graphics
+			baseclip.graphics.beginFill( color );
+			baseclip.graphics.drawRect( 0, 0, x, y );
+			baseclip.graphics.endFill();
 		}
 
 		public function createCircle( radius:int, color:Number = 0x123456):void
 		{
-			_texture = _circle;
-			_baseclip.graphics
-			_baseclip.graphics.beginFill( color );
-			_baseclip.graphics.drawCircle(0, 0, radius);
-			_baseclip.graphics.endFill();
+			texture = _circle;
+			baseclip.graphics
+			baseclip.graphics.beginFill( color );
+			baseclip.graphics.drawCircle(0, 0, radius);
+			baseclip.graphics.endFill();
 		}
 	}
 }

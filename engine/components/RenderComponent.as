@@ -8,7 +8,6 @@ package components
 	import flash.events.MouseEvent;
 	import org.casalib.math.geom.Point3d;
 	import core.rendering.Backbuffer;
-	
 	import core.objects.BaseObject;
 	
 	/**
@@ -18,8 +17,8 @@ package components
 	public class RenderComponent extends BaseObject
 	{
 
-		protected var _baseclip:MovieClip = null;
-		protected var _texture:Texture;
+		private var _baseclip:MovieClip = null;
+		private var _texture:Texture;
 		
 		/** 
 		 * Engine constructor
@@ -99,6 +98,13 @@ package components
 		
 		// For sorting
 		public function get comparator():Number { return owner.getComponent(TransformComponent).worldPosition.z }
+		
+		public function get texture():Texture { return _texture; }
+		
+		public function set texture(value:Texture):void 
+		{
+			_texture = value;
+		}
 
 		/**
 		 * Add the renderable to the surface
@@ -198,6 +204,5 @@ package components
 				}
 			}
 		}
-		
 	}
 }
