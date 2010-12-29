@@ -36,7 +36,13 @@ package core.memory
 			trace("creating object");
 			// Declare the object variable
 			var obj:* = createObject(classDetails);
+			if (!(obj is BaseObject )) 
+			{
+				trace(type + " is not a baseobject");
+				return new type();
+			}		
 			
+			obj.setClassDetails(classDetails);
 			var depList:Dictionary = classDetails.getDependencies();
 			
 			trace("checking for deps");

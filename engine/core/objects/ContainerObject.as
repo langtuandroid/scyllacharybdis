@@ -80,13 +80,13 @@ package core.objects
 			var component:* = MemoryManager.instantiate(componentType, this);
 
 			// Check to see if there is an old one
-			if ( _components[ component.getType() ] != null )
+			if ( _components[ component.getComponentType() ] != null )
 			{
 				// Remove the old component 
-				removeComponentByType( component.getType() );
+				removeComponentByType( component.getComponentType() );
 			}
 
-			_components[component.getType()] =  component;
+			_components[component.getComponentType()] =  component;
 
 			// Setup the component
 			//component.engine_start();
@@ -118,7 +118,7 @@ package core.objects
 			}
 
 			// Remove reference from the dictionary
-			delete _components[component.getType()];
+			delete _components[component.getComponentType()()];
 			
 			MemoryManager.destroy(component);
 		}

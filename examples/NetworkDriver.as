@@ -9,6 +9,7 @@ package
 	
 	/**
 	*/
+	[Requires ("core.managers.EventManager")]
 	public class NetworkDriver extends BaseObject
 	{
 		private var _eventManager:EventManager;
