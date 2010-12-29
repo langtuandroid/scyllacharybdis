@@ -17,8 +17,8 @@ package handlers
 
 	/**
 	*/
-	[ComponentType (RoomHandler)]
-	[Requires ("core.managers.EventManager")]
+	[ComponentType ("handlers.RoomHandler")]
+	[Requires ("core.events.EventManager")]
 	public class RoomHandler extends BaseObject
 	{
 		private var _eventManager:EventManager;

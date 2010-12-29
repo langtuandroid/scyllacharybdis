@@ -15,7 +15,7 @@ package components
 
 	/**
 	 */
-	[ComponentType (ScriptComponent)]
+	[ComponentType ("components.ScriptComponent")]
 	public class ScriptComponent extends BaseObject
 	{
 		private var _updateTimer:Timer = new Timer(1/30 * 1000, 0); 

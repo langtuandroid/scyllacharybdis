@@ -9,7 +9,7 @@ package components
 	/**
 	 * 
 	 */
-	[ComponentType (SoundComponent)]
+	[ComponentType ("components.SoundComponent")]
 	public class SoundComponent extends BaseObject
 	{
 		private var _sound:Sound;

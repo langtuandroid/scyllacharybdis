@@ -21,7 +21,6 @@ package physics
 		 */
 		public override function awake():void 
 		{
-			trace("Starting PhysicsScene");
 		}
 		
 		/**
@@ -30,9 +29,9 @@ package physics
 		public override function start():void
 		{
 			var _ground:GameObject = MemoryManager.instantiate( GameObject );
-			_ground.addComponent(SquareScriptComponent, [EventManager]);
+			_ground.addComponent(SquareScriptComponent);
 			_ground.addComponent(PhysicsRenderComponent);
-			_ground.addComponent(GroundPhysicsComponent, [PhysicsWorld]);
+			_ground.addComponent(GroundPhysicsComponent);
 					
 			// Add the to the scene
 			addToScene(_ground);
@@ -41,9 +40,9 @@ package physics
 			{
 				// Create a box
 				var geom:GameObject = MemoryManager.instantiate( GameObject );
-				geom.addComponent(SquareScriptComponent, [EventManager]);
+				geom.addComponent(SquareScriptComponent);
 				geom.addComponent(PhysicsRenderComponent);
-				geom.addComponent(BoxPhysicsComponent, [PhysicsWorld]);
+				geom.addComponent(BoxPhysicsComponent);
 
 				var x:int = Math.random() * 600 + 150;
 				var y:int = Math.random() * 300;
@@ -54,13 +53,11 @@ package physics
 			
 				if (Math.random() < 0.5) 
 				{
-					trace("geom.getComponent(RenderComponent): " + geom.getComponent(RenderComponent));
 					geom.getComponent(RenderComponent).createBox(width, height);
 					geom.getComponent(PhysicsComponent).createBox(x, y, width, height);
 				} 
 				else
 				{
-					trace("geom.getComponent(RenderComponent): " + geom.getComponent(RenderComponent));
 					geom.getComponent(RenderComponent).createCircle(width);
 					geom.getComponent(PhysicsComponent).createCircle(x,y, width);
 				}

@@ -30,40 +30,32 @@ package core.memory
 		*/
 		public static function instantiate( type:Class, owner:* = null ):*
 		{
-			trace( "instantiate: " + type );
 			var classDetails:DIClassDetails = _classParser.loadClass( type );
-			
-			trace("creating object");
+
 			// Declare the object variable
 			var obj:* = createObject(classDetails);
 			if (!(obj is BaseObject )) 
 			{
-				trace(type + " is not a baseobject");
 				return new type();
 			}		
 			
 			obj.setClassDetails(classDetails);
 			var depList:Dictionary = classDetails.getDependencies();
 			
-			trace("checking for deps");
 			if ( classDetails.getDependencies() != null && classDetails.getDependencyCount() > 0 )
 			{
 				// Create the dependencies
 				var depMap:Dictionary = new Dictionary(true);
 				
-				trace("looping through deps");
 				// Loop through all the dependencies
 				for ( var key:String in classDetails.getDependencies() ) 
 				{
-					trace( "Key: " + key );
 					// Get the class name
 					var tempClass:Class = getDefinitionByName(key) as Class;
 					
-					trace ( "dependencies: " + tempClass );
 					// Add the deps to a dictionary
 					depMap[tempClass] = instantiate(tempClass);
 				}
-				trace("done looping through deps");
 				
 				// Inject the dependencies
 				obj.setDependencies(depMap);

@@ -1,5 +1,8 @@
 package core.objects 
 {
+	import components.RenderComponent;
+	import components.ScriptComponent;
+	import components.SoundComponent;
 	import core.memory.MemoryManager;
 	import flash.utils.Dictionary;
 	/**
@@ -29,14 +32,14 @@ package core.objects
 		public override function engine_start():void
 		{
 			// Start up anything that has requirements
-			if ( _components["SoundComponent"] ) {
-				_components["SoundComponent"].engine_start();
+			if ( getComponent(SoundComponent) ) {
+				getComponent(SoundComponent).engine_start();
 			}
-			if ( _components["ScriptComponent"] ) {
-				_components["ScriptComponent"].engine_start();
+			if ( getComponent(ScriptComponent) ) {
+				getComponent(ScriptComponent).engine_start();
 			}
-			if ( _components["RenderComponent"] ) {
-				_components["RenderComponent"].engine_start();
+			if ( getComponent(RenderComponent) ) {
+				getComponent(RenderComponent).engine_start();
 			}
 
 			// Start everything else
@@ -74,11 +77,11 @@ package core.objects
 		 * Add a component to the game object
 		 * @param	component (Component)
 		 */
-		public final function addComponent( componentType:Class, dependencies:Array = null ):void 
+		public final function addComponent( componentType:Class ):void 
 		{
 			// Create the new component
 			var component:* = MemoryManager.instantiate(componentType, this);
-
+			
 			// Check to see if there is an old one
 			if ( _components[ component.getComponentType() ] != null )
 			{
@@ -118,7 +121,7 @@ package core.objects
 			}
 
 			// Remove reference from the dictionary
-			delete _components[component.getComponentType()()];
+			delete _components[component.getComponentType()];
 			
 			MemoryManager.destroy(component);
 		}

@@ -9,8 +9,8 @@
 	import flash.events.Event;
 	import core.rendering.Renderer;
 	import core.memory.MemoryManager;
-	import core.managers.EventManager;
-	import core.managers.SceneManager;
+	import core.events.EventManager;
+	import core.scenes.SceneManager;
 	import core.objects.NetworkObject;
 	import handlers.ConnectionHandler;
 	import handlers.LoginHandler;

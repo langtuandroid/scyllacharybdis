@@ -9,8 +9,8 @@ package handlers
 	
 	/**
 	 */
-	[ComponentType (LoginHandler)]
-	[Requires ("core.managers.EventManager")]
+	[ComponentType ("handlers.LoginHandler")]
+	[Requires ("core.events.EventManager")]
 	public class LoginHandler extends BaseObject
 	{
 		private var _eventManager:EventManager;
