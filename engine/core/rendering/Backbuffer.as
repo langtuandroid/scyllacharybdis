@@ -1,6 +1,7 @@
 package core.rendering 
 {
 	import components.RenderComponent;
+	import core.materials.Texture;
 	import core.objects.BaseObject;
 	import core.objects.GameObject;
 	import flash.display.DisplayObjectContainer;
@@ -90,9 +91,21 @@ package core.rendering
 		 */
 		public function draw(gameObj:GameObject):void 
 		{
-			var clip:MovieClip = gameObj.getComponent(RenderComponent).baseclip;
-			var bitmapData:BitmapData = new BitmapData(clip.width, clip.height, true, 0x555555FF);
-			bitmapData.draw(clip);
+			var bitmapData:BitmapData;
+			if ( gameObj.getComponent(RenderComponent).texture )
+			{
+				var texture:Texture = gameObj.getComponent(RenderComponent).texture;
+				if ( !texture.isLoaded() ) {
+					return;
+				}
+				bitmapData = texture.getTextureData();
+			} 
+			else 
+			{
+				var clip:MovieClip = gameObj.getComponent(RenderComponent).baseclip;
+				bitmapData = new BitmapData(clip.width, clip.height, true, 0x555555FF);
+				bitmapData.draw(clip);
+			}
 			_backBuffer.copyPixels(bitmapData, bitmapData.rect, new Point(gameObj.position.x, gameObj.position.y), null, null, true)
 		}
 		
