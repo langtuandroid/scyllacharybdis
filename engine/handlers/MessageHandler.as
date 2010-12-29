@@ -1,7 +1,7 @@
 package handlers
 {
 	import com.smartfoxserver.v2.requests.ExtensionRequest;
-	import core.managers.EventManager;
+	import core.events.EventManager;
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.SmartFox;
 	import com.smartfoxserver.v2.core.SFSEvent;
