@@ -1,4 +1,4 @@
-package  
+package intro 
 {
 	import components.ScriptComponent;
 	import components.SoundComponent;
