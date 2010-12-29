@@ -24,7 +24,8 @@
             <source-path path-element="${basedir}/engine"/>
             <include-sources dir="${basedir}/engine/events" includes="*.as"/>
             <include-sources dir="${basedir}/engine/core/memory" includes="*.as"/>
-            <include-sources dir="${basedir}/engine/core/managers" includes="*.as"/>
+            <include-sources dir="${basedir}/engine/core/events" includes="*.as"/>
+            <include-sources dir="${basedir}/engine/core/scenes" includes="*.as"/>
             <include-sources dir="${basedir}/engine/core/materials" includes="*.as"/>
             <include-sources dir="${basedir}/engine/core/objects" includes="*.as"/>
             <include-sources dir="${basedir}/engine/core/physics" includes="*.as"/>
@@ -49,12 +50,13 @@
             <arg line="-doc-sources 
 		${basedir}/engine/events/ 
 		${basedir}/engine/core/ 
-        ${basedir}/engine/core/memory/
-        ${basedir}/engine/core/managers/
-        ${basedir}/engine/core/materials/
-        ${basedir}/engine/core/objects/
-        ${basedir}/engine/core/physics/
-        ${basedir}/engine/core/rendering/
+	        ${basedir}/engine/core/memory/
+        	${basedir}/engine/core/events/
+        	${basedir}/engine/core/scenes/
+	        ${basedir}/engine/core/materials/
+	        ${basedir}/engine/core/objects/
+        	${basedir}/engine/core/physics/
+	        ${basedir}/engine/core/rendering/
 		${basedir}/engine/components/
 		${basedir}/engine/handlers/
 		${basedir}/engine/models/
