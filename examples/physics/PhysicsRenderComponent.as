@@ -9,7 +9,7 @@ package physics
 	
 	/**
 	 */
-	[Requires ("core.materials.TextureManager")]
+	[Requires ("core.sprites.TextureManager")]
 	public class PhysicsRenderComponent extends RenderComponent
 	{
 		private var _textureManager:TextureManager;
