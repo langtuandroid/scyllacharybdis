@@ -1,7 +1,7 @@
 package core.rendering 
 {
 	import components.RenderComponent;
-	import core.materials.Texture;
+	import core.sprites.Texture;
 	import core.objects.BaseObject;
 	import core.objects.GameObject;
 	import flash.display.DisplayObjectContainer;

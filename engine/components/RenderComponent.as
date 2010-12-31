@@ -1,6 +1,6 @@
 package components
 {
-	import core.materials.Texture;
+	import core.sprites.Texture;
 	import flash.utils.Dictionary;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;

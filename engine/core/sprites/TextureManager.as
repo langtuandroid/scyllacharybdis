@@ -1,7 +1,7 @@
-package core.materials 
+package core.sprites 
 {
 	import core.objects.BaseObject;
-	import core.materials.Texture;
+	import core.sprites.Texture;
 	import flash.display.Bitmap;
 	import flash.display.Loader;
 	import flash.events.Event;
