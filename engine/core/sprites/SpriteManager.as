@@ -25,6 +25,12 @@ package core.sprites
 			super.awake();
 		}
 		
+		/**
+		 * Load the sprite from the xml file
+		 * @param	fileName
+		 * @param	spriteName
+		 * @return
+		 */
 		public function loadSprite( fileName:String, spriteName:String ):Sprite
 		{
 			// Check to see if we have already loaded the sprite
