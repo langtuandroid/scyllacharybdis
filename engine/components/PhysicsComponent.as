@@ -96,8 +96,8 @@ package components
 		
 		/**
 		 * Create the body of the object. The body is the whole object.
-		 * @param	x (int) X position in pixels
-		 * @param	y (int) Y position in pixels
+		 * @param	x (int) width in pixels
+		 * @param	y (int) height in pixels
 		 * @param dynamtic (Boolean) Is the object dynamtic
 		 */
 		public function createBody(x:int, y:int, dynamtic:Boolean):void
