@@ -1,8 +1,8 @@
 package physics
 {
 	import components.RenderComponent;
-	import core.materials.Texture;
-	import core.materials.TextureManager;
+	import core.sprites.Texture;
+	import core.sprites.TextureManager;
 	import core.memory.MemoryManager;
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;

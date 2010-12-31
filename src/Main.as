@@ -1,7 +1,7 @@
 ﻿package 
 {
 	import Box2D.Common.Math.b2Vec2;
-	import core.materials.TextureManager;
+	import core.sprites.TextureManager;
 	import core.physics.PhysicsWorld;
 	import core.rendering.Backbuffer;
 	import core.rendering.Window;
@@ -21,7 +21,7 @@
 	import intro.NetworkDriver;
 	import intro.ChatExample;
 	import org.casalib.math.geom.Point3d;
-	import core.materials.MaterialManager;
+	import core.sprites.SpriteManager;
 	import physics.PhysicsScene;
 
 	
@@ -36,7 +36,7 @@
 		private var _networkDriver:NetworkDriver;
 		private var _chatExample:ChatExample;
 		private var _physicsWorld:PhysicsWorld;
-		private var _materialManager:MaterialManager;
+		private var _spriteManager:SpriteManager;
 		private var _textureManager:TextureManager;
 		
 		public function Main():void 

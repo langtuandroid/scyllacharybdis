@@ -1,4 +1,4 @@
-package core.materials 
+package core.sprites 
 {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
