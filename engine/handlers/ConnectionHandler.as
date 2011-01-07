@@ -1,5 +1,6 @@
 package handlers 
 {
+	import core.events.NetworkEvent;
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
 	
@@ -35,8 +36,9 @@ package handlers
 			
 			super.engine_awake();
 
-			_eventManager.registerListener("NETWORK_CONNECT", this, requestConnection );
-			_eventManager.registerListener("NETWORK_DISCONNECT", this, requestDisconnection );
+			_eventManager.addEventListener(NetworkEvent.NETWORK_CONNECT, this, requestConnection );
+			_eventManager.addEventListener(NetworkEvent.NETWORK_DISCONNECT, this, requestDisconnection );
+			
 		}
 		
 		/**
@@ -64,8 +66,8 @@ package handlers
 		 */
 		public final override function engine_destroy():void
 		{
-			_eventManager.unregisterListener("NETWORK_CONNECT", this, requestConnection );
-			_eventManager.unregisterListener("NETWORK_DISCONNECT", this, requestDisconnection );
+			_eventManager.removeEventListener(NetworkEvent.NETWORK_CONNECT, this, requestConnection );
+			_eventManager.removeEventListener(NetworkEvent.NETWORK_DISCONNECT, this, requestDisconnection );
 
 			super.engine_destroy();
 			

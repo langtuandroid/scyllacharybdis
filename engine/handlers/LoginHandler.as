@@ -4,7 +4,6 @@ package handlers
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
 	import com.smartfoxserver.v2.requests.LoginRequest;
-	import core.events.EventManager;
 	import models.LoginModel;
 	import core.objects.BaseObject;	
 	
@@ -27,6 +26,8 @@ package handlers
 		
 			_networkEventManager.addEventListener(SFSEvent.LOGIN_ERROR, this, onLoginError);
 			_networkEventManager.addEventListener(SFSEvent.LOGIN, this, onLogin);
+			_networkEventManager.addEventListener("NETWORK_LOGIN", this, requestLogin );
+			_networkEventManager.addEventListener("NETWORK_LOGOUT", this, requestLogout );
 			
 			super.engine_start();
 			
@@ -61,6 +62,8 @@ package handlers
 
 			_networkEventManager.removeEventListener(SFSEvent.LOGIN_ERROR, this, onLoginError);
 			_networkEventManager.removeEventListener(SFSEvent.LOGIN, this, onLogin);
+			_networkEventManager.removeEventListener("NETWORK_LOGIN", this, requestLogin );
+			_networkEventManager.removeEventListener("NETWORK_LOGOUT", this, requestLogout );
 		}
 		/**
 		 * The users constructor. 
@@ -95,11 +98,31 @@ package handlers
 		}
 		
 		/**
+		 * Request login handler
+		 * @param	login
+		 */
+		public function requestLogin( login:LoginModel ):void
+		{
+			if ( login.type == LoginModel.USER_LOGIN ) 
+			{
+				this.login(login.name, login.password);
+			}
+		}
+		
+		/**
+		 * Request logout handler
+		 */
+		public function requestLogout():void
+		{
+			trace("logout");
+		}
+		
+		/**
 		 * Login to the server
 		 * @param	userName (String) Users name
 		 * @param	password (String) Users password
 		 */
-		public function login(userName:String, password:String):void
+		private function login(userName:String, password:String):void
 		{
 			var request:LoginRequest = new LoginRequest(userName, password);
 			owner.sfs.send(request);
@@ -110,7 +133,7 @@ package handlers
 		 */
 		private function onLogin(evt:SFSEvent):void
 		{
-			_networkEventManager.fireEvent("LOGIN_SUCCESS");
+			_eventManager.fireEvent("LOGIN_SUCCESS");
 			trace("onLogin sucessful");
 		}
 		
@@ -119,7 +142,7 @@ package handlers
 		 */
 		private function onLoginError(evt:SFSEvent):void
 		{
-			_networkEventManager.fireEvent("LOGIN_FAILED");
+			_eventManager.fireEvent("LOGIN_FAILED");
 			trace("onLoginError");
 		}
 	}
