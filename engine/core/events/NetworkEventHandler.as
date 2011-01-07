@@ -4,6 +4,7 @@ package core.events
 	import com.smartfoxserver.v2.entities.data.ISFSObject;
 	import com.smartfoxserver.v2.entities.data.SFSObject;
 	import com.smartfoxserver.v2.entities.SFSRoom;
+	import com.smartfoxserver.v2.requests.BaseRequest;
 	import com.smartfoxserver.v2.requests.ExtensionRequest;
 	import com.smartfoxserver.v2.SmartFox;
 	import core.objects.ContainerObject;
@@ -34,7 +35,6 @@ package core.events
 			_sfs.addEventListener(SFSEvent.CONNECTION_LOST, onServerResponse);
 			_sfs.addEventListener(SFSEvent.CONNECTION_RESUME, onServerResponse);
 			_sfs.addEventListener(SFSEvent.CONNECTION_RETRY, onServerResponse);
-			_sfs.addEventListener(SFSEvent.EXTENSION_RESPONSE, onServerResponse);
 			_sfs.addEventListener(SFSEvent.HANDSHAKE, onServerResponse);
 			_sfs.addEventListener(SFSEvent.INVITATION, onServerResponse);
 			_sfs.addEventListener(SFSEvent.INVITATION_REPLY, onServerResponse);
@@ -73,6 +73,9 @@ package core.events
 			_sfs.addEventListener(SFSEvent.USER_EXIT_ROOM, onServerResponse);
 			_sfs.addEventListener(SFSEvent.USER_FIND_RESULT, onServerResponse);
 			_sfs.addEventListener(SFSEvent.USER_VARIABLES_UPDATE, onServerResponse);
+
+			_sfs.addEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse);
+			
 			super.engine_awake();
 		}
 		
@@ -111,7 +114,6 @@ package core.events
 			_sfs.removeEventListener(SFSEvent.CONNECTION_LOST, onServerResponse);
 			_sfs.removeEventListener(SFSEvent.CONNECTION_RESUME, onServerResponse);
 			_sfs.removeEventListener(SFSEvent.CONNECTION_RETRY, onServerResponse);
-			_sfs.removeEventListener(SFSEvent.EXTENSION_RESPONSE, onServerResponse);
 			_sfs.removeEventListener(SFSEvent.HANDSHAKE, onServerResponse);
 			_sfs.removeEventListener(SFSEvent.INVITATION, onServerResponse);
 			_sfs.removeEventListener(SFSEvent.INVITATION_REPLY, onServerResponse);
@@ -150,6 +152,9 @@ package core.events
 			_sfs.removeEventListener(SFSEvent.USER_EXIT_ROOM, onServerResponse);
 			_sfs.removeEventListener(SFSEvent.USER_FIND_RESULT, onServerResponse);
 			_sfs.removeEventListener(SFSEvent.USER_VARIABLES_UPDATE, onServerResponse);
+
+			_sfs.removeEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse);
+			
 		}
 		
 		/**
@@ -189,6 +194,11 @@ package core.events
 			delete _listeners[eventName][listener];
 		}		
 		
+		public final function fireServerEvent( request:BaseRequest )
+		{
+			_sfs.send(request);	
+		}
+		
 		/**
 		 * Fire a room event
 		 * @param	eventName (String) Server message name
@@ -222,11 +232,31 @@ package core.events
 		
 		/**
 		 * Fire a global event
-		 * @param	eventName (String) The event name to fire.
+		 * @param	 evt (SFSEvent) The server event
 		 * @param	data (*) The data associated with the event.
 		 * @private
 		 */
-		private final function fireEvent( eventName:String, data:* = null ):void
+		private final function fireServerEvent( evt:SFSEvent ):void
+		{
+			var listeners:Dictionary = _listeners[eventName];
+			for ( var listener:* in listeners ) 
+			{
+				// Get the method
+				var method:Function = listeners[listener];
+				if ( method != null ) 
+				{
+					method( data );
+				}
+			}
+		}
+		
+		/**
+		 * Fire a global event
+		 * @param	eventName (String) The event name to fire.
+		 * @param	data (ISFSObject) The data associated with the event.
+		 * @private
+		 */
+		private final function fireExtensionEvent( eventName:String, data:ISFSObject ):void
 		{
 			var listeners:Dictionary = _listeners[eventName];
 			for ( var listener:* in listeners ) 
@@ -247,12 +277,23 @@ package core.events
 		 */
 		public final function onServerResponse(evt:SFSEvent):void
 		{
+			// Fire the event using the event name and pass the event object
+			fireServerEvent(evt);
+		}	
+		
+		/**
+		 * Extension response handler
+		 * @param	evt (SFSEvent) The data from the server
+		 * @private
+		 */
+		public final function onExtensionResponse(evt:SFSEvent):void
+		{
 			// Get the network message information
 			var params:ISFSObject = evt.params.params;
 			var cmd:String = evt.params.cmd;
 			
 			// Fire the event using the event name and pass the event object
-			fireEvent(cmd, evt);
-		}		
+			fireExtensionEvent(cmd, params);
+		}			
 	}
 }
