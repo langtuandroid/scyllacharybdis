@@ -1,6 +1,8 @@
 ﻿package 
 {
 	import Box2D.Common.Math.b2Vec2;
+	import core.events.EventHandler;
+	import core.events.NetworkEventHandler;
 	import core.sprites.TextureManager;
 	import core.physics.PhysicsWorld;
 	import core.rendering.Backbuffer;
@@ -9,13 +11,10 @@
 	import flash.events.Event;
 	import core.rendering.Renderer;
 	import core.memory.MemoryManager;
-	import core.events.EventManager;
 	import core.scenes.SceneManager;
-	import core.objects.NetworkObject;
 	import handlers.ConnectionHandler;
 	import handlers.LoginHandler;
 	import handlers.RoomHandler;
-	import handlers.MessageHandler;
 	import handlers.ChatMessageHandler;
 	import intro.IntroScene;
 	import intro.NetworkDriver;
@@ -30,14 +29,13 @@
 	{
 		private var _window:Window;
 		private var _renderer:Renderer;
-		private var _networkObject:NetworkObject;
-		private var _eventManager:EventManager;
 		private var _sceneManager:SceneManager;
 		private var _networkDriver:NetworkDriver;
 		private var _chatExample:ChatExample;
 		private var _physicsWorld:PhysicsWorld;
 		private var _spriteManager:SpriteManager;
 		private var _textureManager:TextureManager;
+		private var _eventHandler:EventHandler;
 		
 		public function Main():void 
 		{		
@@ -56,7 +54,7 @@
 			_renderer = MemoryManager.instantiate(Renderer);
 			
 			// Create the event manager
-			_eventManager = MemoryManager.instantiate(EventManager);
+			_eventHandler= MemoryManager.instantiate(EventHandler);
 			
 			_textureManager = MemoryManager.instantiate(TextureManager);
 			
@@ -64,19 +62,18 @@
 			_sceneManager = MemoryManager.instantiate(SceneManager);
 			
 			// Create a network layer
-			_networkObject = MemoryManager.instantiate(NetworkObject);			
-			_networkObject.addComponent(ConnectionHandler);
-			_networkObject.addComponent(LoginHandler);
-			_networkObject.addComponent(RoomHandler);
-			_networkObject.addComponent(ChatMessageHandler);
-			_networkObject.addComponent(MessageHandler);
+			var _networkHandler:NetworkEventHandler = MemoryManager.instantiate(NetworkEventHandler);			
+			var _connectionHandler:ConnectionHandler = MemoryManager.instantiate(ConnectionHandler);
+			var _loginHandler:LoginHandler = MemoryManager.instantiate(LoginHandler);
+			var _roomHandler:RoomHandler = MemoryManager.instantiate(RoomHandler);
+			var _chatMessageHandler:ChatMessageHandler = MemoryManager.instantiate(ChatMessageHandler);
 
 			// Create an example network driver
-			_networkDriver = MemoryManager.instantiate( NetworkDriver);
+			_networkDriver = MemoryManager.instantiate( NetworkDriver );
 			//_chatExample = MemoryManager.instantiate( ChatExample );
 
 			// Fire a network connection event
-			_eventManager.fireEvent("NETWORK_CONNECT");
+			_eventHandler.fireEvent("NETWORK_CONNECT");
 
 			// Create a physics world
 			_physicsWorld = MemoryManager.instantiate(PhysicsWorld);

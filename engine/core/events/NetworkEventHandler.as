@@ -3,11 +3,13 @@ package core.events
 	import com.smartfoxserver.v2.core.SFSEvent;
 	import com.smartfoxserver.v2.entities.data.ISFSObject;
 	import com.smartfoxserver.v2.entities.data.SFSObject;
+	import com.smartfoxserver.v2.entities.Room;
 	import com.smartfoxserver.v2.entities.SFSRoom;
 	import com.smartfoxserver.v2.requests.BaseRequest;
 	import com.smartfoxserver.v2.requests.ExtensionRequest;
 	import com.smartfoxserver.v2.SmartFox;
 	import core.objects.BaseObject;
+	import flash.utils.Dictionary;
 
 	/**
 	 */
@@ -162,7 +164,7 @@ package core.events
 		 * Set the network debugging
 		 * @param	value (Boolean) True = enable debug message.
 		 */
-		public final function setDebug( value:Boolean ) 
+		public final function setDebug( value:Boolean ):void
 		{
 			_debug = value;
 			_sfs.debug = value;
@@ -199,7 +201,7 @@ package core.events
 		 * Send a server message
 		 * @param	request (BaseRequest) The request object to be sent
 		 */
-		public final function sendServerMessage( request:BaseRequest )
+		public final function sendServerMessage( request:BaseRequest ):void
 		{
 			_sfs.send(request);	
 		}
@@ -209,11 +211,11 @@ package core.events
 		 * @param	eventName (String) Server message name
 		 * @param	data (SFSObject) Data to be sent to the server. Default = null 
 		 */
-		public final function sendZoneMessage(eventName:String, data:ISFSObject = null)
+		public final function sendZoneMessage(eventName:String, data:ISFSObject = null):void
 		{
 			if ( data == null ) 
 			{
-				data = new SFSObject.newInstance();
+				data = SFSObject.newInstance();
 			}			
 			sendServerMessage( new ExtensionRequest(eventName, data) );				
 		}
@@ -224,13 +226,18 @@ package core.events
 		 * @param	data (SFSObject) Data to be sent to the server. Default = null 
 		 * @param   room (SFSRoom) The room to send the message too. By default it should be the current room
 		 */
-		public final function sendRoomMessage(eventName:String, data:ISFSObject = null, room:SFSRoom = _sfs.lastJoinedRoom)
+		public final function sendRoomMessage(eventName:String, data:ISFSObject = null, room:Room = null ):void
 		{
 			if ( data == null ) 
 			{
-				data = new SFSObject.newInstance();
+				data = SFSObject.newInstance();
 			}
-			sendServerMessage.send( new ExtensionRequest(eventName, data, room) );				
+			if ( room == null ) 
+			{
+				room = _sfs.lastJoinedRoom;
+			}
+			
+			sendServerMessage( new ExtensionRequest(eventName, data, room) );				
 		}
 		
 		

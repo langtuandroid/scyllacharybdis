@@ -10,7 +10,7 @@ package core.objects
 	/**
 	 * BaseObject is a base object for all game elements
 	 */
-	public class BaseObject extends EventDispatcher
+	public class BaseObject 
 	{
 		/****************************************/
 		// Variables

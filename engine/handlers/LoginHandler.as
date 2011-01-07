@@ -10,6 +10,7 @@ package handlers
 	
 	/**
 	 */
+	[Singleton]
 	[Requires ("core.events.NetworkEventHandler")]
 	public class LoginHandler extends BaseObject
 	{
@@ -23,12 +24,12 @@ package handlers
 		public final override function engine_awake():void
 		{
 			// Get the event manager
-			_networkEventManager = getDependency(NetworkEventHandler);
+			_networkEventHandler = getDependency(NetworkEventHandler);
 		
-			_networkEventManager.addEventListener(SFSEvent.LOGIN_ERROR, this, onLoginError);
-			_networkEventManager.addEventListener(SFSEvent.LOGIN, this, onLogin);
-			_networkEventManager.addEventListener(NetworkEvent.NETWORK_LOGIN, this, requestLogin );
-			_networkEventManager.addEventListener(NetworkEvent.NETWORK_LOGOUT, this, requestLogout );
+			_networkEventHandler.addEventListener(SFSEvent.LOGIN_ERROR, this, onLoginError);
+			_networkEventHandler.addEventListener(SFSEvent.LOGIN, this, onLogin);
+			_networkEventHandler.addEventListener(NetworkEvent.NETWORK_LOGIN, this, requestLogin );
+			_networkEventHandler.addEventListener(NetworkEvent.NETWORK_LOGOUT, this, requestLogout );
 			
 			super.engine_start();
 			
@@ -61,10 +62,10 @@ package handlers
 		{
 			super.engine_destroy();
 
-			_networkEventManager.removeEventListener(SFSEvent.LOGIN_ERROR, this, onLoginError);
-			_networkEventManager.removeEventListener(SFSEvent.LOGIN, this, onLogin);
-			_networkEventManager.removeEventListener(NetworkEvent.NETWORK_LOGIN, this, requestLogin );
-			_networkEventManager.removeEventListener(NetworkEvent.NETWORK_LOGOUT, this, requestLogout );
+			_networkEventHandler.removeEventListener(SFSEvent.LOGIN_ERROR, this, onLoginError);
+			_networkEventHandler.removeEventListener(SFSEvent.LOGIN, this, onLogin);
+			_networkEventHandler.removeEventListener(NetworkEvent.NETWORK_LOGIN, this, requestLogin );
+			_networkEventHandler.removeEventListener(NetworkEvent.NETWORK_LOGOUT, this, requestLogout );
 		}
 		/**
 		 * The users constructor. 
@@ -134,7 +135,7 @@ package handlers
 		 */
 		private function onLogin(evt:SFSEvent):void
 		{
-			_eventManager.fireEvent("LOGIN_SUCCESS");
+			_eventHandler.fireEvent("LOGIN_SUCCESS");
 			trace("onLogin sucessful");
 		}
 		
@@ -143,7 +144,7 @@ package handlers
 		 */
 		private function onLoginError(evt:SFSEvent):void
 		{
-			_eventManager.fireEvent("LOGIN_FAILED");
+			_eventHandler.fireEvent("LOGIN_FAILED");
 			trace("onLoginError");
 		}
 	}

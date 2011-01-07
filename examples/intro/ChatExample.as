@@ -1,6 +1,8 @@
 package intro
 {
-	import core.events.EventManager;
+	import core.events.EventHandler;
+	import core.events.NetworkEvent;
+	import core.events.NetworkEventHandler;
 	import core.objects.BaseObject;
 	/**
 	 * ...
@@ -8,7 +10,7 @@ package intro
 	 */
 	public class ChatExample extends BaseObject
 	{
-		private var _eventManager:EventManager;
+		private var _networkEventHandler:NetworkEventHandler;
 
 		/**
 		* Awake is called at the construction of the object
@@ -17,10 +19,10 @@ package intro
 		public final override function engine_awake():void
 		{
 			// Get the event manager
-			_eventManager = getDependency(EventManager);
+			_networkEventHandler = getDependency(NetworkEventHandler);
 			super.engine_start();
 			
-			_eventManager.registerListener("RECEIVED_CHATMESSAGE", this, displayMessage );
+			_networkEventHandler.addEventListener(NetworkEvent.RECEIVED_CHAT_MESSAGE, this, displayMessage );
 		}
 		
 		/**
@@ -45,7 +47,7 @@ package intro
 		*/
 		public final override function engine_destroy():void
 		{
-			_eventManager.unregisterListener("RECEIVED_CHATMESSAGE", this, displayMessage );
+			_networkEventHandler.removeEventListener(NetworkEvent.RECEIVED_CHAT_MESSAGE, this, displayMessage );
 			
 			super.engine_destroy();
 		}		

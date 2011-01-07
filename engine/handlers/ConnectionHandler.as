@@ -1,15 +1,15 @@
 package handlers 
 {
 	import core.events.NetworkEvent;
+	import core.events.NetworkEventHandler;
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
-	
-	import core.objects.NetworkObject;
 	import core.objects.BaseObject;	
-	import core.events.EventManager;
+	import core.events.EventHandler;
 	
 	/**
 	 */
+	[Singleton]
 	[Requires ("core.events.NetworkEventHandler")]
 	public class ConnectionHandler extends BaseObject
 	{
@@ -26,7 +26,7 @@ package handlers
 		public final override function engine_awake():void
 		{
 			// Get the event manager
-			_networkEventManager = getDependency(NetworkEventHandler);
+			_networkEventHandler = getDependency(NetworkEventHandler);
 			
 			_networkEventHandler.addEventListener(SFSEvent.CONNECTION, onConnection);
 			_networkEventHandler.addEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
@@ -35,8 +35,8 @@ package handlers
 			
 			super.engine_awake();
 
-			_eventManager.addEventListener(NetworkEvent.NETWORK_CONNECT, this, requestConnection );
-			_eventManager.addEventListener(NetworkEvent.NETWORK_DISCONNECT, this, requestDisconnection );
+			_eventHandler.addEventListener(NetworkEvent.NETWORK_CONNECT, this, requestConnection );
+			_eventHandler.addEventListener(NetworkEvent.NETWORK_DISCONNECT, this, requestDisconnection );
 			
 		}
 		
@@ -65,8 +65,8 @@ package handlers
 		 */
 		public final override function engine_destroy():void
 		{
-			_eventManager.removeEventListener(NetworkEvent.NETWORK_CONNECT, this, requestConnection );
-			_eventManager.removeEventListener(NetworkEvent.NETWORK_DISCONNECT, this, requestDisconnection );
+			_eventHandler.removeEventListener(NetworkEvent.NETWORK_CONNECT, this, requestConnection );
+			_eventHandler.removeEventListener(NetworkEvent.NETWORK_DISCONNECT, this, requestDisconnection );
 
 			super.engine_destroy();
 			
@@ -177,7 +177,7 @@ package handlers
 		private function connectionSuccess():void
 		{
 			_connected = true;
-			_eventManager.fireEvent("CONNECTION_SUCCESS");
+			_eventHandler.fireEvent("CONNECTION_SUCCESS");
 		}
 		
 		/**
@@ -187,7 +187,7 @@ package handlers
 		private function connectionFailed(message:String):void
 		{
 			_connected = false;
-			_eventManager.fireEvent("CONNECTION_FAILED", message);
+			_eventHandler.fireEvent("CONNECTION_FAILED", message);
 		}
 		
 		/**

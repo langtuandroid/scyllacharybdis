@@ -1,6 +1,7 @@
 package handlers 
 {
 	import core.events.NetworkEvent;
+	import core.events.NetworkEventHandler;
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
 	import com.smartfoxserver.v2.requests.PublicMessageRequest;
@@ -11,6 +12,7 @@ package handlers
 
 	/**
 	*/
+	[Singleton]
 	[Requires ("core.events.NetworkEventHandler")]
 	public class ChatMessageHandler extends BaseObject
 	{
@@ -24,13 +26,13 @@ package handlers
 		public final override function engine_awake():void
 		{
 			// Get the event manager
-			_networkEventManager = getDependency(NetworkEventHandler);
+			_networkEventHandler = getDependency(NetworkEventHandler);
 			
 			_networkEventHandler.addEventListener(SFSEvent.PUBLIC_MESSAGE, onPublicMessage);
 			
 			super.engine_start();
 			
-			_eventManager.addEventListener(NetworkEvent.SEND_CHAT_MESSAGE, this, sendChatMessage );
+			_eventHandler.addEventListener(NetworkEvent.SEND_CHAT_MESSAGE, this, sendChatMessage );
 		}
 		
 		/**
@@ -58,7 +60,7 @@ package handlers
 		 */
 		public final override function engine_destroy():void
 		{
-			_eventManager.removeEventListener(NetworkEvent.SEND_CHAT_MESSAGE, this, sendChatMessage );
+			_eventHandler.removeEventListener(NetworkEvent.SEND_CHAT_MESSAGE, this, sendChatMessage );
 
 			super.engine_destroy();
 			
@@ -113,7 +115,7 @@ package handlers
 		private function onPublicMessage(evt:SFSEvent):void
 		{
 			trace(evt.params.sender + " - " + evt.params.message );
-			_eventManager.fireEvent("RECEIVED_CHATMESSAGE", new ChatMessageModel( evt.params.sender, evt.params.message ) );
+			_eventHandler.fireEvent("RECEIVED_CHATMESSAGE", new ChatMessageModel( evt.params.sender, evt.params.message ) );
 		}		
 	}
 }

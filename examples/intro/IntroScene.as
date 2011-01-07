@@ -6,7 +6,7 @@ package intro
 	import core.SceneObject;
 	import core.GameObject;
 	import core.MemoryManager;
-	import core.EventManager;
+	import core.EventHandler;
 	import components.SoundComponent;
 	
 	/**
@@ -35,12 +35,12 @@ package intro
 		{
 			// Set the square
 			_square.addComponent(SoundComponent);
-			_square.addComponent(SquareScriptComponent, [EventManager]);
+			_square.addComponent(SquareScriptComponent, [EventHandler]);
 			_square.addComponent(SquareRenderComponent);
 			_square.addComponent(PhysicsComponent, [PhysicsWorld]);
 			
 			// Set the square
-			_otherSquare.addComponent(SquareScriptComponent, [EventManager]);
+			_otherSquare.addComponent(SquareScriptComponent, [EventHandler]);
 			_otherSquare.addComponent(OtherSquareRenderComponent);
 			_otherSquare.addComponent(PhysicsComponent, [PhysicsWorld]);
 
