@@ -6,6 +6,12 @@ package core.events
 	 */
 	public class NetworkEvent 
 	{
+		static public const ROOM_REMOVE:String = "roomRemove";
+		static public const ROOM_ADD:String = "roomAdd";
+		static public const USER_EXIT_ROOM:String = "userExitRoom";
+		static public const USER_ENTER_ROOM:String = "userEnterRoom";
+		static public const USERCOUNT_CHANGED:String = "usercountChanged";
+		static public const CREATEROOM_SUCCESS:String = "createroomSuccess";
 		// Connection events
 		public static const CONNECT : String = "CONNECT";
 		public static const DISCONNECT : String = "DISCONNECT";

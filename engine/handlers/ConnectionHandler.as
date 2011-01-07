@@ -28,15 +28,15 @@ package handlers
 			// Get the event manager
 			_networkEventHandler = getDependency(NetworkEventHandler);
 			
-			_networkEventHandler.addEventListener(SFSEvent.CONNECTION, onConnection);
-			_networkEventHandler.addEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
-			_networkEventHandler.addEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess);
-			_networkEventHandler.addEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure);
+			_networkEventHandler.addEventListener(SFSEvent.CONNECTION, this, onConnection);
+			_networkEventHandler.addEventListener(SFSEvent.CONNECTION_LOST, this, onConnectionLost);
+			_networkEventHandler.addEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, this, onConfigLoadSuccess);
+			_networkEventHandler.addEventListener(SFSEvent.CONFIG_LOAD_FAILURE, this, onConfigLoadFailure);
 			
 			super.engine_awake();
 
-			_eventHandler.addEventListener(NetworkEvent.NETWORK_CONNECT, this, requestConnection );
-			_eventHandler.addEventListener(NetworkEvent.NETWORK_DISCONNECT, this, requestDisconnection );
+			_networkEventHandler.addEventListener(NetworkEvent.CONNECT, this, requestConnection );
+			_networkEventHandler.addEventListener(NetworkEvent.DISCONNECT, this, requestDisconnection );
 			
 		}
 		
@@ -65,15 +65,15 @@ package handlers
 		 */
 		public final override function engine_destroy():void
 		{
-			_eventHandler.removeEventListener(NetworkEvent.NETWORK_CONNECT, this, requestConnection );
-			_eventHandler.removeEventListener(NetworkEvent.NETWORK_DISCONNECT, this, requestDisconnection );
+			_networkEventHandler.removeEventListener(NetworkEvent.CONNECT, this, requestConnection );
+			_networkEventHandler.removeEventListener(NetworkEvent.DISCONNECT, this, requestDisconnection );
 
 			super.engine_destroy();
 			
-			_networkEventHandler.removeEventListener(SFSEvent.CONNECTION, onConnection);
-			_networkEventHandler.removeEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
-			_networkEventHandler.removeEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess);
-			_networkEventHandler.removeEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure);
+			_networkEventHandler.removeEventListener(SFSEvent.CONNECTION, this, onConnection);
+			_networkEventHandler.removeEventListener(SFSEvent.CONNECTION_LOST, this, onConnectionLost);
+			_networkEventHandler.removeEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, this, onConfigLoadSuccess);
+			_networkEventHandler.removeEventListener(SFSEvent.CONFIG_LOAD_FAILURE, this, onConfigLoadFailure);
 		}
 		
 		/**
@@ -177,7 +177,7 @@ package handlers
 		private function connectionSuccess():void
 		{
 			_connected = true;
-			_eventHandler.fireEvent("CONNECTION_SUCCESS");
+			_networkEventHandler.fireEvent(NetworkEvent.CONNECTION_SUCCESS);
 		}
 		
 		/**
@@ -187,7 +187,7 @@ package handlers
 		private function connectionFailed(message:String):void
 		{
 			_connected = false;
-			_eventHandler.fireEvent("CONNECTION_FAILED", message);
+			_networkEventHandler.fireEvent(NetworkEvent.CONNECTION_FAILED, message);
 		}
 		
 		/**
