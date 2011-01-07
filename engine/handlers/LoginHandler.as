@@ -1,5 +1,6 @@
 package handlers 
 {
+	import core.events.NetworkEventHandler;
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
 	import com.smartfoxserver.v2.requests.LoginRequest;
@@ -9,11 +10,10 @@ package handlers
 	
 	/**
 	 */
-	[ComponentType ("handlers.LoginHandler")]
-	[Requires ("core.events.EventManager")]
+	[Requires ("core.events.NetworkEventHandler")]
 	public class LoginHandler extends BaseObject
 	{
-		private var _eventManager:EventManager;
+		private var _networkEventManager:NetworkEventHandler;
 
 		/**
 		 * Awake is called at the construction of the object
@@ -23,15 +23,13 @@ package handlers
 		public final override function engine_awake():void
 		{
 			// Get the event manager
-			_eventManager = getDependency(EventManager);
+			_networkEventManager = getDependency(NetworkEventHandler);
 		
-			owner.sfs.addEventListener(SFSEvent.LOGIN_ERROR, onLoginError);
-			owner.sfs.addEventListener(SFSEvent.LOGIN, onLogin);
+			_networkEventManager.addEventListener(SFSEvent.LOGIN_ERROR, this, onLoginError);
+			_networkEventManager.addEventListener(SFSEvent.LOGIN, this, onLogin);
 			
 			super.engine_start();
 			
-			_eventManager.registerListener("NETWORK_LOGIN", this, requestLogin );
-			_eventManager.registerListener("NETWORK_LOGOUT", this, requestLogout );
 		}
 		
 		/**
@@ -59,13 +57,10 @@ package handlers
 		 */
 		public final override function engine_destroy():void
 		{
-			_eventManager.unregisterListener("NETWORK_LOGIN", this, requestLogin );
-			_eventManager.unregisterListener("NETWORK_LOGOUT", this, requestLogout );
-			
 			super.engine_destroy();
-			
-			owner.sfs.removeEventListener(SFSEvent.LOGIN_ERROR, onLoginError);
-			owner.sfs.removeEventListener(SFSEvent.LOGIN, onLogin);
+
+			_networkEventManager.removeEventListener(SFSEvent.LOGIN_ERROR, this, onLoginError);
+			_networkEventManager.removeEventListener(SFSEvent.LOGIN, this, onLogin);
 		}
 		/**
 		 * The users constructor. 
@@ -100,31 +95,11 @@ package handlers
 		}
 		
 		/**
-		 * Request login handler
-		 * @param	login
-		 */
-		public function requestLogin( login:LoginModel ):void
-		{
-			if ( login.type == LoginModel.USER_LOGIN ) 
-			{
-				this.login(login.name, login.password);
-			}
-		}
-		
-		/**
-		 * Request logout handler
-		 */
-		public function requestLogout():void
-		{
-			trace("logout");
-		}
-		
-		/**
 		 * Login to the server
 		 * @param	userName (String) Users name
 		 * @param	password (String) Users password
 		 */
-		private function login(userName:String, password:String):void
+		public function login(userName:String, password:String):void
 		{
 			var request:LoginRequest = new LoginRequest(userName, password);
 			owner.sfs.send(request);
@@ -135,7 +110,7 @@ package handlers
 		 */
 		private function onLogin(evt:SFSEvent):void
 		{
-			_eventManager.fireEvent("LOGIN_SUCCESS");
+			_networkEventManager.fireEvent("LOGIN_SUCCESS");
 			trace("onLogin sucessful");
 		}
 		
@@ -144,7 +119,7 @@ package handlers
 		 */
 		private function onLoginError(evt:SFSEvent):void
 		{
-			_eventManager.fireEvent("LOGIN_FAILED");
+			_networkEventManager.fireEvent("LOGIN_FAILED");
 			trace("onLoginError");
 		}
 	}
