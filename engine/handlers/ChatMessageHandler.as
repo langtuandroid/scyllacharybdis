@@ -1,22 +1,20 @@
 package handlers 
 {
+	import core.events.NetworkEvent;
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
 	import com.smartfoxserver.v2.requests.PublicMessageRequest;
 
-	import core.objects.NetworkObject;
 	import core.objects.BaseObject;	
-	import core.events.EventManager;
 	import models.RoomModel;
 	import models.ChatMessageModel;
 
 	/**
 	*/
-	[ComponentType ("handlers.ChatMessageHandler")]
-	[Requires ("core.events.EventManager")]
+	[Requires ("core.events.NetworkEventHandler")]
 	public class ChatMessageHandler extends BaseObject
 	{
-		private var _eventManager:EventManager;
+		private var _networkEventHandler:NetworkEventHandler;
 
 		/**
 		 * Awake is called at the construction of the object
@@ -26,13 +24,13 @@ package handlers
 		public final override function engine_awake():void
 		{
 			// Get the event manager
-			_eventManager = getDependency(EventManager);
+			_networkEventManager = getDependency(NetworkEventHandler);
 			
-			owner.sfs.addEventListener(SFSEvent.PUBLIC_MESSAGE, onPublicMessage);
+			_networkEventHandler.addEventListener(SFSEvent.PUBLIC_MESSAGE, onPublicMessage);
 			
 			super.engine_start();
 			
-			_eventManager.registerListener("SEND_CHATMESSAGE", this, sendChatMessage );
+			_eventManager.addEventListener(NetworkEvent.SEND_CHAT_MESSAGE, this, sendChatMessage );
 		}
 		
 		/**
@@ -60,11 +58,11 @@ package handlers
 		 */
 		public final override function engine_destroy():void
 		{
-			_eventManager.unregisterListener("SEND_CHATMESSAGE", this, sendChatMessage );
+			_eventManager.removeEventListener(NetworkEvent.SEND_CHAT_MESSAGE, this, sendChatMessage );
 
 			super.engine_destroy();
 			
-			owner.sfs.removeEventListener(SFSEvent.PUBLIC_MESSAGE, onPublicMessage);
+			_networkEventHandler.removeEventListener(SFSEvent.PUBLIC_MESSAGE, onPublicMessage);
 		}
 		
 		/**

@@ -1,5 +1,6 @@
 package handlers 
 {
+	import core.events.NetworkEvent;
 	import core.events.NetworkEventHandler;
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
@@ -12,7 +13,7 @@ package handlers
 	[Requires ("core.events.NetworkEventHandler")]
 	public class LoginHandler extends BaseObject
 	{
-		private var _networkEventManager:NetworkEventHandler;
+		private var _networkEventHandler:NetworkEventHandler;
 
 		/**
 		 * Awake is called at the construction of the object
@@ -26,8 +27,8 @@ package handlers
 		
 			_networkEventManager.addEventListener(SFSEvent.LOGIN_ERROR, this, onLoginError);
 			_networkEventManager.addEventListener(SFSEvent.LOGIN, this, onLogin);
-			_networkEventManager.addEventListener("NETWORK_LOGIN", this, requestLogin );
-			_networkEventManager.addEventListener("NETWORK_LOGOUT", this, requestLogout );
+			_networkEventManager.addEventListener(NetworkEvent.NETWORK_LOGIN, this, requestLogin );
+			_networkEventManager.addEventListener(NetworkEvent.NETWORK_LOGOUT, this, requestLogout );
 			
 			super.engine_start();
 			
@@ -62,8 +63,8 @@ package handlers
 
 			_networkEventManager.removeEventListener(SFSEvent.LOGIN_ERROR, this, onLoginError);
 			_networkEventManager.removeEventListener(SFSEvent.LOGIN, this, onLogin);
-			_networkEventManager.removeEventListener("NETWORK_LOGIN", this, requestLogin );
-			_networkEventManager.removeEventListener("NETWORK_LOGOUT", this, requestLogout );
+			_networkEventManager.removeEventListener(NetworkEvent.NETWORK_LOGIN, this, requestLogin );
+			_networkEventManager.removeEventListener(NetworkEvent.NETWORK_LOGOUT, this, requestLogout );
 		}
 		/**
 		 * The users constructor. 

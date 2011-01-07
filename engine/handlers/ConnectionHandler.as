@@ -10,11 +10,10 @@ package handlers
 	
 	/**
 	 */
-	[ComponentType ("handlers.ConnectionHandler")]
-	[Requires ("core.events.EventManager")]
+	[Requires ("core.events.NetworkEventHandler")]
 	public class ConnectionHandler extends BaseObject
 	{
-		private var _eventManager:EventManager;
+		private var _networkEventHandler:NetworkEventHandler;
 		protected var _connected:Boolean = false;
 		protected var _isConnecting:Boolean = false;
 		protected var _configFile:String = "config.xml";		
@@ -27,12 +26,12 @@ package handlers
 		public final override function engine_awake():void
 		{
 			// Get the event manager
-			_eventManager = getDependency(EventManager);
+			_networkEventManager = getDependency(NetworkEventHandler);
 			
-			owner.sfs.addEventListener(SFSEvent.CONNECTION, onConnection);
-			owner.sfs.addEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
-			owner.sfs.addEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess);
-			owner.sfs.addEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure);
+			_networkEventHandler.addEventListener(SFSEvent.CONNECTION, onConnection);
+			_networkEventHandler.addEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
+			_networkEventHandler.addEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess);
+			_networkEventHandler.addEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure);
 			
 			super.engine_awake();
 
@@ -71,10 +70,10 @@ package handlers
 
 			super.engine_destroy();
 			
-			owner.sfs.removeEventListener(SFSEvent.CONNECTION, onConnection);
-			owner.sfs.removeEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
-			owner.sfs.removeEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess);
-			owner.sfs.removeEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure);
+			_networkEventHandler.removeEventListener(SFSEvent.CONNECTION, onConnection);
+			_networkEventHandler.removeEventListener(SFSEvent.CONNECTION_LOST, onConnectionLost);
+			_networkEventHandler.removeEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onConfigLoadSuccess);
+			_networkEventHandler.removeEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onConfigLoadFailure);
 		}
 		
 		/**

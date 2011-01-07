@@ -9,19 +9,16 @@ package handlers
 	import com.smartfoxserver.v2.entities.Room;
 	import com.smartfoxserver.v2.entities.User;
 	import models.CreateRoomModel;
-
-	import core.objects.NetworkObject;
 	import core.objects.BaseObject;	
-	import core.events.EventManager;
 	import models.RoomModel;
 
 	/**
 	*/
-	[ComponentType ("handlers.RoomHandler")]
-	[Requires ("core.events.EventManager")]
+	[Requires ("core.events.NetworkEventHandler")]
 	public class RoomHandler extends BaseObject
 	{
-		private var _eventManager:EventManager;
+		private var _networkEventHandler:NetworkEventHandler;
+		
 		private var _currentRoom:String;
 		private var _previousRoom:String;
 		private var _gameRoom:Boolean = false;
@@ -34,17 +31,16 @@ package handlers
 		public final override function engine_awake():void
 		{
 			// Get the event manager
-			_eventManager = getDependency(EventManager);
+			_networkEventManager = getDependency(NetworkEventHandler);
 			
-			owner.sfs.addEventListener(SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError);
-			owner.sfs.addEventListener(SFSEvent.ROOM_JOIN, onJoinRoom);
-			owner.sfs.addEventListener(SFSEvent.ROOM_JOIN_ERROR, onJoinRoomError);
-			owner.sfs.addEventListener(SFSEvent.ROOM_ADD, onRoomAdd);
-			owner.sfs.addEventListener(SFSEvent.ROOM_REMOVE, onRoomRemove);
-			owner.sfs.addEventListener(SFSEvent.USER_ENTER_ROOM, onUserEnterRoom);
-			owner.sfs.addEventListener(SFSEvent.USER_EXIT_ROOM, onUserExitRoom);
-			owner.sfs.addEventListener(SFSEvent.USER_COUNT_CHANGE, onUserCountChange);
-			
+			_networkEventHandler.addEventListener(SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError);
+			_networkEventHandler.addEventListener(SFSEvent.ROOM_JOIN, onJoinRoom);
+			_networkEventHandler.addEventListener(SFSEvent.ROOM_JOIN_ERROR, onJoinRoomError);
+			_networkEventHandler.addEventListener(SFSEvent.ROOM_ADD, onRoomAdd);
+			_networkEventHandler.addEventListener(SFSEvent.ROOM_REMOVE, onRoomRemove);
+			_networkEventHandler.addEventListener(SFSEvent.USER_ENTER_ROOM, onUserEnterRoom);
+			_networkEventHandler.addEventListener(SFSEvent.USER_EXIT_ROOM, onUserExitRoom);
+			_networkEventHandler.addEventListener(SFSEvent.USER_COUNT_CHANGE, onUserCountChange);
 			
 			super.engine_start();
 			
@@ -84,15 +80,15 @@ package handlers
 			
 			super.engine_destroy();
 
-			owner.sfs.removeEventListener(SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError);
-			owner.sfs.removeEventListener(SFSEvent.ROOM_JOIN, onJoinRoom);
-			owner.sfs.removeEventListener(SFSEvent.ROOM_JOIN_ERROR, onJoinRoomError);
+			_networkEventHandler.removeEventListener(SFSEvent.ROOM_CREATION_ERROR, onRoomCreationError);
+			_networkEventHandler.removeEventListener(SFSEvent.ROOM_JOIN, onJoinRoom);
+			_networkEventHandler.removeEventListener(SFSEvent.ROOM_JOIN_ERROR, onJoinRoomError);
 
-			owner.sfs.removeEventListener(SFSEvent.ROOM_ADD, onRoomAdd);
-			owner.sfs.removeEventListener(SFSEvent.ROOM_REMOVE, onRoomRemove);
-			owner.sfs.removeEventListener(SFSEvent.USER_ENTER_ROOM, onUserEnterRoom);
-			owner.sfs.removeEventListener(SFSEvent.USER_EXIT_ROOM, onUserExitRoom);
-			owner.sfs.removeEventListener(SFSEvent.USER_COUNT_CHANGE, onUserCountChange);
+			_networkEventHandler.removeEventListener(SFSEvent.ROOM_ADD, onRoomAdd);
+			_networkEventHandler.removeEventListener(SFSEvent.ROOM_REMOVE, onRoomRemove);
+			_networkEventHandler.removeEventListener(SFSEvent.USER_ENTER_ROOM, onUserEnterRoom);
+			_networkEventHandler.removeEventListener(SFSEvent.USER_EXIT_ROOM, onUserExitRoom);
+			_networkEventHandler.removeEventListener(SFSEvent.USER_COUNT_CHANGE, onUserCountChange);
 		}
 
 		/**
