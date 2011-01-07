@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="My Component Builder" basedir=".">
+    <property file="build.properties.ben" />
+    <taskdef resource="flexTasks.tasks" classpath="${basedir}/flexTasks/lib/flexTasks.jar" />
+    <property name="FLEX_HOME" value="${flexhome}" />
+    <property name="DEPLOY_DIR" value="${deploydir}" />
+
+    <target name="casalib">
+        <compc output="${basedir}/lib/casalib.swc" append="true">
+            <source-path path-element="${basedir}/util"/>
+            <include-sources dir="${basedir}/util/org/casalib" includes="**/**/*.as **/*.as"/>
+        </compc>
+    </target>
+
+    <target name="Box2D">
+        <compc output="${basedir}/lib/Box2D.swc" append="true">
+            <source-path path-element="${basedir}/util"/>
+            <include-sources dir="${basedir}/util/Box2D" includes="**/**/*.as **/*.as"/>
+        </compc>
+    </target>
+
+    <target name="sc">
+        <compc output="${DEPLOY_DIR}/SC.swc" append="true">
+            <source-path path-element="${basedir}/engine"/>
+            <include-sources dir="${basedir}/engine/events" includes="*.as"/>
+            <include-sources dir="${basedir}/engine/core/memory" includes="*.as"/>
+            <include-sources dir="${basedir}/engine/core/events" includes="*.as"/>
+            <include-sources dir="${basedir}/engine/core/scenes" includes="*.as"/>
+            <include-sources dir="${basedir}/engine/core/materials" includes="*.as"/>
+            <include-sources dir="${basedir}/engine/core/objects" includes="*.as"/>
+            <include-sources dir="${basedir}/engine/core/physics" includes="*.as"/>
+            <include-sources dir="${basedir}/engine/core/rendering" includes="*.as"/>
+            <include-sources dir="${basedir}/engine/components" includes="*.as"/>
+            <include-sources dir="${basedir}/engine/handlers" includes="*.as"/>
+            <include-sources dir="${basedir}/engine/models" includes="*.as"/>
+            <include-libraries dir="${basedir}/lib" includes="casalib.swc"/>
+            <include-libraries dir="${basedir}/lib" includes="Box2D.swc"/>
+            <include-libraries dir="${basedir}/lib" includes="SFS2X_API_AS3.swc"/>
+        </compc>
+    </target>
+
+    <target name="main" depends="sc,docs">
+    </target>
+
+    <target name="full" depends="clean,casalib,Box2D,sc,docs">
+    </target>
+
+    <target name="docs">
+	<exec executable="${asdoc.exe}" failonerror="true">
+            <arg line="-doc-sources 
+		${basedir}/engine/events/ 
+		${basedir}/engine/core/ 
+	        ${basedir}/engine/core/memory/
+        	${basedir}/engine/core/events/
+        	${basedir}/engine/core/scenes/
+	        ${basedir}/engine/core/materials/
+	        ${basedir}/engine/core/objects/
+        	${basedir}/engine/core/physics/
+	        ${basedir}/engine/core/rendering/
+		${basedir}/engine/components/
+		${basedir}/engine/handlers/
+		${basedir}/engine/models/
+            " /> 
+            <arg line="-main-title ${title}" />             
+            <arg line="-window-title ${title}" /> 
+            <arg line="-output ${outputfolder}" /> 
+            <arg line="-external-library-path=${basedir}/lib" />
+            <arg line="-external-library-path=${basedir}/bin" />
+	</exec>
+    </target>
+
+    <target name="clean">
+        <delete>
+            <fileset dir="${basedir}/lib/" includes="casalib.swc"/>
+            <fileset dir="${basedir}/lib/" includes="Box2D.swc"/>
+            <fileset dir="${DEPLOY_DIR}" includes="SC.swc"/>
+        </delete>
+    </target>
+</project>
