@@ -7,11 +7,12 @@ package core.events
 	import com.smartfoxserver.v2.requests.BaseRequest;
 	import com.smartfoxserver.v2.requests.ExtensionRequest;
 	import com.smartfoxserver.v2.SmartFox;
-	import core.objects.ContainerObject;
+	import core.objects.BaseObject;
+
 	/**
 	 */
 	[Singleton]
-	public class NetworkEventHandler extends ContainerObject
+	public class NetworkEventHandler extends BaseObject
 	{
 
 		// Smartfox server
@@ -241,7 +242,7 @@ package core.events
 		 * @param	data (*) The data associated with the event.
 		 * @private
 		 */
-		private final function fireServerEvent( evt:SFSEvent ):void
+		private final function fireServerEvent( eventName:String, evt:SFSEvent ):void
 		{
 			var listeners:Dictionary = _listeners[eventName];
 			for ( var listener:* in listeners ) 
@@ -250,7 +251,7 @@ package core.events
 				var method:Function = listeners[listener];
 				if ( method != null ) 
 				{
-					method( data );
+					method( evt );
 				}
 			}
 		}
@@ -282,8 +283,11 @@ package core.events
 		 */
 		public final function onServerResponse(evt:SFSEvent):void
 		{
+			// Get the network message information
+			var cmd:String = evt.params.cmd;
+			
 			// Fire the event using the event name and pass the event object
-			fireServerEvent(evt);
+			fireServerEvent(cmd, evt);
 		}	
 		
 		/**
