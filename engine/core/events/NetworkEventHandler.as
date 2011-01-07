@@ -193,45 +193,50 @@ package core.events
 			_listeners[eventName][listener] = null;
 			delete _listeners[eventName][listener];
 		}		
-		
-		public final function fireServerEvent( request:BaseRequest )
+
+		/**
+		 * Send a server message
+		 * @param	request (BaseRequest) The request object to be sent
+		 */
+		public final function sendServerMessage( request:BaseRequest )
 		{
 			_sfs.send(request);	
 		}
 		
 		/**
-		 * Fire a room event
-		 * @param	eventName (String) Server message name
-		 * @param	data (SFSObject) Data to be sent to the server. Default = null 
-		 * @param   room (SFSRoom) The room to send the message too. By default it should be the current room
-		 */
-		public final function fireRoomEvent(eventName:String, data:ISFSObject = null, room:SFSRoom = _sfs.lastJoinedRoom)
-		{
-			if ( data == null ) 
-			{
-				data = new SFSObject.newInstance();
-			}
-			var request:ExtensionRequest = new ExtensionRequest(eventName, data, room);
-			_sfs.send(request);				
-		}
-		
-		/**
-		 * Send a zone event
+		 * Send a zone message
 		 * @param	eventName (String) Server message name
 		 * @param	data (SFSObject) Data to be sent to the server. Default = null 
 		 */
-		public final function fireZoneEvent(eventName:String, data:ISFSObject = null)
+		public final function sendZoneMessage(eventName:String, data:ISFSObject = null)
 		{
 			if ( data == null ) 
 			{
 				data = new SFSObject.newInstance();
 			}			
 			var request:ExtensionRequest = new ExtensionRequest(eventName, data);
-			_sfs.send(request);				
+			sendServerMessage(request);				
 		}
 		
 		/**
-		 * Fire a global event
+		 * Send a room message
+		 * @param	eventName (String) Server message name
+		 * @param	data (SFSObject) Data to be sent to the server. Default = null 
+		 * @param   room (SFSRoom) The room to send the message too. By default it should be the current room
+		 */
+		public final function sendRoomMessage(eventName:String, data:ISFSObject = null, room:SFSRoom = _sfs.lastJoinedRoom)
+		{
+			if ( data == null ) 
+			{
+				data = new SFSObject.newInstance();
+			}
+			var request:ExtensionRequest = new ExtensionRequest(eventName, data, room);
+			sendServerMessage.send(request);				
+		}
+		
+		
+		/**
+		 * Fire a global event from the server
 		 * @param	 evt (SFSEvent) The server event
 		 * @param	data (*) The data associated with the event.
 		 * @private
@@ -251,7 +256,7 @@ package core.events
 		}
 		
 		/**
-		 * Fire a global event
+		 * Fire a global event from the extension
 		 * @param	eventName (String) The event name to fire.
 		 * @param	data (ISFSObject) The data associated with the event.
 		 * @private
@@ -271,7 +276,7 @@ package core.events
 		}
 		
 		/**
-		 * Extension response handler
+		 * Server response handler
 		 * @param	evt (SFSEvent) The data from the server
 		 * @private
 		 */
