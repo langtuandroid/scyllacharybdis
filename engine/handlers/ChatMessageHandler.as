@@ -28,11 +28,11 @@ package handlers
 			// Get the event manager
 			_networkEventHandler = getDependency(NetworkEventHandler);
 			
-			_networkEventHandler.addEventListener(SFSEvent.PUBLIC_MESSAGE, onPublicMessage);
+			_networkEventHandler.addEventListener(SFSEvent.PUBLIC_MESSAGE, this, onPublicMessage);
 			
 			super.engine_start();
 			
-			_eventHandler.addEventListener(NetworkEvent.SEND_CHAT_MESSAGE, this, sendChatMessage );
+			_networkEventHandler.addEventListener(NetworkEvent.SEND_CHAT_MESSAGE, this, sendChatMessage );
 		}
 		
 		/**
@@ -60,11 +60,11 @@ package handlers
 		 */
 		public final override function engine_destroy():void
 		{
-			_eventHandler.removeEventListener(NetworkEvent.SEND_CHAT_MESSAGE, this, sendChatMessage );
+			_networkEventHandler.removeEventListener(NetworkEvent.SEND_CHAT_MESSAGE, this, sendChatMessage );
 
 			super.engine_destroy();
 			
-			_networkEventHandler.removeEventListener(SFSEvent.PUBLIC_MESSAGE, onPublicMessage);
+			_networkEventHandler.removeEventListener(SFSEvent.PUBLIC_MESSAGE, this, onPublicMessage);
 		}
 		
 		/**
@@ -115,7 +115,7 @@ package handlers
 		private function onPublicMessage(evt:SFSEvent):void
 		{
 			trace(evt.params.sender + " - " + evt.params.message );
-			_eventHandler.fireEvent("RECEIVED_CHATMESSAGE", new ChatMessageModel( evt.params.sender, evt.params.message ) );
+			_networkEventHandler.fireEvent(NetworkEvent.RECEIVED_CHAT_MESSAGE, new ChatMessageModel( evt.params.sender, evt.params.message ) );
 		}		
 	}
 }

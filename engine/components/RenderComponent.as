@@ -185,7 +185,7 @@ package components
 				
 				if ( _baseclip.hasEventListener(MouseEvent.ROLL_OUT) )
 				{
-					removeEventListener( MouseEvent.ROLL_OUT, scriptComponent.onRollOut );
+					_baseclip.removeEventListener( MouseEvent.ROLL_OUT, scriptComponent.onRollOut );
 				}
 				
 				if ( _baseclip.hasEventListener(MouseEvent.ROLL_OVER) )

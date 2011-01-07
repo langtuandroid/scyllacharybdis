@@ -2,6 +2,7 @@
 {
 	import Box2D.Common.Math.b2Vec2;
 	import core.events.EventHandler;
+	import core.events.NetworkEvent;
 	import core.events.NetworkEventHandler;
 	import core.sprites.TextureManager;
 	import core.physics.PhysicsWorld;
@@ -17,7 +18,6 @@
 	import handlers.RoomHandler;
 	import handlers.ChatMessageHandler;
 	import intro.IntroScene;
-	import intro.NetworkDriver;
 	import intro.ChatExample;
 	import org.casalib.math.geom.Point3d;
 	import core.sprites.SpriteManager;
@@ -30,7 +30,6 @@
 		private var _window:Window;
 		private var _renderer:Renderer;
 		private var _sceneManager:SceneManager;
-		private var _networkDriver:NetworkDriver;
 		private var _chatExample:ChatExample;
 		private var _physicsWorld:PhysicsWorld;
 		private var _spriteManager:SpriteManager;
@@ -68,12 +67,8 @@
 			var _roomHandler:RoomHandler = MemoryManager.instantiate(RoomHandler);
 			var _chatMessageHandler:ChatMessageHandler = MemoryManager.instantiate(ChatMessageHandler);
 
-			// Create an example network driver
-			_networkDriver = MemoryManager.instantiate( NetworkDriver );
-			//_chatExample = MemoryManager.instantiate( ChatExample );
-
 			// Fire a network connection event
-			_eventHandler.fireEvent("NETWORK_CONNECT");
+			_networkHandler.fireEvent(NetworkEvent.CONNECT);
 
 			// Create a physics world
 			_physicsWorld = MemoryManager.instantiate(PhysicsWorld);

@@ -240,6 +240,19 @@ package core.events
 			sendServerMessage( new ExtensionRequest(eventName, data, room) );				
 		}
 		
+		public final function fireEvent( eventName:String , data:* = null):void
+		{
+			var listeners:Dictionary = _listeners[eventName];
+			for ( var listener:* in listeners ) 
+			{
+				// Get the method
+				var method:Function = listeners[listener];
+				if ( method != null ) 
+				{
+					method(data);
+				}
+			}			
+		}
 		
 		/**
 		 * Fire a global event from the server

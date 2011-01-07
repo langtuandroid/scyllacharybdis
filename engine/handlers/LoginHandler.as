@@ -28,8 +28,8 @@ package handlers
 		
 			_networkEventHandler.addEventListener(SFSEvent.LOGIN_ERROR, this, onLoginError);
 			_networkEventHandler.addEventListener(SFSEvent.LOGIN, this, onLogin);
-			_networkEventHandler.addEventListener(NetworkEvent.NETWORK_LOGIN, this, requestLogin );
-			_networkEventHandler.addEventListener(NetworkEvent.NETWORK_LOGOUT, this, requestLogout );
+			_networkEventHandler.addEventListener(NetworkEvent.LOGIN, this, requestLogin );
+			_networkEventHandler.addEventListener(NetworkEvent.LOGOUT, this, requestLogout );
 			
 			super.engine_start();
 			
@@ -64,8 +64,8 @@ package handlers
 
 			_networkEventHandler.removeEventListener(SFSEvent.LOGIN_ERROR, this, onLoginError);
 			_networkEventHandler.removeEventListener(SFSEvent.LOGIN, this, onLogin);
-			_networkEventHandler.removeEventListener(NetworkEvent.NETWORK_LOGIN, this, requestLogin );
-			_networkEventHandler.removeEventListener(NetworkEvent.NETWORK_LOGOUT, this, requestLogout );
+			_networkEventHandler.removeEventListener(NetworkEvent.LOGIN, this, requestLogin );
+			_networkEventHandler.removeEventListener(NetworkEvent.LOGOUT, this, requestLogout );
 		}
 		/**
 		 * The users constructor. 
@@ -135,7 +135,7 @@ package handlers
 		 */
 		private function onLogin(evt:SFSEvent):void
 		{
-			_eventHandler.fireEvent("LOGIN_SUCCESS");
+			_networkEventHandler.fireEvent(NetworkEvent.LOGIN_SUCCESS);
 			trace("onLogin sucessful");
 		}
 		
@@ -144,7 +144,7 @@ package handlers
 		 */
 		private function onLoginError(evt:SFSEvent):void
 		{
-			_eventHandler.fireEvent("LOGIN_FAILED");
+			_networkEventHandler.fireEvent(NetworkEvent.LOGIN_FAILED);
 			trace("onLoginError");
 		}
 	}
