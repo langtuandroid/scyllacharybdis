@@ -17,6 +17,7 @@ package core.events
 
 		// Smartfox server
 		private var _sfs:SmartFox = new SmartFox();
+		private var _debug:Boolean = false;
 
 		// A 2d dictornary of events and listeners
 		private var _listeners:Dictionary = new Dictionary(true);
@@ -164,6 +165,7 @@ package core.events
 		 */
 		public final function setDebug( value:Boolean ) 
 		{
+			_debug = value;
 			_sfs.debug = value;
 		}
 
@@ -190,7 +192,6 @@ package core.events
 		 */
 		public final function unregisterListener( eventName:String, listener:*, method:Function ):void
 		{
-			trace("unregisterListener");
 			_listeners[eventName][listener] = null;
 			delete _listeners[eventName][listener];
 		}		
@@ -215,8 +216,7 @@ package core.events
 			{
 				data = new SFSObject.newInstance();
 			}			
-			var request:ExtensionRequest = new ExtensionRequest(eventName, data);
-			sendServerMessage(request);				
+			sendServerMessage( new ExtensionRequest(eventName, data) );				
 		}
 		
 		/**
@@ -231,8 +231,7 @@ package core.events
 			{
 				data = new SFSObject.newInstance();
 			}
-			var request:ExtensionRequest = new ExtensionRequest(eventName, data, room);
-			sendServerMessage.send(request);				
+			sendServerMessage.send( new ExtensionRequest(eventName, data, room) );				
 		}
 		
 		
@@ -285,6 +284,13 @@ package core.events
 		{
 			// Get the network message information
 			var cmd:String = evt.params.cmd;
+
+			if ( _debug ) 
+			{
+				trace( "onServerResponse command: " + cmd  );
+				trace( "onServerResponse event: " + evt );
+			}
+			
 			
 			// Fire the event using the event name and pass the event object
 			fireServerEvent(cmd, evt);
@@ -300,6 +306,12 @@ package core.events
 			// Get the network message information
 			var params:ISFSObject = evt.params.params;
 			var cmd:String = evt.params.cmd;
+			
+			if ( _debug ) 
+			{
+				trace( "onExtensionResponse command: " + cmd  );
+				trace( "onExtensionResponse event: " + evt );
+			}
 			
 			// Fire the event using the event name and pass the event object
 			fireExtensionEvent(cmd, params);
