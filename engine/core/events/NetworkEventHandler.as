@@ -8,6 +8,7 @@ package core.events
 	import com.smartfoxserver.v2.requests.BaseRequest;
 	import com.smartfoxserver.v2.requests.ExtensionRequest;
 	import com.smartfoxserver.v2.SmartFox;
+	import com.smartfoxserver.v2.util.ConfigData;
 	import core.objects.BaseObject;
 	import flash.utils.Dictionary;
 
@@ -335,5 +336,29 @@ package core.events
 			// Fire the event using the event name and pass the event object
 			fireExtensionEvent(cmd, params);
 		}			
+
+		public function get config():ConfigData
+		{
+			return _sfs.config;
+		}
+		
+		public function get isConnected():Boolean
+		{
+			return _sfs.isConnected;
+		}
+		
+		public function loadConfig(filePath:String = "sfs-config.xml", connectOnSuccess:Boolean = true):void 
+		{
+			_sfs.loadConfig(filePath, connectOnSuccess);
+		}
+		
+		public function connect(host:String = null, port:int = -1):void 
+		{
+			_sfs.connect(host, port);
+		}
+		public function disconnect():void 
+		{
+			_sfs.disconnect();
+		}
 	}
 }

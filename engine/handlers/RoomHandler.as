@@ -166,9 +166,8 @@ package handlers
 			_currentRoom = name;
 
 			_currentRoom = name;
-			var request:JoinRoomRequest = new JoinRoomRequest(name);
-			trace("sending join room request: " + name );
-			owner.sfs.send(request);
+
+			_networkEventHandler.sendServerMessage(new JoinRoomRequest(name));
 		}		
 		
 		/**
@@ -196,7 +195,7 @@ package handlers
 					settings.extension = new RoomExtension(extensionId, extensionClass)
 				}
 				
-				owner.sfs.send( new CreateRoomRequest(settings, true) )
+				_networkEventHandler.sendServerMessage( new CreateRoomRequest(settings, true) )
 			}
 		}
 		
@@ -206,8 +205,7 @@ package handlers
 		*/
 		private function leaveGameRoom():void
 		{
-			var request:JoinRoomRequest = new JoinRoomRequest(_previousRoom);
-			owner.sfs.send(request);
+			_networkEventHandler.sendServerMessage(new JoinRoomRequest(_previousRoom));
 		}		
 
 	

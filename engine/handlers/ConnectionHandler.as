@@ -144,15 +144,15 @@ package handlers
 			_isConnecting = true;
 
 			// Check if connection is already available
-			if ( ! owner.sfs.isConnected )
+			if ( ! _networkEventHandler.isConnected )
 			{
-				if (owner.sfs.config == null) 
+				if (_networkEventHandler.config == null) 
 				{
-					owner.sfs.loadConfig(_configFile, true);
+					_networkEventHandler.loadConfig(_configFile, true);
 				} 
 				else 
 				{
-					owner.sfs.connect();
+					_networkEventHandler.connect();
 				}
 			}
 			else 
@@ -166,8 +166,8 @@ package handlers
 		 */
 		private function disconnect():void
 		{
-			owner.sfs.connect(false);
-			owner.sfs.disconnect();
+			_networkEventHandler.connect();
+			_networkEventHandler.disconnect();
 		}				
 		
 
@@ -221,7 +221,7 @@ package handlers
 		 */
 		private function onConfigLoadSuccess(evt:SFSEvent):void
 		{
-			trace("Server settings: "  + owner.sfs.config.host + ":" + owner.sfs.config.port)
+			trace("Server settings: "  + _networkEventHandler.config.host + ":" + _networkEventHandler.config.port)
 		}
 		
 		/**
