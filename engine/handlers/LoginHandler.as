@@ -126,8 +126,7 @@ package handlers
 		 */
 		private function login(userName:String, password:String):void
 		{
-			var request:LoginRequest = new LoginRequest(userName, password);
-			owner.sfs.send(request);
+			_networkEventHandler.sendServerMessage(new LoginRequest(userName, password));
 		}
 
 		/**

@@ -106,7 +106,7 @@ package handlers
 		public final function sendChatMessage( message:* ):void
 		{
 			var request:PublicMessageRequest = new PublicMessageRequest(message);
-			owner.sfs.send(request);
+			_networkEventHandler.sendServerMessage(request);
 		}
 		
 		/**
