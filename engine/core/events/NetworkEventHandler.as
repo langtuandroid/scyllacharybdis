@@ -14,7 +14,6 @@ package core.events
 	[Singleton]
 	public class NetworkEventHandler extends BaseObject
 	{
-
 		// Smartfox server
 		private var _sfs:SmartFox = new SmartFox();
 		private var _debug:Boolean = false;
@@ -175,7 +174,7 @@ package core.events
 		 * @param	listener (*) The object listening to the event.
 		 * @param	method (Function) The function to be called on the object.
 		 */
-		public final function registerListener( eventName:String, listener:*, method:Function ):void
+		public final function addEventListener( eventName:String, listener:*, method:Function ):void
 		{
 			if ( _listeners[eventName] == null ) 
 			{
@@ -190,7 +189,7 @@ package core.events
 		 * @param	listener (*) The object listening to the event.
 		 * @param	method (Function) The function to be called on the object.
 		 */
-		public final function unregisterListener( eventName:String, listener:*, method:Function ):void
+		public final function removeEventListener( eventName:String, listener:*, method:Function ):void
 		{
 			_listeners[eventName][listener] = null;
 			delete _listeners[eventName][listener];
