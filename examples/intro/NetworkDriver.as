@@ -1,6 +1,8 @@
 package intro  
 {
-	import core.events.EventManager;
+	import core.events.EventHandler;
+	import core.events.NetworkEvent;
+	import core.events.NetworkEventHandler;
 	import core.objects.BaseObject;
 	import models.CreateRoomModel;
 	import models.LoginModel;
@@ -9,10 +11,10 @@ package intro
 	
 	/**
 	*/
-	[Requires ("core.events.EventManager")]
+	[Requires ("core.events.EventHandler")]
 	public class NetworkDriver extends BaseObject
 	{
-		private var _eventManager:EventManager;
+		private var _networkEventHandler:NetworkEventHandler;
 		private var _roomName:String = "The Lobby";
 
 		/**
@@ -22,17 +24,17 @@ package intro
 		public final override function engine_awake():void
 		{
 			// Get the event manager
-			_eventManager = getDependency(EventManager);
+			_networkEventHandler = getDependency(NetworkEventHandler);
 			super.engine_start();
 			
-			_eventManager.registerListener("CONNECTION_SUCCESS", this, connectionSuccess );
-			_eventManager.registerListener("CONNECTION_FAILED", this, connectionFailed );
-			_eventManager.registerListener("LOGIN_SUCCESS", this, loginSuccess );
-			_eventManager.registerListener("LOGIN_FAILED", this, loginFailed );
-			_eventManager.registerListener("JOINROOM_SUCCESS", this, joinRoomSuccess );
-			_eventManager.registerListener("JOINROOM_FAILED", this, joinRoomFailed );
-			_eventManager.registerListener("JOINGAMEROOM_SUCCESS", this, joinGameRoomSuccess );
-			_eventManager.registerListener("JOINGAMEROOM_FAILED", this, joinGameRoomFailed );
+			_networkEventHandler.addEventListener(NetworkEvent.CONNECTION_SUCCESS, this, connectionSuccess );
+			_networkEventHandler.addEventListener(NetworkEvent.CONNECTION_FAILED, this, connectionFailed );
+			_networkEventHandler.addEventListener(NetworkEvent.LOGIN_SUCCESS, this, loginSuccess );
+			_networkEventHandler.addEventListener(NetworkEvent.LOGIN_FAILED, this, loginFailed );
+			_networkEventHandler.addEventListener(NetworkEvent.JOINROOM_SUCCESS, this, joinRoomSuccess );
+			_networkEventHandler.addEventListener(NetworkEvent.JOINROOM_FAILED, this, joinRoomFailed );
+			_networkEventHandler.addEventListener(NetworkEvent.JOINGAMEROOM_SUCCESS, this, joinGameRoomSuccess );
+			_networkEventHandler.addEventListener(NetworkEvent.JOINGAMEROOM_FAILED, this, joinGameRoomFailed );
 			
 		}
 		
@@ -58,14 +60,15 @@ package intro
 		*/
 		public final override function engine_destroy():void
 		{
-			_eventManager.unregisterListener("CONNECTION_SUCCESS", this, connectionSuccess );
-			_eventManager.unregisterListener("CONNECTION_FAILED", this, connectionFailed );
-			_eventManager.unregisterListener("LOGIN_SUCCESS", this, loginSuccess );
-			_eventManager.unregisterListener("LOGIN_FAILED", this, loginFailed );
-			_eventManager.unregisterListener("JOINROOM_SUCCESS", this, joinRoomSuccess );
-			_eventManager.unregisterListener("JOINROOM_FAILED", this, joinRoomFailed );
-			_eventManager.unregisterListener("JOINGAMEROOM_SUCCESS", this, joinGameRoomSuccess );
-			_eventManager.unregisterListener("JOINGAMEROOM_FAILED", this, joinGameRoomFailed );
+			_networkEventHandler.removeEventListener(NetworkEvent.CONNECTION_SUCCESS, this, connectionSuccess );
+			_networkEventHandler.removeEventListener(NetworkEvent.CONNECTION_FAILED, this, connectionFailed );
+			_networkEventHandler.removeEventListener(NetworkEvent.LOGIN_SUCCESS, this, loginSuccess );
+			_networkEventHandler.removeEventListener(NetworkEvent.LOGIN_FAILED, this, loginFailed );
+			_networkEventHandler.removeEventListener(NetworkEvent.JOINROOM_SUCCESS, this, joinRoomSuccess );
+			_networkEventHandler.removeEventListener(NetworkEvent.JOINROOM_FAILED, this, joinRoomFailed );
+			_networkEventHandler.removeEventListener(NetworkEvent.JOINGAMEROOM_SUCCESS, this, joinGameRoomSuccess );
+			_networkEventHandler.removeEventListener(NetworkEvent.JOINGAMEROOM_FAILED, this, joinGameRoomFailed );
+			
 			
 			super.engine_destroy();
 		}		
@@ -77,8 +80,8 @@ package intro
 		public function connectionSuccess( data:* ):void
 		{
 			trace("Network Driver: connectionSuccess");
-			_eventManager.fireEvent( "NETWORK_LOGIN", new LoginModel("ben", "test", 1) );
-			//_eventManager.fireEvent( "NETWORK_LOGIN", new LoginModel("ben1", "test", 1) );
+			_networkEventHandler.fireEvent( NetworkEvent.LOGIN, new LoginModel("ben", "test", 1) );
+			//_eventHandler.fireEvent( "NETWORK_LOGIN", new LoginModel("ben1", "test", 1) );
 		}
 
 		/**
@@ -95,8 +98,8 @@ package intro
 		public function loginSuccess( data:* ):void
 		{
 			trace("Network Driver: loginSuccess");
-			_eventManager.fireEvent( "NETWORK_JOINROOM", new RoomModel(_roomName) );
-			//_eventManager.fireEvent( "NETWORK_JOINROOM", new RoomModel("TestGameRoom") );
+			_eventHandler.fireEvent( "NETWORK_JOINROOM", new RoomModel(_roomName) );
+			//_eventHandler.fireEvent( "NETWORK_JOINROOM", new RoomModel("TestGameRoom") );
 		}
 
 		/**
@@ -115,9 +118,9 @@ package intro
 			trace("Network Driver: joinRoomSuccess");
 			
 			// Commented out the start game since we want to have a chat message ( this works just need a button to attach it to ).
-			_eventManager.fireEvent( "NETWORK_CREATEROOM", new CreateRoomModel("TestGameRoom", "", 2, "sfsChess", "com.pikitus.games.chess.SFSChess") );
+			_eventHandler.fireEvent( "NETWORK_CREATEROOM", new CreateRoomModel("TestGameRoom", "", 2, "sfsChess", "com.pikitus.games.chess.SFSChess") );
 			
-			//_eventManager.fireEvent("SEND_CHATMESSAGE", "this is a test message");
+			//_eventHandler.fireEvent("SEND_CHATMESSAGE", "this is a test message");
 			
 		}
 

@@ -9,9 +9,7 @@ package components
 	import flash.events.MouseEvent;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
-
 	import core.objects.BaseObject;
-	import core.events.EventManager;
 
 	/**
 	 */

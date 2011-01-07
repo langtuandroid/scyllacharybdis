@@ -9,7 +9,6 @@ package physics
 	import org.casalib.math.geom.Point3d;
 	import core.physics.PhysicsWorld;
 	import core.memory.MemoryManager;
-	import core.events.EventManager;
 	
 	/**
 	 */
