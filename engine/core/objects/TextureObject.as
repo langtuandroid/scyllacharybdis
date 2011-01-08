@@ -1,4 +1,4 @@
-package core.sprites 
+package core.objects 
 {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -6,7 +6,7 @@ package core.sprites
 	import flash.events.Event;
 	/**
 	 */
-	public class Texture 
+	public class TextureObject
 	{
 		private var _loaded:Boolean = false;
 		private var _bitmap:Bitmap = new Bitmap();

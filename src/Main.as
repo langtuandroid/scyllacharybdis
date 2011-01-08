@@ -4,7 +4,7 @@
 	import core.events.EventHandler;
 	import core.events.NetworkEvent;
 	import core.events.NetworkEventHandler;
-	import core.sprites.TextureManager;
+	import core.loaders.TextureManager;
 	import core.physics.PhysicsWorld;
 	import core.rendering.Backbuffer;
 	import core.rendering.Window;
@@ -20,7 +20,7 @@
 	import intro.IntroScene;
 	import intro.ChatExample;
 	import org.casalib.math.geom.Point3d;
-	import core.sprites.SpriteManager;
+	import core.loaders.XMLLoader;
 	import physics.PhysicsScene;
 
 	
@@ -34,7 +34,7 @@
 		private var _physicsWorld:PhysicsWorld;
 		private var _textureManager:TextureManager;
 		private var _eventHandler:EventHandler;
-		private var _spriteManager:SpriteManager;
+		private var _XMLLoader:XMLLoader;
 		
 		public function Main():void 
 		{		
@@ -57,9 +57,9 @@
 			
 			_textureManager = MemoryManager.instantiate(TextureManager);
 			
-			_spriteManager = MemoryManager.instantiate(SpriteManager);
-			_spriteManager.loadSprite("test.xml", "normal");
-			_spriteManager.loadSprite("test.xml", "bouncy");
+			_XMLLoader = MemoryManager.instantiate(XMLLoader);
+			_XMLLoader.loadDefinition("test.xml");
+			_XMLLoader.loadDefinition("test.xml");
 			
 			// Create the scene manager
 			_sceneManager = MemoryManager.instantiate(SceneManager);
