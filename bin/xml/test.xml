@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<spritesheet>
+	<material>
+		<texture filename="test.png"/>
+		<areas>
+			<area name="spinnersprite" topleft="0,0" bottomright="200,160">
+				<animations>
+					<animation name="idle" frames="20" rows="5" cols="4" width="40" height="40" background="0xE2E2E2"/>
+					<animation name="blah" frames="20" rows="5" cols="4" width="40" height="40" background="0xE2E2E2"/>
+				</animations>
+			</area>
+			<area name="spinnersheet" body="spinner" topleft="0,0" bottomright="200,160"></area>
+		</areas>
+	</material>
+	<physics>
+		<bodies>
+			<body name="spinnerbody" dynamtic="true">
+				<shape type="polygon" top="0.0" left="0.0" width="1.0" height="1.0" friction="0.3" density="0" restitution="0.1"/>
+			</body>
+			<body name="bouncybody" dynamtic="true">
+				<shape type="polygon" top="0.0" left="0.0" width="1.0" height="1.0" friction="0.3" density="0" restitution="0.5"/>
+			</body>
+			<body name="polyandcircle" dynamtic="true">
+				<shape type="circle" center="0.9,0.5" radius="0.1" friction="0.3" density="0" restitution="0.5"/>
+				<shape type="polygon" top="0.0" left="0.0" width="0.8" height="1.0" friction="0.3" density="0" restitution="0.5"/>
+			</body>
+		</bodies>
+	</physics>
+</spritesheet>

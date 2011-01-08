@@ -1,7 +1,7 @@
-package core.sprites 
+package core.loaders 
 {
 	import core.objects.BaseObject;
-	import core.sprites.Texture;
+	import core.objects.TextureObject;
 	import flash.display.Bitmap;
 	import flash.display.Loader;
 	import flash.events.Event;
@@ -16,7 +16,7 @@ package core.sprites
 		private var _queue:Array = new Array();
 		private var _textureList:Dictionary = new Dictionary();
 		
-		public function loadTexture( fileName:String ):Texture
+		public function loadTexture( fileName:String ):TextureObject
 		{
 			if ( _textureList[fileName] != null ) 
 			{
@@ -30,7 +30,7 @@ package core.sprites
 			if ( _queue.length == 1 ) {
 				loadFile( _queue[0] );
 			}
-			return _textureList[fileName] = new Texture();
+			return _textureList[fileName] = new TextureObject();
 		}
 		
 		

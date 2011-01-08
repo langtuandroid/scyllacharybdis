@@ -1,20 +1,20 @@
 package physics
 {
 	import components.RenderComponent;
-	import core.sprites.Texture;
-	import core.sprites.TextureManager;
+	import core.loaders.TextureManager;
 	import core.memory.MemoryManager;
+	import core.objects.TextureObject;
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	
 	/**
 	 */
-	[Requires ("core.sprites.TextureManager")]
+	[Requires ("core.loaders.TextureManager")]
 	public class PhysicsRenderComponent extends RenderComponent
 	{
 		private var _textureManager:TextureManager;
-		private var _circle:Texture;
-		private var _square:Texture;
+		private var _circle:TextureObject;
+		private var _square:TextureObject;
 		
 		override public function awake():void 
 		{

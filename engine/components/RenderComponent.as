@@ -1,6 +1,6 @@
 package components
 {
-	import core.sprites.Texture;
+	import core.objects.TextureObject;
 	import flash.utils.Dictionary;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
@@ -18,7 +18,7 @@ package components
 	{
 
 		private var _baseclip:MovieClip = null;
-		private var _texture:Texture;
+		private var _texture:TextureObject;
 		
 		/** 
 		 * Engine constructor
@@ -99,9 +99,9 @@ package components
 		// For sorting
 		public function get comparator():Number { return owner.getComponent(TransformComponent).worldPosition.z }
 		
-		public function get texture():Texture { return _texture; }
+		public function get texture():TextureObject { return _texture; }
 		
-		public function set texture(value:Texture):void 
+		public function set texture(value:TextureObject):void 
 		{
 			_texture = value;
 		}

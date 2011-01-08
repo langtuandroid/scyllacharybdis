@@ -1,7 +1,7 @@
 package core.rendering 
 {
 	import components.RenderComponent;
-	import core.sprites.Texture;
+	import core.objects.TextureObject;
 	import core.objects.BaseObject;
 	import core.objects.GameObject;
 	import flash.display.DisplayObjectContainer;
@@ -94,7 +94,7 @@ package core.rendering
 			var bitmapData:BitmapData;
 			if ( gameObj.getComponent(RenderComponent).texture )
 			{
-				var texture:Texture = gameObj.getComponent(RenderComponent).texture;
+				var texture:TextureObject = gameObj.getComponent(RenderComponent).texture;
 				if ( !texture.isLoaded() ) {
 					return;
 				}
