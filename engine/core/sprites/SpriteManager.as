@@ -17,38 +17,45 @@ package core.sprites
 	public class SpriteManager extends BaseObject
 	{
 		private var _textureManager:TextureManager;
-		private var _spriteList:Dictionary = new Dictionary();
+		private var _spriteList:Dictionary = new Dictionary(true);
 		
 		override public function awake():void 
 		{
-			_textureManager == getDependency(TextureManager);
+			_textureManager = getDependency(TextureManager);
 			super.awake();
 		}
 		
 		/**
 		 * Load the sprite from the xml file
-		 * @param	fileName
+		 * @param	sheetName
 		 * @param	spriteName
 		 * @return
 		 */
-		public function loadSprite( fileName:String, spriteName:String ):Sprite
+		public function loadSprite( sheetName:String, spriteName:String ):Sprite
 		{
-			// Check to see if we have already loaded the sprite
-			if ( _spriteList[fileName] != null ) 
+			if ( _spriteList[ sheetName ] == null ) 
 			{
-				// Return the requested sprite
-				return _spriteList[fileName].getSprite( spriteName );
+				_spriteList[ sheetName ] = new Dictionary(true);
+			} 
+			else 
+			{
+				// Check to see if we have already loaded the sprite
+				if ( _spriteList[sheetName][spriteName] != null ) 
+				{	
+					// Return the requested sprite
+					return _spriteList[sheetName][spriteName];
+				}
 			}
 
 			// Create the sprite
-			_spriteList[ fileName ] = new Sprite();
+			_spriteList[ sheetName ][spriteName] = new Sprite();
 			
 			// Load the xml file
-			var loader:URLLoader = new URLLoader( new URLRequest("sprites/" + fileName ) );
+			var loader:URLLoader = new URLLoader( new URLRequest("sprites/" + sheetName ) );
 			loader.addEventListener(Event.COMPLETE, loadedCompleteHandler);
 			
 			// Return the sprite pointer
-			return _spriteList[fileName].getSprite( spriteName );
+			return _spriteList[sheetName][spriteName];
 		}
 	
 		/**
@@ -71,7 +78,7 @@ package core.sprites
 		{
 			trace( "parseTextures: " + textures);
 			var textureName:String = textures.attributes.name;
-			_textureManager.loadFile( textureName );
+			_textureManager.loadTexture( textureName );
 			parseBodies( textures..bodies );
 			parseAreas( textures..areas );
 		}

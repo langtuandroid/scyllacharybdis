@@ -32,9 +32,9 @@
 		private var _sceneManager:SceneManager;
 		private var _chatExample:ChatExample;
 		private var _physicsWorld:PhysicsWorld;
-		private var _spriteManager:SpriteManager;
 		private var _textureManager:TextureManager;
 		private var _eventHandler:EventHandler;
+		private var _spriteManager:SpriteManager;
 		
 		public function Main():void 
 		{		
@@ -57,6 +57,10 @@
 			
 			_textureManager = MemoryManager.instantiate(TextureManager);
 			
+			_spriteManager = MemoryManager.instantiate(SpriteManager);
+			_spriteManager.loadSprite("test.xml", "normal");
+			_spriteManager.loadSprite("test.xml", "bouncy");
+			
 			// Create the scene manager
 			_sceneManager = MemoryManager.instantiate(SceneManager);
 			
@@ -66,7 +70,7 @@
 			var _loginHandler:LoginHandler = MemoryManager.instantiate(LoginHandler);
 			var _roomHandler:RoomHandler = MemoryManager.instantiate(RoomHandler);
 			var _chatMessageHandler:ChatMessageHandler = MemoryManager.instantiate(ChatMessageHandler);
-
+			
 			// Fire a network connection event
 			_networkHandler.fireEvent(NetworkEvent.CONNECT);
 
@@ -76,7 +80,8 @@
 			
 			// Display the intro scene
 			//_sceneManager.PushScene(IntroScene);			
-			_sceneManager.PushScene(PhysicsScene);			
+			_sceneManager.PushScene(PhysicsScene);	
+			
 
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
 			

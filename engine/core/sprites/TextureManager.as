@@ -33,7 +33,19 @@ package core.sprites
 			return _textureList[fileName] = new Texture();
 		}
 		
-		public function loadFile( fileName:String ):void
+		
+		public function onLoaderComplete(event:Event):void
+		{   
+			var loader:Loader = Loader(event.target.loader);
+			var fileName:String = _queue.shift();
+			_textureList[fileName].setTextureData( Bitmap(loader.content).bitmapData );
+			if ( _queue.length > 0 ) 
+			{
+				loadFile( _queue[0] );
+			}
+		}		
+		
+		private function loadFile( fileName:String ):void
 		{
 			// Is there anything in the queue
 			if ( _queue.length <= 0 ) {
@@ -49,15 +61,5 @@ package core.sprites
 			loader.load(fileRequest);
 		}
 		
-		public function onLoaderComplete(event:Event):void
-		{   
-			var loader:Loader = Loader(event.target.loader);
-			var fileName:String = _queue.shift();
-			_textureList[fileName].setTextureData( Bitmap(loader.content).bitmapData );
-			if ( _queue.length > 0 ) 
-			{
-				loadFile( _queue[0] );
-			}
-		}		
 	}
 }
