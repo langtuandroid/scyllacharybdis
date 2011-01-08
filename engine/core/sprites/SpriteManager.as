@@ -77,7 +77,7 @@ package core.sprites
 		{
 			//parseTexture( spritesheet..texture );
 			//parseBodies( spritesheet..bodies );
-			parseAreas( spritesheet..areas );
+			//parseAreas( spritesheet..areas );
 			parseSprites( spritesheet..sprites );
 		}
 		
@@ -175,8 +175,13 @@ package core.sprites
 		 */
 		private function parseSprites(sprites:XMLList):void 
 		{
-			//trace("******************************");
-			//trace( "parseSprites: " + sprites);
+			trace("******************************");
+			trace( "parseSprites: " + sprites);
+			for each ( var sprite:XML in sprites..sprite ) {
+				trace( "Sprite name: " + sprite.attribute("name") );
+				trace( "Sprite name: " + sprite.attribute("area") );
+				trace( "Sprite name: " + sprite.attribute("body") );
+			}
 		}		
 		
 	}
