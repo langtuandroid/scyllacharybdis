@@ -68,23 +68,18 @@ package core.sprites
 			var xml:XML = XML(e.target.data);		
 			parseXML( xml );
 		}
-		
+
+		/**
+		 * Parse the xml file
+		 * @param	spritesheet
+		 */
 		private function parseXML(spritesheet:XML):void
 		{
-			//trace("******************************");
-			//trace( "parseXML: " +  spritesheet);
-			var test:XMLList = spritesheet..texture;
-			trace( test );
-			trace( test.attributes );
-			trace( test.attributes.filename );
-
-			parseTexture( spritesheet..texture );
-			parseBodies( spritesheet..bodies );
+			//parseTexture( spritesheet..texture );
+			//parseBodies( spritesheet..bodies );
 			parseAreas( spritesheet..areas );
 			parseSprites( spritesheet..sprites );
 		}
-		
-
 		
 		/**
 		 * Parse the texture information
@@ -93,21 +88,50 @@ package core.sprites
 		private function parseTexture(texture:XMLList):void
 		{
 			trace("******************************");
-			trace( "parseTexture: " + texture);
-			trace("******************************");
-			//var textureName:String = textures.attributes.filename;
-			//trace( textureName );
-			//_textureManager.loadTexture( textureName );
+			var textureName:String = texture.attribute("filename");
+			trace("texture name: " + textureName );
+			if ( textureName != null )
+			{
+				_textureManager.loadTexture( textureName );
+			}
 		}
 		
 		/**
-		 * Parse the physics bodies
+		 * Parse the physics bodies 
 		 * @param	bodies
 		 */
 		private function parseBodies(bodies:XMLList):void 
 		{
-			//trace("******************************");
-			trace( "parseBodies: " + bodies);
+			trace("******************************");
+			for each ( var body:XML in bodies..body )
+			{
+				trace();
+				trace ("Body name: " + body.attribute("name") );
+				trace ("Body dynamic: " + body.attribute("dynamtic") );
+				for each ( var shape:XML in body..shape ) {
+					if ( shape.attribute("type") == "circle" ) 
+					{
+						trace ("Shape type: " + shape.attribute("type") );
+						trace ("Shape center: " + shape.attribute("center") );
+						trace ("Shape radius: " + shape.attribute("radius") );
+					} 
+					else if ( shape.attribute("type") == "polygon" ) 
+					{
+						trace ("Shape type: " + shape.attribute("type") );
+						trace ("Shape top: " + shape.attribute("top") );
+						trace ("Shape left: " + shape.attribute("left") );
+						trace ("Shape width: " + shape.attribute("width") );
+						trace ("Shape height: " + shape.attribute("height") );
+					}
+					else
+					{
+						trace("Shape has to be a polygon or circle: " + shape.attributes() );
+					}
+					trace ("Shape friction: " + shape.attribute("friction") );
+					trace ("Shape density: " + shape.attribute("density") );
+					trace ("Shape restitution: " + shape.attribute("restitution") );
+				}
+			}
 		}
 		
 		/**
@@ -116,32 +140,44 @@ package core.sprites
 		 */
 		private function parseAreas(areas:XMLList):void 
 		{
-			//trace("******************************");
-			//trace( "parseAreas: " + areas);
-			var areaName:String = areas.attributes.name;
-			var areaTopLeft:String = areas.attributes.topLeft;
-			var areaBottomRight:String = areas.attributes.bottomRight;
-			parseAnimations(areas..animations);
+			trace("******************************");
+			trace( "parseAreas: " + areas);
+			for each ( var area:XML in areas..area ) {
+				trace( "Area name: " + area.attribute("name") );
+				trace( "Area topleft: " + area.attribute("topleft") );
+				trace( "Area bottomright: " + area.attribute("bottomright") );
+				parseAnimations(areas..animations);
+			}
 		}
-		
-		private function parseSprites(sprites:XMLList):void 
-		{
-			//trace("******************************");
-			//trace( "parseSprites: " + sprites);
-		}		
-		
+
 		/**
 		 * Parse the animations
 		 * @param	animations
 		 */
 		private function parseAnimations(animations:XMLList):void 
 		{
-			//trace( "parseAnimations: " + animations);
-			var animationName:String = animations.attributes.name;
-			var animationFrames:String = animations.attributes.frames;
-			var animationTopLeft:String = animations.attributes.topLeft;
-			var animationBottomRight:String = animations.attributes.bottomRight;
-			var animationBackground:String =animations.attributes.background;
+			trace("******************************");
+			trace( "parseAnimations: " + animations);
+			for each ( var animation:XML in animations..animation ) {
+				trace( "Animation name: " + animation.attribute("name") );
+				trace( "Animation frames: " + animation.attribute("frames") );
+				trace( "Animation rows: " + animation.attribute("rows") );
+				trace( "Animation cols: " + animation.attribute("cols") );
+				trace( "Animation width: " + animation.attribute("width") );
+				trace( "Animation height: " + animation.attribute("height") );
+				trace( "Animation background: " + animation.attribute("background") );
+			}
 		}	
+
+		/**
+		 * Parse the sprite definition
+		 * @param	sprites
+		 */
+		private function parseSprites(sprites:XMLList):void 
+		{
+			//trace("******************************");
+			//trace( "parseSprites: " + sprites);
+		}		
+		
 	}
 }

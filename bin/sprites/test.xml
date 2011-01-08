@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <spritesheet>
-	<texture filename="test.png">asdf</texture>
+	<texture filename="test.png" name="test">asdf</texture>
 	<bodies>
 		<body name="spinnerbody" dynamtic="true">
-			<polygon top="0.0" left="0.0" width="1.0" height="1.0" friction="0.3" density="0" restitution="0.1"/>
+			<shape type="polygon" top="0.0" left="0.0" width="1.0" height="1.0" friction="0.3" density="0" restitution="0.1"/>
 		</body>
 		<body name="bouncybody" dynamtic="true">
-			<polygon top="0.0" left="0.0" width="1.0" height="1.0" friction="0.3" density="0" restitution="0.5"/>
+			<shape type="polygon" top="0.0" left="0.0" width="1.0" height="1.0" friction="0.3" density="0" restitution="0.5"/>
+		</body>
+		<body name="polyandcircle" dynamtic="true">
+			<shape type="circle" center="0.0" radius="1.0" friction="0.3" density="0" restitution="0.5"/>
+			<shape type="polygon" top="0.0" left="0.0" width="1.0" height="1.0" friction="0.3" density="0" restitution="0.5"/>
 		</body>
 	</bodies>
 	<areas>
