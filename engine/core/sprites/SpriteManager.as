@@ -65,22 +65,39 @@ package core.sprites
 		private function loadedCompleteHandler(e:Event):void
 		{
 			e.target.removeEventListener(Event.COMPLETE, loadedCompleteHandler);
-			var xml:XML = XML(e.target.data);			
-			trace( "parseXML: " +  xml);
-			parseTextures( xml..texture );
+			var xml:XML = XML(e.target.data);		
+			parseXML( xml );
 		}
+		
+		private function parseXML(spritesheet:XML):void
+		{
+			//trace("******************************");
+			//trace( "parseXML: " +  spritesheet);
+			var test:XMLList = spritesheet..texture;
+			trace( test );
+			trace( test.attributes );
+			trace( test.attributes.filename );
+
+			parseTexture( spritesheet..texture );
+			parseBodies( spritesheet..bodies );
+			parseAreas( spritesheet..areas );
+			parseSprites( spritesheet..sprites );
+		}
+		
+
 		
 		/**
 		 * Parse the texture information
 		 * @param	doc
 		 */
-		private function parseTextures(textures:XMLList):void
+		private function parseTexture(texture:XMLList):void
 		{
-			trace( "parseTextures: " + textures);
-			var textureName:String = textures.attributes.name;
-			_textureManager.loadTexture( textureName );
-			parseBodies( textures..bodies );
-			parseAreas( textures..areas );
+			trace("******************************");
+			trace( "parseTexture: " + texture);
+			trace("******************************");
+			//var textureName:String = textures.attributes.filename;
+			//trace( textureName );
+			//_textureManager.loadTexture( textureName );
 		}
 		
 		/**
@@ -89,8 +106,8 @@ package core.sprites
 		 */
 		private function parseBodies(bodies:XMLList):void 
 		{
+			//trace("******************************");
 			trace( "parseBodies: " + bodies);
-			
 		}
 		
 		/**
@@ -99,12 +116,19 @@ package core.sprites
 		 */
 		private function parseAreas(areas:XMLList):void 
 		{
-			trace( "parseAreas: " + areas);
+			//trace("******************************");
+			//trace( "parseAreas: " + areas);
 			var areaName:String = areas.attributes.name;
 			var areaTopLeft:String = areas.attributes.topLeft;
 			var areaBottomRight:String = areas.attributes.bottomRight;
 			parseAnimations(areas..animations);
 		}
+		
+		private function parseSprites(sprites:XMLList):void 
+		{
+			//trace("******************************");
+			//trace( "parseSprites: " + sprites);
+		}		
 		
 		/**
 		 * Parse the animations
@@ -112,7 +136,7 @@ package core.sprites
 		 */
 		private function parseAnimations(animations:XMLList):void 
 		{
-			trace( "parseAnimations: " + animations);
+			//trace( "parseAnimations: " + animations);
 			var animationName:String = animations.attributes.name;
 			var animationFrames:String = animations.attributes.frames;
 			var animationTopLeft:String = animations.attributes.topLeft;
