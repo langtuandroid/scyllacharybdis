@@ -23,13 +23,7 @@
 		<area name="spinnersheet" body="spinner" topleft="0,0" bottomright="200,160"></area>
 	</areas>
 	<sprites>
-		<sprite name="normal">
-			<area name="spinnersprite"/>
-			<body name="spinnerbody"/>
-		</sprite>
-		<sprite name="bouncy">
-			<area name="spinnersprite"/>
-			<body name="bouncybody"/>
-		</sprite>
+		<sprite name="normal" area="spinnersprite" body="spinnerbody"/>
+		<sprite name="bouncy" area="spinnersprite" body="bouncybody"/>
 	</sprites>
 </spritesheet>
