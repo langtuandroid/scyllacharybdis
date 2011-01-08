@@ -10,5 +10,6 @@ package core.sprites
 		{
 			return _loaded;
 		}
+		
 	}
 }
