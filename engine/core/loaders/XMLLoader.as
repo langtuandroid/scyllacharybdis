@@ -23,7 +23,7 @@ package core.loaders
 		 * @param	spriteName
 		 * @return
 		 */
-		public function loadDefinition( fileName:String ):XML
+		public function loadDefinition( fileName:String ):SpriteDetails
 		{
 			if ( _xmlList[fileName] != null )
 			{
