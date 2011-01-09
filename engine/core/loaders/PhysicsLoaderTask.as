@@ -1,20 +1,17 @@
 package core.loaders 
 {
-	import core.ami.AMIHandler;
-	import core.ami.IAMIResults;
-	import core.ami.IAMITask;
+	import core.ami.AMIResults;
+	import core.ami.AMITask;
 	import core.objects.BaseObject;
 	/**
 	 * ...
 	 * @author 
 	 */
-	[Requires ("core.ami.AMIHandler")]
-	public class PhysicsTask extends BaseObject implements IAMITask, IAMIResults
+	public class PhysicsLoaderTask extends AMITask
 	{
-		private var _amiHandler:AMIHandler;
 		private var _fileName:String;
 		
-		public PhysicsTask( results:IAMIResults, fileName:String )
+		public PhysicsTask( results:AMIResults, fileName:String )
 		{
 			super(results);
 			_fileName = fileName;
@@ -22,10 +19,10 @@ package core.loaders
 		
 		public function execute():void
 		{
-			_amiHandler.fireMessage( new XMLLoaderTask( this, _fileName );
+			new XMLLoaderTask( new PhysicsResults(this), _fileName );
 		}
 		
-		public function completed( data:* ):void
+		public function parseXML( data:* ):void
 		{
 			var results:String = _physics.parseBodies( spritesheet..physics );
 			_results.completed( results );
