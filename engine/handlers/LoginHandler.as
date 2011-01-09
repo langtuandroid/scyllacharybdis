@@ -1,6 +1,6 @@
 package handlers 
 {
-	import core.events.NetworkEvent;
+	import core.events.NetworkEvents;
 	import core.events.NetworkEventHandler;
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
@@ -28,8 +28,8 @@ package handlers
 		
 			_networkEventHandler.addEventListener(SFSEvent.LOGIN_ERROR, this, onLoginError);
 			_networkEventHandler.addEventListener(SFSEvent.LOGIN, this, onLogin);
-			_networkEventHandler.addEventListener(NetworkEvent.LOGIN, this, requestLogin );
-			_networkEventHandler.addEventListener(NetworkEvent.LOGOUT, this, requestLogout );
+			_networkEventHandler.addEventListener(NetworkEvents.LOGIN, this, requestLogin );
+			_networkEventHandler.addEventListener(NetworkEvents.LOGOUT, this, requestLogout );
 			
 			super.engine_start();
 			
@@ -64,8 +64,8 @@ package handlers
 
 			_networkEventHandler.removeEventListener(SFSEvent.LOGIN_ERROR, this, onLoginError);
 			_networkEventHandler.removeEventListener(SFSEvent.LOGIN, this, onLogin);
-			_networkEventHandler.removeEventListener(NetworkEvent.LOGIN, this, requestLogin );
-			_networkEventHandler.removeEventListener(NetworkEvent.LOGOUT, this, requestLogout );
+			_networkEventHandler.removeEventListener(NetworkEvents.LOGIN, this, requestLogin );
+			_networkEventHandler.removeEventListener(NetworkEvents.LOGOUT, this, requestLogout );
 		}
 		/**
 		 * The users constructor. 
@@ -134,7 +134,7 @@ package handlers
 		 */
 		private function onLogin(evt:SFSEvent):void
 		{
-			_networkEventHandler.fireEvent(NetworkEvent.LOGIN_SUCCESS);
+			_networkEventHandler.fireEvent(NetworkEvents.LOGIN_SUCCESS);
 			trace("onLogin sucessful");
 		}
 		
@@ -143,7 +143,7 @@ package handlers
 		 */
 		private function onLoginError(evt:SFSEvent):void
 		{
-			_networkEventHandler.fireEvent(NetworkEvent.LOGIN_FAILED);
+			_networkEventHandler.fireEvent(NetworkEvents.LOGIN_FAILED);
 			trace("onLoginError");
 		}
 	}

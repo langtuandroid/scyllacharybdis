@@ -12,7 +12,7 @@ package core.loaders
 	/**
 	 */
 	[Singleton]
-	public class XMLLoader extends BaseObject
+	public class XMLLoader extends BaseObject 
 	{
 		private var _queue:Array = new Array();
 		private var _xmlList:Dictionary = new Dictionary(true);

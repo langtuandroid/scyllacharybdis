@@ -1,6 +1,6 @@
 package handlers 
 {
-	import core.events.NetworkEvent;
+	import core.events.NetworkEvents;
 	import core.events.NetworkEventHandler;
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
@@ -47,9 +47,9 @@ package handlers
 			
 			super.engine_start();
 			
-			_networkEventHandler.addEventListener(NetworkEvent.CREATEROOM, this, requestCreateRoom );
-			_networkEventHandler.addEventListener(NetworkEvent.JOINROOM, this, requestJoinRoom );
-			_networkEventHandler.addEventListener(NetworkEvent.LEAVBROOM, this, requestLeaveRoom );
+			_networkEventHandler.addEventListener(NetworkEvents.CREATEROOM, this, requestCreateRoom );
+			_networkEventHandler.addEventListener(NetworkEvents.JOINROOM, this, requestJoinRoom );
+			_networkEventHandler.addEventListener(NetworkEvents.LEAVBROOM, this, requestLeaveRoom );
 		}
 		
 		/**
@@ -77,9 +77,9 @@ package handlers
 		 */
 		public final override function engine_destroy():void
 		{
-			_networkEventHandler.removeEventListener(NetworkEvent.CREATEROOM, this, requestCreateRoom );
-			_networkEventHandler.removeEventListener(NetworkEvent.JOINROOM, this, requestJoinRoom );
-			_networkEventHandler.removeEventListener(NetworkEvent.LEAVBROOM, this, requestLeaveRoom );
+			_networkEventHandler.removeEventListener(NetworkEvents.CREATEROOM, this, requestCreateRoom );
+			_networkEventHandler.removeEventListener(NetworkEvents.JOINROOM, this, requestJoinRoom );
+			_networkEventHandler.removeEventListener(NetworkEvents.LEAVBROOM, this, requestLeaveRoom );
 			
 			super.engine_destroy();
 
@@ -225,7 +225,7 @@ package handlers
 		 */
 		protected function onJoinRoomError(evt:SFSEvent):void
 		{
-			_networkEventHandler.fireEvent(NetworkEvent.JOINROOM_FAILED, evt.params.errorMessage);
+			_networkEventHandler.fireEvent(NetworkEvents.JOINROOM_FAILED, evt.params.errorMessage);
 		}
 
 		/**
@@ -236,11 +236,11 @@ package handlers
 		{
 			if ( ! _gameRoom ) 
 			{
-				_networkEventHandler.fireEvent(NetworkEvent.JOINROOM_SUCCESS, evt);
+				_networkEventHandler.fireEvent(NetworkEvents.JOINROOM_SUCCESS, evt);
 			} 
 			else 
 			{
-				_networkEventHandler.fireEvent(NetworkEvent.CREATEROOM_SUCCESS, evt);
+				_networkEventHandler.fireEvent(NetworkEvents.CREATEROOM_SUCCESS, evt);
 			}
 		}		
 		
@@ -249,7 +249,7 @@ package handlers
 		 */
 		private function onUserCountChange(evt:SFSEvent):void
 		{
-			_networkEventHandler.fireEvent(NetworkEvent.USERCOUNT_CHANGED, evt );
+			_networkEventHandler.fireEvent(NetworkEvents.USERCOUNT_CHANGED, evt );
 		}
 
 		/**
@@ -258,7 +258,7 @@ package handlers
 		private function onUserEnterRoom(evt:SFSEvent):void
 		{
 			var user:User = evt.params.user;
-			_networkEventHandler.fireEvent(NetworkEvent.USER_ENTER_ROOM, evt );
+			_networkEventHandler.fireEvent(NetworkEvents.USER_ENTER_ROOM, evt );
 		}
 
 		/**
@@ -267,7 +267,7 @@ package handlers
 		private function onUserExitRoom(evt:SFSEvent):void
 		{
 			var user:User = evt.params.user;
-			_networkEventHandler.fireEvent(NetworkEvent.USER_EXIT_ROOM, evt );
+			_networkEventHandler.fireEvent(NetworkEvents.USER_EXIT_ROOM, evt );
 		}
 
 		/**
@@ -276,7 +276,7 @@ package handlers
 		private function onRoomAdd(evt:SFSEvent):void
 		{
 			var room:Room = evt.params.room;
-			_networkEventHandler.fireEvent(NetworkEvent.ROOM_ADD, evt );
+			_networkEventHandler.fireEvent(NetworkEvents.ROOM_ADD, evt );
 		}
 
 		/**
@@ -285,7 +285,7 @@ package handlers
 		private function onRoomRemove(evt:SFSEvent):void
 		{
 			var room:Room = evt.params.room;
-			_networkEventHandler.fireEvent(NetworkEvent.ROOM_REMOVE, evt );
+			_networkEventHandler.fireEvent(NetworkEvents.ROOM_REMOVE, evt );
 		}		
 		
 	}

@@ -1,7 +1,7 @@
 package intro
 {
 	import core.events.EventHandler;
-	import core.events.NetworkEvent;
+	import core.events.NetworkEvents;
 	import core.events.NetworkEventHandler;
 	import core.objects.BaseObject;
 	/**
@@ -22,7 +22,7 @@ package intro
 			_networkEventHandler = getDependency(NetworkEventHandler);
 			super.engine_start();
 			
-			_networkEventHandler.addEventListener(NetworkEvent.RECEIVED_CHAT_MESSAGE, this, displayMessage );
+			_networkEventHandler.addEventListener(NetworkEvents.RECEIVED_CHAT_MESSAGE, this, displayMessage );
 		}
 		
 		/**
@@ -47,7 +47,7 @@ package intro
 		*/
 		public final override function engine_destroy():void
 		{
-			_networkEventHandler.removeEventListener(NetworkEvent.RECEIVED_CHAT_MESSAGE, this, displayMessage );
+			_networkEventHandler.removeEventListener(NetworkEvents.RECEIVED_CHAT_MESSAGE, this, displayMessage );
 			
 			super.engine_destroy();
 		}		

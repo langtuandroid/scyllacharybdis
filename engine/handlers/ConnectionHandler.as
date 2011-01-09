@@ -1,6 +1,6 @@
 package handlers 
 {
-	import core.events.NetworkEvent;
+	import core.events.NetworkEvents;
 	import core.events.NetworkEventHandler;
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
@@ -35,8 +35,8 @@ package handlers
 			
 			super.engine_awake();
 
-			_networkEventHandler.addEventListener(NetworkEvent.CONNECT, this, requestConnection );
-			_networkEventHandler.addEventListener(NetworkEvent.DISCONNECT, this, requestDisconnection );
+			_networkEventHandler.addEventListener(NetworkEvents.CONNECT, this, requestConnection );
+			_networkEventHandler.addEventListener(NetworkEvents.DISCONNECT, this, requestDisconnection );
 			
 		}
 		
@@ -65,8 +65,8 @@ package handlers
 		 */
 		public final override function engine_destroy():void
 		{
-			_networkEventHandler.removeEventListener(NetworkEvent.CONNECT, this, requestConnection );
-			_networkEventHandler.removeEventListener(NetworkEvent.DISCONNECT, this, requestDisconnection );
+			_networkEventHandler.removeEventListener(NetworkEvents.CONNECT, this, requestConnection );
+			_networkEventHandler.removeEventListener(NetworkEvents.DISCONNECT, this, requestDisconnection );
 
 			super.engine_destroy();
 			
@@ -177,7 +177,7 @@ package handlers
 		private function connectionSuccess():void
 		{
 			_connected = true;
-			_networkEventHandler.fireEvent(NetworkEvent.CONNECTION_SUCCESS);
+			_networkEventHandler.fireEvent(NetworkEvents.CONNECTION_SUCCESS);
 		}
 		
 		/**
@@ -187,7 +187,7 @@ package handlers
 		private function connectionFailed(message:String):void
 		{
 			_connected = false;
-			_networkEventHandler.fireEvent(NetworkEvent.CONNECTION_FAILED, message);
+			_networkEventHandler.fireEvent(NetworkEvents.CONNECTION_FAILED, message);
 		}
 		
 		/**
