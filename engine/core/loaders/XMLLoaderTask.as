@@ -1,17 +1,17 @@
 package core.loaders 
 {
-	import core.ami.IAMIResults;
-	import core.ami.IAMITask;
+	import core.ami.AMIResults;
+	import core.ami.AMITask;
 	/**
 	 * ...
 	 * @author 
 	 */
-	public class XMLLoaderTask implements IAMITask
+	public class XMLLoaderTask extends AMITask
 	{
 		private var _fileName:String;
 		private static var _cache = new XMLCache();
 		
-		public function XMLLoaderTask(results:IAMIResults, fileName:String) 
+		public function XMLLoaderTask(results:AMIResults, fileName:String) 
 		{
 			super(results);
 			_fileName = fileName;
