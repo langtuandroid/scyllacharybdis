@@ -12,34 +12,30 @@ package core.loaders
 		
 		public function get renderer():RenderDetails { return _renderer; }
 		
-		public function set renderer(value:RenderDetails):void 
-		{
-			_renderer = value;
-		}
-		
 		public function get physics():PhysicsDetails { return _physics; }
-		
-		public function set physics(value:PhysicsDetails):void 
-		{
-			_physics = value;
-		}
-		
+
 		public function get complete():Boolean { return _complete; }
 		
-		public function set complete(value:Boolean):void 
-		{
-			_complete = value;
-		}
 		
 		/**
 		 * Parse the xml file
 		 * @param	spritesheet
 		 */
-		private function parseXML(spritesheet:XML):void
+		public function parseXML(spritesheet:XML):void
 		{
-			//parseTexture( spritesheet..texture );
-			//parseAreas( spritesheet..areas );
-			//parseBodies( spritesheet..bodies );
+			if ( spritesheet..material != null ) 
+			{
+				_renderer = new RenderDetails();
+				_renderer.parseTexture( spritesheet..material );
+				_renderer.parseAreas( spritesheet..material );
+			}
+			if ( spritesheet..physics != null ) 
+			{
+				_physics = new PhysicsDetails();
+				_physics.parseBodies( spritesheet..physics );
+			}
+			
+			_complete = true;
 		}		
 	}
 }

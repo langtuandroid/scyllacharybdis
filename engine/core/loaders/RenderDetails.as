@@ -8,22 +8,18 @@ package core.loaders
 		 * Parse the texture information
 		 * @param	doc
 		 */
-		private function parseTexture(texture:XMLList):void
+		public function parseTexture(texture:XMLList):void
 		{
 			trace("******************************");
 			var textureName:String = texture.attribute("filename");
 			trace("texture name: " + textureName );
-			if ( textureName != null )
-			{
-				//_textureManager.loadTexture( textureName );
-			}
 		}
 		
 		/**
 		 * Parse the areas
 		 * @param	areas
 		 */
-		private function parseAreas(areas:XMLList):void 
+		public function parseAreas(areas:XMLList):void 
 		{
 			trace("******************************");
 			trace( "parseAreas: " + areas);
@@ -39,7 +35,7 @@ package core.loaders
 		 * Parse the animations
 		 * @param	animations
 		 */
-		private function parseAnimations(animations:XMLList):void 
+		public function parseAnimations(animations:XMLList):void 
 		{
 			trace("******************************");
 			trace( "parseAnimations: " + animations);

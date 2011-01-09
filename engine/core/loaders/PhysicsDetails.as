@@ -11,7 +11,7 @@ package core.loaders
 		 * Parse the physics bodies 
 		 * @param	bodies
 		 */
-		private function parseBodies(bodies:XMLList):void 
+		public function parseBodies(bodies:XMLList):void 
 		{
 			trace("******************************");
 			for each ( var body:XML in bodies..body )
