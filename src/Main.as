@@ -2,7 +2,7 @@
 {
 	import Box2D.Common.Math.b2Vec2;
 	import core.events.EventHandler;
-	import core.events.NetworkEvent;
+	import core.events.NetworkEvents;
 	import core.events.NetworkEventHandler;
 	import core.loaders.TextureManager;
 	import core.physics.PhysicsWorld;
@@ -72,7 +72,7 @@
 			var _chatMessageHandler:ChatMessageHandler = MemoryManager.instantiate(ChatMessageHandler);
 			
 			// Fire a network connection event
-			_networkHandler.fireEvent(NetworkEvent.CONNECT);
+			_networkHandler.fireEvent(NetworkEvents.CONNECT);
 
 			// Create a physics world
 			_physicsWorld = MemoryManager.instantiate(PhysicsWorld);

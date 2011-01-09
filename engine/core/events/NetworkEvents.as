@@ -4,7 +4,7 @@ package core.events
 	 * ...
 	 * @author 
 	 */
-	public class NetworkEvent 
+	public class NetworkEvents 
 	{
 		static public const ROOM_REMOVE:String = "roomRemove";
 		static public const ROOM_ADD:String = "roomAdd";
