@@ -35,7 +35,7 @@ package core.ami
 		 * Action was successful
 		 * @param	data
 		 */
-		public function success( data:* ):void
+		public final function success( data:* ):void
 		{
 			results.success( data );
 		}
@@ -44,7 +44,7 @@ package core.ami
 		 * Action failed
 		 * @param	data
 		 */
-		public function failed( data:* ):void
+		public final function failed( data:* ):void
 		{
 			results.failed( data );
 		}
