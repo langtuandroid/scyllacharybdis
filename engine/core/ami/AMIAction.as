@@ -24,7 +24,7 @@ package core.ami
 		 * Call when the task has succeeded
 		 * @param	data
 		 */
-		public function success( data:* ):void
+		public final function success( data:* ):void
 		{
 			// Pack the results
 			var results:Dictionary = new Dictionary(true);
@@ -39,7 +39,7 @@ package core.ami
 		 * Call when the task has failed
 		 * @param	data
 		 */
-		public function failed( data:* ):void
+		public final function failed( data:* ):void
 		{
 			// Pack the results
 			var results:Dictionary = new Dictionary(true);

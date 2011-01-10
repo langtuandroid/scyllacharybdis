@@ -14,7 +14,7 @@ package core.ami
 	{
 		private var _eventHander:EventHandler;
 		
-		public override function engine_awake():void
+		public final override function engine_awake():void
 		{
 			_eventHander = getDependency(EventHandler);
 			_eventHander.addEventListener("AMI_SUCCESS", this, success );
@@ -23,7 +23,7 @@ package core.ami
 			super.engine_awake();
 		}
 		
-		public override function engine_destroy():void 
+		public final override function engine_destroy():void 
 		{
 			super.engine_destroy();
 
@@ -35,7 +35,7 @@ package core.ami
 		 * Dispatch a task
 		 * @param	task
 		 */
-		public function dispatchTask( task:AMITask )
+		public final function dispatchTask( task:AMITask )
 		{
 			task.execute();
 		}
@@ -44,7 +44,7 @@ package core.ami
 		 * Handle task success event
 		 * @param	message
 		 */
-		private function success(message:Dictionary):void 
+		private final function success(message:Dictionary):void 
 		{
 			var task:AMITask = message["task"];
 			task.success( message["data"] );
@@ -54,7 +54,7 @@ package core.ami
 		 * Handle task failed event
 		 * @param	message
 		 */
-		private function failed(message:Dictionary):void 
+		private final function failed(message:Dictionary):void 
 		{
 			var task:AMITask = message["task"];
 			task.failed( message["data"] );
