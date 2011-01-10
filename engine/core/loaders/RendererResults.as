@@ -5,7 +5,7 @@ package core.loaders
 	 * ...
 	 * @author 
 	 */
-	public class PhysicsResults extends AMIResults
+	public class RendererResults extends AMIResults
 	{
 		/**
 		 * Override to implement task success
