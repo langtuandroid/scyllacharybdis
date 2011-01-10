@@ -51,12 +51,12 @@ package core.ami
 		}
 
 		/**
-		 * Get the task
+		 * Get the parent task
 		 */
 		public final function get task():AMITask { return _task; }
 
 		/**
-		 * Set the task
+		 * Set the parent task
 		 */
 		public final function set task(task:AMITask):void 
 		{
