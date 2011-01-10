@@ -1,32 +1,26 @@
 package core.loaders 
 {
-	import core.ami.AMIResults;
 	import core.ami.AMITask;
 	import core.objects.BaseObject;
 	/**
 	 * ...
 	 * @author 
 	 */
-	public class PhysicsLoaderTask extends AMITask
+	public class PhysicsLoader extends BaseObject
 	{
-		private var _fileName:String;
+		private var _body:String;
 		
-		public PhysicsTask( results:AMIResults, fileName:String )
+		public function loadPhysics( fileName:String, body:String=null)
 		{
-			super(results);
-			_fileName = fileName;
-		}
-		
-		public function execute():void
-		{
-			new XMLLoaderTask( new PhysicsResults(this), _fileName );
+			_body = body;
+			var task:AMITask = new AMITask( new XMLLoaderAction(fileName), new PhysicsResults(), this );
 		}
 		
 		public function parseXML( data:* ):void
 		{
-			var results:String = _physics.parseBodies( spritesheet..physics );
-			_results.completed( results );
+			var results:String = _physics.parseBodies( data..physics );
 		}
+
 		/**
 		 * Parse the physics bodies 
 		 * @param	bodies
@@ -64,6 +58,5 @@ package core.loaders
 				}
 			}
 		}
-		
 	}
 }

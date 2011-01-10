@@ -4,7 +4,7 @@ package core.loaders
 
 	/**
 	 */
-	public class XMLLoaderTask extends AMIAction
+	public class XMLLoaderAction extends AMIAction
 	{
 		private var _fileName:String;
 		private static var _cache = new XMLCache();

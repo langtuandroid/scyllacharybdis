@@ -2,8 +2,21 @@ package core.loaders
 {
 	/**
 	 */
-	public class RenderDetails 
+	public class RendererLoader
 	{
+		
+		public function loadPhysics( fileName:String, body:String=null)
+		{
+			_body = body;
+			var task:AMITask = new AMITask( new XMLLoaderAction(fileName), new PhysicsResults(), this );
+		}
+		
+		public function parseXML( data:* ):void
+		{
+			var textures:String = _renderer.parseTexture( data..material );
+			var areas:String = _renderer.parseAreas( data..material );			
+		}
+		
 		/**
 		 * Parse the texture information
 		 * @param	doc
