@@ -4,11 +4,12 @@ package core.loaders
 	 */
 	public class RendererLoader
 	{
+		private var _area:String;
 		
-		public function loadPhysics( fileName:String, body:String=null)
+		public function loadPhysics( fileName:String, area:String=null)
 		{
-			_body = body;
-			var task:AMITask = new AMITask( new XMLLoaderAction(fileName), new PhysicsResults(), this );
+			_area = area;
+			var task:AMITask = new AMITask( new XMLLoaderAction(fileName), new RendererResults(), this );
 		}
 		
 		public function parseXML( data:* ):void
