@@ -1,32 +1,60 @@
 package core.ami 
 {
-	import core.objects.BaseObject;
+	import core.ami.AMIResults;
 	/**
 	 * ...
 	 * @author 
 	 */
-	public class AMITask extends BaseObject
+	public class AMITask 
 	{
+		private var _invoker:Object;
+		private var _action:AMIAction;
 		private var _results:AMIResults;
-		private var _started:Boolean;
-
-		public IAMITask( results:AMIResults )
+		
+		public function AMITask( action:AMIAction, results:AMIResults, invoker:Object ) 
 		{
+			// Store the parameters
+			_action = action;
 			_results = results;
+			_invoker = invoker;
+			
+			// Tell the dependencies about the task
+			action.task = this;
+			results.task = this;
 		}
 		
-		public function startTask():void
+		/**
+		 * Execute the action
+		 */
+		public function execute():void
 		{
-			if ( _started == true ) 
-			{
-				return;
-			}
-			_started = true;
+			action.start();
 		}
 		
-		public function taskCompleted( data:* = null ):void
+		/**
+		 * Action was successful
+		 * @param	data
+		 */
+		public function success( data:* ):void
 		{
-			_results.completed( data );
+			results.success( data );
+		}
+		
+		/**
+		 * Action failed
+		 * @param	data
+		 */
+		public function failed( data:* ):void
+		{
+			results.failed( data );
+		}
+
+		/**
+		 * Get the class that invoked the task
+		 */
+		public final function get invoker():Object 
+		{ 
+			return _invoker; 
 		}
 	}
 }
