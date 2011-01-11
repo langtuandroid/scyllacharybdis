@@ -12,9 +12,9 @@ package components
 
 	/**
 	 */
-	[ComponentType ("components.PhysicsComponent")]
+	[ComponentType ("components.CollisionComponent")]
 	[Requires ("core.physics.PhysicsWorld")]
-	public class PhysicsComponent extends BaseObject
+	public class CollisionComponent extends BaseObject
 	{
 		
 		/****************************************/

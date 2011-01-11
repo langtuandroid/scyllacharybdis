@@ -1,8 +1,10 @@
-package core.loaders 
+package components 
 {
 	/**
+	 * ...
+	 * @author 
 	 */
-	public class RendererLoader
+	public class XMLRenderComponent extends RenderComponent
 	{
 		private var _area:String;
 		
