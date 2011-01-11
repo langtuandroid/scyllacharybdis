@@ -1,6 +1,7 @@
 package core.rendering 
 {
 	import components.RenderComponent;
+	import core.scenegraph.SceneGraph;
 	import events.EngineEvent;
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;

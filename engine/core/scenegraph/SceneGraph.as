@@ -1,10 +1,12 @@
-package core.rendering 
+package core.scenegraph 
 {
 	import components.RenderComponent;
 	import core.objects.BaseObject;
 	import core.objects.GameObject;
 	import events.EngineEvent;
+	import flash.events.TimerEvent;
 	import flash.utils.Dictionary;
+	import flash.utils.Timer;
 	/**
 	 * ...
 	 * @author ...
@@ -12,6 +14,7 @@ package core.rendering
 	[Singleton]
 	public class SceneGraph extends BaseObject 
 	{
+		private var _updateTimer:Timer = new Timer(1/30 * 1000, 0); 
 		private var _gameObjects:Dictionary = new Dictionary(true);
 		
 		/**
@@ -20,6 +23,10 @@ package core.rendering
 		 */
 		public final override function engine_awake():void
 		{
+			// setup the timer
+			_updateTimer.addEventListener(TimerEvent.TIMER, engine_update);
+			_updateTimer.start();
+			
 			super.engine_awake();
 		}
 		
@@ -32,6 +39,16 @@ package core.rendering
 			super.engine_start();
 		}
 
+		/**
+		 * Update the physics model
+		 * @param	event
+		 * @private
+		 */
+		public final function engine_update(event:TimerEvent):void
+		{
+			
+		}
+		
 		/**
 		 * The engine stop function
 		 * @private
@@ -48,6 +65,9 @@ package core.rendering
 		public final override function engine_destroy():void
 		{
 			super.engine_destroy();
+			
+			_updateTimer.stop();
+			_updateTimer.removeEventListener(TimerEvent.TIMER, engine_update);
 		}
 		
 		/**
@@ -119,6 +139,8 @@ package core.rendering
 		{
 			delete _gameObjects[gameObj];
 		}
+		
+		
 		
 		/**
 		 * Get all the renderables for the scene.

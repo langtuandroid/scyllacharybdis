@@ -3,7 +3,6 @@ package core.scenes
 	import core.memory.MemoryManager;
 	import core.objects.BaseObject;
 	import core.objects.SceneObject;
-	import core.rendering.SceneGraph;
 	import flash.utils.Dictionary;
 	/**
 	 */

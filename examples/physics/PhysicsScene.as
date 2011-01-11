@@ -7,7 +7,7 @@ package physics
 	import core.objects.SceneObject;
 	import intro.SquareScriptComponent;
 	import org.casalib.math.geom.Point3d;
-	import core.physics.PhysicsWorld;
+	import core.scenegraph.PhysicsSceneGraph;
 	import core.memory.MemoryManager;
 	
 	/**
