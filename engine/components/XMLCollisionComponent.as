@@ -1,12 +1,12 @@
-package core.loaders 
+package components 
 {
-	import core.ami.AMITask;
-	import core.objects.BaseObject;
+	import core.loaders.PhysicsResults;
+	import core.loaders.XMLLoaderAction;
 	/**
 	 * ...
 	 * @author 
 	 */
-	public class PhysicsLoader extends BaseObject
+	public class XMLCollisionComponent extends CollisionComponent
 	{
 		private var _body:String;
 		
@@ -58,5 +58,6 @@ package core.loaders
 				}
 			}
 		}
+		
 	}
 }
