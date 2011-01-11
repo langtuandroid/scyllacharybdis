@@ -1,10 +1,10 @@
-package core.physics 
+package core.scenegraph 
 {
 	import Box2D.Common.Math.b2Vec2;
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2World;
-	import core.objects.BaseObject;
 	import core.objects.GameObject;
+	import core.physics.PhysicsContactListener;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	import org.casalib.math.geom.Point3d;
@@ -13,10 +13,8 @@ package core.physics
 	 */
 	[Singleton]
 	[Requires ("core.physics.PhysicsContactListener")]
-	public final class PhysicsWorld extends BaseObject
+	public final class PhysicsSceneGraph extends SceneGraph
 	{
-
-		private var _updateTimer:Timer = new Timer(1/30 * 1000, 0); 
 		private var _world:b2World;
 		private var _contactListener:PhysicsContactListener;
 		
@@ -30,10 +28,8 @@ package core.physics
 		 * The engine contructor
 		 * @private
 		 */
-		public final override function engine_awake():void
+		public override function awake():void
 		{
-			super.engine_awake();
-			
 			// Allow bodies to sleep
 			var doSleep:Boolean = true;
 			
@@ -48,21 +44,6 @@ package core.physics
 			
 			// Set the contact listener for the world
 			_world.SetContactListener(_contactListener);	
-
-			// setup the timer
-			_updateTimer.addEventListener(TimerEvent.TIMER, engine_update);
-			_updateTimer.start();
-		
-		}
-
-		/**
-		 * The engine start method
-		 * @private
-		 */
-		public final override function engine_start():void
-		{
-			super.engine_start();
-
 		}
 
 		/**
@@ -70,7 +51,7 @@ package core.physics
 		 * @param	event
 		 * @private
 		 */
-		public final function engine_update(event:TimerEvent):void
+		public final function update(event:TimerEvent):void
 		{
 			_world.Step( 1 / 30, _velocityIterations, _positionIterations );
 			
@@ -92,21 +73,13 @@ package core.physics
 		}	
 		
 		/**
-		 * The engine stop function
-		 * @private
-		 */
-		public final override function engine_stop():void
-		{
-			super.engine_stop();
-		}		
-
-		/**
 		 * Destroy is called at the removal of the object
 		 * @private
 		 */
-		public final override function engine_destroy():void
+		public final override function destroy():void
 		{
-			super.engine_destroy();
+			_world = null;
+			_contactListener = null;
 		}
 
 		/**

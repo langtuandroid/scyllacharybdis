@@ -6,7 +6,7 @@ package components
 	import Box2D.Dynamics.b2BodyDef;
 	import Box2D.Dynamics.b2FixtureDef;
 	import core.objects.BaseObject;
-	import core.physics.PhysicsWorld;
+	import core.scenegraph.PhysicsSceneGraph;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
 
@@ -21,7 +21,7 @@ package components
 		// Class Details
 		/****************************************/
 
-		private var _physicsWorld:PhysicsWorld;
+		private var _physicsWorld:PhysicsSceneGraph;
 		private var _body:b2Body;
 
 		/** 
@@ -30,7 +30,7 @@ package components
 		 */
 		public final override function engine_awake():void
 		{
-			_physicsWorld = getDependency( PhysicsWorld );
+			_physicsWorld = getDependency( PhysicsSceneGraph );
 			super.engine_awake();
 		}
 		

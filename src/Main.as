@@ -4,9 +4,10 @@
 	import core.events.EventHandler;
 	import core.events.NetworkEvents;
 	import core.events.NetworkEventHandler;
-	import core.physics.PhysicsWorld;
+	import core.scenegraph.PhysicsSceneGraph;
 	import core.rendering.Backbuffer;
 	import core.rendering.Window;
+	import core.scenegraph.PhysicsSceneGraph;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import core.rendering.Renderer;
@@ -29,7 +30,7 @@
 		private var _renderer:Renderer;
 		private var _sceneManager:SceneManager;
 		private var _chatExample:ChatExample;
-		private var _physicsWorld:PhysicsWorld;
+		private var _physicsWorld:PhysicsSceneGraph;
 		private var _eventHandler:EventHandler;
 		
 		public function Main():void 
@@ -65,7 +66,7 @@
 			_networkHandler.fireEvent(NetworkEvents.CONNECT);
 
 			// Create a physics world
-			_physicsWorld = MemoryManager.instantiate(PhysicsWorld);
+			_physicsWorld = MemoryManager.instantiate(PhysicsSceneGraph);
 			//_physicsWorld.gravity = new b2Vec2(0.0, 10.0);
 			
 			// Display the intro scene

@@ -1,7 +1,7 @@
 package core.objects 
 {
 	import core.memory.MemoryManager;
-	import core.rendering.SceneGraph;
+	import core.scenegraph.SceneGraph;
 	/**
 	 */
 	[Requires ("core.rendering.SceneGraph")]
