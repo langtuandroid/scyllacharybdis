@@ -1,5 +1,7 @@
 package components 
 {
+	import core.loaders.TextureLoaderAction;
+	import core.loaders.TextureResults;
 	import core.objects.TextureObject;
 	/**
 	 * ...
@@ -37,7 +39,11 @@ package components
 		
 		public function parseXML( data:* ):void
 		{
-			var textures:String = _renderer.parseTexture( data..material );
+			var texture:String = _renderer.parseTexture( data..material );
+			if ( texture != null )
+			{
+				var loadTexture:AMITask = new AMITask( new TextureLoaderAction(texture), new TextureResults(), this );
+			}
 			var areas:String = _renderer.parseAreas( data..material );			
 		}
 		
