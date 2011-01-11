@@ -29,7 +29,7 @@ package components
 		}
 				
 		
-		public function loadTexture( fileName:String, area:String=null)
+		public function loadMaterial( fileName:String, area:String=null)
 		{
 			_area = area;
 			var task:AMITask = new AMITask( new XMLLoaderAction(fileName), new RendererResults(), this );
