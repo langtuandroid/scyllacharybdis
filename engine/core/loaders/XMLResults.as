@@ -5,7 +5,7 @@ package core.loaders
 	 * ...
 	 * @author 
 	 */
-	public class PhysicsResults extends AMIResults
+	public class XMLResults extends AMIResults
 	{
 		/**
 		 * Override to implement task success
@@ -13,7 +13,7 @@ package core.loaders
 		 */
 		public function success(data:*):void
 		{
-			invoker.parseXML( data );
+			task.invoker.xmlLoadSuccess( data );
 		}
 		
 		/**
@@ -22,7 +22,7 @@ package core.loaders
 		 */
 		public function failed(data:*):void
 		{
-			trace( failed(data) );
+			task.invoker.xmlLoadError( data );
 		}		
 	}
 }

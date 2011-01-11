@@ -12,7 +12,7 @@ package core.loaders
 		 */
 		public function success(data:*):void
 		{
-			invoker.parseXML( data );
+			task.invoker.textureLoadSuccess( data );
 		}
 		
 		/**
@@ -21,7 +21,7 @@ package core.loaders
 		 */
 		public function failed(data:*):void
 		{
-			trace( failed(data) );
+			task.invoker.textureLoadError( data );
 		}			
 	}
 
