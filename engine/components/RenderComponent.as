@@ -1,6 +1,7 @@
 package components
 {
-	import core.objects.TextureObject;
+	import flash.display.BitmapData;
+	import flash.geom.Point;
 	import flash.utils.Dictionary;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
@@ -17,8 +18,7 @@ package components
 	public class RenderComponent extends BaseObject
 	{
 
-		private var _baseclip:MovieClip = null;
-		private var _texture:TextureObject;
+		private var _baseclip:MovieClip  = new MovieClip();
 		
 		/** 
 		 * Engine constructor
@@ -26,8 +26,6 @@ package components
 		 */
 		public final override function engine_awake():void
 		{
-			_baseclip = new MovieClip();
-			
 			super.engine_awake();
 		}
 	
@@ -98,13 +96,6 @@ package components
 		
 		// For sorting
 		public function get comparator():Number { return owner.getComponent(TransformComponent).worldPosition.z }
-		
-		public function get texture():TextureObject { return _texture; }
-		
-		public function set texture(value:TextureObject):void 
-		{
-			_texture = value;
-		}
 
 		/**
 		 * Add the renderable to the surface
@@ -112,7 +103,14 @@ package components
 		 */
 		public function render( surface:Backbuffer ):void
 		{
-			surface.draw( owner );
+			// Create a new bitmap
+			var bitmapData:BitmapData = new BitmapData(_baseclip.width, _baseclip.height, true, 0x555555FF);
+			
+			// Draw the baseclip to the bitmap
+			bitmapData.draw(_baseclip);
+			
+			// Copy the pixels to the backbuffer
+			surface.copyPixels(bitmapData, bitmapData.rect, new Point(owner.position.x, owner.position.y), null, null, true)
 		}
 		
 		

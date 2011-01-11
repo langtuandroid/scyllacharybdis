@@ -1,5 +1,6 @@
 package components 
 {
+	import core.objects.TextureObject;
 	/**
 	 * ...
 	 * @author 
@@ -7,8 +8,28 @@ package components
 	public class XMLRenderComponent extends RenderComponent
 	{
 		private var _area:String;
+		private var _texture:TextureObject;
 		
-		public function loadPhysics( fileName:String, area:String=null)
+		/**
+		 * Add the renderable to the surface
+		 * @param	surface (DisplayObjectContainer) 
+		 */
+		public function render( surface:Backbuffer ):void
+		{
+			if ( _texture == null )
+			{
+				return;
+			}
+			
+			// Get the bitmap
+			var bitmapData = _texture.getTextureData();
+			
+			// Copy the pixels to the backbuffer
+			surface.copyPixels(bitmapData, bitmapData.rect, new Point(owner.position.x, owner.position.y), null, null, true)
+		}
+				
+		
+		public function loadTexture( fileName:String, area:String=null)
 		{
 			_area = area;
 			var task:AMITask = new AMITask( new XMLLoaderAction(fileName), new RendererResults(), this );

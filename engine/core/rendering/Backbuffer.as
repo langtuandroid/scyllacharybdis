@@ -10,6 +10,7 @@ package core.rendering
 	import flash.geom.Point;
 	import flash.display.BitmapData;
 	import flash.display.Bitmap;	
+	import flash.geom.Rectangle;
 	
 	/**
 	 */
@@ -86,27 +87,17 @@ package core.rendering
 		}
 		
 		/**
-		 * Draw the clip
-		 * @param	baseclip
+		 * Copy the pixels to the backbuffer
+		 * @param	bitmapData
+		 * @param	bitmapRect
+		 * @param	destPoint
+		 * @param	alphaBitmapData
+		 * @param	alphaPoint
+		 * @param	mergeAlpha
 		 */
-		public function draw(gameObj:GameObject):void 
+		public function copyPixels( bitmapData:BitmapData, bitmapRect:Rectangle, destPoint:Point, alphaBitmapData:BitmapData = null, alphaPoint:Point = null, mergeAlpha:Boolean = false ):void
 		{
-			var bitmapData:BitmapData;
-			if ( gameObj.getComponent(RenderComponent).texture )
-			{
-				var texture:TextureObject = gameObj.getComponent(RenderComponent).texture;
-				if ( texture == null ) {
-					return;
-				}
-				bitmapData = texture.getTextureData();
-			} 
-			else 
-			{
-				var clip:MovieClip = gameObj.getComponent(RenderComponent).baseclip;
-				bitmapData = new BitmapData(clip.width, clip.height, true, 0x555555FF);
-				bitmapData.draw(clip);
-			}
-			_backBuffer.copyPixels(bitmapData, bitmapData.rect, new Point(gameObj.position.x, gameObj.position.y), null, null, true)
+			_backBuffer.copyPixels(bitmapData, bitmapRect, destPoint, alphaBitmapData, alphaPoint, mergeAlpha)
 		}
 		
 		public function lock():void
