@@ -22,7 +22,7 @@ package core.loaders
 		 */
 		public function failed(data:*):void
 		{
-			trace( failed(data) );
+			trace( data );
 		}		
 	}
 }

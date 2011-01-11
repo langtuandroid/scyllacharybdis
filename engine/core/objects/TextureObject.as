@@ -8,28 +8,17 @@ package core.objects
 	 */
 	public class TextureObject
 	{
-		private var _loaded:Boolean = false;
-		private var _bitmap:Bitmap = new Bitmap();
+		private var _bitmap:Bitmap;
 		
-		public function isLoaded():Boolean
+		public function TextureObject( bitmap:Bitmap )
 		{
-			return _loaded;
+			_bitmap = bitmap;
+			Bitmap(loader.content).bitmapData
 		}
 		
 		public function getTextureData():BitmapData
 		{
-			if ( ! isLoaded() ) 
-			{
-				return null;
-			}
-			
 			return _bitmap.bitmapData;
-		}
-		
-		public function setTextureData( data:BitmapData ):void
-		{
-			_bitmap.bitmapData = data;
-			_loaded = true;
 		}
 	}
 }
