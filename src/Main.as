@@ -4,7 +4,6 @@
 	import core.events.EventHandler;
 	import core.events.NetworkEvents;
 	import core.events.NetworkEventHandler;
-	import core.loaders.TextureManager;
 	import core.physics.PhysicsWorld;
 	import core.rendering.Backbuffer;
 	import core.rendering.Window;
@@ -20,7 +19,6 @@
 	import intro.IntroScene;
 	import intro.ChatExample;
 	import org.casalib.math.geom.Point3d;
-	import core.loaders.XMLLoader;
 	import physics.PhysicsScene;
 
 	
@@ -32,9 +30,7 @@
 		private var _sceneManager:SceneManager;
 		private var _chatExample:ChatExample;
 		private var _physicsWorld:PhysicsWorld;
-		private var _textureManager:TextureManager;
 		private var _eventHandler:EventHandler;
-		private var _XMLLoader:XMLLoader;
 		
 		public function Main():void 
 		{		
@@ -54,12 +50,6 @@
 			
 			// Create the event manager
 			_eventHandler= MemoryManager.instantiate(EventHandler);
-			
-			_textureManager = MemoryManager.instantiate(TextureManager);
-			
-			_XMLLoader = MemoryManager.instantiate(XMLLoader);
-			_XMLLoader.loadDefinition("test.xml");
-			_XMLLoader.loadDefinition("test.xml");
 			
 			// Create the scene manager
 			_sceneManager = MemoryManager.instantiate(SceneManager);

@@ -13,7 +13,6 @@ package core.objects
 		public function TextureObject( bitmap:Bitmap )
 		{
 			_bitmap = bitmap;
-			Bitmap(loader.content).bitmapData
 		}
 		
 		public function getTextureData():BitmapData

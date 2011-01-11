@@ -3,11 +3,11 @@ package physics
 	import Box2D.Collision.Shapes.b2CircleShape;
 	import Box2D.Collision.Shapes.b2PolygonShape;
 	import Box2D.Dynamics.b2BodyDef;
-	import components.PhysicsComponent;
+	import components.CollisionComponent;
 	
 	/**
 	 */
-	public class BoxPhysicsComponent extends PhysicsComponent
+	public class BoxPhysicsComponent extends CollisionComponent
 	{
 		/**
 		 * The users constructor. 

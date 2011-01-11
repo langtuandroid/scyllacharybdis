@@ -1,6 +1,6 @@
 package physics 
 {
-	import components.PhysicsComponent;
+	import components.CollisionComponent;
 	import components.RenderComponent;
 	import core.objects.BaseObject;
 	import core.objects.GameObject;
@@ -53,12 +53,12 @@ package physics
 				if (Math.random() < 0.5) 
 				{
 					geom.getComponent(RenderComponent).createBox(width, height);
-					geom.getComponent(PhysicsComponent).createBox(x, y, width, height);
+					geom.getComponent(CollisionComponent).createBox(x, y, width, height);
 				} 
 				else
 				{
 					geom.getComponent(RenderComponent).createCircle(width);
-					geom.getComponent(PhysicsComponent).createCircle(x,y, width);
+					geom.getComponent(CollisionComponent).createCircle(x,y, width);
 				}
 			
 				// Add the to the scene
