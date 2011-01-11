@@ -1,12 +1,10 @@
-package core.loaders 
+package core.cache 
 {
 	import core.objects.BaseObject;
 
 	/**
-	 * ...
-	 * @author 
 	 */
-	public class XMLCache extends BaseObject
+	public class XMLCache 
 	{
 		private var _xmlList:Dictionary = new Dictionary(true);
 	
@@ -14,7 +12,7 @@ package core.loaders
 		 *  Return the loaded xml
 		 * @param	fileName (String) Key to the data
 		 */
-		public function getCache( fileName:String )
+		public function getCache( fileName:String ):XML
 		{
 			return _xmlList[fileName];
 		}
