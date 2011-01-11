@@ -95,7 +95,7 @@ package core.rendering
 			if ( gameObj.getComponent(RenderComponent).texture )
 			{
 				var texture:TextureObject = gameObj.getComponent(RenderComponent).texture;
-				if ( !texture.isLoaded() ) {
+				if ( texture == null ) {
 					return;
 				}
 				bitmapData = texture.getTextureData();
