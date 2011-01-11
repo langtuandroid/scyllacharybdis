@@ -1,11 +1,10 @@
 package core.loaders 
 {
-	import core.ami.AMIResults;
 	/**
 	 * ...
 	 * @author 
 	 */
-	public class XMLResults extends AMIResults
+	public class TextureResults extends AMIResults
 	{
 		/**
 		 * Override to implement task success
@@ -13,7 +12,7 @@ package core.loaders
 		 */
 		public function success(data:*):void
 		{
-			invoker.
+			invoker.parseXML( data );
 		}
 		
 		/**
@@ -22,6 +21,8 @@ package core.loaders
 		 */
 		public function failed(data:*):void
 		{
+			trace( failed(data) );
 		}			
 	}
+
 }
