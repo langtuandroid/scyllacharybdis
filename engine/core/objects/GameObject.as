@@ -1,7 +1,5 @@
 package core.objects 
 {
-	import components.TransformComponent;
-	import core.rendering.ITransformable;
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
@@ -15,7 +13,7 @@ package core.objects
 	
 	/**
 	 */
-	public final class GameObject extends ContainerObject implements ITransformable
+	public final class GameObject extends ContainerObject
 	{
 		
 		/****************************************/
@@ -26,6 +24,10 @@ package core.objects
 		private var _children:Array = new Array();
 		private var _enabled:Boolean = true;				
 		
+		protected var _position:Point3d = new Point3d();
+		protected var _scale:Point3d = new Point3d();
+		protected var _rotation:Number = 0;
+		
 		/**
 		 * The engine contructor
 		 * @private
@@ -33,7 +35,6 @@ package core.objects
 		public final override function engine_awake():void
 		{
 			super.engine_awake();
-			addComponent( TransformComponent );
 		}
 		
 		/**
@@ -134,26 +135,12 @@ package core.objects
 			ArrayUtil.removeItem( _children, child );
 		}
 		
-		//====================================================
-		//	For ITransformable Interface
-		//
-		// 	Just relegate everything back to the transform
-		//	component.
-		//
-		//  Saves the hassle of having to get the transform
-		// 	component each and every time you want to 
-		//	something...
-		//====================================================
 		/**
 		 * Get the local coordinates position.
 		 */
 		public function get position():Point3d 
 		{ 
-			if ( getComponent(TransformComponent) == null ) 
-			{
-				return null;
-			}
-			return getComponent(TransformComponent).position; 
+			return _position;
 		}
 
 		/**
@@ -162,11 +149,7 @@ package core.objects
 		 */
 		public function set position( value:Point3d ):void 
 		{ 
-			if ( getComponent(TransformComponent) == null ) 
-			{
-				return;
-			}
-			getComponent(TransformComponent).position = value; 
+			_position = value; 
 		}
 		
 		/**
@@ -174,11 +157,7 @@ package core.objects
 		 */
 		public function get scale():Point3d 
 		{ 
-			if ( getComponent(TransformComponent) == null ) 
-			{
-				return null;
-			}
-			return getComponent(TransformComponent).scale; 
+			return _scale;
 		}
 
 		/**
@@ -186,11 +165,7 @@ package core.objects
 		 */
 		public function set scale( value:Point3d ):void 
 		{ 
-			if ( getComponent(TransformComponent) == null ) 
-			{
-				return;
-			}
-			getComponent(TransformComponent).scale = value; 
+			_scale = value; 
 		}
 		
 		/**
@@ -198,11 +173,7 @@ package core.objects
 		 */		
 		public function get rotation():Number 
 		{ 
-			if ( getComponent(TransformComponent) == null ) 
-			{
-				return -1;
-			}
-			return getComponent(TransformComponent).rotate; 
+			return _rotation;
 		}
 		
 		/**
@@ -210,74 +181,7 @@ package core.objects
 		 */
 		public function set rotation( value:Number):void 
 		{ 
-			if ( getComponent(TransformComponent) == null ) 
-			{
-				return;
-			}
-			getComponent(TransformComponent).rotation = value; 
-		}
-		
-		/**
-		 * Get the dimentions ( what is this )
-		 */
-		public function get dimensions():Point 
-		{ 
-			if ( getComponent(TransformComponent) == null ) 
-			{
-				return null;
-			}
-			return getComponent(TransformComponent).dimensions; 
-		}
-		
-		/**
-		 * Set the dimentions ( what is this )
-		 */
-		public function set dimensions( value:Point ):void 
-		{ 
-			if ( getComponent(TransformComponent) == null ) 
-			{
-				return;
-			}
-			getComponent(TransformComponent).dimensions = value; 
-		}
-		
-		/**
-		 * Get the world position
-		 * @private
-		 */		
-		public function get worldPosition():Point3d 
-		{ 
-			if ( getComponent(TransformComponent) == null ) 
-			{
-				return null;
-			}
-			return getComponent(TransformComponent).worldPosition; 
-		}
-		
-		/**
-		 * Get the world scale
-		 * @private
-		 */		
-		public function get worldScale():Point3d 
-		{ 
-			if ( getComponent(TransformComponent) == null ) 
-			{
-				return null;
-			}
-			return getComponent(TransformComponent).worldScale; 
-		}
-		
-		/**
-		 * Get the world rotation
-		 * @private
-		 */
-		public function get worldRotation():Number 
-		{ 
-			if ( getComponent(TransformComponent) == null ) 
-			{
-				return -1;
-			}
-			return getComponent(TransformComponent).worldRotate; 
+			_rotation = value; 
 		}
 	}
 }
