@@ -1,6 +1,7 @@
 package core.cache 
 {
 	import core.objects.TextureObject;
+	import flash.utils.Dictionary;
 	/**
 	 * ...
 	 * @author 

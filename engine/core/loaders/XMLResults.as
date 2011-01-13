@@ -11,7 +11,7 @@ package core.loaders
 		 * Override to implement task success
 		 * @param	data
 		 */
-		public function success(data:*):void
+		public override function success(data:*):void
 		{
 			task.invoker.xmlLoadSuccess( data );
 		}
@@ -20,7 +20,7 @@ package core.loaders
 		 * Override to implement task failed
 		 * @param	data
 		 */
-		public function failed(data:*):void
+		public override function failed(data:*):void
 		{
 			task.invoker.xmlLoadError( data );
 		}		

@@ -1,6 +1,7 @@
 package core.cache 
 {
 	import core.objects.BaseObject;
+	import flash.utils.Dictionary;
 
 	/**
 	 */

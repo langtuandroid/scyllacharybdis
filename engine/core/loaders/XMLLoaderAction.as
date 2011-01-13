@@ -1,15 +1,19 @@
 package core.loaders 
 {
 	import core.ami.AMIUniqueAction;
+	import core.cache.XMLCache;
+	import flash.events.Event;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
 
 	/**
 	 */
 	public class XMLLoaderAction extends AMIUniqueAction
 	{
 		private var _fileName:String;
-		private static var _cache = new XMLCache();
+		private static var _cache:XMLCache = new XMLCache();
 		
-		public function XMLLoaderTask(fileName:String) 
+		public function XMLLoaderAction(fileName:String) 
 		{
 			super(fileName);
 			_fileName = fileName;
@@ -18,18 +22,18 @@ package core.loaders
 		/**
 		 * Execute the loading of the file
 		 */
-		public override function execute()
+		public override function execute():void
 		{
 			// Check to see if we have already loaded it
 			if ( _cache.getCache( _fileName ) ) 
 			{
 				// Call the success handler
-				_results.success( _cache.getCache( _fileName ) );
+				task.results.success( _cache.getCache( _fileName ) );
 				return;
 			}
 			
 			// Load the xml file
-			var loader:URLLoader = new URLLoader( new URLRequest("xml/" + fileName ) );
+			var loader:URLLoader = new URLLoader( new URLRequest("xml/" + _fileName ) );
 			loader.addEventListener(Event.COMPLETE, loadedCompleteHandler);	
 		}
 		

@@ -33,7 +33,7 @@ package core.ami
 			results["data"] = data;
 			
 			// Fire the success event
-			_eventHandler.fireEvent("AMI_SUCCESS", _results );
+			_eventHandler.fireEvent("AMI_SUCCESS", results );
 		}
 		
 		/**
