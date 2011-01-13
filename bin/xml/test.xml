@@ -3,7 +3,7 @@
 	<material>
 		<texture filename="test.png"/>
 		<areas>
-			<area name="spinnersprite" topleft="0,0" bottomright="200,160">
+			<area name="spinnersprite" top="0.0" left="0.0" width="200" height="160">
 				<animations>
 					<animation name="idle" frames="20" rows="5" cols="4" width="40" height="40" background="0xE2E2E2"/>
 					<animation name="blah" frames="20" rows="5" cols="4" width="40" height="40" background="0xE2E2E2"/>
@@ -15,10 +15,10 @@
 	<physics>
 		<bodies>
 			<body name="spinnerbody" dynamtic="true">
-				<shape type="polygon" top="0.0" left="0.0" width="1.0" height="1.0" friction="0.3" density="0" restitution="0.1"/>
+				<shape type="polygon" top="0.0" left="0.0" width="40" height="40" friction="0.3" density="0" restitution="0.1"/>
 			</body>
 			<body name="bouncybody" dynamtic="true">
-				<shape type="polygon" top="0.0" left="0.0" width="1.0" height="1.0" friction="0.3" density="0" restitution="0.5"/>
+				<shape type="polygon" top="0.0" left="0.0" width="40" height="40" friction="0.3" density="0" restitution="0.5"/>
 			</body>
 			<body name="polyandcircle" dynamtic="true">
 				<shape type="circle" center="0.9,0.5" radius="0.1" friction="0.3" density="0" restitution="0.5"/>

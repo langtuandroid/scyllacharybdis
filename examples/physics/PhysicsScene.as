@@ -27,6 +27,11 @@ package physics
 		 */
 		public override function start():void
 		{
+			var _test:GameObject = MemoryManager.instantiate( GameObject );
+			_test.addComponent(XMLPhysicsRenderComponent);
+			_test.addComponent(SquareScriptComponent);
+			_test.addComponent(GroundPhysicsComponent);
+			
 			var _ground:GameObject = MemoryManager.instantiate( GameObject );
 			_ground.addComponent(SquareScriptComponent);
 			_ground.addComponent(PhysicsRenderComponent);

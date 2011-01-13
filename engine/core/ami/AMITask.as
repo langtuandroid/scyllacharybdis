@@ -12,7 +12,7 @@ package core.ami
 		private var _results:AMIResults;
 		private var _key:String;
 		
-		public function AMITask( action:AMIAction, results:AMIResults, invoker:Object ) 
+		public function AMITask( action:AMIAction, results:AMIResults, invoker:Object ):void
 		{
 			// Store the parameters
 			_action = action;
@@ -29,7 +29,7 @@ package core.ami
 		 */
 		public function execute():void
 		{
-			action.start();
+			action.execute();
 		}
 		
 		/**
