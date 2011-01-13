@@ -10,6 +10,7 @@ package core.ami
 		private var _invoker:Object;
 		private var _action:AMIAction;
 		private var _results:AMIResults;
+		private var _key:String;
 		
 		public function AMITask( action:AMIAction, results:AMIResults, invoker:Object ) 
 		{

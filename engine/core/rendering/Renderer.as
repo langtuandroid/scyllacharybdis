@@ -12,7 +12,7 @@ package core.rendering
 	/**
 	 */
 	[Singleton]
-	[Requires ("core.rendering.SceneGraph", "core.rendering.Window")]
+	[Requires ("core.scenegraph.SceneGraph", "core.rendering.Window")]
 	public final class Renderer extends BaseObject
 	{
 		private var _sceneGraph:SceneGraph = null;
