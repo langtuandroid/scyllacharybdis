@@ -65,7 +65,7 @@ package core.scenegraph
 					if ( gameObj == null ) {
 						continue;
 					}
-					gameObj.position = new Point3d( bb.GetPosition().x * drawScale, bb.GetPosition().y * drawScale, gameObj.worldPosition.z );
+					gameObj.position = new Point3d( bb.GetPosition().x * drawScale, bb.GetPosition().y * drawScale, gameObj.position.z );
 					gameObj.rotation = bb.GetAngle() * (180/Math.PI);
 					counter++;
 				}

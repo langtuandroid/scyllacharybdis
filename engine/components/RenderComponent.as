@@ -95,7 +95,7 @@ package components
 		public function get baseclip():MovieClip { return _baseclip; }
 		
 		// For sorting
-		public function get comparator():Number { return owner.getComponent(TransformComponent).worldPosition.z }
+		public function get comparator():Number { return owner.position.z }
 
 		/**
 		 * Add the renderable to the surface
