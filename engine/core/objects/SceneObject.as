@@ -4,7 +4,7 @@ package core.objects
 	import core.scenegraph.SceneGraph;
 	/**
 	 */
-	[Requires ("core.rendering.SceneGraph")]
+	[Requires ("core.scenegraph.SceneGraph")]
 	public class SceneObject extends BaseObject
 	{
 

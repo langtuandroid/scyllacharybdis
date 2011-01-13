@@ -13,14 +13,13 @@ package components
 	/**
 	 */
 	[ComponentType ("components.CollisionComponent")]
-	[Requires ("core.physics.PhysicsWorld")]
+	[Requires ("core.scenegraph.PhysicsSceneGraph")]
 	public class CollisionComponent extends BaseObject
 	{
 		
 		/****************************************/
 		// Class Details
 		/****************************************/
-
 		private var _physicsWorld:PhysicsSceneGraph;
 		private var _body:b2Body;
 

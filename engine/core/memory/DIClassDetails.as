@@ -35,13 +35,13 @@ package core.memory
 			_componentType = value;
 		}
 		
-		public function addDependency( value:String ):void
+		public function addDependency( key:String, value:String ):void
 		{
 			if ( _dependencies[value] != null ) {
 				return;
 			}
 			_depCounter++;
-			_dependencies[value] = value;
+			_dependencies[key] = value;
 		}
 		
 		public function getDependencies():Dictionary

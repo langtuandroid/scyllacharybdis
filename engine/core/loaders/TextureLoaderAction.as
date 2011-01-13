@@ -1,6 +1,6 @@
 package core.loaders 
 {
-	import core.ami.AMIAction;
+	import core.ami.AMIFileLoadAction;
 	import core.cache.TextureCache;
 	import core.objects.TextureObject;
 	import flash.display.Bitmap;
@@ -11,7 +11,7 @@ package core.loaders
 
 	/**
 	 */
-	public class TextureLoaderAction extends AMIAction
+	public class TextureLoaderAction extends AMIFileLoadAction
 	{
 		private var _fileName:String;
 		private static var _cache = new TextureCache();

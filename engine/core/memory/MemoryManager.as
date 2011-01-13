@@ -25,6 +25,16 @@ package core.memory
 		private static var _classParser:DIClassParser = new DIClassParser();
 		
 		/**
+		 * Switch the implementation of the requested class
+		 * @param	from
+		 * @param	to
+		 */
+		public static function bind( from:String, to:String ):void
+		{
+			_classParser.bind( from, to );
+		}
+		
+		/**
 		* Instantiate an object
 		* @param type (Class) The type of object to create
 		*/

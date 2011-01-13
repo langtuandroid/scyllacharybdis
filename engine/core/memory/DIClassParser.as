@@ -12,8 +12,9 @@ package core.memory
 	 */
 	public class DIClassParser 
 	{
-		private var _classes:Dictionary = new Dictionary();
-		private var _dependencies:Dictionary = new Dictionary();
+		private var _classes:Dictionary = new Dictionary(true);
+		private var _dependencies:Dictionary = new Dictionary(true);
+		private var _bind:Dictionary = new Dictionary(true);
 		
 		public function loadClass( className:Class ):DIClassDetails
 		{
@@ -22,6 +23,11 @@ package core.memory
 				return _classes[className];
 			}
 			return populateClassDetails( className );
+		}
+		
+		public function bind(from:String, to:String):void 
+		{
+			_bind[from] = to;
 		}
 		
 		private function populateClassDetails( className:Class ):DIClassDetails 
@@ -58,10 +64,13 @@ package core.memory
 				{
 					for each ( var req:XML in value.arg ) 
 					{
-						var reqName:String = req.attribute("value");
-						//trace("qualified: " + getDefinitionByName(getQualifiedClassName(reqName)));
-						//var depClass:Class = getDefinitionByName(reqName) as Class;
-						_classes[className].addDependency(reqName);
+						var reqKey:String = req.attribute("value");
+						var reqValue:String = req.attribute("value");
+						if ( _bind[ reqKey ] != null ) 
+						{
+							reqValue = _bind[ reqKey ];
+						}
+						_classes[className].addDependency(reqKey, reqValue);
 					}
 				}				
 			}
@@ -109,9 +118,13 @@ package core.memory
 				{
 					for each ( var req:XML in value.arg ) 
 					{
-						var reqName:String = req.attribute("value");
-						//var depClass:Class = getDefinitionByName(getQualifiedClassName(reqName)) as Class;
-						details.addDependency(reqName);
+						var reqKey:String = req.attribute("value");
+						var reqValue:String = req.attribute("value");
+						if ( _bind[ reqKey ] != null ) 
+						{
+							reqValue = _bind[ reqKey ];
+						}
+						details.addDependency(reqKey, reqValue);
 					}
 				}				
 			}
