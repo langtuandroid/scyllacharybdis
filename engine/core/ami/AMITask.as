@@ -57,5 +57,15 @@ package core.ami
 		{ 
 			return _invoker; 
 		}
+		
+		/**
+		 * Get the action object
+		 */
+		public function get action():AMIAction { return _action; }
+		
+		/**
+		 * Get the results object
+		 */
+		public function get results():AMIResults { return _results; }
 	}
 }

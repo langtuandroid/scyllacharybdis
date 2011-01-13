@@ -1,16 +1,17 @@
 package core.loaders 
 {
-	import core.ami.AMIFileLoadAction;
+	import core.ami.AMIUniqueAction;
 
 	/**
 	 */
-	public class XMLLoaderAction extends AMIFileLoadAction
+	public class XMLLoaderAction extends AMIUniqueAction
 	{
 		private var _fileName:String;
 		private static var _cache = new XMLCache();
 		
 		public function XMLLoaderTask(fileName:String) 
 		{
+			super(fileName);
 			_fileName = fileName;
 		}
 		

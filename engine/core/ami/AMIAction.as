@@ -4,6 +4,7 @@ package core.ami
 	import core.events.EventHandler;
 	import core.objects.BaseObject;
 	import flash.utils.Dictionary;
+	
 	/**
 	 * ...
 	 * @author 
