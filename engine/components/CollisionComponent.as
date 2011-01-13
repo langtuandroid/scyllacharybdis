@@ -7,6 +7,7 @@ package components
 	import Box2D.Dynamics.b2FixtureDef;
 	import core.objects.BaseObject;
 	import core.scenegraph.PhysicsSceneGraph;
+	import core.scenegraph.SceneGraph;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
 

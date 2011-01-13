@@ -65,6 +65,11 @@ package core.memory
 					
 					// Add the deps to a dictionary
 					depMap[tempClass] = instantiate(tempClass);
+					if ( key != classDetails.getDependencies()[key] )
+					{
+						// Copy the object to both keys
+						depMap[classDetails.getDependencies()[key]] = depMap[tempClass];
+					}
 				}
 				
 				// Inject the dependencies
