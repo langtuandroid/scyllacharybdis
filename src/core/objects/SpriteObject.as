@@ -45,6 +45,10 @@ package core.objects
 			return null; 
 		}
 		
+		/**
+		 * Play an animation 
+		 * @param	animationName (String) Animation name.
+		 */
 		public function play(animationName:String):void
 		{
 			if ( _animations[animationName] == null ) 
@@ -55,6 +59,9 @@ package core.objects
 			_playing = animationName; 
 		}
 		
+		/**
+		 * Stop the currently playing animation
+		 */
 		public function stop():void
 		{
 			_playing = null;
