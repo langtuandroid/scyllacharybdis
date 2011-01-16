@@ -1,4 +1,4 @@
-package core.scenegraph 
+package engine.box2d.com.sc.physics 
 {
 	import Box2D.Common.Math.b2Vec2;
 	import Box2D.Dynamics.b2Body;
@@ -13,7 +13,7 @@ package core.scenegraph
 	 */
 	[Singleton]
 	[Requires ("core.physics.PhysicsContactListener")]
-	public final class PhysicsSceneGraph extends SceneGraph
+	public final class PhysicsSceneGraph 
 	{
 		private var _world:b2World;
 		private var _contactListener:PhysicsContactListener;

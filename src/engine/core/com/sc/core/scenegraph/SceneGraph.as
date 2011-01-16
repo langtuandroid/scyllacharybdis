@@ -1,4 +1,4 @@
-package core.scenegraph 
+package engine.scenegraph.com.pikitus.scenegraph 
 {
 	import components.RenderComponent;
 	import core.objects.BaseObject;
