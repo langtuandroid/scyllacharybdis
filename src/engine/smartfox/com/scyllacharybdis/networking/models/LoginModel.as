@@ -1,4 +1,4 @@
-package models 
+package com.scyllacharybdis.networking.models 
 {
 	/**
 	 */

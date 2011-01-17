@@ -1,4 +1,4 @@
-package core.physics 
+package com.scyllacharybdis.physics 
 {
 	import Box2D.Dynamics.b2ContactListener;
 	import Box2D.Dynamics.b2Fixture;

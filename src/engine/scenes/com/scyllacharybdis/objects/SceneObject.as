@@ -1,4 +1,4 @@
-package core.objects 
+package com.scyllacharybdis.objects 
 {
 	import core.memory.MemoryManager;
 	import core.scenegraph.SceneGraph;

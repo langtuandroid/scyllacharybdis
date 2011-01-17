@@ -1,4 +1,4 @@
-package core.rendering 
+package com.scyllacharybdis.graphics.rendering 
 {
 	import core.objects.BaseObject;
 	import flash.display.DisplayObjectContainer;

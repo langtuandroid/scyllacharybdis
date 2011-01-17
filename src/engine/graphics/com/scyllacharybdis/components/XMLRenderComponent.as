@@ -1,13 +1,6 @@
 package com.scyllacharybdis.components 
 {
 	import core.ami.AMITask;
-	import core.loaders.TextureLoaderAction;
-	import core.loaders.TextureResults;
-	import core.loaders.XMLLoaderAction;
-	import core.loaders.XMLResults;
-	import core.objects.SpriteObject;
-	import core.objects.TextureObject;
-	import core.rendering.Backbuffer;
 	import flash.display.Bitmap;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;

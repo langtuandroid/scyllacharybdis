@@ -1,4 +1,4 @@
-package core.scenes
+package com.scyllacharybdis.scenemanager
 {
 	import core.memory.MemoryManager;
 	import core.objects.BaseObject;

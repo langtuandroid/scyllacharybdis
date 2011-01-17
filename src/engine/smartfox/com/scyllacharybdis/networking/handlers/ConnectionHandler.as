@@ -1,4 +1,4 @@
-package handlers 
+package com.scyllacharybdis.networking.handlers 
 {
 	import core.events.NetworkEvents;
 	import core.events.NetworkEventHandler;

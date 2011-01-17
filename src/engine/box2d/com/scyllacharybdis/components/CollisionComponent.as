@@ -1,4 +1,4 @@
-package com.scyllacharybdis.components 
+package com.scyllacharybdis.physics.components 
 {
 	import Box2D.Collision.Shapes.b2CircleShape;
 	import Box2D.Collision.Shapes.b2PolygonShape;

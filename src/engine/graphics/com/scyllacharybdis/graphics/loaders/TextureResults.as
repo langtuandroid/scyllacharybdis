@@ -1,4 +1,4 @@
-package core.loaders 
+package com.scyllacharybdis.graphics.loaders 
 {
 	import core.ami.AMIResults;
 	/**

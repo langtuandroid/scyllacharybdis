@@ -1,4 +1,4 @@
-package engine.box2d.com.sc.physics 
+package com.scyllacharybdis.physics 
 {
 	import Box2D.Common.Math.b2Vec2;
 	import Box2D.Dynamics.b2Body;

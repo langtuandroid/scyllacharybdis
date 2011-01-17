@@ -1,4 +1,4 @@
-package core.cache 
+package com.scyllacharybdis.graphics.cache 
 {
 	import core.objects.TextureObject;
 	import flash.utils.Dictionary;
