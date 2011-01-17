@@ -1,9 +1,6 @@
 package com.scyllacharybdis.graphics.rendering 
 {
-	import components.RenderComponent;
-	import core.objects.TextureObject;
-	import core.objects.BaseObject;
-	import core.objects.GameObject;
+	import com.scyllacharybdis.interfaces.IBaseObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -15,7 +12,7 @@ package com.scyllacharybdis.graphics.rendering
 	/**
 	 */
 	[Singleton]
-	public class Backbuffer extends BaseObject
+	public class Backbuffer implements IBaseObject
 	{
 		private var _width:int;
 		private var _height:int;
@@ -25,40 +22,18 @@ package com.scyllacharybdis.graphics.rendering
 		private var _canvas:DisplayObjectContainer;
 
 		/**
-		 * The engine contructor
-		 * @private
+		 * Constructor
 		 */
-		public final override function engine_awake():void
+		public function Backbuffer()
 		{
-			super.engine_awake();
 		}
-
+		
 		/**
-		 * The engine start method
-		 * @private
-		 */		
-		public final override function engine_start():void
-		{
-			super.engine_start();
-		}
-
-		/**
-		 * The engine stop function
-		 * @private
+		 * Destructor
 		 */
-		public final override function engine_stop():void
+		public function destroy():void
 		{
-			super.engine_stop();
-		}
-
-		/**
-		 * Destroy is called at the removal of the object
-		 * @private
-		 */
-		public final override function engine_destroy():void 
-		{
-			super.engine_destroy();
-		}
+		}	
 
 		/**
 		 * Set the screen size

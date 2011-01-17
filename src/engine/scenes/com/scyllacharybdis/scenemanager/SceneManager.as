@@ -1,53 +1,33 @@
 package com.scyllacharybdis.scenemanager
 {
-	import core.memory.MemoryManager;
-	import core.objects.BaseObject;
-	import core.objects.SceneObject;
+	import com.scyllacharybdis.core.memory.allocate;
+	import com.scyllacharybdis.core.memory.deallocate;
+	import com.scyllacharybdis.interfaces.IBaseObject;
+	import com.scyllacharybdis.objects.SceneObject;
 	import flash.utils.Dictionary;
+
 	/**
 	 */
 	[Singleton]
-	public final class SceneManager extends BaseObject
+	public final class SceneManager implements IBaseObject
 	{
-		/**
-		 * The engine contructor
-		 * @private
-		 */
-		public final override function engine_awake():void
-		{
-			super.engine_awake();
-		}
-		
-		/**
-		 * The engine start method
-		 * @private
-		 */
-		public final override function engine_start():void
-		{
-			super.engine_start();
-		}
-
-		/**
-		 * The engine stop function
-		 * @private
-		 */
-		public final override function engine_stop():void
-		{
-			super.engine_stop();
-		}
-		
-		/**
-		 * Destroy is called at the removal of the object
-		 * @private
-		 */
-		public final override function engine_destroy():void
-		{
-			super.engine_destroy();
-		}
-		
 		// The stack of scenes
 		private var _objectList:Dictionary = new Dictionary();
 		private var _classStack:Array = new Array();
+		
+		/**
+		 * Constructor
+		 */
+		public function SceneManager():void
+		{
+		}
+		
+		/**
+		 * Destructor
+		 */
+		public function destroy():void
+		{
+		}
 
 		/**
 		 * Display a scene
@@ -58,24 +38,24 @@ package com.scyllacharybdis.scenemanager
 		{
 			if ( _objectList[sceneClass] == null ) 
 			{
-				_objectList[sceneClass] = MemoryManager.instantiate(sceneClass);
+				_objectList[sceneClass] = allocate(sceneClass);
 			}
 			
 			var sceneCount:int = _classStack.length;
 			if ( sceneCount > 0 && hide == true) 
 			{
 				var previous:Class = _classStack[sceneCount - 1];
-				_objectList[previous].engine_stop();
+				_objectList[previous].hide();
 			}
 
-			_objectList[sceneClass].engine_start();
+			_objectList[sceneClass].show();
 			_classStack.push(sceneClass);
 		}
 		/**
 		 * Hide the scene
-		 * @param	destroy (Boolean) Destroy the object. Default is false.
+		 * @param	remove (Boolean) Destroy the object. Default is false.
 		 */
-		public final function PopScene(destroy:Boolean=false):void 
+		public final function PopScene(remove:Boolean=false):void 
 		{
 			var sceneClass:Class = _classStack.pop();
 			if ( sceneClass == null )
@@ -83,16 +63,17 @@ package com.scyllacharybdis.scenemanager
 				return;
 			}
 			var sceneObject:SceneObject = _objectList[sceneClass];
-			sceneObject.engine_stop();
+			sceneObject.hide();
+			
 			var previousClass:Class = _classStack[_classStack.length - 1];
 			if ( previousClass != null ) {
 				_objectList[previousClass].engine_start();
 			}
 			
-			if ( destroy ) 
+			if ( remove ) 
 			{
 				_objectList[sceneClass] = null;
-				MemoryManager.destroy( sceneObject );
+				deallocate( sceneObject );
 			}
 		}
 		
@@ -136,14 +117,14 @@ package com.scyllacharybdis.scenemanager
 				var sceneObject:SceneObject = _objectList[scene];
 				
 				// Hide the scene
-				sceneObject.engine_stop();
+				sceneObject.hide();
 				
 				// Are we set to destroy
 				if (destroy == true) 
 				{
 					// Destroy the object
 					_objectList[sceneClass] = null;
-					MemoryManager.destroy( sceneObject );
+					deallocate( sceneObject );
 				}
 			}
 		}

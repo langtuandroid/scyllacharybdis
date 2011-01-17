@@ -1,4 +1,4 @@
-package com.scyllacharybdis.core.memory.interfaces 
+package com.scyllacharybdis.interfaces 
 {
 	/**
 	 * ...
@@ -6,7 +6,6 @@ package com.scyllacharybdis.core.memory.interfaces
 	 */
 	public interface IBaseObject 
 	{
-		function awake():void;
 		function destroy():void;
 	}
 }

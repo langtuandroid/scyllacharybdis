@@ -1,10 +1,10 @@
-package com.scyllacharybdis.core.memory.core 
+package com.scyllacharybdis.core.memory.pool 
 {
+	import com.scyllacharybdis.constants.MemoryError;
 	import flash.utils.Dictionary;
 	import org.as3commons.lang.ClassUtils;
 	import org.as3commons.reflect.Parameter;
 	import org.as3commons.reflect.Type;
-	import sc.core.memory.constants.MemoryError;
 	
 	public class MemoryPool 
 	{
