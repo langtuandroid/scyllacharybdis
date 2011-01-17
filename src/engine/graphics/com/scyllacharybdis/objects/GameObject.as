@@ -4,6 +4,7 @@ package com.scyllacharybdis.objects
 	import com.scyllacharybdis.core.memory.deallocate;
 	import com.scyllacharybdis.interfaces.IBaseObject;
 	import com.scyllacharybdis.interfaces.IComponent;
+	import com.scyllacharybdis.interfaces.IRenderComponent;
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
@@ -125,16 +126,6 @@ package com.scyllacharybdis.objects
 			_components[component] = null;
 		}
 		
-		/**
-		 * Get all the components
-		 * @return
-		 */
-		public final function getComponents():Dictionary
-		{
-			return _components;
-		}
-		
-		
 		public function start():void 
 		{
 			for each ( var comp:IComponent in _components )
@@ -158,6 +149,28 @@ package com.scyllacharybdis.objects
 			{
 				comp.destroy();
 			}			
+		}
+		
+		public function getComponent( compType:Class ):Array 
+		{
+			var complist:Array = new Array();
+			for each ( var comp:IComponent in _components )
+			{
+				if ( comp is compType )
+				{
+					complist.push( comp );
+				}
+			}			
+			return complist;
+		}
+
+		/**
+		 * Get all the components
+		 * @return
+		 */
+		public final function getComponents():Dictionary
+		{
+			return _components;
 		}
 	}
 }

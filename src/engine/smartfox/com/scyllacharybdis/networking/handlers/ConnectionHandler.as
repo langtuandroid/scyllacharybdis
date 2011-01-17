@@ -1,17 +1,15 @@
 package com.scyllacharybdis.networking.handlers 
 {
-	import core.events.NetworkEvents;
-	import core.events.NetworkEventHandler;
+	import com.scyllacharybdis.constants.NetworkEvents;
+	import com.scyllacharybdis.interfaces.IBaseObject;
+	import com.scyllacharybdis.networking.NetworkEventHandler;
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
-	import core.objects.BaseObject;	
-	import core.events.EventHandler;
 	
 	/**
 	 */
 	[Singleton]
-	[Requires ("core.events.NetworkEventHandler")]
-	public class ConnectionHandler extends BaseObject
+	public class ConnectionHandler implements IBaseObject
 	{
 		private var _networkEventHandler:NetworkEventHandler;
 		protected var _connected:Boolean = false;
@@ -23,39 +21,18 @@ package com.scyllacharybdis.networking.handlers
 		 * Awake is called at the construction of the object
 		 * @private
 		 */
-		public final override function engine_awake():void
+		public function ConnectionHandler(networkEventHandler:NetworkEventHandler):void
 		{
 			// Get the event manager
-			_networkEventHandler = getDependency(NetworkEventHandler);
+			_networkEventHandler = networkEventHandler;
 			
 			_networkEventHandler.addEventListener(SFSEvent.CONNECTION, this, onConnection);
 			_networkEventHandler.addEventListener(SFSEvent.CONNECTION_LOST, this, onConnectionLost);
 			_networkEventHandler.addEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, this, onConfigLoadSuccess);
 			_networkEventHandler.addEventListener(SFSEvent.CONFIG_LOAD_FAILURE, this, onConfigLoadFailure);
-			
-			super.engine_awake();
-
 			_networkEventHandler.addEventListener(NetworkEvents.CONNECT, this, requestConnection );
 			_networkEventHandler.addEventListener(NetworkEvents.DISCONNECT, this, requestDisconnection );
 			
-		}
-		
-		/**
-		 * Engine start should handle engine related start. 
-		 * @private
-		 */
-		public final override function engine_start():void 
-		{
-			super.engine_start();
-		}
-		
-		/**
-		 * Engine stop should handle engine related stop. 
-		 * @private
-		 */
-		public final override function engine_stop():void 
-		{
-			super.engine_stop();
 		}
 		
 		/**
@@ -63,51 +40,16 @@ package com.scyllacharybdis.networking.handlers
  		 * Unregister listeners
 		 * @private
 		 */
-		public final override function engine_destroy():void
+		public function destroy():void
 		{
 			_networkEventHandler.removeEventListener(NetworkEvents.CONNECT, this, requestConnection );
 			_networkEventHandler.removeEventListener(NetworkEvents.DISCONNECT, this, requestDisconnection );
-
-			super.engine_destroy();
-			
 			_networkEventHandler.removeEventListener(SFSEvent.CONNECTION, this, onConnection);
 			_networkEventHandler.removeEventListener(SFSEvent.CONNECTION_LOST, this, onConnectionLost);
 			_networkEventHandler.removeEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, this, onConfigLoadSuccess);
 			_networkEventHandler.removeEventListener(SFSEvent.CONFIG_LOAD_FAILURE, this, onConfigLoadFailure);
 		}
 		
-		/**
-		 * The users constructor. 
-		 * Override awake and create any variables and listeners.
-		 */
-		public override function awake():void
-		{
-		}
-		
-		/**
-		 * The users start method. 
-		 * Start runs when the game object is added to the scene.
-		 */
-		public override function start():void
-		{
-		}
-
-		/**
-		 * The users stop method.
-		 * Stop runs when the game object is added to the scene.
-		 */
-		public override function stop():void
-		{
-		}
-
-		/**
-		 * The users destructor. 
-		 * Override destroy to clean up any variables or listeners.
-		 */
-		public override function destroy():void
-		{
-		}
-
 		
 		/**
 		 * Request connection event handler

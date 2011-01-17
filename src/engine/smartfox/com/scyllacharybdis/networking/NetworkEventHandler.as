@@ -1,5 +1,6 @@
 package com.scyllacharybdis.networking 
 {
+	import com.scyllacharybdis.interfaces.IBaseObject;
 	import com.smartfoxserver.v2.core.SFSEvent;
 	import com.smartfoxserver.v2.entities.data.ISFSObject;
 	import com.smartfoxserver.v2.entities.data.SFSObject;
@@ -9,13 +10,12 @@ package com.scyllacharybdis.networking
 	import com.smartfoxserver.v2.requests.ExtensionRequest;
 	import com.smartfoxserver.v2.SmartFox;
 	import com.smartfoxserver.v2.util.ConfigData;
-	import core.objects.BaseObject;
 	import flash.utils.Dictionary;
 
 	/**
 	 */
 	[Singleton]
-	public class NetworkEventHandler extends BaseObject
+	public class NetworkEventHandler implements IBaseObject
 	{
 		// Smartfox server
 		private var _sfs:SmartFox = new SmartFox();
@@ -28,7 +28,7 @@ package com.scyllacharybdis.networking
 		 * The engine contructor
 		 * @private
 		 */
-		public final override function engine_awake():void
+		public function NetworkEventHandler():void
 		{
 			// Register event handlers
 			_sfs.addEventListener(SFSEvent.ADMIN_MESSAGE, onServerResponse);
@@ -80,35 +80,14 @@ package com.scyllacharybdis.networking
 
 			_sfs.addEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse);
 			
-			super.engine_awake();
 		}
 		
-		/**
-		 * The engine start method
-		 * @private
-		 */
-		public final override function engine_start():void
-		{
-			super.engine_start();
-		}
-
-		/**
-		 * The engine stop function
-		 * @private
-		 */
-		public final override function engine_stop():void
-		{
-			super.engine_stop();
-		}
-
 		/**
 		 * Destroy is called at the removal of the object
 		 * @private
 		 */
-		public final override function engine_destroy():void
+		public function destroy():void
 		{
-			super.engine_destroy();
-			
 			// Unregister all the event handlers
 			_sfs.removeEventListener(SFSEvent.ADMIN_MESSAGE, onServerResponse);
 			_sfs.removeEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onServerResponse);

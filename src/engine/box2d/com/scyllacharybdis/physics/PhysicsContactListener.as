@@ -3,13 +3,12 @@ package com.scyllacharybdis.physics
 	import Box2D.Dynamics.b2ContactListener;
 	import Box2D.Dynamics.b2Fixture;
 	import Box2D.Dynamics.Contacts.b2Contact;
-	import components.ScriptComponent;
-	import core.objects.GameObject;
-	import core.objects.BaseObject
+	import com.scyllacharybdis.components.ScriptComponent;
+	import com.scyllacharybdis.interfaces.IScriptComponent;
+	import com.scyllacharybdis.objects.GameObject;
 
 	/**
 	 */
-	[Singleton]
 	public final class PhysicsContactListener extends b2ContactListener
 	{
 		/**
@@ -26,15 +25,17 @@ package com.scyllacharybdis.physics
 			var gameObj1:GameObject = obj1.GetUserData();
 			var gameObj2:GameObject = obj2.GetUserData();
 
-			var script1:ScriptComponent = gameObj1.getComponent( ScriptComponent );
-			var script2:ScriptComponent = gameObj2.getComponent( ScriptComponent );
+			var script1:Array = gameObj1.getComponent( IScriptComponent );
+			var script2:Array = gameObj2.getComponent( IScriptComponent );
 			
-			if ( script1 != null ) {
-				script1.onBeginContact( gameObj2 );
+			for ( var i:int = 0; i < script1.length; i++ )
+			{
+				script1[i].onBeginContact( gameObj2 );
 			}
 			
-			if ( script2 != null ) {
-				script2.onBeginContact( gameObj1 );
+			for ( i = 0; i < script1.length; i++ )
+			{
+				script2[i].onBeginContact( gameObj1 );
 			}
 		}
 		
@@ -51,17 +52,18 @@ package com.scyllacharybdis.physics
 			var gameObj1:GameObject = obj1.GetUserData();
 			var gameObj2:GameObject = obj2.GetUserData();
 
-			var script1:ScriptComponent = gameObj1.getComponent( ScriptComponent );
-			var script2:ScriptComponent = gameObj2.getComponent( ScriptComponent );
+			var script1:Array = gameObj1.getComponent( IScriptComponent );
+			var script2:Array = gameObj2.getComponent( IScriptComponent );
 			
-			if ( script1 != null ) {
-				script1.onEndContact( gameObj2 );
+			for ( var i:int = 0; i < script1.length; i++ )
+			{
+				script1[i].onEndContact( gameObj2 );
 			}
 			
-			if ( script2 != null ) {
-				script2.onEndContact( gameObj1 );
+			for ( i = 0; i < script1.length; i++ )
+			{
+				script2[i].onEndContact( gameObj1 );
 			}
-
 		}
 	}
 }

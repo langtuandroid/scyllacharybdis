@@ -1,7 +1,7 @@
 package com.scyllacharybdis.core.memory 
 {
 	import com.scyllacharybdis.core.memory.pool.MemoryPool;
-	import com.scyllacharybdis.core.interfaces.IBaseObject;
+	import com.scyllacharybdis.interfaces.IBaseObject;
 
 	public function deallocate( obj:* ):void
 	{
