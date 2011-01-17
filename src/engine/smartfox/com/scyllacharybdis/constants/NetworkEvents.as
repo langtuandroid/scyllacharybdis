@@ -1,4 +1,4 @@
-package core.events 
+package com.scyllacharybdis.constants 
 {
 	/**
 	 * ...

@@ -1,4 +1,4 @@
-package core.events 
+package com.scyllacharybdis.networking 
 {
 	import com.smartfoxserver.v2.core.SFSEvent;
 	import com.smartfoxserver.v2.entities.data.ISFSObject;

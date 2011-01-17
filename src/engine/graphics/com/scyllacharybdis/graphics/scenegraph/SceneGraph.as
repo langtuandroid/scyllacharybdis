@@ -1,4 +1,4 @@
-package engine.scenegraph.com.pikitus.scenegraph 
+package com.scyllacharybdis.graphics.scenegraph 
 {
 	import components.RenderComponent;
 	import core.objects.BaseObject;

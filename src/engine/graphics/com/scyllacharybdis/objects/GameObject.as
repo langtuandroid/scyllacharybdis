@@ -1,4 +1,4 @@
-package core.objects 
+package com.scyllacharybdis.objects 
 {
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;

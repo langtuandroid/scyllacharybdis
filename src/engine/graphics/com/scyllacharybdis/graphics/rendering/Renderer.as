@@ -1,4 +1,4 @@
-package core.rendering 
+package com.scyllacharybdis.graphics.rendering 
 {
 	import components.RenderComponent;
 	import core.scenegraph.SceneGraph;
