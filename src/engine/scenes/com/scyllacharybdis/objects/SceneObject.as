@@ -1,11 +1,11 @@
 package com.scyllacharybdis.objects 
 {
-	import core.memory.MemoryManager;
-	import core.scenegraph.SceneGraph;
+	import com.scyllacharybdis.graphics.scenegraph.SceneGraph;
+	import com.scyllacharybdis.interfaces.IBaseObject;
+
 	/**
 	 */
-	[Requires ("core.scenegraph.SceneGraph")]
-	public class SceneObject extends BaseObject
+	public class SceneObject implements IBaseObject
 	{
 
 		/****************************************/
@@ -15,64 +15,28 @@ package com.scyllacharybdis.objects
 		private var _initialized:Boolean = false;
 		private var _rootGameObject:GameObject;
 		private var _sceneGraph:SceneGraph;
-
-		/**
-		 * The engine contructor
-		 * @private
-		 */
-		public final override function engine_awake():void
+		
+		public function SceneObject(sceneGraph:SceneGraph):void
 		{
-			if ( _initialized == true ) 
-			{
-				return;
-			}
-			_initialized = true;
-			_rootGameObject = MemoryManager.instantiate( GameObject );
-			_sceneGraph = getDependency(SceneGraph);
-			
-			super.engine_awake();
-		}
-
-		/**
-		 * The engine start method
-		 * @private
-		 */
-		public final override function engine_start():void
-		{
-			super.engine_start();
-			_sceneGraph.addGameObjectToScene(_rootGameObject );
+			_sceneGraph = sceneGraph;
 		}
 		
-		/**
-		 * The engine stop function
-		 * @private
-		 */
-		public final override function engine_stop():void
+		public function destroy():void
 		{
-			_sceneGraph.removeGameObjectToScene(_rootGameObject );
-			super.engine_stop();
-		}		
-
-		/**
-		 * Destroy is called at the removal of the object
-		 * @private
-		 */
-		public final override function engine_destroy():void
-		{
-			MemoryManager.destroy( _rootGameObject );
-
-			super.engine_destroy();
-			
-			_initialized = false;
+			_sceneGraph = null;
 		}
-
+		
+		public function hide():void 
+		{
+			
+		}
 		/**
 		 * Add game object to scene helper function.
 		 * @param	gameObj
 		 */
 		protected function addToScene( gameObj:GameObject ):void
 		{
-			_rootGameObject.addChild( gameObj );
+			_sceneGraph.addGameObjectToScene( gameObj );
 		}
 
 		/**
@@ -81,7 +45,7 @@ package com.scyllacharybdis.objects
 		 */
 		protected function removeFromScene( gameObj:GameObject ):void
 		{
-			_rootGameObject.removeChild( gameObj );
+			_sceneGraph.removeGameObjectToScene( gameObj );
 		}
 	}
 }

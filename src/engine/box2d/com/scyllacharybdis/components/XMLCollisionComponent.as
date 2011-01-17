@@ -1,4 +1,4 @@
-package com.scyllacharybdis.physics.components 
+package com.scyllacharybdis.components 
 {
 	import core.loaders.PhysicsResults;
 	import core.loaders.XMLLoaderAction;

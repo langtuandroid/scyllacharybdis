@@ -3,7 +3,7 @@ package com.scyllacharybdis.physics
 	import Box2D.Common.Math.b2Vec2;
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2World;
-	import core.objects.GameObject;
+	import com.scyllacharybdis.interfaces.IComponent;
 	import core.physics.PhysicsContactListener;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
@@ -12,23 +12,20 @@ package com.scyllacharybdis.physics
 	/**
 	 */
 	[Singleton]
-	[Requires ("core.physics.PhysicsContactListener")]
-	public final class PhysicsSceneGraph 
+	public final class PhysicsSceneComponent implements IComponent
 	{
 		private var _world:b2World;
 		private var _contactListener:PhysicsContactListener;
 		
 		// map pixels to meters ( 30 pixels = 1 meter );
-		private var _drawScale:int = 30;
 		
 		private var _velocityIterations:int = 10;
 		private var _positionIterations:int = 10;
-
+		
 		/**
-		 * The engine contructor
-		 * @private
+		 * Constructor
 		 */
-		public override function awake():void
+		public function PhysicsSceneComponent()
 		{
 			// Allow bodies to sleep
 			var doSleep:Boolean = true;
@@ -36,26 +33,41 @@ package com.scyllacharybdis.physics
 			// Define the gravity vector
 			var gravity:b2Vec2 = new b2Vec2(0.0, 10.0);
 			
+			// Create a contact listener
+			_contactListener = new PhysicsContactListener();
+		}
+		
+		/**
+		 * Destructor
+		 */
+		public function destroy():void
+		{
+			_contactListener = null;
+		}
+
+		/**
+		 * The plugin create method
+		 */
+		public function awake():void
+		{
 			// Construct a world object
 			_world = new b2World(gravity, doSleep);
 
-			// Create a contact listener
-			_contactListener = new PhysicsContactListener();
-			
 			// Set the contact listener for the world
 			_world.SetContactListener(_contactListener);	
 		}
 
 		/**
-		 * Update the physics model
+		 * Plugin update
 		 * @param	event
 		 * @private
 		 */
 		public final function update(event:TimerEvent):void
 		{
 			_world.Step( 1 / 30, _velocityIterations, _positionIterations );
-			
-			var counter:int = 0;
+		
+			/*
+			   var counter:int = 0;
 			// Update all the game object positions
 			for (var bb:b2Body = _world.GetBodyList(); bb; bb = bb.GetNext())
 			{
@@ -70,10 +82,11 @@ package com.scyllacharybdis.physics
 					counter++;
 				}
 			}
+			*/
 		}	
 		
 		/**
-		 * Destroy is called at the removal of the object
+		 * Plugin destroy
 		 * @private
 		 */
 		public final override function destroy():void
@@ -82,25 +95,6 @@ package com.scyllacharybdis.physics
 			_contactListener = null;
 		}
 
-		/**
-		 * Get the world 
-		 */
-		public function get world():b2World { return _world; }
-		
-		/**
-		 * Get the draw scale that maps pixels to meters.
-		 */
-		public function get drawScale():int { return _drawScale; }
-
-		/**
-		 * Set the draw scale that maps pixels to meters.
-		 * @param scale (int) The number of pixels to make up a meter. Default = 30
-		 */
-		public function set drawScale(value:int):void 
-		{
-			_drawScale = value;
-		}
-		
 		/**
 		 * Set the world gravity
 		 * @param gravity (beVec2) The gravity in a vector

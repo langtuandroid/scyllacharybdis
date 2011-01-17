@@ -1,4 +1,4 @@
-package com.scyllacharybdis.core.memory.interfaces 
+package com.scyllacharybdis.interfaces 
 {
 	/**
 	 * ...

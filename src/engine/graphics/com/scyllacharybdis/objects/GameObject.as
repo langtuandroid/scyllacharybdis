@@ -1,5 +1,9 @@
 package com.scyllacharybdis.objects 
 {
+	import Box2D.Dynamics.Joints.b2RevoluteJointDef;
+	import com.scyllacharybdis.core.memory.deallocate;
+	import com.scyllacharybdis.interfaces.IBaseObject;
+	import com.scyllacharybdis.interfaces.IComponent;
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
@@ -8,89 +12,36 @@ package com.scyllacharybdis.objects
 	import org.casalib.math.geom.Point3d;
 	import org.casalib.util.ArrayUtil;
 	
-	import core.memory.MemoryManager;
-	import core.objects.ContainerObject;
-	
 	/**
 	 */
-	public final class GameObject extends ContainerObject
+	public final class GameObject implements IBaseObject
 	{
-		
 		/****************************************/
 		// Class Details
 		/****************************************/
 		
 		private var _parent:GameObject = null;
 		private var _children:Array = new Array();
-		private var _enabled:Boolean = true;				
+		private var _enabled:Boolean = true;		
+		private var _components:Dictionary = new Dictionary(true);
 		
 		protected var _position:Point3d = new Point3d();
 		protected var _scale:Point3d = new Point3d();
 		protected var _rotation:Number = 0;
-		
-		/**
-		 * The engine contructor
-		 * @private
-		 */		
-		public final override function engine_awake():void
-		{
-			super.engine_awake();
-		}
-		
-		/**
-		 * The engine start method
-		 * @private
-		 */
-		public final override function engine_start():void
-		{
-			super.engine_start();
-		}
 
 		/**
-		 * The engine stop function
-		 * @private
+		 * Constructor
 		 */
-		public final override function engine_stop():void
+		public function GameObject():void
 		{
-			super.engine_stop();
 		}
 		
 		/**
-		 * Destroy is called at the removal of the object
-		 * @private
+		 * Destructor
 		 */
-		public final override function engine_destroy():void		
+		public function destroy():void
 		{
-			super.engine_destroy();
-
-			// Destroy the children
-			for each ( var gameObj:GameObject in _children )
-			{
-				delete _children[gameObj];
-				
-				MemoryManager.destroy( gameObj );
-			}
-			
-			_children = null;
-			_parent = null;
-			
 		}
-		
-		/**
-		 * Get the parent game object
-		 */
-		public function get parent():GameObject { return _parent; }
-		
-		/**
-		 * Set the parent game object
-		 * @param gameObj (GameObject) The parent game object
-		 */
-		public function set parent( value:GameObject ):void { _parent = value; }
-		
-		/**
-		 * Get the children game objects
-		 */
-		public function get children():Array { return _children; }
 		
 		/**
 		 * Is the object enabled
@@ -104,35 +55,6 @@ package com.scyllacharybdis.objects
 		public function set enabled( value:Boolean ):void 
 		{
 			_enabled = value;
-		}
-
-		/**
-		 * Add a child game object.
-		 * @param	child (GameObject)
-		 */
-		public final function addChild( child:GameObject ):void
-		{
-			// Attach to the tree
-			child.parent = this;
-			_children.push( child );
-			
-			child.enabled = _enabled;
-		}
-
-		/**
-		 * Remove a child game object.
-		 * @param	child (GameObject)
-		 */
-		public final function removeChild( child:GameObject ):void
-		{
-			// Stop the child before removing it
-			if ( child.enabled )
-			{
-				child.enabled = false;
-			}
-			
-			// Remove the child from the list
-			ArrayUtil.removeItem( _children, child );
 		}
 		
 		/**
@@ -182,6 +104,60 @@ package com.scyllacharybdis.objects
 		public function set rotation( value:Number):void 
 		{ 
 			_rotation = value; 
+		}
+		
+		
+		/**
+		 * Add a component to the container
+		 * @param	component (Component)
+		 */
+		public final function addComponent( component:IComponent ):void 
+		{
+			_components[component] = component;
+		}		
+
+		/**
+		 * Remove a component 
+		 * @param	component (Component)
+		 */
+		public final function removeComponent( component:IComponent ):void 
+		{
+			_components[component] = null;
+		}
+		
+		/**
+		 * Get all the components
+		 * @return
+		 */
+		public final function getComponents():Dictionary
+		{
+			return _components;
+		}
+		
+		
+		public function start():void 
+		{
+			for each ( var comp:IComponent in _components )
+			{
+				comp.awake(this);
+			}			
+		}
+		
+		public function updateComponents():void 
+		{
+			for each ( var comp:IComponent in _components )
+			{
+				comp.update();
+			}
+			
+		}
+		
+		public function stop():void 
+		{
+			for each ( var comp:IComponent in _components )
+			{
+				comp.destroy();
+			}			
 		}
 	}
 }

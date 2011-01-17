@@ -1,4 +1,4 @@
-package com.scyllacharybdis.physics.components 
+package com.scyllacharybdis.components 
 {
 	import Box2D.Collision.Shapes.b2CircleShape;
 	import Box2D.Collision.Shapes.b2PolygonShape;
@@ -23,6 +23,7 @@ package com.scyllacharybdis.physics.components
 		/****************************************/
 		private var _physicsWorld:PhysicsSceneGraph;
 		private var _body:b2Body;
+		private var _drawScale:int = 30;
 
 		/** 
 		 * Engine constructor

@@ -1,18 +1,16 @@
 package com.scyllacharybdis.networking.handlers 
 {
-	import core.events.NetworkEvents;
-	import core.events.NetworkEventHandler;
+	import com.scyllacharybdis.constants.NetworkEvents;
+	import com.scyllacharybdis.interfaces.IBaseObject;
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
 	import com.smartfoxserver.v2.requests.LoginRequest;
-	import models.LoginModel;
-	import core.objects.BaseObject;	
 	
 	/**
 	 */
 	[Singleton]
 	[Requires ("core.events.NetworkEventHandler")]
-	public class LoginHandler extends BaseObject
+	public class LoginHandler implements IBaseObject
 	{
 		private var _networkEventHandler:NetworkEventHandler;
 

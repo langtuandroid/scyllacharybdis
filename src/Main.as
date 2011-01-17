@@ -1,24 +1,26 @@
 ﻿package 
 {
+	import com.scyllacharybdis.core.memory.allocate;
+	import com.scyllacharybdis.graphics.rendering.Backbuffer;
+	import com.scyllacharybdis.graphics.rendering.Renderer;
+	import com.scyllacharybdis.graphics.rendering.Window;
+	import com.scyllacharybdis.graphics.scenegraph.SceneGraph;
+	import com.scyllacharybdis.networking.handlers.ChatMessageHandler;
+	import com.scyllacharybdis.networking.handlers.ConnectionHandler;
+	import com.scyllacharybdis.networking.handlers.LoginHandler;
+	import com.scyllacharybdis.networking.handlers.RoomHandler;
+	import com.scyllacharybdis.networking.NetworkEventHandler;
+	import com.scyllacharybdis.physics.PhysicsSceneComponent;
+	import com.scyllacharybdis.scenemanager.SceneManager;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import core.memory.MemoryManager;
-	import core.rendering.Window;
-	import core.rendering.Renderer;
-	import core.events.NetworkEvents;
-	import core.events.NetworkEventHandler;
-	import handlers.ConnectionHandler;
-	import handlers.LoginHandler;
-	import handlers.RoomHandler;
-	import handlers.ChatMessageHandler;
-	import core.scenes.SceneManager;
-	import physics.PhysicsScene;
 	
 	public class Main extends Sprite 
 	{
 		private var _window:Window;
 		private var _renderer:Renderer;
 		private var _sceneManager:SceneManager;
+		private var _physicsComponent:PhysicsSceneComponent;
 		
 		public function Main():void 
 		{		
@@ -29,15 +31,19 @@
 		private function init(e:Event = null):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			
-			// Map the scene graph to use the physics graph
-			MemoryManager.bind("core.scenegraph.SceneGraph", "core.scenegraph.PhysicsSceneGraph");
-			
-			_window = MemoryManager.instantiate(Window);
+
+			// Create the window
+			_window = allocate(Window);
 			_window.displayContext = this;
+
+			// Create a physics component
+			_physicsComponent = allocate(PhysicsSceneComponent);
 			
-			// Create a rendering system
-			_renderer = MemoryManager.instantiate(Renderer);
+			// Create the scenegraph and add the physics component
+			_sceneGraph = allocate( SceneGraph, _physicsComponent );
+			
+			// Create a rendering system and inject the graph and window
+			_renderer = allocate(Renderer, _sceneGraph, _window);
 			
 			// Create a network layer
 			var _networkHandler:NetworkEventHandler = MemoryManager.instantiate(NetworkEventHandler);			

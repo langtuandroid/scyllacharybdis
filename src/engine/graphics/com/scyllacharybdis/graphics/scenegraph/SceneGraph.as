@@ -1,9 +1,9 @@
 package com.scyllacharybdis.graphics.scenegraph 
 {
-	import components.RenderComponent;
-	import core.objects.BaseObject;
-	import core.objects.GameObject;
-	import events.EngineEvent;
+	import com.scyllacharybdis.interfaces.IBaseObject;
+	import com.scyllacharybdis.interfaces.IComponent;
+	import com.scyllacharybdis.interfaces.IRenderComponent;
+	import com.scyllacharybdis.objects.GameObject;
 	import flash.events.TimerEvent;
 	import flash.utils.Dictionary;
 	import flash.utils.Timer;
@@ -12,64 +12,63 @@ package com.scyllacharybdis.graphics.scenegraph
 	 * @author ...
 	 */
 	[Singleton]
-	public class SceneGraph extends BaseObject 
+	public class SceneGraph implements IBaseObject 
 	{
+		private var _componentList:Array;
 		private var _updateTimer:Timer = new Timer(1/30 * 1000, 0); 
 		private var _gameObjects:Dictionary = new Dictionary(true);
 		
 		/**
-		 * The engine contructor
-		 * @private
+		 * Constructor
 		 */
-		public final override function engine_awake():void
+		public function SceneGraph( ... compList:Array  )
 		{
+			for each ( var comp:IComponent in _componentList )
+			{
+				comp.awake(this);
+			}
+
 			// setup the timer
-			_updateTimer.addEventListener(TimerEvent.TIMER, engine_update);
-			_updateTimer.start();
-			
-			super.engine_awake();
+			_updateTimer.addEventListener(TimerEvent.TIMER, update);
+			_updateTimer.start();			
 		}
 		
 		/**
-		 * The engine start method
-		 * @private
+		 * Destructor
 		 */
-		public final override function engine_start():void
+		public function destroy():void
 		{
-			super.engine_start();
-		}
+			for each ( var comp:IComponent in _componentList )
+			{
+				comp.destroy();
+			}
+			
+			_updateTimer.stop();
+			_updateTimer.removeEventListener(TimerEvent.TIMER, update);			
+		}	
+		
 
 		/**
-		 * Update the physics model
+		 * Update the scene graph
 		 * @param	event
 		 * @private
 		 */
-		public final function engine_update(event:TimerEvent):void
+		public final function update(event:TimerEvent):void
 		{
+			for each ( var comp:IComponent in _componentList )
+			{
+				comp.update();
+			}
 			
+			for each ( var gameObj:GameObject in _gameObjects )
+			{
+				if ( gameObj.enabled == true )
+				{
+					gameObj.updateComponents();
+				}
+			}
 		}
-		
-		/**
-		 * The engine stop function
-		 * @private
-		 */
-		public final override function engine_stop():void
-		{
-			super.engine_stop();
-		}
-		
-		/**
-		 * Destroy is called at the removal of the object
-		 * @private
-		 */
-		public final override function engine_destroy():void
-		{
-			super.engine_destroy();
-			
-			_updateTimer.stop();
-			_updateTimer.removeEventListener(TimerEvent.TIMER, engine_update);
-		}
-		
+
 		/**
 		 * Add the game object and its children to the scene
 		 */
@@ -79,9 +78,8 @@ package com.scyllacharybdis.graphics.scenegraph
 			{
 				return;
 			}
-			gameObj.engine_start();
+			gameObj.start();
 			addGameObject(gameObj);
-			addChildrenToScene(gameObj);
 		}
 		
 		/**
@@ -93,35 +91,10 @@ package com.scyllacharybdis.graphics.scenegraph
 			{
 				return;
 			}
-			gameObj.engine_stop();
-			removeChildrenFromScene(gameObj);
+			gameObj.stop();
 			removeGameObject(gameObj);
 		}
 		
-		/**
-		 * Add all its children to the scene
-		 * @param	gameObj
-		 */
-		private final function addChildrenToScene(gameObj:GameObject):void
-		{
-			for each ( var child:GameObject in gameObj.children )
-			{
-				addGameObjectToScene(child);
-			}			
-		}
-
-		/**
-		 * Remove all its children from the scene
-		 * @param	gameObj
-		 */
-		private final function removeChildrenFromScene(gameObj:GameObject):void
-		{
-			for each ( var child:GameObject in gameObj.children )
-			{
-				removeGameObjectToScene(child);
-			}				
-		}
-
 		/**
 		 * Add a gameobject to the scene
 		 * @param	gameObj
@@ -140,8 +113,6 @@ package com.scyllacharybdis.graphics.scenegraph
 			delete _gameObjects[gameObj];
 		}
 		
-		
-		
 		/**
 		 * Get all the renderables for the scene.
 		 * Used by the renderer to display the scene.
@@ -156,7 +127,7 @@ package com.scyllacharybdis.graphics.scenegraph
 			{
 				if ( gameObj.enabled == true )
 				{
-					var renderable:RenderComponent = gameObj.getComponent(RenderComponent);
+					var renderable:IRenderComponent = gameObj.getComponent(IRenderComponent);
 					if ( renderable != null )
 					{
 						renderables.push(renderable);

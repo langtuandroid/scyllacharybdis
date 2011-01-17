@@ -1,51 +1,31 @@
 package com.scyllacharybdis.graphics.rendering 
 {
-	import core.objects.BaseObject;
+	import com.scyllacharybdis.core.memory.allocate;
+	import com.scyllacharybdis.interfaces.IBaseObject;
 	import flash.display.DisplayObjectContainer;
 
 	/**
 	 */
 	[Singleton]
-	[Requires ("core.rendering.Backbuffer")]
-	public class Window extends BaseObject
+	public class Window implements IBaseObject
 	{
 		private var _displayContext:DisplayObjectContainer;
 		private var _backBuffer:Backbuffer;
 		
 		/**
-		 * The engine contructor
-		 * @private
+		 * Constructor
 		 */
-		public final override function engine_awake():void
+		public function Window():void
 		{
-			_backBuffer = getDependency(Backbuffer);
-			super.engine_awake();
+			_backBuffer = allocate(Backbuffer);
 		}
-
+		
 		/**
-		 * The engine start method
-		 * @private
-		 */		
-		public final override function engine_start():void
-		{
-			super.engine_start();
-		}
-
-		/**
-		 * The engine stop function
-		 * @private
+		 * Destructor
 		 */
-		public final override function engine_stop():void
+		public function destroy():void
 		{
-			super.engine_stop();
-		}
-
-		/**
-		 * Destroy is called at the removal of the object
-		 * @private
-		 */
-		public final override function engine_destroy():void 
-		{
+			_displayContext = null;
 		}
 		
 		/**

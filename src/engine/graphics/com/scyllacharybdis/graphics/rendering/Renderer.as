@@ -1,65 +1,37 @@
 package com.scyllacharybdis.graphics.rendering 
 {
-	import components.RenderComponent;
-	import core.scenegraph.SceneGraph;
-	import events.EngineEvent;
+	import com.scyllacharybdis.graphics.scenegraph.SceneGraph;
+	import com.scyllacharybdis.interfaces.IBaseObject;
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.utils.Dictionary;
-
-	import core.objects.BaseObject;	
 	
 	/**
 	 */
 	[Singleton]
-	[Requires ("core.scenegraph.SceneGraph", "core.rendering.Window")]
-	public final class Renderer extends BaseObject
+	public final class Renderer implements IBaseObject
 	{
 		private var _sceneGraph:SceneGraph = null;
 		private var _window:Window = null;
 		private var _dirty:Boolean = true;
 		
 		/**
-		 * The engine contructor
-		 * @private
+		 * Constructor
 		 */
-		public final override function engine_awake():void
+		public function Renderer(sceneGraph:SceneGraph, window:Window):void
 		{
-			_sceneGraph = getDependency(SceneGraph);
-			_window = getDependency(Window);
-
-			super.engine_awake();
+			_sceneGraph = sceneGraph;
+			_window = window;
 		}
-
+		
 		/**
-		 * The engine start method
-		 * @private
-		 */		
-		public final override function engine_start():void
-		{
-			super.engine_start();
-		}
-
-		/**
-		 * The engine stop function
-		 * @private
+		 * Destructor
 		 */
-		public final override function engine_stop():void
+		public function destroy():void
 		{
-			super.engine_stop();
-		}
-
-		/**
-		 * Destroy is called at the removal of the object
-		 * @private
-		 */
-		public final override function engine_destroy():void 
-		{
-			super.engine_destroy();
-
 			_sceneGraph = null;
 			_window = null;
-		}
+		}		
 		
 		/**
 		 * Render the frame
@@ -73,7 +45,7 @@ package com.scyllacharybdis.graphics.rendering
 			renderables.sortOn( "comparator", Array.NUMERIC );
 			
 			_window.beginRendering();
-			_window.surface.clear(0x000000);
+			_window.surface.clear(0x00000000);
 			
 			// Render children in order
 			for ( var i:int = 0; i < renderables.length; i++ )
