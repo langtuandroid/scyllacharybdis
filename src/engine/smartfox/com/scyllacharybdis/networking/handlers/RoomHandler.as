@@ -1,7 +1,10 @@
 package com.scyllacharybdis.networking.handlers 
 {
-	import core.events.NetworkEvents;
-	import core.events.NetworkEventHandler;
+	import com.scyllacharybdis.constants.NetworkEvents;
+	import com.scyllacharybdis.interfaces.IBaseObject;
+	import com.scyllacharybdis.networking.models.CreateRoomModel;
+	import com.scyllacharybdis.networking.models.RoomModel;
+	import com.scyllacharybdis.networking.NetworkEventHandler;
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
 	import com.smartfoxserver.v2.requests.JoinRoomRequest;
@@ -10,15 +13,11 @@ package com.scyllacharybdis.networking.handlers
 	import com.smartfoxserver.v2.requests.CreateRoomRequest;
 	import com.smartfoxserver.v2.entities.Room;
 	import com.smartfoxserver.v2.entities.User;
-	import models.CreateRoomModel;
-	import core.objects.BaseObject;	
-	import models.RoomModel;
 
 	/**
 	*/
 	[Singleton]
-	[Requires ("core.events.NetworkEventHandler")]
-	public class RoomHandler extends BaseObject
+	public class RoomHandler implements IBaseObject
 	{
 		private var _networkEventHandler:NetworkEventHandler;
 		
@@ -31,10 +30,10 @@ package com.scyllacharybdis.networking.handlers
 		 * Register all the listeners
 		 * @private
 		 */
-		public final override function engine_awake():void
+		public function RoomHandler(networkEventHandler:NetworkEventHandler):void
 		{
 			// Get the event manager
-			_networkEventHandler = getDependency(NetworkEventHandler);
+			_networkEventHandler = networkEventHandler;
 			
 			_networkEventHandler.addEventListener(SFSEvent.ROOM_CREATION_ERROR, this, onRoomCreationError);
 			_networkEventHandler.addEventListener(SFSEvent.ROOM_JOIN, this, onJoinRoom);
@@ -52,30 +51,13 @@ package com.scyllacharybdis.networking.handlers
 			_networkEventHandler.addEventListener(NetworkEvents.LEAVBROOM, this, requestLeaveRoom );
 		}
 		
-		/**
-		 * Engine start should handle engine related start. 
-		 * @private
-		 */
-		public final override function engine_start():void 
-		{
-			super.engine_start();
-		}
-		
-		/**
-		 * Engine stop should handle engine related stop. 
-		 * @private
-		 */
-		public final override function engine_stop():void 
-		{
-			super.engine_stop();
-		}
 		
 		/**
  		 * Destroy is called at the removal of the object
 		 * Unregister listeners
 		 * @private
 		 */
-		public final override function engine_destroy():void
+		public function destroy():void
 		{
 			_networkEventHandler.removeEventListener(NetworkEvents.CREATEROOM, this, requestCreateRoom );
 			_networkEventHandler.removeEventListener(NetworkEvents.JOINROOM, this, requestJoinRoom );
@@ -94,38 +76,6 @@ package com.scyllacharybdis.networking.handlers
 			_networkEventHandler.removeEventListener(SFSEvent.USER_COUNT_CHANGE, this, onUserCountChange);
 		}
 
-		/**
-		 * The users constructor. 
-		 * Override awake and create any variables and listeners.
-		 */
-		public override function awake():void
-		{
-		}
-		
-		/**
-		 * The users start method. 
-		 * Start runs when the game object is added to the scene.
-		 */
-		public override function start():void
-		{
-		}
-
-		/**
-		 * The users stop method.
-		 * Stop runs when the game object is added to the scene.
-		 */
-		public override function stop():void
-		{
-		}
-
-		/**
-		 * The users destructor. 
-		 * Override destroy to clean up any variables or listeners.
-		 */
-		public override function destroy():void
-		{
-		}
-		
 		/**
 		 * Request Join Room handler
 		 * @param	room

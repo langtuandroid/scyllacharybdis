@@ -127,7 +127,7 @@ package com.scyllacharybdis.graphics.scenegraph
 			{
 				if ( gameObj.enabled == true )
 				{
-					var renderable:IRenderComponent = gameObj.getComponent(IRenderComponent);
+					var renderable:Array = gameObj.getComponent(IRenderComponent);
 					if ( renderable != null )
 					{
 						renderables.push(renderable);

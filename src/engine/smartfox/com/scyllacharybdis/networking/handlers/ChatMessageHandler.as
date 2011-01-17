@@ -1,20 +1,18 @@
 package com.scyllacharybdis.networking.handlers 
 {
-	import core.events.NetworkEvents;
-	import core.events.NetworkEventHandler;
+	import com.scyllacharybdis.constants.NetworkEvents;
+	import com.scyllacharybdis.interfaces.IBaseObject;
+	import com.scyllacharybdis.interfaces.IComponent;
+	import com.scyllacharybdis.networking.models.ChatMessageModel;
+	import com.scyllacharybdis.networking.NetworkEventHandler;
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.core.SFSEvent;
 	import com.smartfoxserver.v2.requests.PublicMessageRequest;
 
-	import core.objects.BaseObject;	
-	import models.RoomModel;
-	import models.ChatMessageModel;
-
 	/**
 	*/
 	[Singleton]
-	[Requires ("core.events.NetworkEventHandler")]
-	public class ChatMessageHandler extends BaseObject
+	public class ChatMessageHandler implements IBaseObject
 	{
 		private var _networkEventHandler:NetworkEventHandler;
 
@@ -23,34 +21,12 @@ package com.scyllacharybdis.networking.handlers
 		 * Register all the listeners
 		 * @private
 		 */
-		public final override function engine_awake():void
+		public function ChatMessageHandler(networkEventHandler:NetworkEventHandler):void
 		{
 			// Get the event manager
-			_networkEventHandler = getDependency(NetworkEventHandler);
-			
+			_networkEventHandler = networkEventHandler;
 			_networkEventHandler.addEventListener(SFSEvent.PUBLIC_MESSAGE, this, onPublicMessage);
-			
-			super.engine_start();
-			
 			_networkEventHandler.addEventListener(NetworkEvents.SEND_CHAT_MESSAGE, this, sendChatMessage );
-		}
-		
-		/**
-		 * Engine start should handle engine related start. 
-		 * @private
-		 */
-		public final override function engine_start():void 
-		{
-			super.engine_start();
-		}
-		
-		/**
-		 * Engine stop should handle engine related stop. 
-		 * @private
-		 */
-		public final override function engine_stop():void 
-		{
-			super.engine_stop();
 		}
 		
 		/**
@@ -58,46 +34,12 @@ package com.scyllacharybdis.networking.handlers
 		 * Unregister listeners
 		 * @private
 		 */
-		public final override function engine_destroy():void
+		public final function destroy():void
 		{
 			_networkEventHandler.removeEventListener(NetworkEvents.SEND_CHAT_MESSAGE, this, sendChatMessage );
-
-			super.engine_destroy();
-			
 			_networkEventHandler.removeEventListener(SFSEvent.PUBLIC_MESSAGE, this, onPublicMessage);
 		}
 		
-		/**
-		 * The users constructor. 
-		 * Override awake and create any variables and listeners.
-		 */
-		public override function awake():void
-		{
-		}
-		
-		/**
-		 * The users start method. 
-		 * Start runs when the game object is added to the scene.
-		 */
-		public override function start():void
-		{
-		}
-
-		/**
-		 * The users stop method.
-		 * Stop runs when the game object is added to the scene.
-		 */
-		public override function stop():void
-		{
-		}
-
-		/**
-		 * The users destructor. 
-		 * Override destroy to clean up any variables or listeners.
-		 */
-		public override function destroy():void
-		{
-		}
 
 		/**
 		 * Send a chat message to the room

@@ -1,5 +1,6 @@
 package com.scyllacharybdis.interfaces 
 {
+	import com.scyllacharybdis.graphics.rendering.Backbuffer;
 	
 	/**
 	 * ...

@@ -3,89 +3,19 @@ package com.scyllacharybdis.components
 	import adobe.utils.CustomActions;
 	import Box2D.Dynamics.b2Fixture;
 	import Box2D.Dynamics.b2FixtureDef;
-	import core.objects.GameObject;
+	import com.scyllacharybdis.interfaces.IScriptComponent;
+	import com.scyllacharybdis.objects.GameObject;
 	import flash.utils.Dictionary;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
-	import core.objects.BaseObject;
 
 	/**
 	 */
-	[ComponentType ("components.ScriptComponent")]
-	public class ScriptComponent extends BaseObject
+	public class ScriptComponent implements IScriptComponent
 	{
-		private var _updateTimer:Timer = new Timer(1/30 * 1000, 0); 
-
-		/** 
-		 * Engine constructor
-		 * @private
-		 */
-		public final override function engine_awake():void
-		{
-			super.engine_awake();
-		}
-		
-		/** 
-		 * Engine start
-		 * @private
-		 */
-		public final override function engine_start():void
-		{
-			super.engine_start();
-
-			// setup the timer
-			_updateTimer.addEventListener(TimerEvent.TIMER, engine_update);
-			_updateTimer.start();
-		}
-		
-		/** 
-		 * Engine start
-		 * @private
-		 */		
-		private final function engine_update(event:TimerEvent):void
-		{
-			update(event);
-		}
-
-		/** 
-		 * Engine stop
-		 * @private
-		 */
-		public final override function engine_stop():void
-		{
-			super.engine_stop();
-		}
-
-		/** 
-		 * Engine destructor
-		 * @private
-		 */
-		public final override function engine_destroy():void
-		{
-
-			super.engine_destroy();
-
-			// Stop the timer
-			_updateTimer.stop();
-			_updateTimer = null;
-
-		}
-
-		/**
-		 * The users constructor. 
-		 * Override awake and create any variables and listeners.
-		 */
-		public override function awake():void
-		{
-		}
-		
-		/**
-		 * The users start method. 
-		 * Start runs when the game object is added to the scene.
-		 */
-		public override function start():void
+		public function awake(owner:*):void
 		{
 		}
 
@@ -93,15 +23,7 @@ package com.scyllacharybdis.components
 		 * The users update method. 
 		 * @param	event
 		 */
-		public function update(event:TimerEvent):void
-		{
-		}
-
-		/**
-		 * The users stop method.
-		 * Stop runs when the game object is added to the scene.
-		 */
-		public override function stop():void
+		public function update():void
 		{
 		}
 
@@ -109,7 +31,7 @@ package com.scyllacharybdis.components
 		 * The users destructor. 
 		 * Override destroy to clean up any variables or listeners.
 		 */
-		public override function destroy():void
+		public function destroy():void
 		{
 		}
 		
