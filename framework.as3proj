@@ -13,11 +13,11 @@
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
-    <class path="engine" />
-    <class path="examples" />
-    <class path="src" />
-    <class path="util" />
-    <class path="physics" />
+    <class path="src\engine\core" />
+    <class path="src\engine\graphics" />
+    <class path="src\engine\box2d" />
+    <class path="src\engine\smartfox" />
+    <class path="src\engine\scenes" />
   </classpaths>
   <!-- Build options -->
   <build>
@@ -52,6 +52,14 @@
   <!-- SWC Libraries -->
   <libraryPaths>
     <element path="lib\SFS2X_API_AS3.swc" />
+    <element path="src\lib\as3commons-lang-0.3.1.swc" />
+    <element path="src\lib\as3commons-logging-1.2.swc" />
+    <element path="src\lib\as3commons-reflect-1.3.3.1.swc" />
+    <element path="src\lib\AstraLib.swc" />
+    <element path="src\lib\Box2D.swc" />
+    <element path="src\lib\casalib.swc" />
+    <element path="src\lib\SFS2X_API_AS3.swc" />
+    <element path="src\lib\StandardComponents.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
