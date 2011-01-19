@@ -1,6 +1,6 @@
 package com.scyllacharybdis.core.xml 
 {
-	import core.ami.AMIResults;
+
 	/**
 	 * ...
 	 * @author 
