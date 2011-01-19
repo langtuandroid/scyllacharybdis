@@ -1,5 +1,8 @@
 package com.scyllacharybdis.components
 {
+	import com.scyllacharybdis.graphics.rendering.Backbuffer;
+	import com.scyllacharybdis.interfaces.IRenderComponent;
+	import com.scyllacharybdis.interfaces.IScriptComponent;
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
@@ -8,94 +11,45 @@ package com.scyllacharybdis.components
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import org.casalib.math.geom.Point3d;
-	import core.rendering.Backbuffer;
-	import core.objects.BaseObject;
 	
 	/**
 	 * 
 	 */
-	[ComponentType ("components.RenderComponent")]
-	public class RenderComponent extends BaseObject
+	public class RenderComponent implements IRenderComponent
 	{
-
 		private var _baseclip:MovieClip  = new MovieClip();
+		private var _owner:*;
 		
 		/** 
-		 * Engine constructor
+		 * Constructor
 		 * @private
 		 */
-		public final override function engine_awake():void
+		public function awake(owner:*):void
 		{
-			super.engine_awake();
+			_owner = owner;
+			addListeners();
+		}
+		
+		public function update():void
+		{
+			
 		}
 	
 		/** 
-		 * Engine start
+		 * Destroy
 		 * @private
 		 */
-		public final override function engine_start(): void 
+		public function destroy():void
 		{
-			addListeners();
-			
-			super.engine_start();
-		}
-		
-		/** 
-		 * Engine stop
-		 * @private
-		 */
-		public final override function engine_stop():void
-		{
-			super.engine_stop();
 			removeListeners();
 		}
 		
-		/** 
-		 * Engine destructor
-		 * @private
-		 */
-		public final override function engine_destroy():void
-		{
-			super.engine_destroy();
-		}
-		
-		/**
-		 * The users constructor. 
-		 * Override awake and create any variables and listeners.
-		 */
-		public override function awake():void
-		{
-		}
-		
-		/**
-		 * The users start method. 
-		 * Start runs when the game object is added to the scene.
-		 */
-		public override function start():void
-		{
-		}
-
-		/**
-		 * The users stop method.
-		 * Stop runs when the game object is added to the scene.
-		 */
-		public override function stop():void
-		{
-		}
-
-		/**
-		 * The users destructor. 
-		 * Override destroy to clean up any variables or listeners.
-		 */
-		public override function destroy():void
-		{
-		}
-		
+	
 		public function set baseclip( value:MovieClip ):void { _baseclip = value; }
 		public function get baseclip():MovieClip { return _baseclip; }
 		
 		// For sorting
-		public function get comparator():Number { return owner.position.z }
+		public function get comparator():Number { return _owner.position.z }
 
 		/**
 		 * Add the renderable to the surface
@@ -110,13 +64,13 @@ package com.scyllacharybdis.components
 			bitmapData.draw(_baseclip);
 			
 			// Copy the pixels to the backbuffer
-			surface.copyPixels(bitmapData, bitmapData.rect, new Point(owner.position.x, owner.position.y), null, null, true)
+			surface.copyPixels(bitmapData, bitmapData.rect, new Point(_owner.position.x, _owner.position.y), null, null, true)
 		}
 		
 		
 		private final function addListeners():void
 		{
-			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
+			var scriptComponent:ScriptComponent = _owner.getComponent(IScriptComponent) as ScriptComponent;
 			
 			if ( scriptComponent != null )
 			{
@@ -137,7 +91,7 @@ package com.scyllacharybdis.components
 
 		private final function removeListeners():void
 		{
-			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
+			var scriptComponent:ScriptComponent = _owner.getComponent(IScriptComponent) as ScriptComponent;
 			
 			if ( scriptComponent != null )
 			{

@@ -4,8 +4,8 @@ package com.scyllacharybdis.physics
 	import Box2D.Dynamics.b2Fixture;
 	import Box2D.Dynamics.Contacts.b2Contact;
 	import com.scyllacharybdis.components.ScriptComponent;
+	import com.scyllacharybdis.core.composite.GameObject;
 	import com.scyllacharybdis.interfaces.IScriptComponent;
-	import com.scyllacharybdis.objects.GameObject;
 
 	/**
 	 */
@@ -25,18 +25,11 @@ package com.scyllacharybdis.physics
 			var gameObj1:GameObject = obj1.GetUserData();
 			var gameObj2:GameObject = obj2.GetUserData();
 
-			var script1:Array = gameObj1.getComponent( IScriptComponent );
-			var script2:Array = gameObj2.getComponent( IScriptComponent );
+			var script1:ScriptComponent = gameObj1.getComponent( IScriptComponent ) as ScriptComponent;
+			var script2:ScriptComponent = gameObj2.getComponent( IScriptComponent ) as ScriptComponent;
 			
-			for ( var i:int = 0; i < script1.length; i++ )
-			{
-				script1[i].onBeginContact( gameObj2 );
-			}
-			
-			for ( i = 0; i < script1.length; i++ )
-			{
-				script2[i].onBeginContact( gameObj1 );
-			}
+			script1.onBeginContact( gameObj2 );
+			script2.onBeginContact( gameObj1 );
 		}
 		
 		/**
@@ -51,19 +44,12 @@ package com.scyllacharybdis.physics
 
 			var gameObj1:GameObject = obj1.GetUserData();
 			var gameObj2:GameObject = obj2.GetUserData();
-
-			var script1:Array = gameObj1.getComponent( IScriptComponent );
-			var script2:Array = gameObj2.getComponent( IScriptComponent );
 			
-			for ( var i:int = 0; i < script1.length; i++ )
-			{
-				script1[i].onEndContact( gameObj2 );
-			}
+			var script1:ScriptComponent = gameObj1.getComponent( IScriptComponent ) as ScriptComponent;
+			var script2:ScriptComponent = gameObj2.getComponent( IScriptComponent ) as ScriptComponent;
 			
-			for ( i = 0; i < script1.length; i++ )
-			{
-				script2[i].onEndContact( gameObj1 );
-			}
+			script1.onEndContact( gameObj2 );
+			script2.onEndContact( gameObj1 );
 		}
 	}
 }

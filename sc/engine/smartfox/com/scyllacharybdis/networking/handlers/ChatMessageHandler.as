@@ -2,7 +2,6 @@ package com.scyllacharybdis.networking.handlers
 {
 	import com.scyllacharybdis.constants.NetworkEvents;
 	import com.scyllacharybdis.interfaces.IBaseObject;
-	import com.scyllacharybdis.interfaces.IComponent;
 	import com.scyllacharybdis.networking.models.ChatMessageModel;
 	import com.scyllacharybdis.networking.NetworkEventHandler;
 	import flash.utils.Dictionary;

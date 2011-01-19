@@ -1,5 +1,6 @@
 package com.scyllacharybdis.objects 
 {
+	import com.scyllacharybdis.core.composite.GameObject;
 	import com.scyllacharybdis.graphics.scenegraph.SceneGraph;
 	import com.scyllacharybdis.interfaces.IBaseObject;
 

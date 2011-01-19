@@ -3,8 +3,8 @@ package com.scyllacharybdis.components
 	import adobe.utils.CustomActions;
 	import Box2D.Dynamics.b2Fixture;
 	import Box2D.Dynamics.b2FixtureDef;
+	import com.scyllacharybdis.core.composite.GameObject;
 	import com.scyllacharybdis.interfaces.IScriptComponent;
-	import com.scyllacharybdis.objects.GameObject;
 	import flash.utils.Dictionary;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;

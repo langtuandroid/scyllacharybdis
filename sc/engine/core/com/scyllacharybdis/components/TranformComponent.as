@@ -2,15 +2,28 @@ package com.scyllacharybdis.components
 {
 	import com.scyllacharybdis.interfaces.ITranformComponent;
 	import org.casalib.math.geom.Point3d;
+	
 	/**
 	 * ...
 	 * @author 
 	 */
-	public class TranformComponent extends ITranformComponent
+	public class TranformComponent implements ITranformComponent
 	{
 		protected var _position:Point3d = new Point3d();
 		protected var _scale:Point3d = new Point3d();
 		protected var _rotation:Number = 0;
+		
+		public function awake( owner:* ):void
+		{
+		}
+		
+		public function update():void 
+		{
+		}
+		
+		public function destroy():void 
+		{
+		}
 		
 		/**
 		 * Get the local coordinates position.

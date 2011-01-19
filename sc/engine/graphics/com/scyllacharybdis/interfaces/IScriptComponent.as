@@ -5,7 +5,7 @@ package com.scyllacharybdis.interfaces
 	 * ...
 	 * @author 
 	 */
-	public interface IScriptComponent extends IComponent
+	public interface IScriptComponent extends IBaseComponent
 	{
 	
 	}

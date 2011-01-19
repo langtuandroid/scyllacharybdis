@@ -4,7 +4,7 @@ package com.scyllacharybdis.physics
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2World;
 	import com.scyllacharybdis.graphics.scenegraph.SceneGraph;
-	import com.scyllacharybdis.interfaces.IComponent;
+	import com.scyllacharybdis.interfaces.IBaseComponent;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	import org.casalib.math.geom.Point3d;
@@ -12,7 +12,7 @@ package com.scyllacharybdis.physics
 	/**
 	 */
 	[Singleton]
-	public final class PhysicsSceneComponent implements IComponent
+	public final class PhysicsSceneComponent implements IBaseComponent
 	{
 		private var _world:b2World;
 		private var _contactListener:PhysicsContactListener;

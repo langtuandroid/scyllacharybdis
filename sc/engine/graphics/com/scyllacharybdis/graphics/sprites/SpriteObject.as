@@ -1,4 +1,4 @@
-package com.scyllacharybdis.objects 
+package com.scyllacharybdis.graphics.sprites 
 {
 	import flash.display.BitmapData;
 	import flash.geom.Point;

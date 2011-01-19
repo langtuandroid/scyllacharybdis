@@ -6,7 +6,7 @@ package com.scyllacharybdis.interfaces
 	 * ...
 	 * @author 
 	 */
-	public interface IRenderComponent extends IComponent
+	public interface IRenderComponent extends IBaseComponent
 	{
 		function get comparator():Number;
 		function render( surface:Backbuffer ):void
