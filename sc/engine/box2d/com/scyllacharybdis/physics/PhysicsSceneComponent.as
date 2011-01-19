@@ -17,6 +17,7 @@ package com.scyllacharybdis.physics
 		private var _world:b2World;
 		private var _contactListener:PhysicsContactListener;
 		private var _sceneGraph:SceneGraph;
+		private var _drawScale:int = 30;
 		
 		// map pixels to meters ( 30 pixels = 1 meter );
 		
@@ -127,6 +128,20 @@ package com.scyllacharybdis.physics
 		public function set positionIterations(value:int):void 
 		{
 			_positionIterations = value;
+		}
+		
+		public function get drawScale():int { return _drawScale; }
+		
+		public function set drawScale(value:int):void 
+		{
+			_drawScale = value;
+		}
+		
+		public function get world():b2World { return _world; }
+		
+		public function set world(value:b2World):void 
+		{
+			_world = value;
 		}
 		
 	}

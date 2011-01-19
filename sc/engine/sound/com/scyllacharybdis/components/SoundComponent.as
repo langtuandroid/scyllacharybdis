@@ -1,6 +1,6 @@
 package com.scyllacharybdis.components
 {
-	import core.objects.BaseObject;
+	import com.scyllacharybdis.interfaces.IBaseComponent;
 	import flash.media.Sound;
 	import flash.net.URLRequest;
 	import flash.events.ProgressEvent;
@@ -9,78 +9,23 @@ package com.scyllacharybdis.components
 	/**
 	 * 
 	 */
-	[ComponentType ("components.SoundComponent")]
-	public class SoundComponent extends BaseObject
+	public class SoundComponent implements IBaseComponent
 	{
 		private var _sound:Sound;
 		
-		/** 
-		 * Engine constructor
-		 * @private
-		 */
-
-		public final override function engine_awake():void
+		public function awake(owner:*):void
 		{
-			super.engine_awake();
-		}
-	
-		/** 
-		 * Engine start
-		 * @private
-		 */
-		public final override function engine_start(): void 
-		{
-			super.engine_start();
+			
 		}
 		
-		/** 
-		 * Engine stop
-		 * @private
-		 */
-		public final override function engine_stop():void
+		public function update():void
 		{
-			super.engine_stop();
+			
 		}
 		
-		/** 
-		 * Engine destructor
-		 * @private
-		 */
-		public final override function engine_destroy():void
+		public function destroy():void
 		{
-			super.engine_destroy();
-		}
-		
-		/**
-		 * The users constructor. 
-		 * Override awake and create any variables and listeners.
-		 */
-		public override function awake():void
-		{
-		}
-		
-		/**
-		 * The users start method. 
-		 * Start runs when the game object is added to the scene.
-		 */
-		public override function start():void
-		{
-		}
-
-		/**
-		 * The users stop method.
-		 * Stop runs when the game object is added to the scene.
-		 */
-		public override function stop():void
-		{
-		}
-
-		/**
-		 * The users destructor. 
-		 * Override destroy to clean up any variables or listeners.
-		 */
-		public override function destroy():void
-		{
+			
 		}
 		
 		/**

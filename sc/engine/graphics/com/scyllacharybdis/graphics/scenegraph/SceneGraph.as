@@ -1,6 +1,7 @@
 package com.scyllacharybdis.graphics.scenegraph 
 {
 	import com.scyllacharybdis.components.RenderComponent;
+	import com.scyllacharybdis.core.composite.CompositeObject;
 	import com.scyllacharybdis.core.composite.GameObject;
 	import com.scyllacharybdis.interfaces.IBaseComponent;
 	import com.scyllacharybdis.interfaces.IBaseObject;
@@ -13,7 +14,7 @@ package com.scyllacharybdis.graphics.scenegraph
 	 * @author ...
 	 */
 	[Singleton]
-	public class SceneGraph implements IBaseObject 
+	public class SceneGraph extends CompositeObject implements IBaseObject 
 	{
 		private var _componentList:Array;
 		private var _updateTimer:Timer = new Timer(1/30 * 1000, 0); 
@@ -22,13 +23,8 @@ package com.scyllacharybdis.graphics.scenegraph
 		/**
 		 * Constructor
 		 */
-		public function SceneGraph( ... compList:Array  )
+		public function SceneGraph()
 		{
-			for each ( var comp:IBaseComponent in _componentList )
-			{
-				comp.awake(this);
-			}
-
 			// setup the timer
 			_updateTimer.addEventListener(TimerEvent.TIMER, update);
 			_updateTimer.start();			

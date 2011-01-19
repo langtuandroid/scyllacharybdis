@@ -1,8 +1,6 @@
 package com.scyllacharybdis.core.ami
 {
-	import core.ami.AMITask;
-	import core.events.EventHandler;
-	import core.objects.BaseObject;
+	import com.scyllacharybdis.core.events.EventHandler;
 	import flash.utils.Dictionary;
 	
 	/**
