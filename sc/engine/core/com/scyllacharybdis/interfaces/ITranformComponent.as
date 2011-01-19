@@ -1,5 +1,6 @@
 package com.scyllacharybdis.interfaces 
 {
+	import org.casalib.math.geom.Point3d;
 	
 	/**
 	 * ...
@@ -10,32 +11,32 @@ package com.scyllacharybdis.interfaces
 		/**
 		 * Get the local coordinates position.
 		 */
-		public function get position():Point3d;
+		function get position():Point3d;
 
 		/**
 		 * Set the local coordinates position
 		 * @param position (Point3d) The position to set the game object
 		 */
-		public function set position( value:Point3d ):void;
+		function set position( value:Point3d ):void;
 
 		/**
 		 * Get the renderobjects local coordinates scale.
 		 */
-		public function get scale():Point3d;
+		function get scale():Point3d;
 
 		/**
 		 * Set the renderobjects local coordinates scale.
 		 */
-		public function set scale( value:Point3d ):void;
+		function set scale( value:Point3d ):void;
 		
 		/**
 		 * Get the local coordinates rotation
 		 */		
-		public function get rotation():Number;
+		function get rotation():Number;
 		
 		/**
 		 * Set the local coordinates rotation
 		 */
-		public function set rotation( value:Number):void;
+		function set rotation( value:Number):void;
 	}
 }

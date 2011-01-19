@@ -1,9 +1,10 @@
 package com.scyllacharybdis.graphics.scenegraph 
 {
+	import com.scyllacharybdis.components.RenderComponent;
+	import com.scyllacharybdis.core.composite.GameObject;
+	import com.scyllacharybdis.interfaces.IBaseComponent;
 	import com.scyllacharybdis.interfaces.IBaseObject;
-	import com.scyllacharybdis.interfaces.IComponent;
 	import com.scyllacharybdis.interfaces.IRenderComponent;
-	import com.scyllacharybdis.objects.GameObject;
 	import flash.events.TimerEvent;
 	import flash.utils.Dictionary;
 	import flash.utils.Timer;
@@ -23,7 +24,7 @@ package com.scyllacharybdis.graphics.scenegraph
 		 */
 		public function SceneGraph( ... compList:Array  )
 		{
-			for each ( var comp:IComponent in _componentList )
+			for each ( var comp:IBaseComponent in _componentList )
 			{
 				comp.awake(this);
 			}
@@ -38,7 +39,7 @@ package com.scyllacharybdis.graphics.scenegraph
 		 */
 		public function destroy():void
 		{
-			for each ( var comp:IComponent in _componentList )
+			for each ( var comp:IBaseComponent in _componentList )
 			{
 				comp.destroy();
 			}
@@ -55,7 +56,7 @@ package com.scyllacharybdis.graphics.scenegraph
 		 */
 		public final function update(event:TimerEvent):void
 		{
-			for each ( var comp:IComponent in _componentList )
+			for each ( var comp:IBaseComponent in _componentList )
 			{
 				comp.update();
 			}
@@ -127,7 +128,7 @@ package com.scyllacharybdis.graphics.scenegraph
 			{
 				if ( gameObj.enabled == true )
 				{
-					var renderable:Array = gameObj.getComponent(IRenderComponent);
+					var renderable:RenderComponent = gameObj.getComponent(IRenderComponent) as RenderComponent;
 					if ( renderable != null )
 					{
 						renderables.push(renderable);
