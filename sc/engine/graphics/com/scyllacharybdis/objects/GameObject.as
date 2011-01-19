@@ -24,7 +24,6 @@ package com.scyllacharybdis.objects
 		private var _parent:GameObject = null;
 		private var _children:Array = new Array();
 		private var _enabled:Boolean = true;		
-		private var _components:Dictionary = new Dictionary(true);
 		
 		protected var _position:Point3d = new Point3d();
 		protected var _scale:Point3d = new Point3d();
