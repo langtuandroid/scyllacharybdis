@@ -1,6 +1,7 @@
 package com.scyllacharybdis.graphics.loaders 
 {
-	import core.ami.AMIResults;
+	import com.scyllacharybdis.core.ami.AMIResults;
+
 	/**
 	 * ...
 	 * @author 

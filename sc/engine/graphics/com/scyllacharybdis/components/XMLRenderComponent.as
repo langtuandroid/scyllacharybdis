@@ -3,6 +3,8 @@ package com.scyllacharybdis.components
 	import com.scyllacharybdis.core.ami.AMITask;
 	import com.scyllacharybdis.core.xml.XMLLoaderAction;
 	import com.scyllacharybdis.core.xml.XMLResults;
+	import com.scyllacharybdis.graphics.loaders.TextureLoaderAction;
+	import com.scyllacharybdis.graphics.loaders.TextureResults;
 	import com.scyllacharybdis.graphics.rendering.Backbuffer;
 	import com.scyllacharybdis.graphics.sprites.SpriteObject;
 	import flash.display.Bitmap;
@@ -17,6 +19,12 @@ package com.scyllacharybdis.components
 	{
 		private var _area:String;
 		private var _sprite:SpriteObject = new SpriteObject();
+		private var _owner:*;
+		
+		public override function awake( owner:* ):void
+		{
+			_owner = owner;
+		}
 		
 		/**
 		 * Load the material
@@ -38,7 +46,7 @@ package com.scyllacharybdis.components
 		 */
 		public override function render( surface:Backbuffer ):void
 		{
-			if ( _texture == null )
+			if ( _sprite == null )
 			{
 				return;
 			}
@@ -49,7 +57,7 @@ package com.scyllacharybdis.components
 			}
 
 			// Copy the pixels to the backbuffer
-			surface.copyPixels(_sprite.bitmapData, _sprite.rectangle, new Point(owner.position.x, owner.position.y), null, null, true)
+			surface.copyPixels(_sprite.bitmapData, _sprite.rectangle, new Point(_owner.position.x, _owner.position.y), null, null, true)
 		}
 		
 		/**
