@@ -18,6 +18,7 @@
     <class path="sc\engine\box2d" />
     <class path="sc\engine\smartfox" />
     <class path="sc\engine\scenes" />
+    <class path="sc\engine\sound" />
   </classpaths>
   <!-- Build options -->
   <build>
