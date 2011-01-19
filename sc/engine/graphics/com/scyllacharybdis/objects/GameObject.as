@@ -24,10 +24,6 @@ package com.scyllacharybdis.objects
 		private var _parent:GameObject = null;
 		private var _children:Array = new Array();
 		private var _enabled:Boolean = true;		
-		
-		protected var _position:Point3d = new Point3d();
-		protected var _scale:Point3d = new Point3d();
-		protected var _rotation:Number = 0;
 
 		/**
 		 * Constructor
@@ -56,56 +52,6 @@ package com.scyllacharybdis.objects
 		{
 			_enabled = value;
 		}
-		
-		/**
-		 * Get the local coordinates position.
-		 */
-		public function get position():Point3d 
-		{ 
-			return _position;
-		}
-
-		/**
-		 * Set the local coordinates position
-		 * @param position (Point3d) The position to set the game object
-		 */
-		public function set position( value:Point3d ):void 
-		{ 
-			_position = value; 
-		}
-		
-		/**
-		 * Get the renderobjects local coordinates scale.
-		 */
-		public function get scale():Point3d 
-		{ 
-			return _scale;
-		}
-
-		/**
-		 * Set the renderobjects local coordinates scale.
-		 */
-		public function set scale( value:Point3d ):void 
-		{ 
-			_scale = value; 
-		}
-		
-		/**
-		 * Get the local coordinates rotation
-		 */		
-		public function get rotation():Number 
-		{ 
-			return _rotation;
-		}
-		
-		/**
-		 * Set the local coordinates rotation
-		 */
-		public function set rotation( value:Number):void 
-		{ 
-			_rotation = value; 
-		}
-		
 		
 		/**
 		 * Add a component to the container
