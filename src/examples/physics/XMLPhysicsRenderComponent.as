@@ -9,7 +9,7 @@ package examples.physics
 	public class XMLPhysicsRenderComponent extends XMLRenderComponent
 	{
 		
-		override public function awake():void 
+		override public function awake(owner:*):void 
 		{
 			loadMaterial("test.xml", "spinnersprite");
 		}
