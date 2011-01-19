@@ -1,6 +1,5 @@
 package com.scyllacharybdis.core.ami
 {
-	import core.ami.AMITask;
 
 	/**
 	 * ...

@@ -1,7 +1,7 @@
 package com.scyllacharybdis.core.xml 
 {
-	import core.ami.AMIUniqueAction;
-	import core.cache.XMLCache;
+	import com.scyllacharybdis.core.ami.AMIUniqueAction;
+	import com.scyllacharybdis.core.cache.XMLCache;
 	import flash.events.Event;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;

@@ -1,22 +1,10 @@
-package physics
+package examples.physics
 {
-	import components.RenderComponent;
-	import components.XMLRenderComponent;
-	import core.memory.MemoryManager;
-	import core.objects.TextureObject;
-	import flash.display.MovieClip;
-	import flash.events.MouseEvent;
+	import com.scyllacharybdis.components.RenderComponent;
 	
-	/**
-	 */
-	public class XMLPhysicsRenderComponent extends XMLRenderComponent
+	public class PhysicsRenderComponent extends RenderComponent
 	{
-		
-		override public function awake():void 
-		{
-			loadMaterial("test.xml", "spinnersprite");
-		}
-		
+
 		public function createBox( x:int, y:int, color:Number = 0x123456):void
 		{
 			//texture = _square;

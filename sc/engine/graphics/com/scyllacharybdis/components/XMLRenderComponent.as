@@ -1,7 +1,12 @@
 package com.scyllacharybdis.components 
 {
-	import core.ami.AMITask;
+	import com.scyllacharybdis.core.ami.AMITask;
+	import com.scyllacharybdis.core.xml.XMLLoaderAction;
+	import com.scyllacharybdis.core.xml.XMLResults;
+	import com.scyllacharybdis.graphics.rendering.Backbuffer;
+	import com.scyllacharybdis.graphics.sprites.SpriteObject;
 	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	/**
@@ -12,7 +17,6 @@ package com.scyllacharybdis.components
 	{
 		private var _area:String;
 		private var _sprite:SpriteObject = new SpriteObject();
-		private var _texture:TextureObject;
 		
 		/**
 		 * Load the material
@@ -72,9 +76,9 @@ package com.scyllacharybdis.components
 			trace( "xmlLoadError: " + data );
 		}
 		
-		public function textureLoadSuccess( data:TextureObject ):void
+		public function textureLoadSuccess( data:BitmapData ):void
 		{
-			_sprite.setTexture( data.getTextureData() );
+			_sprite.setTexture( data );
 		}
 		
 		/**

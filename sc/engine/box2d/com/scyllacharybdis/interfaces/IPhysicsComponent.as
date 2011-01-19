@@ -5,7 +5,7 @@ package com.scyllacharybdis.interfaces
 	 * ...
 	 * @author 
 	 */
-	public interface IPhysicsComponent 
+	public interface IPhysicsComponent extends IBaseComponent
 	{
 		
 	}

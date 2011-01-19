@@ -5,94 +5,44 @@ package com.scyllacharybdis.components
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2BodyDef;
 	import Box2D.Dynamics.b2FixtureDef;
-	import core.objects.BaseObject;
-	import core.scenegraph.PhysicsSceneGraph;
-	import core.scenegraph.SceneGraph;
+	import com.scyllacharybdis.graphics.scenegraph.SceneGraph;
+	import com.scyllacharybdis.interfaces.IPhysicsComponent;
+	import com.scyllacharybdis.physics.PhysicsSceneComponent;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
 
 	/**
 	 */
-	[ComponentType ("components.CollisionComponent")]
-	[Requires ("core.scenegraph.PhysicsSceneGraph")]
-	public class CollisionComponent extends BaseObject
+	public class CollisionComponent implements IPhysicsComponent
 	{
 		
 		/****************************************/
 		// Class Details
 		/****************************************/
-		private var _physicsWorld:PhysicsSceneGraph;
+		private var _sceneGraph:SceneGraph;
 		private var _body:b2Body;
-		private var _drawScale:int = 30;
+		private var _physicsWorld:PhysicsSceneComponent;
+		private var _owner:*;
 
-		/** 
-		 * Engine constructor
-		 * @private
-		 */
-		public final override function engine_awake():void
+		public function CollisionComponent( graph:SceneGraph ):void
 		{
-			_physicsWorld = getDependency( PhysicsSceneGraph );
-			super.engine_awake();
+			_sceneGraph = graph;
+			_physicsWorld = _sceneGraph.getComponent(PhysicsSceneComponent) as PhysicsSceneComponent;
 		}
 		
-		/** 
-		 * Engine start
-		 * @private
-		 */
-		public final override function engine_start():void
+		public function awake( owner:* ):void
 		{
-			super.engine_start();
+			_owner = owner;
 		}
-
-		/** 
-		 * Engine stop
-		 * @private
-		 */
-		public final override function engine_stop():void
-		{
-			super.engine_stop();
-		}
-
-		/** 
-		 * Engine destructor
-		 * @private
-		 */
-		public final override function engine_destroy():void
-		{
-			super.engine_destroy();
-		}
-
-		/**
-		 * The users constructor. 
-		 * Override awake and create any variables and listeners.
-		 */
-		public override function awake():void
+		
+		public function update():void
 		{
 		}
 		
-		/**
-		 * The users start method. 
-		 * Start runs when the game object is added to the scene.
-		 */
-		public override function start():void
+		public function destroy():void
 		{
 		}
 
-		/**
-		 * The users stop method.
-		 * Stop runs when the game object is added to the scene.
-		 */
-		public override function stop():void
-		{
-		}
-
-		/**
-		 * The users destructor. 
-		 * Override destroy to clean up any variables or listeners.
-		 */
-		public override function destroy():void
-		{
-		}
 		
 		/**
 		 * Create the body of the object. The body is the whole object.
@@ -118,13 +68,13 @@ package com.scyllacharybdis.components
 			bodyDef.position.Set(x / scale, y / scale);
 			
 			// Add the gameobject to it
-			bodyDef.userData = owner;
+			bodyDef.userData = _owner;
 
 			// Create the body
 			_body = _physicsWorld.world.CreateBody(bodyDef);
 
 			// Add the game object to it.
-			_body.SetUserData( owner );
+			_body.SetUserData( _owner );
 		}
 		
 		/**
@@ -154,7 +104,7 @@ package com.scyllacharybdis.components
 			fixtureDef.restitution = restitution;
 
 			// Add the game object to it
-			fixtureDef.userData = owner;
+			fixtureDef.userData = _owner;
 
 			// Attach to the body
 			_body.CreateFixture(fixtureDef);	
@@ -183,7 +133,7 @@ package com.scyllacharybdis.components
 			fixtureDef.restitution = restitution;
 			
 			// Add the game object to it
-			fixtureDef.userData = owner;
+			fixtureDef.userData = _owner;
 
 			// Attach to the body
 			_body.CreateFixture(fixtureDef);

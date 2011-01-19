@@ -6,6 +6,7 @@
 	import com.scyllacharybdis.graphics.rendering.Renderer;
 	import com.scyllacharybdis.graphics.rendering.Window;
 	import com.scyllacharybdis.graphics.scenegraph.SceneGraph;
+	import com.scyllacharybdis.interfaces.IPhysicsComponent;
 	import com.scyllacharybdis.networking.handlers.ChatMessageHandler;
 	import com.scyllacharybdis.networking.handlers.ConnectionHandler;
 	import com.scyllacharybdis.networking.handlers.LoginHandler;
@@ -15,14 +16,11 @@
 	import com.scyllacharybdis.scenemanager.SceneManager;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import examples.physics.PhysicsScene;
 	
 	public class Main extends Sprite 
 	{
-		private var _window:Window;
 		private var _renderer:Renderer;
-		private var _sceneManager:SceneManager;
-		private var _physicsComponent:PhysicsSceneComponent;
-		private var _sceneGraph:SceneGraph;
 		
 		public function Main():void 
 		{		
@@ -35,34 +33,31 @@
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 
 			// Create the window
-			_window = allocate(Window);
-			_window.displayContext = this;
+			var window:Window = allocate(Window);
+			window.displayContext = this;
 
-			// Create a physics component
-			_physicsComponent = allocate(PhysicsSceneComponent);
-			
 			// Create the scenegraph and add the physics component
-			_sceneGraph = allocate( SceneGraph, _physicsComponent );
+			var sceneGraph:SceneGraph = allocate( SceneGraph );
+			sceneGraph.addComponent( PhysicsSceneComponent, allocate(PhysicsSceneComponent) );
 			
 			// Create a rendering system and inject the graph and window
-			_renderer = allocate(Renderer, _sceneGraph, _window);
+			_renderer = allocate(Renderer, sceneGraph, window);
 			
 			// Create a network layer
-			var _networkHandler:NetworkEventHandler = allocate(NetworkEventHandler);
-			
-			var _connectionHandler:ConnectionHandler = allocate(ConnectionHandler, _networkHandler);
-			var _loginHandler:LoginHandler = allocate(LoginHandler, _networkHandler);
-			var _roomHandler:RoomHandler = allocate(RoomHandler, _networkHandler);
-			var _chatMessageHandler:ChatMessageHandler = allocate(ChatMessageHandler, _networkHandler);
+			var networkHandler:NetworkEventHandler = allocate(NetworkEventHandler);
+			var connectionHandler:ConnectionHandler = allocate(ConnectionHandler, networkHandler);
+			var loginHandler:LoginHandler = allocate(LoginHandler, networkHandler);
+			var roomHandler:RoomHandler = allocate(RoomHandler, networkHandler);
+			var chatMessageHandler:ChatMessageHandler = allocate(ChatMessageHandler, networkHandler);
 			
 			// Fire a network connection event
-			_networkHandler.fireEvent(NetworkEvents.CONNECT);
+			networkHandler.fireEvent(NetworkEvents.CONNECT);
 
 			// Create the scene manager
-			_sceneManager = allocate(SceneManager);
+			var sceneManager:SceneManager = allocate(SceneManager);
 
 			// Display the intro scene
-			//_sceneManager.PushScene(PhysicsScene);	
+			sceneManager.PushScene(PhysicsScene);	
 
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
 			

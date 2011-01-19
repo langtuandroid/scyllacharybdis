@@ -4,7 +4,8 @@ package com.scyllacharybdis.core.memory
 	
 	public function allocate( type:Class, ... arg:*  ):*
 	{
-		var obj:* = MemoryPool.allocate( type, arg );
+		trace( type );
+		return MemoryPool.allocate( type, arg );
 	}
 
 }

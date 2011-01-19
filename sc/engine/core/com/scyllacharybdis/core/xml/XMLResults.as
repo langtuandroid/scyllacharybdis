@@ -1,5 +1,6 @@
 package com.scyllacharybdis.core.xml 
 {
+	import com.scyllacharybdis.core.ami.AMIResults;
 
 	/**
 	 * ...
