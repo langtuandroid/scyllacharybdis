@@ -39,6 +39,12 @@ package com.scyllacharybdis.physics
 			
 			// Create a contact listener
 			_contactListener = new PhysicsContactListener();
+			
+			// Construct a world object
+			_world = new b2World(_gravity, _doSleep);
+
+			// Set the contact listener for the world
+			_world.SetContactListener(_contactListener);				
 		}
 
 		/**
@@ -48,11 +54,6 @@ package com.scyllacharybdis.physics
 		{
 			// Store the scene graph
 			_sceneGraph = owner;
-			// Construct a world object
-			_world = new b2World(_gravity, _doSleep);
-
-			// Set the contact listener for the world
-			_world.SetContactListener(_contactListener);	
 		}
 
 		/**

@@ -54,7 +54,7 @@
 			networkHandler.fireEvent(NetworkEvents.CONNECT);
 
 			// Create the scene manager
-			var sceneManager:SceneManager = allocate(SceneManager);
+			var sceneManager:SceneManager = allocate(SceneManager, sceneGraph);
 
 			// Display the intro scene
 			sceneManager.PushScene(PhysicsScene);	

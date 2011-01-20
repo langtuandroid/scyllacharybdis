@@ -1,5 +1,6 @@
 package com.scyllacharybdis.components
 {
+	import com.scyllacharybdis.core.composite.GameObject;
 	import com.scyllacharybdis.graphics.rendering.Backbuffer;
 	import com.scyllacharybdis.interfaces.IRenderComponent;
 	import com.scyllacharybdis.interfaces.IScriptComponent;
@@ -18,7 +19,7 @@ package com.scyllacharybdis.components
 	public class RenderComponent implements IRenderComponent
 	{
 		private var _baseclip:MovieClip  = new MovieClip();
-		private var _owner:*;
+		private var _owner:GameObject;
 		
 		/** 
 		 * Constructor
@@ -32,7 +33,6 @@ package com.scyllacharybdis.components
 		
 		public function update():void
 		{
-			
 		}
 	
 		/** 
@@ -44,13 +44,18 @@ package com.scyllacharybdis.components
 			removeListeners();
 		}
 		
+		public function get comparator():Number 
+		{
+			trace( "Owner: " +_owner );
+			trace ( _owner.tranform );
+			return _owner.tranform.position.z;
+		}
 	
 		public function set baseclip( value:MovieClip ):void { _baseclip = value; }
 		public function get baseclip():MovieClip { return _baseclip; }
 		
-		// For sorting
-		public function get comparator():Number { return _owner.position.z }
-
+		
+		
 		/**
 		 * Add the renderable to the surface
 		 * @param	surface (DisplayObjectContainer) 
@@ -64,13 +69,13 @@ package com.scyllacharybdis.components
 			bitmapData.draw(_baseclip);
 			
 			// Copy the pixels to the backbuffer
-			surface.copyPixels(bitmapData, bitmapData.rect, new Point(_owner.position.x, _owner.position.y), null, null, true)
+			surface.copyPixels(bitmapData, bitmapData.rect, new Point(_owner.tranform.position.x, _owner.tranform.position.y), null, null, true)
 		}
 		
 		
 		private final function addListeners():void
 		{
-			var scriptComponent:ScriptComponent = _owner.getComponent(IScriptComponent) as ScriptComponent;
+			var scriptComponent:ScriptComponent = _owner.getComponent( ScriptComponent) as ScriptComponent;
 			
 			if ( scriptComponent != null )
 			{
@@ -91,7 +96,7 @@ package com.scyllacharybdis.components
 
 		private final function removeListeners():void
 		{
-			var scriptComponent:ScriptComponent = _owner.getComponent(IScriptComponent) as ScriptComponent;
+			var scriptComponent:ScriptComponent = _owner.getComponent( ScriptComponent) as ScriptComponent;
 			
 			if ( scriptComponent != null )
 			{

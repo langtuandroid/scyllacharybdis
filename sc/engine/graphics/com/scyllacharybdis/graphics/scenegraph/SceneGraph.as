@@ -88,7 +88,7 @@ package com.scyllacharybdis.graphics.scenegraph
 			{
 				return;
 			}
-			gameObj.stop();
+			gameObj.destroy();
 			removeGameObject(gameObj);
 		}
 		
@@ -124,7 +124,7 @@ package com.scyllacharybdis.graphics.scenegraph
 			{
 				if ( gameObj.enabled == true )
 				{
-					var renderable:RenderComponent = gameObj.getComponent(IRenderComponent) as RenderComponent;
+					var renderable:RenderComponent = gameObj.getComponent( RenderComponent) as RenderComponent;
 					if ( renderable != null )
 					{
 						renderables.push(renderable);

@@ -28,22 +28,15 @@ package com.scyllacharybdis.core.composite
 			}
 		}
 		
-		/**
-		 * Destructor
-		 */
-		public function destroy():void
-		{
-			_tranform = null;
-		}
-		
 		public function start():void 
 		{
-			
+			awakeComponents();
 		}
 		
-		public function stop():void 
+		public function destroy():void 
 		{
-			
+			destroyComponents();
+			_tranform = null;
 		}
 		
 		/**

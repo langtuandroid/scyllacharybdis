@@ -2,6 +2,7 @@ package com.scyllacharybdis.scenemanager
 {
 	import com.scyllacharybdis.core.memory.allocate;
 	import com.scyllacharybdis.core.memory.deallocate;
+	import com.scyllacharybdis.graphics.scenegraph.SceneGraph;
 	import com.scyllacharybdis.interfaces.IBaseObject;
 	import com.scyllacharybdis.objects.SceneObject;
 	import flash.utils.Dictionary;
@@ -14,12 +15,14 @@ package com.scyllacharybdis.scenemanager
 		// The stack of scenes
 		private var _objectList:Dictionary = new Dictionary();
 		private var _classStack:Array = new Array();
+		private var _sceneGraph:SceneGraph;
 		
 		/**
 		 * Constructor
 		 */
-		public function SceneManager():void
+		public function SceneManager(sceneGraph:SceneGraph):void
 		{
+			_sceneGraph = sceneGraph;
 		}
 		
 		/**
@@ -38,7 +41,7 @@ package com.scyllacharybdis.scenemanager
 		{
 			if ( _objectList[sceneClass] == null ) 
 			{
-				_objectList[sceneClass] = allocate(sceneClass);
+				_objectList[sceneClass] = allocate(sceneClass, _sceneGraph);
 			}
 			
 			var sceneCount:int = _classStack.length;
