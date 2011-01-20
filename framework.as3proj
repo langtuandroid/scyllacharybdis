@@ -69,6 +69,7 @@
     <element path="sc\lib\casalib.swc" />
     <element path="sc\lib\SFS2X_API_AS3.swc" />
     <element path="sc\lib\StandardComponents.swc" />
+    <element path="sc\lib\as3commons-bytecode-0.9.6.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
