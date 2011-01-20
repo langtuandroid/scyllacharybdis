@@ -25,6 +25,10 @@ package com.scyllacharybdis.networking.handlers
 			// Get the event manager
 			_networkEventHandler = networkEventHandler;
 		
+		}
+		
+		public function awake():void
+		{
 			_networkEventHandler.addEventListener(SFSEvent.LOGIN_ERROR, this, onLoginError);
 			_networkEventHandler.addEventListener(SFSEvent.LOGIN, this, onLogin);
 			_networkEventHandler.addEventListener(NetworkEvents.LOGIN, this, requestLogin );

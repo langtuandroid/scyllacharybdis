@@ -22,6 +22,10 @@ package com.scyllacharybdis.objects
 			_sceneGraph = sceneGraph;
 		}
 		
+		public function awake():void
+		{
+		}
+		
 		public function destroy():void
 		{
 			_sceneGraph = null;

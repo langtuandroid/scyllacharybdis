@@ -4,6 +4,7 @@ package examples.physics
 	import com.scyllacharybdis.components.PhysicsTranformComponent;
 	import com.scyllacharybdis.components.RenderComponent;
 	import com.scyllacharybdis.components.ScriptComponent;
+	import com.scyllacharybdis.components.TranformComponent;
 	import com.scyllacharybdis.core.composite.GameObject;
 	import com.scyllacharybdis.core.memory.allocate;
 	import com.scyllacharybdis.graphics.scenegraph.SceneGraph;
@@ -29,7 +30,7 @@ package examples.physics
 		/**
 		 * Create the scene
 		 */
-		public function awake():void 
+		public override function awake():void 
 		{
 		}
 		
@@ -38,12 +39,14 @@ package examples.physics
 		 */
 		public function show():void
 		{
-			var _test:GameObject = allocate(GameObject, allocate(PhysicsTranformComponent));
+			var _test:GameObject = allocate(GameObject );
+			_test.addComponent(TranformComponent, allocate(PhysicsTranformComponent) )
 			_test.addComponent(RenderComponent, allocate(XMLPhysicsRenderComponent));
 			_test.addComponent(ScriptComponent, allocate(SquareScriptComponent));
 			_test.addComponent(CollisionComponent, allocate(GroundPhysicsComponent, _sceneGraph));
 			
-			var _ground:GameObject = allocate( GameObject, allocate(PhysicsTranformComponent) );
+			var _ground:GameObject = allocate( GameObject );
+			_ground.addComponent(TranformComponent, allocate(PhysicsTranformComponent) )
 			_ground.addComponent(RenderComponent, allocate(PhysicsRenderComponent));
 			_ground.addComponent(ScriptComponent, allocate(SquareScriptComponent));
 			_ground.addComponent(CollisionComponent, allocate(GroundPhysicsComponent, _sceneGraph));
@@ -54,7 +57,8 @@ package examples.physics
 			for (var i:int = 1; i < 10; i++)
 			{
 				// Create a box
-				var geom:GameObject = allocate(GameObject, allocate(PhysicsTranformComponent) );
+				var geom:GameObject = allocate( GameObject );
+				geom.addComponent(TranformComponent, allocate(PhysicsTranformComponent) )
 				geom.addComponent(RenderComponent, allocate(PhysicsRenderComponent));
 				geom.addComponent(ScriptComponent, allocate(SquareScriptComponent));
 				geom.addComponent(CollisionComponent, allocate(BoxPhysicsComponent, _sceneGraph));
