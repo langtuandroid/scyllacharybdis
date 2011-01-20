@@ -27,7 +27,6 @@ package com.scyllacharybdis.components
 		public function CollisionComponent( graph:SceneGraph ):void
 		{
 			_sceneGraph = graph;
-			trace( _sceneGraph.getComponent(PhysicsSceneComponent) )
 			_physicsWorld = _sceneGraph.getComponent(PhysicsSceneComponent) as PhysicsSceneComponent;
 		}
 		
@@ -42,9 +41,12 @@ package com.scyllacharybdis.components
 		
 		public function destroy():void
 		{
+			_sceneGraph = null;
+			_physicsWorld = null;
+			_body = null;
+			_owner = null;
 		}
 
-		
 		/**
 		 * Create the body of the object. The body is the whole object.
 		 * @param	x (int) width in pixels
@@ -140,5 +142,8 @@ package com.scyllacharybdis.components
 			_body.CreateFixture(fixtureDef);
 			
 		}
+		
+		public function get body():b2Body { return _body; }
+		
 	}
 }
