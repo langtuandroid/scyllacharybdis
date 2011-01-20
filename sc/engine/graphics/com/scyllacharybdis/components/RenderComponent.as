@@ -16,6 +16,7 @@ package com.scyllacharybdis.components
 	/**
 	 * 
 	 */
+	[Component type="RenderComponent"]
 	public class RenderComponent implements IRenderComponent
 	{
 		private var _baseclip:MovieClip  = new MovieClip();

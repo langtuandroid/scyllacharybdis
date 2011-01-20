@@ -9,6 +9,7 @@ package com.scyllacharybdis.components
 	/**
 	 * 
 	 */
+	[Component type = "SoundComponent"]
 	public class SoundComponent implements IBaseComponent
 	{
 		private var _sound:Sound;

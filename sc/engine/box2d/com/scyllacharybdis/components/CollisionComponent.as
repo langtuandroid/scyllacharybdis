@@ -13,6 +13,7 @@ package com.scyllacharybdis.components
 
 	/**
 	 */
+	[Component type="CollisionComponent"]
 	public class CollisionComponent implements IPhysicsComponent
 	{
 		

@@ -7,6 +7,7 @@ package com.scyllacharybdis.components
 	 * ...
 	 * @author 
 	 */
+	[Component type="TranformComponent"]
 	public class TranformComponent implements ITranformComponent
 	{
 		protected var _position:Point3d = new Point3d();

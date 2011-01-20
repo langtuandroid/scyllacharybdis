@@ -6,7 +6,8 @@ package com.scyllacharybdis.components
 	 * ...
 	 * @author 
 	 */
-	public class XMLCollisionComponent extends CollisionComponent
+	[Component type="CollisionComponent"]
+	public class XMLCollisionComponent implements IPhysicsComponent
 	{
 		private var _body:String;
 		
