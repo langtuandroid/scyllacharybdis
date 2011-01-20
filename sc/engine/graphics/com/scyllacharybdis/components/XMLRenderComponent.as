@@ -7,15 +7,18 @@ package com.scyllacharybdis.components
 	import com.scyllacharybdis.graphics.loaders.TextureResults;
 	import com.scyllacharybdis.graphics.rendering.Backbuffer;
 	import com.scyllacharybdis.graphics.sprites.SpriteObject;
+	import com.scyllacharybdis.interfaces.IRenderComponent;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
+
 	/**
 	 * ...
 	 * @author 
 	 */
-	public class XMLRenderComponent extends RenderComponent
+	[Component type="RenderComponent"]
+	public class XMLRenderComponent implements IRenderComponent
 	{
 		private var _area:String;
 		private var _sprite:SpriteObject = new SpriteObject();

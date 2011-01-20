@@ -9,6 +9,7 @@ package com.scyllacharybdis.components
 	 * ...
 	 * @author 
 	 */
+	[Component type="TranformComponent"]
 	public class PhysicsTranformComponent implements ITranformComponent
 	{
 		private var _position:Point3d = new Point3d();
