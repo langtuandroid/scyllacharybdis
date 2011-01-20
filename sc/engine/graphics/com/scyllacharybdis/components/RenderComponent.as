@@ -46,8 +46,6 @@ package com.scyllacharybdis.components
 		
 		public function get comparator():Number 
 		{
-			trace( "Owner: " +_owner );
-			trace ( _owner.tranform );
 			return _owner.tranform.position.z;
 		}
 	

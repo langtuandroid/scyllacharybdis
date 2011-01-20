@@ -1,6 +1,7 @@
 package examples.physics 
 {
 	import com.scyllacharybdis.components.CollisionComponent;
+	import com.scyllacharybdis.components.PhysicsTranformComponent;
 	import com.scyllacharybdis.components.RenderComponent;
 	import com.scyllacharybdis.components.ScriptComponent;
 	import com.scyllacharybdis.core.composite.GameObject;
@@ -37,12 +38,12 @@ package examples.physics
 		 */
 		public function show():void
 		{
-			var _test:GameObject = allocate(GameObject );
+			var _test:GameObject = allocate(GameObject, allocate(PhysicsTranformComponent));
 			_test.addComponent(RenderComponent, allocate(XMLPhysicsRenderComponent));
 			_test.addComponent(ScriptComponent, allocate(SquareScriptComponent));
 			_test.addComponent(CollisionComponent, allocate(GroundPhysicsComponent, _sceneGraph));
 			
-			var _ground:GameObject = allocate( GameObject );
+			var _ground:GameObject = allocate( GameObject, allocate(PhysicsTranformComponent) );
 			_ground.addComponent(RenderComponent, allocate(PhysicsRenderComponent));
 			_ground.addComponent(ScriptComponent, allocate(SquareScriptComponent));
 			_ground.addComponent(CollisionComponent, allocate(GroundPhysicsComponent, _sceneGraph));
@@ -53,7 +54,7 @@ package examples.physics
 			for (var i:int = 1; i < 10; i++)
 			{
 				// Create a box
-				var geom:GameObject = allocate(GameObject);
+				var geom:GameObject = allocate(GameObject, allocate(PhysicsTranformComponent) );
 				geom.addComponent(RenderComponent, allocate(PhysicsRenderComponent));
 				geom.addComponent(ScriptComponent, allocate(SquareScriptComponent));
 				geom.addComponent(CollisionComponent, allocate(BoxPhysicsComponent, _sceneGraph));
