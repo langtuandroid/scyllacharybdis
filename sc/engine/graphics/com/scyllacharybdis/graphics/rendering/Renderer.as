@@ -23,6 +23,11 @@ package com.scyllacharybdis.graphics.rendering
 			_sceneGraph = sceneGraph;
 			_window = window;
 		}
+
+		public function awake():void
+		{
+			
+		}
 		
 		/**
 		 * Destructor

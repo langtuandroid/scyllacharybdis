@@ -6,6 +6,7 @@ package com.scyllacharybdis.interfaces
 	 */
 	public interface IBaseObject 
 	{
+		function awake():void;
 		function destroy():void;
 	}
 }

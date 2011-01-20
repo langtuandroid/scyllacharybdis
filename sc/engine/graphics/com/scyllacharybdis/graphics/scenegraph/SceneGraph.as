@@ -30,6 +30,11 @@ package com.scyllacharybdis.graphics.scenegraph
 			_updateTimer.start();			
 		}
 		
+		public function awake():void
+		{
+			
+		}
+		
 		/**
 		 * Destructor
 		 */

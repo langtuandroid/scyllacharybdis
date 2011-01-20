@@ -26,13 +26,16 @@ package com.scyllacharybdis.networking.handlers
 			// Get the event manager
 			_networkEventHandler = networkEventHandler;
 			
+		}
+		
+		public function awake():void
+		{
 			_networkEventHandler.addEventListener(SFSEvent.CONNECTION, this, onConnection);
 			_networkEventHandler.addEventListener(SFSEvent.CONNECTION_LOST, this, onConnectionLost);
 			_networkEventHandler.addEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, this, onConfigLoadSuccess);
 			_networkEventHandler.addEventListener(SFSEvent.CONFIG_LOAD_FAILURE, this, onConfigLoadFailure);
 			_networkEventHandler.addEventListener(NetworkEvents.CONNECT, this, requestConnection );
 			_networkEventHandler.addEventListener(NetworkEvents.DISCONNECT, this, requestDisconnection );
-			
 		}
 		
 		/**

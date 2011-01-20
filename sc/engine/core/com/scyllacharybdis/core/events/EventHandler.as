@@ -7,6 +7,16 @@ package com.scyllacharybdis.core.events
 	public final class EventHandler implements IBaseObject
 	{
 		
+		public function EventHandler():void
+		{
+			
+		}
+
+		public function awake():void
+		{
+			
+		}
+		
 		public function destroy():void
 		{
 			

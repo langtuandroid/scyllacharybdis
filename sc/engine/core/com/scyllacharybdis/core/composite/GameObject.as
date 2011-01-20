@@ -11,21 +11,13 @@ package com.scyllacharybdis.core.composite
 		// Class Details
 		/****************************************/
 		private var _enabled:Boolean = true;
-		private var _tranform:ITranformComponent;
+		private var _tranform:ITranformComponent = new TranformComponent();
 
 		/**
 		 * Constructor
 		 */
-		public function GameObject( tranformComp:ITranformComponent=null ):void
+		public function GameObject():void
 		{
-			if ( tranformComp == null )
-			{
-				_tranform = new TranformComponent();
-			} 
-			else 
-			{
-				_tranform = tranformComp;
-			}
 		}
 		
 		public function start():void 

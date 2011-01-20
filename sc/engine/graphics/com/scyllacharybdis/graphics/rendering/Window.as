@@ -20,6 +20,12 @@ package com.scyllacharybdis.graphics.rendering
 			_backBuffer = allocate(Backbuffer);
 		}
 		
+
+		public function awake():void
+		{
+			
+		}
+		
 		/**
 		 * Destructor
 		 */

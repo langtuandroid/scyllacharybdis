@@ -30,6 +30,10 @@ package com.scyllacharybdis.networking
 		 */
 		public function NetworkEventHandler():void
 		{
+		}
+		
+		public function awake():void
+		{
 			// Register event handlers
 			_sfs.addEventListener(SFSEvent.ADMIN_MESSAGE, onServerResponse);
 			_sfs.addEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onServerResponse);
@@ -78,9 +82,7 @@ package com.scyllacharybdis.networking
 			_sfs.addEventListener(SFSEvent.USER_FIND_RESULT, onServerResponse);
 			_sfs.addEventListener(SFSEvent.USER_VARIABLES_UPDATE, onServerResponse);
 
-			_sfs.addEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse);
-			
-		}
+			_sfs.addEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse);		}
 		
 		/**
 		 * Destroy is called at the removal of the object

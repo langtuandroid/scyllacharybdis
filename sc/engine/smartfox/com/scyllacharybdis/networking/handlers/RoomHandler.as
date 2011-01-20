@@ -35,6 +35,10 @@ package com.scyllacharybdis.networking.handlers
 			// Get the event manager
 			_networkEventHandler = networkEventHandler;
 			
+		}
+		
+		public function awake():void
+		{
 			_networkEventHandler.addEventListener(SFSEvent.ROOM_CREATION_ERROR, this, onRoomCreationError);
 			_networkEventHandler.addEventListener(SFSEvent.ROOM_JOIN, this, onJoinRoom);
 			_networkEventHandler.addEventListener(SFSEvent.ROOM_JOIN_ERROR, this, onJoinRoomError);
@@ -44,13 +48,10 @@ package com.scyllacharybdis.networking.handlers
 			_networkEventHandler.addEventListener(SFSEvent.USER_EXIT_ROOM, this, onUserExitRoom);
 			_networkEventHandler.addEventListener(SFSEvent.USER_COUNT_CHANGE, this, onUserCountChange);
 			
-			super.engine_start();
-			
 			_networkEventHandler.addEventListener(NetworkEvents.CREATEROOM, this, requestCreateRoom );
 			_networkEventHandler.addEventListener(NetworkEvents.JOINROOM, this, requestJoinRoom );
 			_networkEventHandler.addEventListener(NetworkEvents.LEAVBROOM, this, requestLeaveRoom );
-		}
-		
+		}		
 		
 		/**
  		 * Destroy is called at the removal of the object
@@ -62,13 +63,10 @@ package com.scyllacharybdis.networking.handlers
 			_networkEventHandler.removeEventListener(NetworkEvents.CREATEROOM, this, requestCreateRoom );
 			_networkEventHandler.removeEventListener(NetworkEvents.JOINROOM, this, requestJoinRoom );
 			_networkEventHandler.removeEventListener(NetworkEvents.LEAVBROOM, this, requestLeaveRoom );
-			
-			super.engine_destroy();
 
 			_networkEventHandler.removeEventListener(SFSEvent.ROOM_CREATION_ERROR, this, onRoomCreationError);
 			_networkEventHandler.removeEventListener(SFSEvent.ROOM_JOIN, this, onJoinRoom);
 			_networkEventHandler.removeEventListener(SFSEvent.ROOM_JOIN_ERROR, this, onJoinRoomError);
-
 			_networkEventHandler.removeEventListener(SFSEvent.ROOM_ADD, this, onRoomAdd);
 			_networkEventHandler.removeEventListener(SFSEvent.ROOM_REMOVE, this, onRoomRemove);
 			_networkEventHandler.removeEventListener(SFSEvent.USER_ENTER_ROOM, this, onUserEnterRoom);

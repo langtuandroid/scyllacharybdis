@@ -25,6 +25,11 @@ package com.scyllacharybdis.scenemanager
 			_sceneGraph = sceneGraph;
 		}
 		
+		public function awake():void
+		{
+			
+		}
+		
 		/**
 		 * Destructor
 		 */

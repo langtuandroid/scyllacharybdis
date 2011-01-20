@@ -28,6 +28,12 @@ package com.scyllacharybdis.graphics.rendering
 		{
 		}
 		
+
+		public function awake():void
+		{
+			
+		}
+		
 		/**
 		 * Destructor
 		 */

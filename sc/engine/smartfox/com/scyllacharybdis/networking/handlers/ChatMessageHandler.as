@@ -24,6 +24,10 @@ package com.scyllacharybdis.networking.handlers
 		{
 			// Get the event manager
 			_networkEventHandler = networkEventHandler;
+		}
+		
+		public function awake():void
+		{
 			_networkEventHandler.addEventListener(SFSEvent.PUBLIC_MESSAGE, this, onPublicMessage);
 			_networkEventHandler.addEventListener(NetworkEvents.SEND_CHAT_MESSAGE, this, sendChatMessage );
 		}

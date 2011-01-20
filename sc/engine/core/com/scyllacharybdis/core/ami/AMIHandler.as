@@ -1,5 +1,7 @@
 package com.scyllacharybdis.core.ami
 {
+	import com.scyllacharybdis.core.events.EventHandler;
+	import com.scyllacharybdis.interfaces.IBaseObject;
 	import core.events.EventHandler;
 	import core.objects.BaseObject;
 	import flash.events.Event;
@@ -10,24 +12,26 @@ package com.scyllacharybdis.core.ami
 	 */
 	[Singleton]
 	[Requires ("core.events.EventHandler")]
-	public final class AMIHandler extends BaseObject
+	public final class AMIHandler extends IBaseObject
 	{
 		private var _taskList:Dictionary = new Dictionary( true );
 		private var _eventHander:EventHandler;
 		
-		public final override function engine_awake():void
+		public function AMIHandler( eventHandler:EventHandler ):void
 		{
-			_eventHander = getDependency(EventHandler);
+			_eventHander = eventHandler;
+		}
+		
+		public function awake():void
+		{
 			_eventHander.addEventListener("AMI_SUCCESS", this, success );
 			_eventHander.addEventListener("AMI_FAILED", this, failed );
 
 			super.engine_awake();
 		}
 		
-		public final override function engine_destroy():void 
+		public function destroy():void 
 		{
-			super.engine_destroy();
-
 			_eventHander.removeEventListener("AMI_SUCCESS", this, success );
 			_eventHander.removeEventListener("AMI_FAILED", this, failed );
 		}
