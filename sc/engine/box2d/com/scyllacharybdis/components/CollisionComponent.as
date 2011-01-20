@@ -27,6 +27,7 @@ package com.scyllacharybdis.components
 		public function CollisionComponent( graph:SceneGraph ):void
 		{
 			_sceneGraph = graph;
+			trace( _sceneGraph.getComponent(PhysicsSceneComponent) )
 			_physicsWorld = _sceneGraph.getComponent(PhysicsSceneComponent) as PhysicsSceneComponent;
 		}
 		
