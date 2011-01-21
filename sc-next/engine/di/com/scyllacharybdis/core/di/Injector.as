@@ -4,13 +4,10 @@ package com.scyllacharybdis.core.di
 	import flash.display.DisplayObjectContainer;
 	import flash.display.LoaderInfo;
 	import flash.utils.Dictionary;
-	import org.as3commons.bytecode.emit.impl.MetaDataArgument;
 	import org.as3commons.bytecode.reflect.ByteCodeType;
-	import org.as3commons.bytecode.typeinfo.Field;
-	import org.as3commons.bytecode.typeinfo.Metadata;
-	import org.as3commons.bytecode.typeinfo.Method;
 	import org.as3commons.bytecode.reflect.ByteCodeTypeCache;
-	import org.as3commons.reflect.IMetaDataContainer;
+	import org.as3commons.reflect.MetaData;
+	import org.as3commons.reflect.MetaDataArgument;
 	import org.as3commons.reflect.TypeCache;
 
 	/**
@@ -70,9 +67,17 @@ package com.scyllacharybdis.core.di
 				var type:ByteCodeType = typeCache.get(key) as ByteCodeType; 
 				trace("*******************************");
 				trace( key );
+				var componentArray:Array = type.getMetaData("Component");
+				for each(var metadata:MetaData in componentArray)
+				{
+					var arg:MetaDataArgument = metadata.getArgument("type");
+					trace( arg.key + ": " + arg.value );
+				}
+				
 				//var metadata:Metadata = type.getMetaDataContainers("Component");
 				//var metadata:Metadata = type.getMetadata("Component");
 				//var arg:MetaDataArgument = metadata.getArgument("type");
+				/*
 				var containers:Array = type.getMetaDataContainers("Component");
 				for each(var metadataContainer:IMetaDataContainer in containers)
 				{
@@ -90,6 +95,7 @@ package com.scyllacharybdis.core.di
 						trace(metadataContainer);
 					}
 				}
+				*/
 			}			
 		}
 		
