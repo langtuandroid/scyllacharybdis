@@ -12,7 +12,7 @@ package com.scyllacharybdis.physics
 	/**
 	 */
 	[Singleton]
-	[Component type="PhysicsSceneComponent"]
+	[Component (type="PhysicsSceneComponent")]
 	public final class PhysicsSceneComponent implements IBaseComponent
 	{
 		private var _world:b2World;

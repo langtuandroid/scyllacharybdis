@@ -1,5 +1,6 @@
 package com.scyllacharybdis.components 
 {
+	import com.scyllacharybdis.interfaces.IPhysicsComponent;
 	import core.loaders.PhysicsResults;
 	import core.loaders.XMLLoaderAction;
 	/**
