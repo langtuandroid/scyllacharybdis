@@ -6,8 +6,11 @@ package com.scyllacharybdis.core.di
 	import flash.utils.Dictionary;
 	import org.as3commons.bytecode.reflect.ByteCodeType;
 	import org.as3commons.bytecode.reflect.ByteCodeTypeCache;
+	import org.as3commons.lang.ClassUtils;
 	import org.as3commons.reflect.MetaData;
 	import org.as3commons.reflect.MetaDataArgument;
+	import org.as3commons.reflect.Parameter;
+	import org.as3commons.reflect.Type;
 	import org.as3commons.reflect.TypeCache;
 
 	/**
@@ -18,10 +21,15 @@ package com.scyllacharybdis.core.di
 		private var _displayObject:DisplayObjectContainer;
 		private var _module:AbstractModule;
 		
-		private var _classNames:Dictionary = new Dictionary(true);
-		private var _singletonNames:Dictionary = new Dictionary(true);
-		private var _componentNames:Dictionary = new Dictionary(true);
+		private static var _classNames:Dictionary = new Dictionary(true);
+		private static var _singletonNames:Dictionary = new Dictionary(true);
+		private static var _componentNames:Dictionary = new Dictionary(true);
 		
+		/**
+		 * Injector constructor
+		 * @param module (AbstractModule) The configuration for the injector.
+		 * @param displayObject (DisplayObjectContainer) The main display object.
+		 */
 		public function Injector(module:AbstractModule, displayObject:DisplayObjectContainer) 
 		{
 			// Store the parameters
@@ -29,30 +37,67 @@ package com.scyllacharybdis.core.di
 			_module = module;
 			
 			// Scan the classes and metadata
-			//scanClasses( _displayObject.loaderInfo );
-			//scanMetaData( _displayObject.loaderInfo );
-			testClasses( _displayObject.loaderInfo );
+			scanClasses( _displayObject.loaderInfo );
 			
 			// Configure the injector
 			_module.configure();
-			
-			// Print the results
-			//printDictionary( "Class Names", _classNames );
-			//printDictionary ( "Singletons", _singletonNames );
-			//printDictionary( "Components", _componentNames );
 		}
 		
-		public function getInstance( type:Class ):*
+		/**
+		 * Get an instance of an object
+		 * @param	type (Class) The class to create
+		 * @return (*) The newly created class
+		 */
+		public function getInstance( classType:Class ):*
 		{
+			trace( classType );
+			
+			// Get the cache
+			var typeCache:TypeCache = ByteCodeType.getTypeProvider().getTypeCache();
+			
+			// Get the cache
+			var type:ByteCodeType = typeCache.get( ClassUtils.getFullyQualifiedName( classType, true )) as ByteCodeType; 
+
+			// Get the configuration bindings
 			var bindings:Dictionary = _module.getBindings();
 			
+			// Setup a dependency array
+			var depArray:Array = new Array();
+
+			// Get the parameters
+			var paramArray:Array = type.constructor.parameters;
+
+			for each(var param:Parameter in paramArray)
+			{
+				var paramType:Class = param.type.clazz;
+				var paramString:String  = ClassUtils.getFullyQualifiedName( paramType, true );
+				if ( bindings[paramString] == null ) 
+				{
+					depArray.push( getInstance( paramType ) );
+				}
+				else 
+				{
+					depArray.push( getInstance( ClassUtils.forName(bindings[paramString] )) );
+				}
+			}
+			// Create the new instances with deps and return it.
+			return ClassUtils.newInstance( classType, depArray );
 		}
 		
-		private function testClasses(loaderInfo:LoaderInfo):void
+		/**
+		 * Scan all the classes and cache the results
+		 * @private
+		 * @param	loaderInfo (LoaderInfo) The root of the class
+		 */
+		private function scanClasses(loaderInfo:LoaderInfo):void
 		{
-			trace("testclasses");
+			// Load the bytecode
 			ByteCodeType.fromLoader(loaderInfo);
+			
+			// Get the cache
 			var typeCache:TypeCache = ByteCodeType.getTypeProvider().getTypeCache();
+			
+			// Loop threw all the classes
 			for each (var key:String in typeCache.getKeys() ) 
 			{
 				// Split the package names on dot
@@ -64,96 +109,28 @@ package com.scyllacharybdis.core.di
 					continue;
 				}				
 				
+				// Store the class names
+				_classNames[key] = key;
+
+				// Get the cache
 				var type:ByteCodeType = typeCache.get(key) as ByteCodeType; 
-				trace("*******************************");
-				trace( key );
+
+				// Get the singleton data
+				var singletonArray:Array = type.getMetaData("Singleton");
+				if ( singletonArray != null ) 
+				{
+					_singletonNames[key] = key;
+				}
+				
+				// Get the component data
 				var componentArray:Array = type.getMetaData("Component");
 				for each(var metadata:MetaData in componentArray)
 				{
 					var arg:MetaDataArgument = metadata.getArgument("type");
-					trace( arg.key + ": " + arg.value );
+					trace( "component " + arg.key + ": " + arg.value );
+					_componentNames[arg.key] = arg.value;
 				}
-				
-				//var metadata:Metadata = type.getMetaDataContainers("Component");
-				//var metadata:Metadata = type.getMetadata("Component");
-				//var arg:MetaDataArgument = metadata.getArgument("type");
-				/*
-				var containers:Array = type.getMetaDataContainers("Component");
-				for each(var metadataContainer:IMetaDataContainer in containers)
-				{
-					trace("metacontainer: " + metadataContainer);
-					if (metadataContainer is Method)
-					{
-					  trace(metadataContainer);//do something...
-					} 
-					else if (metadataContainer is Field)
-					{
-					  trace(metadataContainer);
-					}
-					else
-					{
-						trace(metadataContainer);
-					}
-				}
-				*/
 			}			
-		}
-		
-		
-		private function scanClasses(loaderInfo:LoaderInfo):void 
-		{
-			var definitionNames:Array = ByteCodeType.definitionNamesFromLoader( loaderInfo );
-			
-			for each ( var value:String in definitionNames )
-			{
-				// Split the package names on dot
-				var packageNameArray:Array = value.split(".");
-				
-				// Skip the as3common classes
-				if ( packageNameArray[1] == "as3commons" || packageNameArray[0] == "Main" || packageNameArray[0] == "avmplus" ) 
-				{
-					continue;
-				}
-			
-				// Add the class to the list
-				_classNames[value] = value;
-			}
-		}
-		
-		private function scanMetaData(loaderInfo:LoaderInfo):void
-		{
-			// Load the meta data
-			var metaDataLookup:Object = ByteCodeType.metaDataLookupFromLoader(loaderInfo);
-			
-			// Check for singletons
-			if ( metaDataLookup['singleton'] != null ) {
-				var definitionNames:Array = metaDataLookup['singleton'];
-				for (var i:uint = 0; i < definitionNames.length; i++)
-				{
-					_singletonNames[definitionNames[i]] =  definitionNames[i];
-				}		
-			}
-			
-			// Check for components
-			if ( metaDataLookup['component'] != null ) {
-				definitionNames = metaDataLookup['component'];
-				for (i = 0; i < definitionNames.length; i++)
-				{
-					_componentNames[definitionNames[i]] =  definitionNames[i];
-				}		
-			}		
-		}
-		
-		
-		private function printDictionary( name:String, dict:Dictionary ):void
-		{
-			trace("*******************************");
-			trace( name );
-			trace();
-			for ( var key:String in dict )
-			{
-				trace( "key: " + key + " value: " + dict[key] );
-			}
 		}
 	}
 }

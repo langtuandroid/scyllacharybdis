@@ -25,11 +25,12 @@ package
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
-			new TestClass("name");
-			new TestClass1("asdf");
+			var test:TestClass1 = new TestClass1();
+			new TestClass(test);
 			
 			// Create the injector
 			var injector:Injector = createInjector( new CoreModule(), this );
+			var test1:TestClass = injector.getInstance(TestClass);
 			
 			/*
 			* Now that we've got the injector, we can build objects.

@@ -4,7 +4,9 @@ package com.scyllacharybdis.core.di
 	import flash.display.DisplayObjectContainer;
 	
 	/**
-	 * Create the injector
+	 * Create the dependency injector.
+	 * @param module (AbstractModule) The configuration for the injector.
+	 * @param displayObject (DisplayObjectContainer) The main display object.
 	 * @author 
 	 */
 	public function createInjector( module:AbstractModule, displayObject:DisplayObjectContainer ):Injector
