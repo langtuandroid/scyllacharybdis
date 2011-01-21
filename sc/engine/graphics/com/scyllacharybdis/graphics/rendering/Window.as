@@ -15,9 +15,10 @@ package com.scyllacharybdis.graphics.rendering
 		/**
 		 * Constructor
 		 */
-		public function Window():void
+		public function Window(displayContext:DisplayObjectContainer):void
 		{
 			_backBuffer = allocate(Backbuffer);
+			displayContext(displayContext);
 		}
 		
 
@@ -38,15 +39,6 @@ package com.scyllacharybdis.graphics.rendering
 		 * Get the display context
 		 */
 		public function get displayContext():DisplayObjectContainer { return _displayContext; }
-		
-		/**
-		 * Set the display context
-		 */
-		public function set displayContext(value:DisplayObjectContainer):void 
-		{
-			_displayContext = value;
-			_backBuffer.setCanvas(_displayContext, _displayContext.stage.stageWidth, _displayContext.stage.stageHeight);
-		}
 		
 		/**
 		 * Get the rendering surface
@@ -96,6 +88,15 @@ package com.scyllacharybdis.graphics.rendering
 		{
 			_backBuffer.swapBuffers();
 			_backBuffer.unlock();
+		}
+		
+		/**
+		 * Set the display context
+		 */
+		private function set displayContext(value:DisplayObjectContainer):void 
+		{
+			_displayContext = value;
+			_backBuffer.setCanvas(_displayContext, _displayContext.stage.stageWidth, _displayContext.stage.stageHeight);
 		}
 	}
 }
