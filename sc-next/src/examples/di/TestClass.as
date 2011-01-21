@@ -8,7 +8,7 @@ package examples.di
 	public class TestClass 
 	{
 		[Inject]
-		public function TestClass( value:String ) 
+		public function TestClass( value:TestClass1 ) 
 		{
 			
 		}

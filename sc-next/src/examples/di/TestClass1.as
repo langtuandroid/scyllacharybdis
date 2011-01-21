@@ -9,7 +9,7 @@ package examples.di
 	public class TestClass1 
 	{
 		[Inject]
-		public function TestClass1( value:String ) 
+		public function TestClass1(  ) 
 		{
 			
 		}
