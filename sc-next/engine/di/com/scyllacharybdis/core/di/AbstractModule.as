@@ -16,7 +16,7 @@ package com.scyllacharybdis.core.di
 		/**
 		 * Configure the class bindings.
 		 */
-		public function configure( ):void
+		public function configure():void
 		{
 		}
 
@@ -33,7 +33,6 @@ package com.scyllacharybdis.core.di
 		/**
 		 * Returns the list of bindings to the injector.
 		 * @private
-		 * @return
 		 */
 		public final function getBindings():Dictionary
 		{

@@ -25,8 +25,8 @@ package
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
-			var test:TestClass1 = new TestClass1();
-			new TestClass(test);
+			//var test:TestClass1 = new TestClass1();
+			//new TestClass(test, test);
 			
 			// Create the injector
 			var injector:Injector = createInjector( new CoreModule(), this );
