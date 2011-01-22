@@ -16,8 +16,8 @@ package com.scyllacharybdis.core.rendering
 	{
 		private var _width:int;
 		private var _height:int;
-		private var _frontBuffer:BitmapData
-		private var _backBuffer:BitmapData
+		private var _frontBuffer:BitmapData;
+		private var _backBuffer:BitmapData;
 		private var _origin:Point = new Point(0, 0);
 		private var _canvas:DisplayObjectContainer;
 

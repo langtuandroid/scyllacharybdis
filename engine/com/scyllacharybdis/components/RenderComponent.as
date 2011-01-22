@@ -104,13 +104,13 @@ package com.scyllacharybdis.components
 		public function render( surface:Backbuffer ):void
 		{
 			// Create a new bitmap
-			var bitmapData:BitmapData = new BitmapData(_baseclip.width, _baseclip.height, true, 0x555555FF);
+			var bitmapData:BitmapData = new BitmapData(_baseclip.width, _baseclip.height, true, 0x000000FF);
 			
 			// Draw the baseclip to the bitmap
 			bitmapData.draw(_baseclip);
 			
 			// Copy the pixels to the backbuffer
-			surface.copyPixels(bitmapData, bitmapData.rect, new Point(owner.position.x, owner.position.y), null, null, true)
+			surface.copyPixels(bitmapData, bitmapData.rect, new Point(owner.position.x, owner.position.y), null, null, true);
 		}
 		
 		

@@ -1,6 +1,7 @@
 package com.scyllacharybdis.core.objects 
 {
 	import com.scyllacharybdis.core.memory.MemoryManager;
+	import com.scyllacharybdis.core.scenegraph.SceneGraph;
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
@@ -11,6 +12,7 @@ package com.scyllacharybdis.core.objects
 	
 	/**
 	 */
+	[Requires ("com.scyllacharybdis.core.scenegraph.SceneGraph")]	
 	public final class GameObject extends ContainerObject
 	{
 		
@@ -20,18 +22,20 @@ package com.scyllacharybdis.core.objects
 		
 		private var _parent:GameObject = null;
 		private var _children:Array = new Array();
-		private var _enabled:Boolean = true;				
+		private var _enabled:Boolean = true;	
+		private var _sceneGraph:SceneGraph;
 		
-		protected var _position:Point3d = new Point3d();
-		protected var _scale:Point3d = new Point3d();
-		protected var _rotation:Number = 0;
-		
+		private var _position:Point3d = new Point3d();
+		private var _scale:Point3d = new Point3d();
+		private var _rotation:Number = 0;
+	
 		/**
 		 * The engine contructor
 		 * @private
 		 */		
 		public final override function engine_awake():void
 		{
+			_sceneGraph = getDependency(SceneGraph);
 			super.engine_awake();
 		}
 		
@@ -114,6 +118,11 @@ package com.scyllacharybdis.core.objects
 			child.parent = this;
 			_children.push( child );
 			
+			if ( started == true ) 
+			{
+				_sceneGraph.addGameObjectToScene( child );
+			}
+			
 			child.enabled = _enabled;
 		}
 
@@ -127,6 +136,7 @@ package com.scyllacharybdis.core.objects
 			if ( child.enabled )
 			{
 				child.enabled = false;
+				_sceneGraph.removeGameObjectToScene( child );
 			}
 			
 			// Remove the child from the list
