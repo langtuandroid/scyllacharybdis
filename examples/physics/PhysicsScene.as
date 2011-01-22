@@ -1,14 +1,11 @@
 package physics 
 {
-	import components.CollisionComponent;
-	import components.RenderComponent;
-	import core.objects.BaseObject;
-	import core.objects.GameObject;
-	import core.objects.SceneObject;
+	import com.scyllacharybdis.components.CollisionComponent;
+	import com.scyllacharybdis.components.RenderComponent;
+	import com.scyllacharybdis.core.memory.MemoryManager;
+	import com.scyllacharybdis.core.objects.GameObject;
+	import com.scyllacharybdis.core.objects.SceneObject;
 	import intro.SquareScriptComponent;
-	import org.casalib.math.geom.Point3d;
-	import core.scenegraph.PhysicsSceneGraph;
-	import core.memory.MemoryManager;
 	
 	/**
 	 */

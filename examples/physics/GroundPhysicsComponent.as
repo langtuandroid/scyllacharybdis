@@ -2,9 +2,8 @@ package physics
 {
 	import Box2D.Collision.Shapes.b2PolygonShape;
 	import Box2D.Dynamics.b2BodyDef;
-	import components.CollisionComponent;
-	import components.RenderComponent;
-	import core.objects.BaseObject;
+	import com.scyllacharybdis.components.CollisionComponent;
+	import com.scyllacharybdis.components.RenderComponent;
 	
 	/**
 	 */

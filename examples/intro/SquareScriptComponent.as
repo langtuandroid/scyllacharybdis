@@ -1,7 +1,7 @@
 package intro 
 {
-	import components.ScriptComponent;
-	import components.SoundComponent;
+	import com.scyllacharybdis.components.ScriptComponent;
+	import com.scyllacharybdis.components.SoundComponent;
 	import flash.events.MouseEvent;
 	
 	public class SquareScriptComponent extends ScriptComponent
