@@ -32,9 +32,7 @@
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
-			// Map the scene graph to use the physics graph
-			//MemoryManager.bind("core.scenegraph.SceneGraph", "core.scenegraph.PhysicsSceneGraph");
-			
+			// Create a window
 			_window = MemoryManager.instantiate(Window);
 			_window.displayContext = this;
 			
@@ -42,7 +40,8 @@
 			_renderer = MemoryManager.instantiate(Renderer);
 			
 			// Create a network layer
-			var _networkHandler:NetworkEventHandler = MemoryManager.instantiate(NetworkEventHandler);			
+			var _networkHandler:NetworkEventHandler = MemoryManager.instantiate(NetworkEventHandler);	
+			
 			var _connectionHandler:ConnectionHandler = MemoryManager.instantiate(ConnectionHandler);
 			var _loginHandler:LoginHandler = MemoryManager.instantiate(LoginHandler);
 			var _roomHandler:RoomHandler = MemoryManager.instantiate(RoomHandler);
@@ -60,7 +59,6 @@
 			_sceneManager.PushScene(PhysicsScene);	
 
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
-			
 		}
 
 		private function onEnterFrame( e:Event ):void
