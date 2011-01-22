@@ -5,7 +5,7 @@ package examples.di
 	 * @author 
 	 */
 
-	public class TestClass2
+	public class TestClass2 extends TestClass1
 	{
 		public function TestClass2():void
 		{

@@ -2,6 +2,7 @@ package com.scyllacharybdis.core.di
 {
 	import com.scyllacharybdis.core.di.Injector;
 	import flash.utils.Dictionary;
+	import org.as3commons.lang.ClassUtils;
 	
 	/**
 	 * Abstract Module is a baseclass for configuring the injector.
@@ -27,7 +28,9 @@ package com.scyllacharybdis.core.di
 		 */
 		protected final function bind( from:Class, to:Class ):void
 		{
-			_binding[from] = to;
+			var fromString:String = ClassUtils.getFullyQualifiedName( from, true );
+			var toString:String = ClassUtils.getFullyQualifiedName(  to, true );
+			_binding[fromString] = toString;
 		}
 
 		/**

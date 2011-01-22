@@ -53,11 +53,7 @@ package com.scyllacharybdis.core.di
 		{
 			// Get the configuration bindings
 			var bindings:Dictionary = _module.getBindings();
-			for each ( var bind:String in bindings )
-			{
-				trace(bind);
-			}
-			
+
 			// Get the fully qalified name
 			var classString:String = ClassUtils.getFullyQualifiedName( classType, true );
 			trace( "Before: " + classString );
@@ -66,7 +62,7 @@ package com.scyllacharybdis.core.di
 			if ( bindings[classString] != null ) 
 			{
 				// Replace the name with the minded one
-				classString = ClassUtils.getFullyQualifiedName( bindings[classString], true );
+				classString =  bindings[classString];
 			}
 			
 			trace( "After: " + classString );
@@ -96,7 +92,7 @@ package com.scyllacharybdis.core.di
 				depArray.push( getInstance( paramType ) );
 			}
 			// Create the new instances with deps and return it.
-			return ClassUtils.newInstance( classType, depArray );
+			return ClassUtils.newInstance( ClassUtils.forName(classString), depArray );
 		}
 		
 		/**
