@@ -1,7 +1,7 @@
 package com.scyllacharybdis.core.ami 
 {
-	import core.events.EventHandler;
-	import core.objects.BaseObject;
+	import com.scyllacharybdis.core.events.EventHandler;
+	import com.scyllacharybdis.core.objects.BaseObject;
 	import flash.events.Event;
 	import flash.utils.Dictionary;
 	/**
@@ -36,7 +36,7 @@ package com.scyllacharybdis.core.ami
 		 * Dispatch a task
 		 * @param	task
 		 */
-		public final function dispatchTask( task:AMITask )
+		public final function dispatchTask( task:AMITask ):void
 		{
 			if ( ! (task.action is AMIUniqueAction) ) 
 			{
@@ -47,18 +47,20 @@ package com.scyllacharybdis.core.ami
 					return;
 			}
 			
-			if ( _taskList[task][task.key] == null )
+			var uniqueTask:AMIUniqueAction = task as AMIUniqueAction;
+			
+			if ( _taskList[uniqueTask][uniqueTask.key] == null )
 			{
-				_taskList[task][task.key] = new Array();
+				_taskList[uniqueTask][uniqueTask.key] = new Array();
 			}
 			
 			// Add the task to the array
-			_taskList[task][task.key].push( task );
+			_taskList[uniqueTask][uniqueTask.key].push( task );
 
-			if ( _taskList[task][task.key].length == 1 )
+			if ( _taskList[uniqueTask][uniqueTask.key].length == 1 )
 			{
 				// Execute the action
-				task.execute();
+				uniqueTask.execute();
 			}
 		}
 
@@ -77,21 +79,24 @@ package com.scyllacharybdis.core.ami
 				// Early out
 				return;
 			}
+			
+			var uniqueTask:AMIUniqueAction = task as AMIUniqueAction;
+			
 			// Get the array
-			var list:Array = _taskList[task][task.key];
+			var list:Array = _taskList[uniqueTask][uniqueTask.key];
 			
 			// Loop until all the messages have been returned 
 			while ( list.length ) 
 			{
 				// Shift the task off the list
-				var taskObj = list.shift();
+				var taskObj:AMITask = list.shift();
 				
 				// Call the success method
 				taskObj.success( message["data"] );
 			}
 
 			// Delete everything in the list
-			_taskList[task][task.key] = null;
+			_taskList[uniqueTask][uniqueTask.key] = null;
 			
 		}
 
@@ -110,21 +115,24 @@ package com.scyllacharybdis.core.ami
 				// Early out
 				return;
 			}
+
+			var uniqueTask:AMIUniqueAction = task as AMIUniqueAction;
+
 			// Get the array
-			var list:Array = _taskList[task][task.key];
+			var list:Array = _taskList[uniqueTask][uniqueTask.key];
 			
 			// Loop until all the messages have been returned 
 			while ( list.length ) 
 			{
 				// Shift the task off the list
-				var taskObj = list.shift();
+				var taskObj:AMITask = list.shift();
 				
 				// Call the failed method
 				taskObj.failed( message["data"] );
 			}
 
 			// Delete everything in the list
-			_taskList[task][task.key] = null;
+			_taskList[uniqueTask][uniqueTask.key] = null;
 		}
 	}
 }

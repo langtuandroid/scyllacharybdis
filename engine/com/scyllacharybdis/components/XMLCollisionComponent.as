@@ -1,7 +1,8 @@
 package com.scyllacharybdis.components 
 {
-	import core.loaders.PhysicsResults;
-	import core.loaders.XMLLoaderAction;
+	import com.scyllacharybdis.core.ami.AMITask;
+	import com.scyllacharybdis.core.loaders.XMLLoaderAction;
+	import com.scyllacharybdis.core.loaders.XMLResults;
 	/**
 	 * ...
 	 * @author 
@@ -10,15 +11,15 @@ package com.scyllacharybdis.components
 	{
 		private var _body:String;
 		
-		public function loadPhysics( fileName:String, body:String=null)
+		public function loadPhysics( fileName:String, body:String=null):void
 		{
 			_body = body;
-			var task:AMITask = new AMITask( new XMLLoaderAction(fileName), new PhysicsResults(), this );
+			var task:AMITask = new AMITask( new XMLLoaderAction(fileName), new XMLResults(), this );
 		}
 		
 		public function parseXML( data:* ):void
 		{
-			var results:String = _physics.parseBodies( data..physics );
+			parseBodies( data..physics );
 		}
 
 		/**

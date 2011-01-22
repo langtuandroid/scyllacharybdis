@@ -52,6 +52,11 @@
   <!-- SWC Libraries -->
   <libraryPaths>
     <element path="lib\SFS2X_API_AS3.swc" />
+    <element path="engine\lib\AstraLib.swc" />
+    <element path="engine\lib\Box2D.swc" />
+    <element path="engine\lib\casalib.swc" />
+    <element path="engine\lib\SFS2X_API_AS3.swc" />
+    <element path="engine\lib\StandardComponents.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
