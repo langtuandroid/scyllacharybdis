@@ -1,17 +1,18 @@
 ﻿package 
 {
+	import com.scyllacharybdis.core.events.NetworkEventHandler;
+	import com.scyllacharybdis.core.events.NetworkEvents;
+	import com.scyllacharybdis.core.memory.MemoryManager;
+	import com.scyllacharybdis.core.physics.PhysicsWorld;
+	import com.scyllacharybdis.core.rendering.Renderer;
+	import com.scyllacharybdis.core.rendering.Window;
+	import com.scyllacharybdis.core.scenes.SceneManager;
+	import com.scyllacharybdis.handlers.ChatMessageHandler;
+	import com.scyllacharybdis.handlers.ConnectionHandler;
+	import com.scyllacharybdis.handlers.LoginHandler;
+	import com.scyllacharybdis.handlers.RoomHandler;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import core.memory.MemoryManager;
-	import core.rendering.Window;
-	import core.rendering.Renderer;
-	import core.events.NetworkEvents;
-	import core.events.NetworkEventHandler;
-	import handlers.ConnectionHandler;
-	import handlers.LoginHandler;
-	import handlers.RoomHandler;
-	import handlers.ChatMessageHandler;
-	import core.scenes.SceneManager;
 	import physics.PhysicsScene;
 	
 	public class Main extends Sprite 
@@ -19,6 +20,7 @@
 		private var _window:Window;
 		private var _renderer:Renderer;
 		private var _sceneManager:SceneManager;
+		private var _physicsWorld:PhysicsWorld;
 		
 		public function Main():void 
 		{		
@@ -31,7 +33,7 @@
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
 			// Map the scene graph to use the physics graph
-			MemoryManager.bind("core.scenegraph.SceneGraph", "core.scenegraph.PhysicsSceneGraph");
+			//MemoryManager.bind("core.scenegraph.SceneGraph", "core.scenegraph.PhysicsSceneGraph");
 			
 			_window = MemoryManager.instantiate(Window);
 			_window.displayContext = this;
@@ -45,6 +47,8 @@
 			var _loginHandler:LoginHandler = MemoryManager.instantiate(LoginHandler);
 			var _roomHandler:RoomHandler = MemoryManager.instantiate(RoomHandler);
 			var _chatMessageHandler:ChatMessageHandler = MemoryManager.instantiate(ChatMessageHandler);
+			
+			_physicsWorld = MemoryManager.instantiate(PhysicsWorld);
 			
 			// Fire a network connection event
 			_networkHandler.fireEvent(NetworkEvents.CONNECT);
