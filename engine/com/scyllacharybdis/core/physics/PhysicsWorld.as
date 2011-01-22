@@ -1,20 +1,21 @@
-package com.scyllacharybdis.core.scenegraph 
+package com.scyllacharybdis.core.physics 
 {
 	import Box2D.Common.Math.b2Vec2;
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2World;
+	import com.scyllacharybdis.core.objects.BaseObject;
 	import com.scyllacharybdis.core.objects.GameObject;
-	import com.scyllacharybdis.core.physics.PhysicsContactListener;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	import org.casalib.math.geom.Point3d;
-
 	/**
 	 */
 	[Singleton]
 	[Requires ("com.scyllacharybdis.core.physics.PhysicsContactListener")]
-	public final class PhysicsSceneGraph extends SceneGraph
+	public final class PhysicsWorld extends BaseObject
 	{
+
+		private var _updateTimer:Timer = new Timer(1/30 * 1000, 0); 
 		private var _world:b2World;
 		private var _contactListener:PhysicsContactListener;
 		
@@ -28,8 +29,10 @@ package com.scyllacharybdis.core.scenegraph
 		 * The engine contructor
 		 * @private
 		 */
-		public override function awake():void
+		public final override function engine_awake():void
 		{
+			super.engine_awake();
+			
 			// Allow bodies to sleep
 			var doSleep:Boolean = true;
 			
@@ -44,6 +47,21 @@ package com.scyllacharybdis.core.scenegraph
 			
 			// Set the contact listener for the world
 			_world.SetContactListener(_contactListener);	
+
+			// setup the timer
+			_updateTimer.addEventListener(TimerEvent.TIMER, engine_update);
+			_updateTimer.start();
+		
+		}
+
+		/**
+		 * The engine start method
+		 * @private
+		 */
+		public final override function engine_start():void
+		{
+			super.engine_start();
+
 		}
 
 		/**
@@ -51,7 +69,7 @@ package com.scyllacharybdis.core.scenegraph
 		 * @param	event
 		 * @private
 		 */
-		public final function update(event:TimerEvent):void
+		public final function engine_update(event:TimerEvent):void
 		{
 			_world.Step( 1 / 30, _velocityIterations, _positionIterations );
 			
@@ -73,13 +91,21 @@ package com.scyllacharybdis.core.scenegraph
 		}	
 		
 		/**
+		 * The engine stop function
+		 * @private
+		 */
+		public final override function engine_stop():void
+		{
+			super.engine_stop();
+		}		
+
+		/**
 		 * Destroy is called at the removal of the object
 		 * @private
 		 */
-		public final override function destroy():void
+		public final override function engine_destroy():void
 		{
-			_world = null;
-			_contactListener = null;
+			super.engine_destroy();
 		}
 
 		/**

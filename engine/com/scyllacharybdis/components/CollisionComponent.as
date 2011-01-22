@@ -6,30 +6,30 @@ package com.scyllacharybdis.components
 	import Box2D.Dynamics.b2BodyDef;
 	import Box2D.Dynamics.b2FixtureDef;
 	import com.scyllacharybdis.core.objects.BaseObject;
-	import com.scyllacharybdis.core.scenegraph.PhysicsSceneGraph;
+	import com.scyllacharybdis.core.physics.PhysicsWorld;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
 
 	/**
 	 */
 	[ComponentType ("com.scyllacharybdis.components.CollisionComponent")]
-	[Requires ("com.scyllacharybdis.core.scenegraph.PhysicsSceneGraph")]
+	[Requires ("com.scyllacharybdis.core.physics.PhysicsWorld")]
 	public class CollisionComponent extends BaseObject
 	{
 		
 		/****************************************/
 		// Class Details
 		/****************************************/
-		private var _physicsWorld:PhysicsSceneGraph;
 		private var _body:b2Body;
-
+		private var _physicsWorld:PhysicsWorld;
+		
 		/** 
 		 * Engine constructor
 		 * @private
 		 */
 		public final override function engine_awake():void
 		{
-			_physicsWorld = getDependency( PhysicsSceneGraph );
+			_physicsWorld = getDependency( PhysicsWorld );
 			super.engine_awake();
 		}
 		
