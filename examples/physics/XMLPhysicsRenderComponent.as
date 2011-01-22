@@ -1,9 +1,6 @@
 package physics
 {
-	import components.RenderComponent;
-	import components.XMLRenderComponent;
-	import core.memory.MemoryManager;
-	import core.objects.TextureObject;
+	import com.scyllacharybdis.components.XMLRenderComponent;
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	

@@ -1,15 +1,12 @@
 package physics
 {
-	import components.RenderComponent;
-//	import core.loaders.TextureManager;
-	import core.memory.MemoryManager;
-	import core.objects.TextureObject;
+	import com.scyllacharybdis.components.RenderComponent;
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	
 	/**
 	 */
-	//[Requires ("core.loaders.TextureManager")]
+	//[Requires ("com.scyllacharybdis.core.loaders.TextureManager")]
 	public class PhysicsRenderComponent extends RenderComponent
 	{
 	//	private var _textureManager:TextureManager;
