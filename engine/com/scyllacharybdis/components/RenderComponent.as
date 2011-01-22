@@ -14,7 +14,7 @@ package com.scyllacharybdis.components
 	/**
 	 * 
 	 */
-	[ComponentType ("components.RenderComponent")]
+	[ComponentType ("com.scyllacharybdis.components.RenderComponent")]
 	public class RenderComponent extends BaseObject
 	{
 

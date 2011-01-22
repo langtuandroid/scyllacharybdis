@@ -9,7 +9,7 @@ package com.scyllacharybdis.components
 	/**
 	 * 
 	 */
-	[ComponentType ("components.SoundComponent")]
+	[ComponentType ("com.scyllacharybdis.components.SoundComponent")]
 	public class SoundComponent extends BaseObject
 	{
 		private var _sound:Sound;

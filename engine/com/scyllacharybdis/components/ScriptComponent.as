@@ -13,7 +13,7 @@ package com.scyllacharybdis.components
 
 	/**
 	 */
-	[ComponentType ("components.ScriptComponent")]
+	[ComponentType ("com.scyllacharybdis.components.ScriptComponent")]
 	public class ScriptComponent extends BaseObject
 	{
 		private var _updateTimer:Timer = new Timer(1/30 * 1000, 0); 

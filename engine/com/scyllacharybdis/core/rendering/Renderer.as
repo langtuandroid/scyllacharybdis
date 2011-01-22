@@ -9,7 +9,7 @@ package com.scyllacharybdis.core.rendering
 	/**
 	 */
 	[Singleton]
-	[Requires ("com.scyllacharybdis.core.scenegraph.SceneGraph", "core.rendering.Window")]
+	[Requires ("com.scyllacharybdis.core.scenegraph.SceneGraph", "com.scyllacharybdis.core.rendering.Window")]
 	public final class Renderer extends BaseObject
 	{
 		private var _sceneGraph:SceneGraph = null;
