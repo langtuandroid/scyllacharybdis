@@ -11,6 +11,7 @@ package com.scyllacharybdis.components
 	import flash.display.Bitmap;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
+	
 	/**
 	 * ...
 	 * @author 
