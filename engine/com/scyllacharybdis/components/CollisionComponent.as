@@ -12,7 +12,7 @@ package com.scyllacharybdis.components
 
 	/**
 	 */
-	[ComponentType ("components.CollisionComponent")]
+	[ComponentType ("com.scyllacharybdis.components.CollisionComponent")]
 	[Requires ("com.scyllacharybdis.core.scenegraph.PhysicsSceneGraph")]
 	public class CollisionComponent extends BaseObject
 	{
