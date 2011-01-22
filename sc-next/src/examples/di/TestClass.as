@@ -7,10 +7,10 @@ package examples.di
 	[Singleton]
 	public class TestClass 
 	{
-		[Inject]
-		public function TestClass( value:TestClass1 ) 
+		public function TestClass( value:TestClass1, value1:TestClass1 ) 
 		{
-			
+			trace("TestClass Constructor");
+			trace( value + value1 );
 		}
 	}
 }

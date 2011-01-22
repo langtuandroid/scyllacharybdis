@@ -8,10 +8,9 @@ package examples.di
 	[Component (type="asdfTestClass")]
 	public class TestClass1 
 	{
-		[Inject]
-		public function TestClass1(  ) 
+		public function TestClass1():void
 		{
-			
+			trace("TestClass1 Constructor");
 		}
 	}
 }

@@ -18,12 +18,13 @@ package com.scyllacharybdis.core.di
 	 */
 	public class Injector 
 	{
-		private var _displayObject:DisplayObjectContainer;
-		private var _module:AbstractModule;
-		
 		private static var _classNames:Dictionary = new Dictionary(true);
 		private static var _singletonNames:Dictionary = new Dictionary(true);
 		private static var _componentNames:Dictionary = new Dictionary(true);
+		private static var _initialized:Boolean = false;
+
+		private var _displayObject:DisplayObjectContainer;
+		private var _module:AbstractModule;
 		
 		/**
 		 * Injector constructor
@@ -50,16 +51,31 @@ package com.scyllacharybdis.core.di
 		 */
 		public function getInstance( classType:Class ):*
 		{
-			trace( classType );
-			
-			// Get the cache
-			var typeCache:TypeCache = ByteCodeType.getTypeProvider().getTypeCache();
-			
-			// Get the cache
-			var type:ByteCodeType = typeCache.get( ClassUtils.getFullyQualifiedName( classType, true )) as ByteCodeType; 
-
 			// Get the configuration bindings
 			var bindings:Dictionary = _module.getBindings();
+			for each ( var bind:String in bindings )
+			{
+				trace(bind);
+			}
+			
+			// Get the fully qalified name
+			var classString:String = ClassUtils.getFullyQualifiedName( classType, true );
+			trace( "Before: " + classString );
+			
+			// Check to see if this class has been mapped
+			if ( bindings[classString] != null ) 
+			{
+				// Replace the name with the minded one
+				classString = ClassUtils.getFullyQualifiedName( bindings[classString], true );
+			}
+			
+			trace( "After: " + classString );
+			
+			// Get the whole cache
+			var typeCache:TypeCache = ByteCodeType.getTypeProvider().getTypeCache();
+			
+			// Get the cache for the class
+			var type:ByteCodeType = typeCache.get( classString ) as ByteCodeType; 
 			
 			// Setup a dependency array
 			var depArray:Array = new Array();
@@ -67,18 +83,17 @@ package com.scyllacharybdis.core.di
 			// Get the parameters
 			var paramArray:Array = type.constructor.parameters;
 
+			// Loop threw all the parameters
 			for each(var param:Parameter in paramArray)
 			{
+				// Get the parameter class
 				var paramType:Class = param.type.clazz;
+				
+				// Convert the class to a string
 				var paramString:String  = ClassUtils.getFullyQualifiedName( paramType, true );
-				if ( bindings[paramString] == null ) 
-				{
-					depArray.push( getInstance( paramType ) );
-				}
-				else 
-				{
-					depArray.push( getInstance( ClassUtils.forName(bindings[paramString] )) );
-				}
+				
+				// Create the dependency and store it to be injected later
+				depArray.push( getInstance( paramType ) );
 			}
 			// Create the new instances with deps and return it.
 			return ClassUtils.newInstance( classType, depArray );
@@ -91,6 +106,16 @@ package com.scyllacharybdis.core.di
 		 */
 		private function scanClasses(loaderInfo:LoaderInfo):void
 		{
+			// Check to make sure its not already initialized
+			if ( _initialized == true )
+			{
+				// Leave the method
+				return;
+			}
+			
+			// Store the state
+			_initialized = true;
+			
 			// Load the bytecode
 			ByteCodeType.fromLoader(loaderInfo);
 			
@@ -117,18 +142,25 @@ package com.scyllacharybdis.core.di
 
 				// Get the singleton data
 				var singletonArray:Array = type.getMetaData("Singleton");
+				
+				// Check to see if there is any singleton metadata
 				if ( singletonArray != null ) 
 				{
-					_singletonNames[key] = key;
+					// Store the key 
+					_singletonNames[key] = null;
 				}
 				
 				// Get the component data
 				var componentArray:Array = type.getMetaData("Component");
+				
+				// Loop threw all the metadata
 				for each(var metadata:MetaData in componentArray)
 				{
+					// Get the arguments
 					var arg:MetaDataArgument = metadata.getArgument("type");
-					trace( "component " + arg.key + ": " + arg.value );
-					_componentNames[arg.key] = arg.value;
+					
+					// Store them in an hashmap
+					_componentNames[key] = arg.value;
 				}
 			}			
 		}

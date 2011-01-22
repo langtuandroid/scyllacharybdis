@@ -10,20 +10,8 @@ package examples.di
 	{
 		public override function configure():void
 		{
-			/*
-			* This tells Guice that whenever it sees a dependency on a TransactionLog,
-			* it should satisfy the dependency using a DatabaseTransactionLog.
-			*/
-			//bind(TransactionLog.class).to(DatabaseTransactionLog.class);
-
-			/*
-			* Similarly, this binding tells Guice that when CreditCardProcessor is used in
-			* a dependency, that should be satisfied with a PaypalCreditCardProcessor.
-			*/
-			//bind(CreditCardProcessor.class).to(PaypalCreditCardProcessor.class);
-			
-			//bind( RenderComponent, RenderComponent );
+			// Tell the requested testclass1 to actually use testclass2
+			bind(TestClass1, TestClass2);
 		}
 	}
-
 }
