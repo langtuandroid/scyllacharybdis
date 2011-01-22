@@ -4,7 +4,7 @@ package com.scyllacharybdis.core.memory.pool
 	import flash.display.DisplayObject;
 	import flash.utils.Dictionary;
 	import org.as3commons.bytecode.reflect.ByteCodeType;
-	import org.as3commons.reflect.ClassUtils;
+	import org.as3commons.lang.ClassUtils;
 	import org.as3commons.reflect.Parameter;
 	import org.as3commons.reflect.Type;
 	//import flash.display.DisplayObject.loaderInfo;
@@ -96,38 +96,6 @@ package com.scyllacharybdis.core.memory.pool
 		
 		public static function scanClasses():void
 		{
-			//Application.loaderInfo;
-			
-			var metaDataLookup:Object = ByteCodeType.metaDataLookupFromLoader(DisplayObject.loadInfo);
-			//var metaDataLookup:Object = ByteCodeType.metaDataLookupFromLoader(LoaderInfo.loaderInfo);
-			var definitionNames:Array = metaDataLookup['singleton', 'component', 'inject'];
-			for (var i:uint = 0; i < definitionNames.length; i++)
-			{
-				var type:Type = Type.forName(definitionNames[i]); /* ... do something... */
-				trace(type.clazz);
-			}			
-			
-			/*
-			ByteCodeType.fromLoader(this.loaderInfo);
-			var typeCache:TypeCache = ByteCodeType.getTypeProvider().getTypeCache();
-			
-			trace("Getting keys");
-			for each (var key:String in typeCache.getKeys() ) {
-				trace(key.toString());
-				var type:ByteCodeType = typeCache.get(key) as ByteCodeType;
-			}
-			*/
-			
-			trace("Getting definition names");
-			/*var definitionNames:Array = ByteCodeType.definitionNamesFromLoader( this.loaderInfo );
-			for each ( var key1:String in definitionNames )
-			{
-				var test:Array = key1.split(".");
-				if ( test[1] == "scyllacharybdis" ) {
-					trace( key1 );
-				}
-			}
-			*/				
 		}
 	}
 }

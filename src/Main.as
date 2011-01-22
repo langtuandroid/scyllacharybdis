@@ -6,7 +6,6 @@
 	import com.scyllacharybdis.graphics.rendering.Renderer;
 	import com.scyllacharybdis.graphics.rendering.Window;
 	import com.scyllacharybdis.graphics.scenegraph.SceneGraph;
-	import com.scyllacharybdis.interfaces.IPhysicsComponent;
 	import com.scyllacharybdis.networking.handlers.ChatMessageHandler;
 	import com.scyllacharybdis.networking.handlers.ConnectionHandler;
 	import com.scyllacharybdis.networking.handlers.LoginHandler;
@@ -37,8 +36,8 @@
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 
 			// Create the window
-			var window:Window = allocate(Window);
-			window.displayContext = this;
+			var window:Window = allocate(Window, this);
+			//window.displayContext = this;
 
 			// Create the scenegraph and add the physics component
 			var sceneGraph:SceneGraph = allocate( SceneGraph );
