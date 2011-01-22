@@ -6,36 +6,26 @@
     <property name="DEPLOY_DIR" value="${deploydir}" />
 
     <target name="casalib">
-        <compc output="${basedir}/lib/casalib.swc" append="true">
-            <source-path path-element="${basedir}/util"/>
-            <include-sources dir="${basedir}/util/org/casalib" includes="**/**/*.as **/*.as"/>
+        <compc output="${basedir}/engine/lib/casalib.swc" append="true">
+            <source-path path-element="${basedir}/engine/util"/>
+            <include-sources dir="${basedir}/engine/util/org/casalib" includes="**/**/*.as **/*.as"/>
         </compc>
     </target>
 
     <target name="Box2D">
-        <compc output="${basedir}/lib/Box2D.swc" append="true">
-            <source-path path-element="${basedir}/util"/>
-            <include-sources dir="${basedir}/util/Box2D" includes="**/**/*.as **/*.as"/>
+        <compc output="${basedir}/engine/lib/Box2D.swc" append="true">
+            <source-path path-element="${basedir}/engine/util"/>
+            <include-sources dir="${basedir}/engine/util/Box2D" includes="**/**/*.as **/*.as"/>
         </compc>
     </target>
 
     <target name="sc">
-        <compc output="${DEPLOY_DIR}/SC.swc" append="true">
+        <compc output="${basedir}/lib/SC.swc" append="true">
             <source-path path-element="${basedir}/engine"/>
-            <include-sources dir="${basedir}/engine/events" includes="*.as"/>
-            <include-sources dir="${basedir}/engine/core/memory" includes="*.as"/>
-            <include-sources dir="${basedir}/engine/core/events" includes="*.as"/>
-            <include-sources dir="${basedir}/engine/core/scenes" includes="*.as"/>
-            <include-sources dir="${basedir}/engine/core/materials" includes="*.as"/>
-            <include-sources dir="${basedir}/engine/core/objects" includes="*.as"/>
-            <include-sources dir="${basedir}/engine/core/physics" includes="*.as"/>
-            <include-sources dir="${basedir}/engine/core/rendering" includes="*.as"/>
-            <include-sources dir="${basedir}/engine/components" includes="*.as"/>
-            <include-sources dir="${basedir}/engine/handlers" includes="*.as"/>
-            <include-sources dir="${basedir}/engine/models" includes="*.as"/>
-            <include-libraries dir="${basedir}/lib" includes="casalib.swc"/>
-            <include-libraries dir="${basedir}/lib" includes="Box2D.swc"/>
-            <include-libraries dir="${basedir}/lib" includes="SFS2X_API_AS3.swc"/>
+            <include-sources dir="${basedir}/engine/com/scyllacharybdis" includes="**/**/**/*.as **/**/*.as **/*.as"/>
+            <include-libraries dir="${basedir}/engine/lib" includes="casalib.swc"/>
+            <include-libraries dir="${basedir}/engine/lib" includes="Box2D.swc"/>
+            <include-libraries dir="${basedir}/engine/lib" includes="SFS2X_API_AS3.swc"/>
         </compc>
     </target>
 
@@ -48,18 +38,22 @@
     <target name="docs">
 	<exec executable="${asdoc.exe}" failonerror="true">
             <arg line="-doc-sources 
-		${basedir}/engine/events/ 
-		${basedir}/engine/core/ 
-	        ${basedir}/engine/core/memory/
-        	${basedir}/engine/core/events/
-        	${basedir}/engine/core/scenes/
-	        ${basedir}/engine/core/materials/
-	        ${basedir}/engine/core/objects/
-        	${basedir}/engine/core/physics/
-	        ${basedir}/engine/core/rendering/
-		${basedir}/engine/components/
-		${basedir}/engine/handlers/
-		${basedir}/engine/models/
+				${basedir}/engine/com/scyllacharybdis/components/
+				${basedir}/engine/com/scyllacharybdis/core/ 
+				${basedir}/engine/com/scyllacharybdis/core/ami
+				${basedir}/engine/com/scyllacharybdis/core/cache/
+				${basedir}/engine/com/scyllacharybdis/core/events/
+				${basedir}/engine/com/scyllacharybdis/core/loaders/
+				${basedir}/engine/com/scyllacharybdis/core/memory/
+				${basedir}/engine/com/scyllacharybdis/core/events/
+				${basedir}/engine/com/scyllacharybdis/core/objects/
+				${basedir}/engine/com/scyllacharybdis/core/physics/
+				${basedir}/engine/com/scyllacharybdis/core/rendering/
+				${basedir}/engine/com/scyllacharybdis/core/scenegraph/
+				${basedir}/engine/com/scyllacharybdis/core/scenes/
+				${basedir}/engine/com/scyllacharybdis/events/ 
+				${basedir}/engine/com/scyllacharybdis/handlers/
+				${basedir}/engine/com/scyllacharybdis/models/
             " /> 
             <arg line="-main-title ${title}" />             
             <arg line="-window-title ${title}" /> 
@@ -71,9 +65,9 @@
 
     <target name="clean">
         <delete>
-            <fileset dir="${basedir}/lib/" includes="casalib.swc"/>
-            <fileset dir="${basedir}/lib/" includes="Box2D.swc"/>
-            <fileset dir="${DEPLOY_DIR}" includes="SC.swc"/>
+            <fileset dir="${basedir}/engine/lib/" includes="casalib.swc"/>
+            <fileset dir="${basedir}/engine/lib/" includes="Box2D.swc"/>
+            <fileset dir="${basedir}/lib/" includes="SC.swc"/>
         </delete>
     </target>
 </project>

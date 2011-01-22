@@ -20,11 +20,14 @@
       <path-element>C:\Development\scyllacharybdis\engine</path-element>
       <path-element>C:\Development\scyllacharybdis\examples</path-element>
       <path-element>C:\Development\scyllacharybdis\src</path-element>
-      <path-element>C:\Development\scyllacharybdis\util</path-element>
       <path-element>C:\Development\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
     <library-path append="true">
-      <path-element>C:\Development\scyllacharybdis\lib\SFS2X_API_AS3.swc</path-element>
+      <path-element>C:\Development\scyllacharybdis\engine\lib\AstraLib.swc</path-element>
+      <path-element>C:\Development\scyllacharybdis\engine\lib\Box2D.swc</path-element>
+      <path-element>C:\Development\scyllacharybdis\engine\lib\casalib.swc</path-element>
+      <path-element>C:\Development\scyllacharybdis\engine\lib\SFS2X_API_AS3.swc</path-element>
+      <path-element>C:\Development\scyllacharybdis\engine\lib\StandardComponents.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>
