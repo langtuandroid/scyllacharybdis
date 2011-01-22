@@ -13,7 +13,7 @@ package com.scyllacharybdis.components
 
 	/**
 	 */
-	[Component type="ScriptComponent"]
+	[Component (type="ScriptComponent")]
 	public class ScriptComponent implements IScriptComponent
 	{
 		public function awake(owner:*):void
