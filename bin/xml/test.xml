@@ -10,6 +10,7 @@
 				</animations>
 			</area>
 			<area name="spinnersheet" body="spinner" topleft="0,0" bottomright="200,160"></area>
+			<area name="blackpawn" body="pawn" top="0" left="0" width="40" height="40"/>
 		</areas>
 	</material>
 	<physics>

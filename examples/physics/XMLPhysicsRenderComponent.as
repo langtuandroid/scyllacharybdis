@@ -11,7 +11,7 @@ package physics
 		
 		override public function awake():void 
 		{
-			loadMaterial("test.xml", "spinnersprite");
+			loadMaterial("test.xml", "blackpawn");
 		}
 		
 		public function createBox( x:int, y:int, color:Number = 0x123456):void
