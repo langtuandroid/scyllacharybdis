@@ -1,5 +1,6 @@
 package com.scyllacharybdis.components 
 {
+	import com.scyllacharybdis.core.ami.AMIHandler;
 	import com.scyllacharybdis.core.ami.AMITask;
 	import com.scyllacharybdis.core.loaders.XMLLoaderAction;
 	import com.scyllacharybdis.core.loaders.XMLResults;
@@ -9,26 +10,48 @@ package com.scyllacharybdis.components
 	 * @author 
 	 */
 	[Component (type="CollisionComponent")]
+	[Requires ("com.scyllacharybdis.core.ami.AMIHandler")]
 	public class XMLCollisionComponent extends CollisionComponent
 	{
 		private var _bodyName:String;
+		private var _amihandler:AMIHandler;
+		
+		/**
+		 * Engine contructor
+		 */
+		public override final function engine_awake():void
+		{
+			_amihandler = getDependency(AMIHandler);
+		}
+		
+		/**
+		 * Engine destructor
+		 */
+		public override final function engine_destroy():void
+		{
+			MemoryManager.destroy( _amihandler );
+		}
 		
 		/**
 		 * Load the physics information from an xml file
 		 * @param	fileName (String) Filename of the xml file
 		 * @param	bodyName (String) The body name that you are trying to load from the file
 		 */
-		public function loadPhysics( fileName:String, bodyName:String):void
+		public final function loadPhysics( fileName:String, bodyName:String):void
 		{
+			// Store the body name
 			_bodyName = bodyName;
-			var task:AMITask = new AMITask( new XMLLoaderAction(fileName), new XMLResults(), this );
+			
+			// Dispatch the xml loader task
+			_amihandler.dispatchTask( new AMITask( new XMLLoaderAction(fileName), new XMLResults(), this ) );
+			
 		}
 		
 		/**
 		 * Parse the results from the load action
 		 * @param	data
 		 */
-		public function xmlLoadSuccess( data:* ):void
+		public final function xmlLoadSuccess( data:* ):void
 		{
 			parseBodies( data..physics );
 		}
@@ -37,7 +60,7 @@ package com.scyllacharybdis.components
 		 * Handle the xml load failure
 		 * @param	data
 		 */
-		public function xmlLoadError( data:* ):void
+		public final function xmlLoadError( data:* ):void
 		{
 			trace( "xmlLoadError: " + data );
 		}
@@ -47,7 +70,7 @@ package com.scyllacharybdis.components
 		 * Parse the physics bodies 
 		 * @param	bodies
 		 */
-		public function parseBodies(bodies:XMLList):void 
+		private final function parseBodies(bodies:XMLList):void 
 		{
 			trace("******************************");
 			for each ( var body:XML in bodies..body )
@@ -68,7 +91,7 @@ package com.scyllacharybdis.components
 				}
 			}
 		}
-		public function parseShapes(shapes:XMLList):void 
+		private final function parseShapes(shapes:XMLList):void 
 		{
 			for each ( var shape:XML in shapes ) 
 			{
