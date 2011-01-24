@@ -5,6 +5,7 @@ package com.scyllacharybdis.components
 	import com.scyllacharybdis.core.loaders.TextureResults;
 	import com.scyllacharybdis.core.loaders.XMLLoaderAction;
 	import com.scyllacharybdis.core.loaders.XMLResults;
+	import com.scyllacharybdis.core.objects.BaseObject;
 	import com.scyllacharybdis.core.objects.SpriteObject;
 	import com.scyllacharybdis.core.objects.TextureObject;
 	import com.scyllacharybdis.core.rendering.Backbuffer;
@@ -16,7 +17,8 @@ package com.scyllacharybdis.components
 	 * ...
 	 * @author 
 	 */
-	public class XMLRenderComponent extends RenderComponent
+	[Component (type="RenderComponent")]
+	public class XMLRenderComponent extends BaseObject
 	{
 		private var _area:String;
 		private var _sprite:SpriteObject = new SpriteObject();
@@ -40,7 +42,7 @@ package com.scyllacharybdis.components
 		 * Add the renderable to the surface
 		 * @param	surface (Backbuffer) The render surface
 		 */
-		public override function render( surface:Backbuffer ):void
+		public function render( surface:Backbuffer ):void
 		{
 			if ( _texture == null )
 			{

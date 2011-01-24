@@ -15,15 +15,15 @@
 	</material>
 	<physics>
 		<bodies>
-			<body name="spinnerbody" dynamtic="true">
+			<body name="spinnerbody" width="40" height="40" dynamtic="true">
 				<shape type="polygon" top="0.0" left="0.0" width="40" height="40" friction="0.3" density="0" restitution="0.1"/>
 			</body>
-			<body name="bouncybody" dynamtic="true">
+			<body name="bouncybody" width="40" height="40" dynamtic="true">
 				<shape type="polygon" top="0.0" left="0.0" width="40" height="40" friction="0.3" density="0" restitution="0.5"/>
 			</body>
-			<body name="polyandcircle" dynamtic="true">
-				<shape type="circle" center="0.9,0.5" radius="0.1" friction="0.3" density="0" restitution="0.5"/>
-				<shape type="polygon" top="0.0" left="0.0" width="0.8" height="1.0" friction="0.3" density="0" restitution="0.5"/>
+			<body name="polyandcircle" width="40" height="40" ddynamtic="true">
+				<shape type="circle" x="10" y="20" radius="10" friction="0.3" density="0" restitution="0.5"/>
+				<shape type="polygon" top="0" left="20" width="20" height="40" friction="0.3" density="0" restitution="0.5"/>
 			</body>
 		</bodies>
 	</physics>

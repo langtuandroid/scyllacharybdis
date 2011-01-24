@@ -2,8 +2,8 @@ package com.scyllacharybdis.core.loaders
 {
 	import com.scyllacharybdis.core.ami.AMIUniqueAction;
 	import com.scyllacharybdis.core.cache.TextureCache;
-	import com.scyllacharybdis.core.objects.TextureObject;
 	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.net.URLLoader;
@@ -52,8 +52,11 @@ package com.scyllacharybdis.core.loaders
 			// Remove the listeners
 			e.target.removeEventListener(Event.COMPLETE, loadedCompleteHandler);
 			
+			// Get the bitmap
+			var bitmap:Bitmap = Bitmap(_loader.data);
+			
 			// Get the data
-			var texture:TextureObject = new TextureObject( Bitmap(_loader.data) );
+			var texture:BitmapData = bitmap.bitmapData;			
 			
 			// Store it in the cache
 			_cache.setCache( _fileName, texture );

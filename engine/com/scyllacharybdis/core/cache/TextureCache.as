@@ -1,6 +1,6 @@
 package com.scyllacharybdis.core.cache 
 {
-	import com.scyllacharybdis.core.objects.TextureObject;
+	import flash.display.BitmapData;
 	import flash.utils.Dictionary;
 	/**
 	 * ...
@@ -14,7 +14,7 @@ package com.scyllacharybdis.core.cache
 		 *  Return the loaded xml
 		 * @param	fileName (String) Key to the data
 		 */
-		public function getCache( fileName:String ):TextureObject
+		public function getCache( fileName:String ):BitmapData
 		{
 			return _textureList[fileName];
 		}
@@ -24,7 +24,7 @@ package com.scyllacharybdis.core.cache
 		 * @param	fileName (String) Key to the data
 		 * @param	xml (XML) The xml data
 		 */
-		public function setCache(fileName:String, texture:TextureObject):void 
+		public function setCache(fileName:String, texture:BitmapData):void 
 		{
 			_textureList[fileName] = texture;
 		} 		
