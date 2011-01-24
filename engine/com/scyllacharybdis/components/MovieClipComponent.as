@@ -90,10 +90,20 @@ package com.scyllacharybdis.components
 		{
 		}
 		
-		public function set baseclip( value:MovieClip ):void { _baseclip = value; }
+		/**
+		 * Get the movie clip
+		 */
 		public function get baseclip():MovieClip { return _baseclip; }
+
+		/**
+		 * Set the movie clip
+		 */
+		public function set baseclip( value:MovieClip ):void { _baseclip = value; }
 		
-		// For sorting
+		/**
+		 * Get the comparator used for sorting
+		 * @private
+		 */ 
 		public function get comparator():Number { return owner.position.z }
 		
 
@@ -113,94 +123,224 @@ package com.scyllacharybdis.components
 			surface.copyPixels(bitmapData, bitmapData.rect, new Point(owner.position.x, owner.position.y), null, null, true);
 		}
 		
-		
+		/**
+		 * Add all the listeners to this object
+		 */
 		private final function addListeners():void
 		{
-			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
-			
-			if ( scriptComponent != null )
 			{
-				_baseclip.addEventListener( MouseEvent.CLICK, scriptComponent.onClick, false, 0, true);
-				_baseclip.addEventListener( MouseEvent.DOUBLE_CLICK, scriptComponent.onDoubleClick, false, 0, true );
-				_baseclip.addEventListener( MouseEvent.MOUSE_DOWN, scriptComponent.onMouseDown, false, 0, true );
-				_baseclip.addEventListener( MouseEvent.MOUSE_MOVE, scriptComponent.onMouseMove, false, 0, true );
-				_baseclip.addEventListener( MouseEvent.MOUSE_OUT, scriptComponent.onMouseOut, false, 0, true );
-				_baseclip.addEventListener( MouseEvent.MOUSE_OVER, scriptComponent.onMouseOver, false, 0, true );
-				_baseclip.addEventListener( MouseEvent.MOUSE_UP, scriptComponent.onMouseUp, false, 0, true );
-				_baseclip.addEventListener( MouseEvent.MOUSE_WHEEL, scriptComponent.onMouseWheel, false, 0, true );
-				_baseclip.addEventListener( MouseEvent.ROLL_OUT, scriptComponent.onRollOut, false, 0, true );
-				_baseclip.addEventListener( MouseEvent.ROLL_OVER, scriptComponent.onRollOver, false, 0, true );
-				_baseclip.addEventListener( KeyboardEvent.KEY_DOWN, scriptComponent.onKeyDown, false, 0, true );
-				_baseclip.addEventListener( KeyboardEvent.KEY_UP, scriptComponent.onKeyUp, false, 0, true );
+				_baseclip.addEventListener( MouseEvent.CLICK, onClick, false, 0, true);
+				_baseclip.addEventListener( MouseEvent.DOUBLE_CLICK, onDoubleClick, false, 0, true );
+				_baseclip.addEventListener( MouseEvent.MOUSE_DOWN, onMouseDown, false, 0, true );
+				_baseclip.addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove, false, 0, true );
+				_baseclip.addEventListener( MouseEvent.MOUSE_OUT, onMouseOut, false, 0, true );
+				_baseclip.addEventListener( MouseEvent.MOUSE_OVER, onMouseOver, false, 0, true );
+				_baseclip.addEventListener( MouseEvent.MOUSE_UP, onMouseUp, false, 0, true );
+				_baseclip.addEventListener( MouseEvent.MOUSE_WHEEL, onMouseWheel, false, 0, true );
+				_baseclip.addEventListener( MouseEvent.ROLL_OUT, onRollOut, false, 0, true );
+				_baseclip.addEventListener( MouseEvent.ROLL_OVER, onRollOver, false, 0, true );
+				_baseclip.addEventListener( KeyboardEvent.KEY_DOWN, onKeyDown, false, 0, true );
+				_baseclip.addEventListener( KeyboardEvent.KEY_UP, onKeyUp, false, 0, true );
 			}			
 		}
 
+		/**
+		 * Remove all the listeners from the movie clip
+		 */
 		private final function removeListeners():void
 		{
+			_baseclip.removeEventListener( MouseEvent.CLICK, onClick );
+			_baseclip.removeEventListener( MouseEvent.DOUBLE_CLICK, onDoubleClick );
+			_baseclip.removeEventListener( MouseEvent.MOUSE_DOWN, onMouseDown );
+			_baseclip.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
+			_baseclip.removeEventListener( MouseEvent.MOUSE_OUT, onMouseOut );
+			_baseclip.removeEventListener( MouseEvent.MOUSE_OVER, onMouseOver );
+			_baseclip.removeEventListener( MouseEvent.MOUSE_UP, onMouseUp );
+			_baseclip.removeEventListener( MouseEvent.MOUSE_WHEEL, onMouseWheel );
+			_baseclip.removeEventListener( MouseEvent.ROLL_OUT, onRollOut );
+			_baseclip.removeEventListener( MouseEvent.ROLL_OVER, onRollOver );
+			_baseclip.removeEventListener( KeyboardEvent.KEY_DOWN, onKeyDown );
+			_baseclip.removeEventListener( KeyboardEvent.KEY_UP, onKeyUp );
+		}
+
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		private final function onClick(e:MouseEvent):void 
+		{
 			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
-			
 			if ( scriptComponent != null )
 			{
-				if ( _baseclip.hasEventListener(MouseEvent.CLICK) )
-				{
-					_baseclip.removeEventListener( MouseEvent.CLICK, scriptComponent.onClick );
-				}
-				
-				if ( _baseclip.hasEventListener(MouseEvent.DOUBLE_CLICK) )
-				{
-					_baseclip.removeEventListener( MouseEvent.DOUBLE_CLICK, scriptComponent.onDoubleClick );
-				}
-				
-				if ( _baseclip.hasEventListener(MouseEvent.MOUSE_DOWN) )
-				{
-					_baseclip.removeEventListener( MouseEvent.MOUSE_DOWN, scriptComponent.onMouseDown );
-				}
-				
-				if ( _baseclip.hasEventListener(MouseEvent.MOUSE_MOVE) )
-				{
-					_baseclip.removeEventListener( MouseEvent.MOUSE_MOVE, scriptComponent.onMouseMove );
-				}
-				
-				if ( _baseclip.hasEventListener(MouseEvent.MOUSE_OUT) )
-				{
-					_baseclip.removeEventListener( MouseEvent.MOUSE_OUT, scriptComponent.onMouseOut );
-				}
-				
-				if ( _baseclip.hasEventListener(MouseEvent.MOUSE_OVER) )
-				{
-					_baseclip.removeEventListener( MouseEvent.MOUSE_OVER, scriptComponent.onMouseOver );
-				}
-				
-				if ( _baseclip.hasEventListener(MouseEvent.MOUSE_UP) )
-				{
-					_baseclip.removeEventListener( MouseEvent.MOUSE_UP, scriptComponent.onMouseUp );
-				}
-				
-				if ( _baseclip.hasEventListener(MouseEvent.MOUSE_WHEEL) )
-				{
-					_baseclip.removeEventListener( MouseEvent.MOUSE_WHEEL, scriptComponent.onMouseWheel );
-				}
-				
-				if ( _baseclip.hasEventListener(MouseEvent.ROLL_OUT) )
-				{
-					_baseclip.removeEventListener( MouseEvent.ROLL_OUT, scriptComponent.onRollOut );
-				}
-				
-				if ( _baseclip.hasEventListener(MouseEvent.ROLL_OVER) )
-				{
-					_baseclip.removeEventListener( MouseEvent.ROLL_OVER, scriptComponent.onRollOver );
-				}
-				
-				if ( _baseclip.hasEventListener(KeyboardEvent.KEY_DOWN) )
-				{
-					_baseclip.removeEventListener( KeyboardEvent.KEY_DOWN, scriptComponent.onKeyDown );
-				}
-				
-				if ( _baseclip.hasEventListener(KeyboardEvent.KEY_UP) )
-				{
-					_baseclip.removeEventListener( KeyboardEvent.KEY_UP, scriptComponent.onKeyUp );
-				}
+				scriptComponent.onClick(e);
 			}
+			
+		}
+
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		private final function onDoubleClick(e:MouseEvent):void 
+		{
+			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
+			if ( scriptComponent != null )
+			{
+				scriptComponent.onDoubleClick(e);
+			}
+			
+		}
+
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		private final function onMouseDown(e:MouseEvent):void 
+		{
+			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
+			if ( scriptComponent != null )
+			{
+				scriptComponent.onMouseDown(e);
+			}
+			
+		}
+
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		private final function onMouseMove(e:MouseEvent):void 
+		{
+			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
+			if ( scriptComponent != null )
+			{
+				scriptComponent.onMouseMove(e);
+			}
+			
+		}
+		
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		private final function onMouseOut(e:MouseEvent):void 
+		{
+			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
+			if ( scriptComponent != null )
+			{
+				scriptComponent.onMouseOut(e);
+			}
+			
+		}
+		
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		private final function onMouseOver(e:MouseEvent):void 
+		{
+			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
+			if ( scriptComponent != null )
+			{
+				scriptComponent.onMouseOver(e);
+			}
+			
+		}
+
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		private final function onMouseUp(e:MouseEvent):void 
+		{
+			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
+			if ( scriptComponent != null )
+			{
+				scriptComponent.onMouseUp(e);
+			}
+			
+		}
+		
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		private final function onMouseWheel(e:MouseEvent):void 
+		{
+			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
+			if ( scriptComponent != null )
+			{
+				scriptComponent.onMouseWheel(e);
+			}
+			
+		}
+		
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		private final function onKeyDown(e:KeyboardEvent):void 
+		{
+			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
+			if ( scriptComponent != null )
+			{
+				scriptComponent.onKeyDown(e);
+			}
+			
+		}
+
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		private final function onKeyUp(e:KeyboardEvent):void 
+		{
+			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
+			if ( scriptComponent != null )
+			{
+				scriptComponent.onKeyUp(e);
+			}
+			
+		}
+		
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		private final function onRollOver(e:MouseEvent):void 
+		{
+			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
+			if ( scriptComponent != null )
+			{
+				scriptComponent.onRollOver(e);
+			}
+			
+		}
+		
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		private final function onRollOut(e:MouseEvent):void 
+		{
+			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
+			if ( scriptComponent != null )
+			{
+				scriptComponent.onRollOut(e);
+			}
+			
 		}
 	}
 }
