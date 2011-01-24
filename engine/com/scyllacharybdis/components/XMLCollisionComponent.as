@@ -10,27 +10,9 @@ package com.scyllacharybdis.components
 	 * @author 
 	 */
 	[Component (type="CollisionComponent")]
-	[Requires ("com.scyllacharybdis.core.ami.AMIHandler")]
 	public class XMLCollisionComponent extends CollisionComponent
 	{
 		private var _bodyName:String;
-		private var _amihandler:AMIHandler;
-		
-		/**
-		 * Engine contructor
-		 */
-		public override final function engine_awake():void
-		{
-			_amihandler = getDependency(AMIHandler);
-		}
-		
-		/**
-		 * Engine destructor
-		 */
-		public override final function engine_destroy():void
-		{
-			MemoryManager.destroy( _amihandler );
-		}
 		
 		/**
 		 * Load the physics information from an xml file
@@ -43,7 +25,7 @@ package com.scyllacharybdis.components
 			_bodyName = bodyName;
 			
 			// Dispatch the xml loader task
-			_amihandler.dispatchTask( new AMITask( new XMLLoaderAction(fileName), new XMLResults(), this ) );
+			amihandler.dispatchTask( new AMITask( new XMLLoaderAction(fileName), new XMLResults(), this ) );
 			
 		}
 		
@@ -72,7 +54,6 @@ package com.scyllacharybdis.components
 		 */
 		private final function parseBodies(bodies:XMLList):void 
 		{
-			trace("******************************");
 			for each ( var body:XML in bodies..body )
 			{
 				var name:String = body.attribute("name");
@@ -91,44 +72,46 @@ package com.scyllacharybdis.components
 				}
 			}
 		}
+		
+		/**
+		 * Parse physics shapes from xml
+		 * @param	shapes
+		 */
 		private final function parseShapes(shapes:XMLList):void 
 		{
 			for each ( var shape:XML in shapes ) 
 			{
 				// Get the global attributes
-				var friction:Number = body.attribute("friction");
-				var density:Number = body.attribute("density");
-				var restitution:Number = body.attribute("restitution");
+				var friction:Number = shape.attribute("friction");
+				var density:Number = shape.attribute("density");
+				var restitution:Number = shape.attribute("restitution");
 				
 				if ( shape.attribute("type") == "circle" ) 
-					{
-						// Get the circle attributes
-						var x:int = body.attribute("x");
-						var y:int = body.attribute("y");
-						var radius:int = body.attribute("radius");
-						
-						// Create the physics circle shape
-						createCircleShape(radius, friction, density, restitution);
-					} 
-					else if ( shape.attribute("type") == "polygon" ) 
-					{
-						// Get the polygon attributes
-						var top:int = body.attribute("top");
-						var left:int = body.attribute("left");
-						var width:int = body.attribute("width");
-						var height:int = body.attribute("height");
-						
-						// Create the physics polygon shape
-						createPolygonShape( width, height, friction, density, restitution);
-					}
-					else
-					{
-						trace("Shape has to be a polygon or circle: " + shape.attributes() );
-					}
-
+				{
+					// Get the circle attributes
+					var x:int = shape.attribute("x");
+					var y:int = shape.attribute("y");
+					var radius:int = shape.attribute("radius");
+					
+					// Create the physics circle shape
+					createCircleShape(radius, friction, density, restitution);
+				} 
+				else if ( shape.attribute("type") == "polygon" ) 
+				{
+					// Get the polygon attributes
+					var top:int = shape.attribute("top");
+					var left:int = shape.attribute("left");
+					var width:int = shape.attribute("width");
+					var height:int = shape.attribute("height");
+					
+					// Create the physics polygon shape
+					createPolygonShape( width, height, friction, density, restitution);
+				}
+				else
+				{
+					trace("Shape has to be a polygon or circle: " + shape.attributes() );
 				}
 			}
 		}
-		
 	}
 }

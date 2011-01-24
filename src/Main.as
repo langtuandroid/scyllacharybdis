@@ -1,5 +1,12 @@
 ﻿package 
 {
+	import com.scyllacharybdis.components.CollisionComponent;
+	import com.scyllacharybdis.components.MovieClipComponent;
+	import com.scyllacharybdis.components.RenderComponent;
+	import com.scyllacharybdis.components.ScriptComponent;
+	import com.scyllacharybdis.components.SoundComponent;
+	import com.scyllacharybdis.components.XMLCollisionComponent;
+	import com.scyllacharybdis.components.XMLRenderComponent;
 	import com.scyllacharybdis.core.events.NetworkEventHandler;
 	import com.scyllacharybdis.core.events.NetworkEvents;
 	import com.scyllacharybdis.core.memory.MemoryManager;
@@ -59,6 +66,14 @@
 			_sceneManager.PushScene(PhysicsScene);	
 
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
+			
+			new CollisionComponent;
+			new MovieClipComponent;
+			new RenderComponent;
+			new ScriptComponent;
+			new SoundComponent;
+			new XMLCollisionComponent;
+			new XMLRenderComponent;
 		}
 
 		private function onEnterFrame( e:Event ):void
