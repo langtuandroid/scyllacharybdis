@@ -1,10 +1,12 @@
 package com.scyllacharybdis.components 
 {
+	import com.scyllacharybdis.core.ami.AMIHandler;
 	import com.scyllacharybdis.core.ami.AMITask;
 	import com.scyllacharybdis.core.loaders.TextureLoaderAction;
 	import com.scyllacharybdis.core.loaders.TextureResults;
 	import com.scyllacharybdis.core.loaders.XMLLoaderAction;
 	import com.scyllacharybdis.core.loaders.XMLResults;
+	import com.scyllacharybdis.core.memory.MemoryManager;
 	import com.scyllacharybdis.core.objects.BaseObject;
 	import com.scyllacharybdis.core.objects.SpriteObject;
 	import com.scyllacharybdis.core.objects.TextureObject;
@@ -18,104 +20,68 @@ package com.scyllacharybdis.components
 	 * @author 
 	 */
 	[Component (type="RenderComponent")]
-	public class XMLRenderComponent extends BaseObject
+	[Requires ("com.scyllacharybdis.core.ami.AMIHandler")]
+	public class XMLRenderComponent extends RenderComponent
 	{
 		private var _area:String;
 		private var _sprite:SpriteObject = new SpriteObject();
-		private var _texture:TextureObject;
-		
+
 		/**
 		 * Load the material
 		 * @param	fileName (String) The definision file
 		 * @param	area (String) The area to load
 		 */
-		public function loadMaterial( fileName:String, area:String ):void
+		public final function loadMaterial( fileName:String, area:String ):void
 		{
 			// Store the area
 			_area = area;
 			
 			// Create the ami task to load the def
-			var task:AMITask = new AMITask( new XMLLoaderAction(fileName), new XMLResults(), this );
-		}
-		
-		/**
-		 * Add the renderable to the surface
-		 * @param	surface (Backbuffer) The render surface
-		 */
-		public function render( surface:Backbuffer ):void
-		{
-			if ( _texture == null )
-			{
-				return;
-			}
+			amihandler.dispatchTask( new AMITask( new XMLLoaderAction(fileName), new XMLResults(), this ) );
 			
-			if ( ! _sprite.loaded ) 
-			{
-				return;
-			}
-
-			// Copy the pixels to the backbuffer
-			surface.copyPixels(_sprite.bitmapData, _sprite.rectangle, new Point(owner.position.x, owner.position.y), null, null, true)
 		}
 		
 		/**
 		 * Parse the results from the load action
 		 * @param	data
 		 */
-		public function xmlLoadSuccess( data:* ):void
+		public final function xmlLoadSuccess( data:* ):void
 		{
 			// Get the texture name
-			var texture:String = data.parseTexture( data..material );
-			if ( texture != null )
-			{
-				var loadTexture:AMITask = new AMITask( new TextureLoaderAction(texture), new TextureResults(), this );
-			}
-			var areas:String = data.parseAreas( data..material );			
+			data.parseTexture( data..material );
+			
+			// Get the area definitions
+			data.parseAreas( data..material );			
 		}
 		
 		/**
 		 * Handle the xml load failure
 		 * @param	data
 		 */
-		public function xmlLoadError( data:* ):void
+		public final function xmlLoadError( data:* ):void
 		{
 			trace( "xmlLoadError: " + data );
-		}
-		
-		public function textureLoadSuccess( data:TextureObject ):void
-		{
-			_sprite.setTexture( data.getTextureData() );
-		}
-		
-		/**
-		 * Handle the texture load failure
-		 * @param	data
-		 */		
-		public function textureLoadError( data:* ):void
-		{
-			trace( "textureLoadError: " + data );
 		}
 		
 		/**
 		 * Parse the texture information and load the file
 		 * @param	doc
 		 */
-		private function parseTexture(texture:XMLList):void
+		private final function parseTexture(texture:XMLList):void
 		{
 			// Get the texture name
 			var textureName:String = texture.attribute("filename");
 			if ( textureName != null )
 			{
-				// Load the texture
-				var loadTexture:AMITask = new AMITask( new TextureLoaderAction(textureName), new TextureResults(), this );
-			}
+				loadTexture( textureName );
+			}			
 		}
 		
 		/**
 		 * Parse the areas
 		 * @param	areas
 		 */
-		private function parseAreas(areas:XMLList):void 
+		private final function parseAreas(areas:XMLList):void 
 		{
 			for each ( var area:XML in areas..area ) 
 			{
@@ -144,10 +110,11 @@ package com.scyllacharybdis.components
 		 * Parse the animations
 		 * @param	animations
 		 */
-		private function parseAnimations(animations:XMLList):void 
+		private final function parseAnimations(animations:XMLList):void 
 		{
 			for each ( var animation:XML in animations..animation ) 
 			{
+				// Get the attributes
 				var name:int= animation.attribute("name");
 				var frames:int= animation.attribute("frames");
 				var rows:int= animation.attribute("rows");
@@ -155,6 +122,8 @@ package com.scyllacharybdis.components
 				var width:int= animation.attribute("width");
 				var height:int= animation.attribute("height");
 				var background:int = animation.attribute("background");
+				
+				// Add the animation to the sprite
 				_sprite.addAnimation( name, frames, rows, cols, width, height, background );
 			}
 		}	

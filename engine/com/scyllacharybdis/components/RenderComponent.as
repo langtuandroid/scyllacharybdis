@@ -20,17 +20,24 @@ package com.scyllacharybdis.components
 	 * @author 
 	 */
 	[Component (type="RenderComponent")]
+	[Requires ("com.scyllacharybdis.core.ami.AMIHandler")]
 	public class RenderComponent extends BaseObject
 	{
 		private var _sprite:SpriteObject = new SpriteObject();
 		private var _amihandler:AMIHandler;
 		
-		public override function engine_awake():void
+		/**
+		 * Engine contructor
+		 */
+		public override final function engine_awake():void
 		{
 			_amihandler = getDependency(AMIHandler);
 		}
 		
-		public override function engine_destroy():void
+		/**
+		 * Engine destructor
+		 */
+		public override final function engine_destroy():void
 		{
 			MemoryManager.destroy( _sprite );
 			MemoryManager.destroy( _amihandler );
@@ -43,7 +50,7 @@ package com.scyllacharybdis.components
 		 * Load the texture
 		 * @param	fileName (String) The texture file
 		 */
-		public function loadTexture( fileName:String ):void
+		public final function loadTexture( fileName:String ):void
 		{
 			// Dispatch the load texture 
 			_amihandler.dispatchTask( new AMITask( new TextureLoaderAction(fileName), new TextureResults(), this ) );
@@ -54,7 +61,7 @@ package com.scyllacharybdis.components
 		 * Add the renderable to the surface
 		 * @param	surface (Backbuffer) The render surface
 		 */
-		public function render( surface:Backbuffer ):void
+		public final function render( surface:Backbuffer ):void
 		{
 			if ( ! _sprite.loaded ) 
 			{
@@ -69,7 +76,7 @@ package com.scyllacharybdis.components
 		 * Texture load was successfull
 		 * @param	data
 		 */
-		public function textureLoadSuccess( data:BitmapData ):void
+		public final function textureLoadSuccess( data:BitmapData ):void
 		{
 			_sprite.setTexture( data );
 		}
@@ -78,9 +85,11 @@ package com.scyllacharybdis.components
 		 * Handle the texture load failure
 		 * @param	data
 		 */		
-		public function textureLoadError( data:* ):void
+		public final function textureLoadError( data:* ):void
 		{
 			trace( "textureLoadError: " + data );
 		}
+		
+		public function get amihandler():AMIHandler { return _amihandler; }
 	}
 }
