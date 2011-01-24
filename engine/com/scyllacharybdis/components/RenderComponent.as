@@ -28,16 +28,36 @@ package com.scyllacharybdis.components
 		
 		/**
 		 * Engine contructor
+		 * @private
 		 */
-		public override final function engine_awake():void
+		public final override function engine_awake():void
 		{
 			_amihandler = getDependency(AMIHandler);
+		}
+
+		/** 
+		 * Engine start
+		 * @private
+		 */
+		public final override function engine_start():void
+		{
+			super.engine_start();
+		}
+
+		/** 
+		 * Engine stop
+		 * @private
+		 */
+		public final override function engine_stop():void
+		{
+			super.engine_stop();
 		}
 		
 		/**
 		 * Engine destructor
+		 * @private
 		 */
-		public override final function engine_destroy():void
+		public final override function engine_destroy():void
 		{
 			MemoryManager.destroy( _sprite );
 			MemoryManager.destroy( _amihandler );
@@ -90,6 +110,6 @@ package com.scyllacharybdis.components
 			trace( "textureLoadError: " + data );
 		}
 		
-		public function get amihandler():AMIHandler { return _amihandler; }
+		public final function get amihandler():AMIHandler { return _amihandler; }
 	}
 }

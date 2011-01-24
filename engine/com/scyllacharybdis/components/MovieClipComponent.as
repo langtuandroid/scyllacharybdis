@@ -93,25 +93,25 @@ package com.scyllacharybdis.components
 		/**
 		 * Get the movie clip
 		 */
-		public function get baseclip():MovieClip { return _baseclip; }
+		public final function get baseclip():MovieClip { return _baseclip; }
 
 		/**
 		 * Set the movie clip
 		 */
-		public function set baseclip( value:MovieClip ):void { _baseclip = value; }
+		public final function set baseclip( value:MovieClip ):void { _baseclip = value; }
 		
 		/**
 		 * Get the comparator used for sorting
 		 * @private
 		 */ 
-		public function get comparator():Number { return owner.position.z }
+		public final function get comparator():Number { return owner.position.z }
 		
 
 		/**
 		 * Add the renderable to the surface
 		 * @param	surface (DisplayObjectContainer) 
 		 */
-		public function render( surface:Backbuffer ):void
+		public final function render( surface:Backbuffer ):void
 		{
 			// Create a new bitmap
 			var bitmapData:BitmapData = new BitmapData(_baseclip.width, _baseclip.height, true, 0x000000FF);
