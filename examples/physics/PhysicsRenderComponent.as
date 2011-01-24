@@ -1,13 +1,13 @@
 package physics
 {
-	import com.scyllacharybdis.components.RenderComponent;
+	import com.scyllacharybdis.components.MovieClipComponent;
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	
 	/**
 	 */
 	//[Requires ("com.scyllacharybdis.core.loaders.TextureManager")]
-	public class PhysicsRenderComponent extends RenderComponent
+	public class PhysicsRenderComponent extends MovieClipComponent
 	{
 	//	private var _textureManager:TextureManager;
 	//	private var _circle:TextureObject;

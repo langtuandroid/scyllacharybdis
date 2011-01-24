@@ -1,17 +1,18 @@
 package physics
 {
+	import com.scyllacharybdis.components.MovieClipComponent;
 	import com.scyllacharybdis.components.XMLRenderComponent;
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	
 	/**
 	 */
-	public class XMLPhysicsRenderComponent extends XMLRenderComponent
+	public class XMLPhysicsRenderComponent extends MovieClipComponent
 	{
 		
 		override public function awake():void 
 		{
-			loadMaterial("test.xml", "blackpawn");
+			//loadMaterial("test.xml", "blackpawn");
 		}
 		
 		public function createBox( x:int, y:int, color:Number = 0x123456):void

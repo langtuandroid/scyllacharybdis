@@ -66,6 +66,13 @@ package com.scyllacharybdis.core.objects
 		 */
 		public function setTexture(textureData:BitmapData):void 
 		{
+			// Has the rectangle been setup
+			if ( _rectangle == null )
+			{
+				// Set the rectangle to the full texture
+				setDimensions(textureData.rect.top, textureData.rect.left, textureData.rect.width, textureData.rect.height);
+			}
+			
 			// Create the bitmap
 			_bitmapData = new BitmapData(_rectangle.width, _rectangle.height, true, 0xFFFFFFFF);
 			

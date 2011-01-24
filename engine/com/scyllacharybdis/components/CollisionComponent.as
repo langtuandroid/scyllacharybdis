@@ -12,14 +12,10 @@ package com.scyllacharybdis.components
 
 	/**
 	 */
-	[ComponentType ("com.scyllacharybdis.components.CollisionComponent")]
+	[Component (type="CollisionComponent")]
 	[Requires ("com.scyllacharybdis.core.physics.PhysicsWorld")]
 	public class CollisionComponent extends BaseObject
 	{
-		
-		/****************************************/
-		// Class Details
-		/****************************************/
 		private var _body:b2Body;
 		private var _physicsWorld:PhysicsWorld;
 		
@@ -98,7 +94,7 @@ package com.scyllacharybdis.components
 		 * @param	y (int) height in pixels
 		 * @param dynamtic (Boolean) Is the object dynamtic
 		 */
-		public function createBody(x:int, y:int, dynamtic:Boolean):void
+		public function createBody(width:int, height:int, dynamtic:Boolean):void
 		{
 			// Create the body definition
 			var bodyDef:b2BodyDef = new b2BodyDef();
@@ -113,7 +109,7 @@ package com.scyllacharybdis.components
 			var scale:int = _physicsWorld.drawScale;
 
 			//Set its position in the world. 
-			bodyDef.position.Set(x / scale, y / scale);
+			bodyDef.position.Set(width / scale, height / scale);
 			
 			// Add the gameobject to it
 			bodyDef.userData = owner;
@@ -142,7 +138,7 @@ package com.scyllacharybdis.components
 			var boxShape:b2PolygonShape = new b2PolygonShape();
 			
 			// Set as a box
-			boxShape.SetAsBox(width / scale, height/scale);
+			boxShape.SetAsBox(width / scale, height / scale);
 			
 			// Create the fixture
 			var fixtureDef:b2FixtureDef = new b2FixtureDef();
