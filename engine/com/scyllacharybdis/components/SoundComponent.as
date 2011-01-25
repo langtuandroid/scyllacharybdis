@@ -1,6 +1,7 @@
 package com.scyllacharybdis.components
 {
 	import com.scyllacharybdis.core.objects.BaseObject;
+	import com.scyllacharybdis.core.objects.ComponentObject;
 	import flash.media.Sound;
 	import flash.net.URLRequest;
 	import flash.events.ProgressEvent;
@@ -10,7 +11,7 @@ package com.scyllacharybdis.components
 	 * 
 	 */
 	[Component (type="SoundComponent")]
-	public class SoundComponent extends BaseObject
+	public class SoundComponent extends ComponentObject
 	{
 		private var _sound:Sound;
 		

@@ -1,6 +1,7 @@
 package com.scyllacharybdis.components
 {
 	import com.scyllacharybdis.core.objects.BaseObject;
+	import com.scyllacharybdis.core.objects.ComponentObject;
 	import com.scyllacharybdis.core.rendering.Backbuffer;
 	import flash.display.BitmapData;
 	import flash.geom.Point;
@@ -15,7 +16,7 @@ package com.scyllacharybdis.components
 	 * 
 	 */
 	[Component (type="RenderComponent")]
-	public class MovieClipComponent extends BaseObject
+	public class MovieClipComponent extends ComponentObject
 	{
 		private var _baseclip:MovieClip  = new MovieClip();
 		
@@ -35,7 +36,6 @@ package com.scyllacharybdis.components
 		public final override function engine_start(): void 
 		{
 			addListeners();
-			
 			super.engine_start();
 		}
 		

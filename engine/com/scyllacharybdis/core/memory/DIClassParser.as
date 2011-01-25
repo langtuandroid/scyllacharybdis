@@ -7,6 +7,7 @@ package com.scyllacharybdis.core.memory
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
 	import flash.utils.getQualifiedSuperclassName;
+	
 	/**
 	 */
 	public class DIClassParser 
@@ -15,6 +16,11 @@ package com.scyllacharybdis.core.memory
 		private var _dependencies:Dictionary = new Dictionary(true);
 		private var _bind:Dictionary = new Dictionary(true);
 		
+		/**
+		 * Load the class details
+		 * @param	className 
+		 * @return
+		 */
 		public function loadClass( className:Class ):DIClassDetails
 		{
 			if ( _classes[className] != null ) 
@@ -23,15 +29,14 @@ package com.scyllacharybdis.core.memory
 			}
 			return populateClassDetails( className );
 		}
-		
-		public function bind(from:String, to:String):void 
-		{
-			_bind[from] = to;
-		}
-		
+
+		/**
+		 * Populate the class details
+		 * @param	className
+		 * @return
+		 */
 		private function populateClassDetails( className:Class ):DIClassDetails 
 		{
-			
 			_classes[className] = new DIClassDetails();
 			_classes[className].className = className;		
 			
@@ -48,12 +53,15 @@ package com.scyllacharybdis.core.memory
 				}
 				
 				// Is it a singleton
-				if (value.attribute("name") == "ComponentType" ) 
+				if (value.attribute("name") == "Component" ) 
 				{
+					trace( "Component " + value );
 					for each ( var com:XML in value.arg ) 
 					{
-						var comName:String = com.attribute("value");
-						var comClass:Class = Class(getDefinitionByName(comName));
+						var comKey:String = com.attribute("value");
+						var comValue:String = com.attribute("value");
+						var comClass:Class = Class(getDefinitionByName("com.scyllacharybdis.components." + comValue));
+						trace( comClass );
 						_classes[className].componentType  = comClass;
 					}
 				}

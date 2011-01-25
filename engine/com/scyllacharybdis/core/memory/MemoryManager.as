@@ -25,16 +25,6 @@ package com.scyllacharybdis.core.memory
 		private static var _classParser:DIClassParser = new DIClassParser();
 		
 		/**
-		 * Switch the implementation of the requested class
-		 * @param	from
-		 * @param	to
-		 */
-		public static function bind( from:String, to:String ):void
-		{
-			_classParser.bind( from, to );
-		}
-		
-		/**
 		* Instantiate an object
 		* @param type (Class) The type of object to create
 		*/
@@ -95,7 +85,7 @@ package com.scyllacharybdis.core.memory
 		 * Destroy the scene object 
 		 * @param object (SceneObject) The scene object to be destroyed
 		 */
-		public static function destroy( obj:* ): void 
+		public static function deallocate( obj:* ): void 
 		{
 			// Let the object run its own destroy methods
 			obj.engine_stop();

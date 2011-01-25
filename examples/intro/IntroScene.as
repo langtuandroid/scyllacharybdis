@@ -24,8 +24,8 @@ package intro
 		public override function awake():void 
 		{
 			trace("Starting IntroScene");
-			_square = MemoryManager.instantiate( GameObject );
-			_otherSquare = MemoryManager.instantiate( GameObject );
+			_square = allocate( GameObject );
+			_otherSquare = allocate( GameObject );
 		}
 		
 		/**

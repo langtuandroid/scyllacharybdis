@@ -1,5 +1,7 @@
 package com.scyllacharybdis.core.scenes
 {
+	import com.scyllacharybdis.core.memory.allocate;
+	import com.scyllacharybdis.core.memory.deallocate;
 	import com.scyllacharybdis.core.memory.MemoryManager;
 	import com.scyllacharybdis.core.objects.BaseObject;
 	import com.scyllacharybdis.core.objects.SceneObject;
@@ -58,7 +60,7 @@ package com.scyllacharybdis.core.scenes
 		{
 			if ( _objectList[sceneClass] == null ) 
 			{
-				_objectList[sceneClass] = MemoryManager.instantiate(sceneClass);
+				_objectList[sceneClass] = allocate(sceneClass);
 			}
 			
 			var sceneCount:int = _classStack.length;
@@ -92,7 +94,7 @@ package com.scyllacharybdis.core.scenes
 			if ( destroy ) 
 			{
 				_objectList[sceneClass] = null;
-				MemoryManager.destroy( sceneObject );
+				deallocate( sceneObject );
 			}
 		}
 		
@@ -143,7 +145,7 @@ package com.scyllacharybdis.core.scenes
 				{
 					// Destroy the object
 					_objectList[sceneClass] = null;
-					MemoryManager.destroy( sceneObject );
+					deallocate( sceneObject );
 				}
 			}
 		}

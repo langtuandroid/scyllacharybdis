@@ -9,6 +9,7 @@
 	import com.scyllacharybdis.components.XMLRenderComponent;
 	import com.scyllacharybdis.core.events.NetworkEventHandler;
 	import com.scyllacharybdis.core.events.NetworkEvents;
+	import com.scyllacharybdis.core.memory.allocate;
 	import com.scyllacharybdis.core.memory.MemoryManager;
 	import com.scyllacharybdis.core.physics.PhysicsWorld;
 	import com.scyllacharybdis.core.rendering.Renderer;
@@ -40,27 +41,27 @@
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
 			// Create a window
-			_window = MemoryManager.instantiate(Window);
+			_window = allocate(Window);
 			_window.displayContext = this;
 			
 			// Create a rendering system
-			_renderer = MemoryManager.instantiate(Renderer);
+			_renderer = allocate(Renderer);
 			
 			// Create a network layer
-			var _networkHandler:NetworkEventHandler = MemoryManager.instantiate(NetworkEventHandler);	
+			var _networkHandler:NetworkEventHandler = allocate(NetworkEventHandler);	
 			
-			var _connectionHandler:ConnectionHandler = MemoryManager.instantiate(ConnectionHandler);
-			var _loginHandler:LoginHandler = MemoryManager.instantiate(LoginHandler);
-			var _roomHandler:RoomHandler = MemoryManager.instantiate(RoomHandler);
-			var _chatMessageHandler:ChatMessageHandler = MemoryManager.instantiate(ChatMessageHandler);
+			var _connectionHandler:ConnectionHandler = allocate(ConnectionHandler);
+			var _loginHandler:LoginHandler = allocate(LoginHandler);
+			var _roomHandler:RoomHandler = allocate(RoomHandler);
+			var _chatMessageHandler:ChatMessageHandler = allocate(ChatMessageHandler);
 			
-			_physicsWorld = MemoryManager.instantiate(PhysicsWorld);
+			_physicsWorld = allocate(PhysicsWorld);
 			
 			// Fire a network connection event
 			_networkHandler.fireEvent(NetworkEvents.CONNECT);
 
 			// Create the scene manager
-			_sceneManager = MemoryManager.instantiate(SceneManager);
+			_sceneManager = allocate(SceneManager);
 
 			// Display the intro scene
 			_sceneManager.PushScene(PhysicsScene);	

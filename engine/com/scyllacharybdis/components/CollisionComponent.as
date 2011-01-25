@@ -6,8 +6,10 @@ package com.scyllacharybdis.components
 	import Box2D.Dynamics.b2BodyDef;
 	import Box2D.Dynamics.b2FixtureDef;
 	import com.scyllacharybdis.core.ami.AMIHandler;
+	import com.scyllacharybdis.core.memory.deallocate;
 	import com.scyllacharybdis.core.memory.MemoryManager;
 	import com.scyllacharybdis.core.objects.BaseObject;
+	import com.scyllacharybdis.core.objects.ComponentObject;
 	import com.scyllacharybdis.core.physics.PhysicsWorld;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
@@ -16,7 +18,7 @@ package com.scyllacharybdis.components
 	 */
 	[Component (type="CollisionComponent")]
 	[Requires ("com.scyllacharybdis.core.physics.PhysicsWorld", "com.scyllacharybdis.core.ami.AMIHandler")]
-	public class CollisionComponent extends BaseObject
+	public class CollisionComponent extends ComponentObject
 	{
 		private var _body:b2Body;
 		private var _physicsWorld:PhysicsWorld;
@@ -28,7 +30,7 @@ package com.scyllacharybdis.components
 		 */
 		public final override function engine_awake():void
 		{
-			_physicsWorld = getDependency( PhysicsWorld );
+			_physicsWorld = getDependency(PhysicsWorld);
 			_amihandler = getDependency(AMIHandler);
 			super.engine_awake();
 		}
@@ -58,8 +60,8 @@ package com.scyllacharybdis.components
 		public final override function engine_destroy():void
 		{
 			super.engine_destroy();
-			MemoryManager.destroy( _amihandler );
-			MemoryManager.destroy( _physicsWorld );
+			deallocate( _amihandler );
+			deallocate( _physicsWorld );
 		}
 
 		/**

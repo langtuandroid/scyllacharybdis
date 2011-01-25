@@ -3,6 +3,7 @@ package com.scyllacharybdis.core.objects
 	import com.scyllacharybdis.components.RenderComponent;
 	import com.scyllacharybdis.components.ScriptComponent;
 	import com.scyllacharybdis.components.SoundComponent;
+	import com.scyllacharybdis.core.memory.deallocate;
 	import com.scyllacharybdis.core.memory.MemoryManager;
 	import flash.utils.Dictionary;
 	/**
@@ -77,10 +78,11 @@ package com.scyllacharybdis.core.objects
 		 * Add a component to the game object
 		 * @param	component (Component)
 		 */
-		public final function addComponent( componentType:Class ):void 
+		public final function addComponent( component:ComponentObject ):void 
 		{
-			// Create the new component
-			var component:* = MemoryManager.instantiate(componentType, this);
+			trace( component.getComponentType() );
+			// Set the owner of the component
+			component.owner = this;
 			
 			// Check to see if there is an old one
 			if ( _components[ component.getComponentType() ] != null )
@@ -123,7 +125,7 @@ package com.scyllacharybdis.core.objects
 			// Remove reference from the dictionary
 			delete _components[component.getComponentType()];
 			
-			MemoryManager.destroy(component);
+			deallocate(component);
 		}
 	}
 }
