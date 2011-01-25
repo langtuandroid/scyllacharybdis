@@ -56,7 +56,7 @@ package com.scyllacharybdis.core.di
 
 			// Get the fully qalified name
 			var classString:String = ClassUtils.getFullyQualifiedName( classType, true );
-			trace( "Before: " + classString );
+			//trace( "Before: " + classString );
 			
 			// Check to see if this class has been mapped
 			if ( bindings[classString] != null ) 
@@ -65,7 +65,7 @@ package com.scyllacharybdis.core.di
 				classString =  bindings[classString];
 			}
 			
-			trace( "After: " + classString );
+			//trace( "After: " + classString );
 			
 			// Get the whole cache
 			var typeCache:TypeCache = ByteCodeType.getTypeProvider().getTypeCache();

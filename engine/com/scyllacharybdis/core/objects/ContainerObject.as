@@ -80,7 +80,7 @@ package com.scyllacharybdis.core.objects
 		 */
 		public final function addComponent( component:ComponentObject ):void 
 		{
-			trace( "AddComponent: " + component + " type: " + component.getComponentType() );
+			//trace( "AddComponent: " + component + " type: " + component.getComponentType() );
 			// Set the owner of the component
 			component.owner = this;
 			

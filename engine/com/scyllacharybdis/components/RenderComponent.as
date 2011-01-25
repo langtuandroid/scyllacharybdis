@@ -1,117 +1,68 @@
-package com.scyllacharybdis.components 
+package com.scyllacharybdis.components
 {
-	import com.scyllacharybdis.core.ami.AMIHandler;
-	import com.scyllacharybdis.core.ami.AMITask;
-	import com.scyllacharybdis.core.loaders.TextureLoaderAction;
-	import com.scyllacharybdis.core.loaders.TextureResults;
-	import com.scyllacharybdis.core.loaders.XMLLoaderAction;
-	import com.scyllacharybdis.core.loaders.XMLResults;
-	import com.scyllacharybdis.core.memory.deallocate;
-	import com.scyllacharybdis.core.memory.MemoryManager;
 	import com.scyllacharybdis.core.objects.BaseObject;
 	import com.scyllacharybdis.core.objects.ComponentObject;
-	import com.scyllacharybdis.core.objects.SpriteObject;
 	import com.scyllacharybdis.core.rendering.Backbuffer;
-	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.geom.Point;
-	import flash.geom.Rectangle;
+	import flash.utils.Dictionary;
+	import flash.display.DisplayObjectContainer;
+	import flash.display.MovieClip;
+	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
+	import org.casalib.math.geom.Point3d;
 	
 	/**
-	 * ...
-	 * @author 
+	 * 
 	 */
 	[Component (type="RenderComponent")]
-	[Requires ("com.scyllacharybdis.core.ami.AMIHandler")]
 	public class RenderComponent extends ComponentObject
 	{
-		private var _sprite:SpriteObject = new SpriteObject();
-		private var _amihandler:AMIHandler;
-		
 		/**
-		 * Engine contructor
-		 * @private
+		 * The users constructor. 
+		 * Override awake and create any variables and listeners.
 		 */
-		public final override function engine_awake():void
+		public override function awake():void
 		{
-			_amihandler = getDependency(AMIHandler);
-		}
-
-		/** 
-		 * Engine start
-		 * @private
-		 */
-		public final override function engine_start():void
-		{
-			super.engine_start();
-		}
-
-		/** 
-		 * Engine stop
-		 * @private
-		 */
-		public final override function engine_stop():void
-		{
-			super.engine_stop();
 		}
 		
 		/**
-		 * Engine destructor
-		 * @private
+		 * The users start method. 
+		 * Start runs when the game object is added to the scene.
 		 */
-		public final override function engine_destroy():void
+		public override function start():void
 		{
-			deallocate( _sprite );
-			deallocate( _amihandler );
-
-			_sprite = null;
-			_amihandler = null;
 		}
 
 		/**
-		 * Load the texture
-		 * @param	fileName (String) The texture file
+		 * The users stop method.
+		 * Stop runs when the game object is added to the scene.
 		 */
-		public final function loadTexture( fileName:String ):void
+		public override function stop():void
 		{
-			// Dispatch the load texture 
-			_amihandler.dispatchTask( new AMITask( new TextureLoaderAction(fileName), new TextureResults(), this ) );
-			
+		}
+
+		/**
+		 * The users destructor. 
+		 * Override destroy to clean up any variables or listeners.
+		 */
+		public override function destroy():void
+		{
 		}
 		
+		/**
+		 * Get the comparator used for sorting
+		 * @private
+		 */ 
+		public function get comparator():Number { return owner.position.z }
+		
+
 		/**
 		 * Add the renderable to the surface
-		 * @param	surface (Backbuffer) The render surface
+		 * @param	surface (DisplayObjectContainer) 
 		 */
-		public final function render( surface:Backbuffer ):void
+		public function render( surface:Backbuffer ):void
 		{
-			if ( ! _sprite.loaded ) 
-			{
-				return;
-			}
-
-			// Copy the pixels to the backbuffer
-			surface.copyPixels(_sprite.bitmapData, _sprite.rectangle, new Point(owner.position.x, owner.position.y), null, null, true)
 		}
-
-		/**
-		 * Texture load was successfull
-		 * @param	data
-		 */
-		public final function textureLoadSuccess( data:BitmapData ):void
-		{
-			_sprite.setTexture( data );
-		}
-		
-		/**
-		 * Handle the texture load failure
-		 * @param	data
-		 */		
-		public final function textureLoadError( data:* ):void
-		{
-			trace( "textureLoadError: " + data );
-		}
-		
-		public final function get amihandler():AMIHandler { return _amihandler; }
 	}
 }
