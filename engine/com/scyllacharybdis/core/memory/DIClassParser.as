@@ -60,7 +60,7 @@ package com.scyllacharybdis.core.memory
 						var comKey:String = com.attribute("value");
 						var comValue:String = com.attribute("value");
 						var comClass:Class = Class(getDefinitionByName("com.scyllacharybdis.components." + comValue));
-						trace( "DIClassParser: " + comClass );
+						//trace( "DIClassParser: " + comClass );
 						_classes[className].componentType  = comClass;
 					}
 				}

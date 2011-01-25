@@ -1,7 +1,6 @@
 package com.scyllacharybdis.components
 {
 	import com.scyllacharybdis.core.objects.BaseObject;
-	import com.scyllacharybdis.core.objects.ComponentObject;
 	import com.scyllacharybdis.core.rendering.Backbuffer;
 	import flash.display.BitmapData;
 	import flash.geom.Point;
@@ -16,7 +15,7 @@ package com.scyllacharybdis.components
 	 * 
 	 */
 	[Component (type="RenderComponent")]
-	public class MovieClipComponent extends ComponentObject
+	public class MovieClipComponent extends RenderComponent
 	{
 		private var _baseclip:MovieClip  = new MovieClip();
 		
@@ -101,17 +100,10 @@ package com.scyllacharybdis.components
 		public final function set baseclip( value:MovieClip ):void { _baseclip = value; }
 		
 		/**
-		 * Get the comparator used for sorting
-		 * @private
-		 */ 
-		public final function get comparator():Number { return owner.position.z }
-		
-
-		/**
 		 * Add the renderable to the surface
 		 * @param	surface (DisplayObjectContainer) 
 		 */
-		public final function render( surface:Backbuffer ):void
+		public final override function render( surface:Backbuffer ):void
 		{
 			// Create a new bitmap
 			var bitmapData:BitmapData = new BitmapData(_baseclip.width, _baseclip.height, true, 0x000000FF);

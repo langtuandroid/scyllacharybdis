@@ -149,7 +149,6 @@ package com.scyllacharybdis.core.scenegraph
 		{
 			//trace("SceneGraph: renderables");
 			var renderables:Array = new Array();
-			
 			// Apply frustrum-ish algorithm here
 			for each ( var gameObj:GameObject in _gameObjects )
 			{

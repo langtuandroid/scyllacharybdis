@@ -70,7 +70,7 @@ package com.scyllacharybdis.core.rendering
 			renderables.sortOn( "comparator", Array.NUMERIC );
 			
 			_window.beginRendering();
-			_window.surface.clear(0x000000);
+			_window.surface.clear(0x000000FF);
 			
 			// Render children in order
 			for ( var i:int = 0; i < renderables.length; i++ )

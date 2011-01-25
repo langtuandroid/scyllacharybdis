@@ -19,7 +19,7 @@ package com.scyllacharybdis.components
 	 * @author 
 	 */
 	[Component (type="RenderComponent")]
-	public class XMLRenderComponent extends RenderComponent
+	public class XMLRenderComponent extends TextureRenderComponent
 	{
 		private var _area:String;
 		private var _sprite:SpriteObject = new SpriteObject();
