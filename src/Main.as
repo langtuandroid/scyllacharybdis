@@ -7,6 +7,8 @@
 	import com.scyllacharybdis.components.SoundComponent;
 	import com.scyllacharybdis.components.XMLCollisionComponent;
 	import com.scyllacharybdis.components.XMLRenderComponent;
+	import com.scyllacharybdis.core.di.createInjector;
+	import com.scyllacharybdis.core.di.Injector;
 	import com.scyllacharybdis.core.events.NetworkEventHandler;
 	import com.scyllacharybdis.core.events.NetworkEvents;
 	import com.scyllacharybdis.core.memory.allocate;
@@ -19,9 +21,11 @@
 	import com.scyllacharybdis.handlers.ConnectionHandler;
 	import com.scyllacharybdis.handlers.LoginHandler;
 	import com.scyllacharybdis.handlers.RoomHandler;
+	import examples.di.CoreModule;
+	import examples.di.TestClass;
+	import examples.physics.PhysicsScene;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import physics.PhysicsScene;
 	
 	public class Main extends Sprite 
 	{
@@ -39,6 +43,10 @@
 		private function init(e:Event = null):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
+			
+			// Create the injector
+			var injector:Injector = createInjector( new CoreModule(), this );
+			var test1:TestClass = injector.getInstance(TestClass);
 			
 			// Create a window
 			_window = allocate(Window);

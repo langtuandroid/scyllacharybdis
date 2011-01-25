@@ -1,4 +1,4 @@
-package physics 
+package examples.physics 
 {
 	import com.scyllacharybdis.components.CollisionComponent;
 	import com.scyllacharybdis.components.RenderComponent;
@@ -6,7 +6,7 @@ package physics
 	import com.scyllacharybdis.core.memory.MemoryManager;
 	import com.scyllacharybdis.core.objects.GameObject;
 	import com.scyllacharybdis.core.objects.SceneObject;
-	import intro.SquareScriptComponent;
+	import examples.intro.SquareScriptComponent;
 	
 	/**
 	 */

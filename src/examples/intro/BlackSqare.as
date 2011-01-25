@@ -1,4 +1,4 @@
-package intro
+package examples.intro
 {
 	import core.Texture;
 	
