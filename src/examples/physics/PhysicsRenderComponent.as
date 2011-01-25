@@ -1,19 +1,23 @@
-package physics
+package examples.physics
 {
 	import com.scyllacharybdis.components.MovieClipComponent;
-	import com.scyllacharybdis.components.XMLRenderComponent;
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	
 	/**
 	 */
 	[Component (type="RenderComponent")]
-	public class XMLPhysicsRenderComponent extends MovieClipComponent
+	public class PhysicsRenderComponent extends MovieClipComponent
 	{
+	//	private var _textureManager:TextureManager;
+	//	private var _circle:TextureObject;
+	//	private var _square:TextureObject;
 		
 		override public function awake():void 
 		{
-			//loadMaterial("test.xml", "blackpawn");
+		//	_textureManager = allocate(TextureManager);
+		//	_circle = _textureManager.loadTexture("circle.png");
+		//	_square = _textureManager.loadTexture("square.png");
 		}
 		
 		public function createBox( x:int, y:int, color:Number = 0x123456):void

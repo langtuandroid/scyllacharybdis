@@ -1,13 +1,14 @@
-package intro 
+package examples.intro 
 {
-	import components.RenderComponent;
+	import com.scyllacharybdis.components.MovieClipComponent;
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	/**
 	 * ...
 	 * @author Daniel Lamb
 	 */
-	public class SquareRenderComponent extends RenderComponent
+	[Component (type="RenderComponent")]
+	public class SquareRenderComponent extends MovieClipComponent
 	{
 		public override function start():void
 		{

@@ -1,9 +1,10 @@
-package intro 
+package examples.intro 
 {
 	import com.scyllacharybdis.components.ScriptComponent;
 	import com.scyllacharybdis.components.SoundComponent;
 	import flash.events.MouseEvent;
 	
+	[Component (type="ScriptComponent")]
 	public class SquareScriptComponent extends ScriptComponent
 	{
 		public override function start():void 
