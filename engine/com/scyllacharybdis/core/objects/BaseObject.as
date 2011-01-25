@@ -1,5 +1,6 @@
 package com.scyllacharybdis.core.objects
 {
+	import com.scyllacharybdis.core.memory.deallocate;
 	import com.scyllacharybdis.core.memory.DIClassDetails;
 	import com.scyllacharybdis.core.memory.MemoryManager;
 	import flash.events.EventDispatcher;
@@ -17,7 +18,6 @@ package com.scyllacharybdis.core.objects
 		/****************************************/		
 		private var _dependencies:Dictionary = new Dictionary(true);
 		private var _classDetails:DIClassDetails;
-		private var _owner:* = null;
 
 		private var _awake:Boolean = false;
 		private var _started:Boolean = false;
@@ -92,7 +92,7 @@ package com.scyllacharybdis.core.objects
 			// Destroy the components
 			for each ( var dependency:* in _dependencies )
 			{
-				MemoryManager.destroy( dependency );
+				deallocate( dependency );
 			}
 			
 			_dependencies = null;
@@ -110,18 +110,7 @@ package com.scyllacharybdis.core.objects
 			return _dependencies[type];
 		}
 
-		/**
-		 * Get the component type
-		 */
-		public final function getComponentType():Class
-		{
-			return _classDetails.componentType;
-		}
 
-		/**
-		 * Get the ownering Game Object
-		 */
-		public final function get owner():* { return _owner; }		
 				
 		/****************************************/
 		// DI methods
@@ -181,10 +170,6 @@ package com.scyllacharybdis.core.objects
 		 */
 		public function set started(value:Boolean):void  {_started = value;}
 
-		/**
-		 * Set the ownering Game Object
-		 * @private
-		 */
-		public function set owner( value:* ):void { _owner = value; }		
+	
 	}
 }

@@ -7,6 +7,7 @@ package physics
 	
 	/**
 	 */
+	[Component (type="CollisionComponent")]
 	public class GroundPhysicsComponent extends CollisionComponent
 	{
 		/**

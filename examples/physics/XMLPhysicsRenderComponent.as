@@ -7,6 +7,7 @@ package physics
 	
 	/**
 	 */
+	[Component (type="RenderComponent")]
 	public class XMLPhysicsRenderComponent extends MovieClipComponent
 	{
 		

@@ -6,7 +6,7 @@ package physics
 	
 	/**
 	 */
-	//[Requires ("com.scyllacharybdis.core.loaders.TextureManager")]
+	[Component (type="RenderComponent")]
 	public class PhysicsRenderComponent extends MovieClipComponent
 	{
 	//	private var _textureManager:TextureManager;
@@ -15,7 +15,7 @@ package physics
 		
 		override public function awake():void 
 		{
-		//	_textureManager = MemoryManager.instantiate(TextureManager);
+		//	_textureManager = allocate(TextureManager);
 		//	_circle = _textureManager.loadTexture("circle.png");
 		//	_square = _textureManager.loadTexture("square.png");
 		}

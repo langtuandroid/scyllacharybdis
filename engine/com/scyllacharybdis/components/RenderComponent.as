@@ -6,8 +6,10 @@ package com.scyllacharybdis.components
 	import com.scyllacharybdis.core.loaders.TextureResults;
 	import com.scyllacharybdis.core.loaders.XMLLoaderAction;
 	import com.scyllacharybdis.core.loaders.XMLResults;
+	import com.scyllacharybdis.core.memory.deallocate;
 	import com.scyllacharybdis.core.memory.MemoryManager;
 	import com.scyllacharybdis.core.objects.BaseObject;
+	import com.scyllacharybdis.core.objects.ComponentObject;
 	import com.scyllacharybdis.core.objects.SpriteObject;
 	import com.scyllacharybdis.core.rendering.Backbuffer;
 	import flash.display.Bitmap;
@@ -21,7 +23,7 @@ package com.scyllacharybdis.components
 	 */
 	[Component (type="RenderComponent")]
 	[Requires ("com.scyllacharybdis.core.ami.AMIHandler")]
-	public class RenderComponent extends BaseObject
+	public class RenderComponent extends ComponentObject
 	{
 		private var _sprite:SpriteObject = new SpriteObject();
 		private var _amihandler:AMIHandler;
@@ -59,8 +61,8 @@ package com.scyllacharybdis.components
 		 */
 		public final override function engine_destroy():void
 		{
-			MemoryManager.destroy( _sprite );
-			MemoryManager.destroy( _amihandler );
+			deallocate( _sprite );
+			deallocate( _amihandler );
 
 			_sprite = null;
 			_amihandler = null;

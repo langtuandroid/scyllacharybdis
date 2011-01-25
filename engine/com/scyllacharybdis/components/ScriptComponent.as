@@ -4,6 +4,7 @@ package com.scyllacharybdis.components
 	import Box2D.Dynamics.b2Fixture;
 	import Box2D.Dynamics.b2FixtureDef;
 	import com.scyllacharybdis.core.objects.BaseObject;
+	import com.scyllacharybdis.core.objects.ComponentObject;
 	import com.scyllacharybdis.core.objects.GameObject;
 	import flash.utils.Dictionary;
 	import flash.events.KeyboardEvent;
@@ -14,7 +15,7 @@ package com.scyllacharybdis.components
 	/**
 	 */
 	[Component (type="ScriptComponent")]
-	public class ScriptComponent extends BaseObject
+	public class ScriptComponent extends ComponentObject
 	{
 		private var _updateTimer:Timer = new Timer(1/30 * 1000, 0); 
 

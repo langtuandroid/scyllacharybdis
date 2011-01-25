@@ -1,5 +1,7 @@
 package com.scyllacharybdis.core.objects 
 {
+	import com.scyllacharybdis.core.memory.allocate;
+	import com.scyllacharybdis.core.memory.deallocate;
 	import com.scyllacharybdis.core.memory.MemoryManager;
 	import com.scyllacharybdis.core.scenegraph.SceneGraph;
 	/**
@@ -27,7 +29,7 @@ package com.scyllacharybdis.core.objects
 				return;
 			}
 			_initialized = true;
-			_rootGameObject = MemoryManager.instantiate( GameObject );
+			_rootGameObject = allocate( GameObject );
 			_sceneGraph = getDependency(SceneGraph);
 			
 			super.engine_awake();
@@ -59,7 +61,7 @@ package com.scyllacharybdis.core.objects
 		 */
 		public final override function engine_destroy():void
 		{
-			MemoryManager.destroy( _rootGameObject );
+			deallocate( _rootGameObject );
 
 			super.engine_destroy();
 			

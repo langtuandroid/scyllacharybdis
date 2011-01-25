@@ -1,5 +1,6 @@
 package com.scyllacharybdis.core.objects 
 {
+	import com.scyllacharybdis.core.memory.deallocate;
 	import com.scyllacharybdis.core.memory.MemoryManager;
 	import com.scyllacharybdis.core.scenegraph.SceneGraph;
 	import flash.display.DisplayObject;
@@ -70,7 +71,7 @@ package com.scyllacharybdis.core.objects
 			{
 				delete _children[gameObj];
 				
-				MemoryManager.destroy( gameObj );
+				deallocate( gameObj );
 			}
 			
 			_children = null;
