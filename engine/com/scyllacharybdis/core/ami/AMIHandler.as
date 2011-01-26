@@ -18,6 +18,7 @@ package com.scyllacharybdis.core.ami
 		public final override function engine_awake():void
 		{
 			_eventHander = getDependency(EventHandler);
+			
 			_eventHander.addEventListener("AMI_SUCCESS", this, success );
 			_eventHander.addEventListener("AMI_FAILED", this, failed );
 
@@ -47,7 +48,13 @@ package com.scyllacharybdis.core.ami
 					return;
 			}
 			
-			var uniqueTask:AMIUniqueAction = task as AMIUniqueAction;
+			var uniqueTask:AMIUniqueAction = task.action as AMIUniqueAction;
+			
+			// Make sure the dictionary is created
+			if ( _taskList[uniqueTask] == null ) 
+			{
+				_taskList[uniqueTask] = new Dictionary(true);
+			}
 			
 			if ( _taskList[uniqueTask][uniqueTask.key] == null )
 			{
@@ -80,7 +87,7 @@ package com.scyllacharybdis.core.ami
 				return;
 			}
 			
-			var uniqueTask:AMIUniqueAction = task as AMIUniqueAction;
+			var uniqueTask:AMIUniqueAction = task.action as AMIUniqueAction;
 			
 			// Get the array
 			var list:Array = _taskList[uniqueTask][uniqueTask.key];
@@ -116,7 +123,7 @@ package com.scyllacharybdis.core.ami
 				return;
 			}
 
-			var uniqueTask:AMIUniqueAction = task as AMIUniqueAction;
+			var uniqueTask:AMIUniqueAction = task.action as AMIUniqueAction;
 
 			// Get the array
 			var list:Array = _taskList[uniqueTask][uniqueTask.key];
