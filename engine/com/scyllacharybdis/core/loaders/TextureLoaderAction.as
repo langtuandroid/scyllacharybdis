@@ -30,7 +30,6 @@ package com.scyllacharybdis.core.loaders
 		 */
 		public override function execute():void
 		{
-			trace("TextureLoaderAction before cache");
 			// Check to see if we have already loaded it
 			if ( _cache.getCache( _fileName ) ) 
 			{
@@ -39,7 +38,6 @@ package com.scyllacharybdis.core.loaders
 				return;
 			}
 			
-			trace("TextureLoaderAction after cache");
 			// Load the textire file
 			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loadedCompleteHandler);
 			_loader.load( new URLRequest("textures/" + _fileName ) );
@@ -51,7 +49,6 @@ package com.scyllacharybdis.core.loaders
 		 */
 		private function loadedCompleteHandler(e:Event):void
 		{
-			trace( "loadedCompleteHandler");
 			// Remove the listeners
 			e.target.removeEventListener(Event.COMPLETE, loadedCompleteHandler);
 			

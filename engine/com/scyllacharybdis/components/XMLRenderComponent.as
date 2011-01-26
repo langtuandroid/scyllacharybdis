@@ -43,13 +43,13 @@ package com.scyllacharybdis.components
 		 * Parse the results from the load action
 		 * @param	data
 		 */
-		public final function xmlLoadSuccess( data:* ):void
+		public final function xmlLoadSuccess( data:XML ):void
 		{
 			// Get the texture name
-			data.parseTexture( data..material );
+			parseTexture( data.material.texture );
 			
 			// Get the area definitions
-			data.parseAreas( data..material );			
+			parseAreas( data.material.areas );			
 		}
 		
 		/**
