@@ -46,8 +46,8 @@
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
 			// Create the injector
-			var injector:Injector = createInjector( new CoreModule(), this );
-			var test1:TestClass = injector.getInstance(TestClass);
+			//var injector:Injector = createInjector( new CoreModule(), this );
+			//var test1:TestClass = injector.getInstance(TestClass);
 			
 			// Create a window
 			_window = allocate(Window);
@@ -76,10 +76,6 @@
 			_sceneManager.PushScene(PhysicsScene);	
 
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
-			
-			var test:GameObject = allocate( GameObject );
-			var comp:XMLRenderComponent = allocate( XMLRenderComponent );
-			comp.loadTexture("circle.png");
 		}
 
 		private function onEnterFrame( e:Event ):void
