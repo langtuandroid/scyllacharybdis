@@ -7,6 +7,7 @@ package com.scyllacharybdis.core.loaders
 	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.net.URLLoader;
+	import flash.net.URLLoaderDataFormat;
 	import flash.net.URLRequest;
 	import flash.utils.Dictionary;
 
@@ -15,7 +16,7 @@ package com.scyllacharybdis.core.loaders
 	public class TextureLoaderAction extends AMIUniqueAction
 	{
 		private var _fileName:String;
-		private var _loader:URLLoader;
+		private var _loader:Loader = new Loader();
 		private static var _cache:TextureCache = new TextureCache();
 		
 		public function TextureLoaderAction(fileName:String) 
@@ -39,8 +40,9 @@ package com.scyllacharybdis.core.loaders
 			}
 			
 			// Load the textire file
-			_loader = new URLLoader( new URLRequest("textures/" + _fileName ) );
-			_loader.addEventListener(Event.COMPLETE, loadedCompleteHandler);	
+			_loader.addEventListener(Event.COMPLETE, loadedCompleteHandler);
+			//var fileRequest:URLRequest = new URLRequest("myImage.jpg");
+			_loader.load( new URLRequest("textures/" + _fileName ) );
 		}
 		
 		/**
@@ -53,7 +55,7 @@ package com.scyllacharybdis.core.loaders
 			e.target.removeEventListener(Event.COMPLETE, loadedCompleteHandler);
 			
 			// Get the bitmap
-			var bitmap:Bitmap = Bitmap(_loader.data);
+			var bitmap:Bitmap = Bitmap(_loader.content);
 			
 			// Get the data
 			var texture:BitmapData = bitmap.bitmapData;			

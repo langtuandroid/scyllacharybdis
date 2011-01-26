@@ -13,6 +13,7 @@
 	import com.scyllacharybdis.core.events.NetworkEvents;
 	import com.scyllacharybdis.core.memory.allocate;
 	import com.scyllacharybdis.core.memory.MemoryManager;
+	import com.scyllacharybdis.core.objects.GameObject;
 	import com.scyllacharybdis.core.physics.PhysicsWorld;
 	import com.scyllacharybdis.core.rendering.Renderer;
 	import com.scyllacharybdis.core.rendering.Window;
@@ -76,13 +77,9 @@
 
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
 			
-			new CollisionComponent;
-			new MovieClipComponent;
-			new RenderComponent;
-			new ScriptComponent;
-			new SoundComponent;
-			new XMLCollisionComponent;
-			new XMLRenderComponent;
+			var test:GameObject = allocate( GameObject );
+			var comp:XMLRenderComponent = allocate( XMLRenderComponent );
+			comp.loadTexture("circle.png");
 		}
 
 		private function onEnterFrame( e:Event ):void
