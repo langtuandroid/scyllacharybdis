@@ -33,9 +33,9 @@ package com.scyllacharybdis.components
 		 * Parse the results from the load action
 		 * @param	data
 		 */
-		public final function xmlLoadSuccess( data:* ):void
+		public final function xmlLoadSuccess( data:XML ):void
 		{
-			parseBodies( data..physics );
+			parseBodies( data.physics.bodies );
 		}
 		
 		/**
@@ -66,9 +66,9 @@ package com.scyllacharybdis.components
 					
 					// Create the physics body
 					createBody( width, height, dynamtic );
-					
+
 					// Parse the shapes
-					parseShapes( body..shape );
+					parseShapes( body..shapes );
 				}
 			}
 		}
@@ -79,7 +79,7 @@ package com.scyllacharybdis.components
 		 */
 		private final function parseShapes(shapes:XMLList):void 
 		{
-			for each ( var shape:XML in shapes ) 
+			for each ( var shape:XML in shapes..shape ) 
 			{
 				// Get the global attributes
 				var friction:Number = shape.attribute("friction");

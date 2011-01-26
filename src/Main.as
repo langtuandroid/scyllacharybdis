@@ -73,7 +73,17 @@
 			_sceneManager = allocate(SceneManager);
 
 			// Display the intro scene
-			_sceneManager.PushScene(PhysicsScene);	
+			//_sceneManager.PushScene(PhysicsScene);	
+			
+			var _test:GameObject = allocate( GameObject );
+			trace("LoginScene1");
+			var tmpRender:XMLRenderComponent = allocate( XMLRenderComponent );
+			var tmpPhysics:XMLCollisionComponent = allocate( XMLCollisionComponent );
+			//var tmpRender:TextureRenderComponent = allocate( TextureRenderComponent );
+			trace("LoginScene2");
+			//tmpRender.loadTexture("test.png");
+			tmpRender.loadMaterial("test.xml", "spinnersprite");
+			tmpPhysics.loadPhysics("test.xml", "spinnerbody");
 
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
 		}

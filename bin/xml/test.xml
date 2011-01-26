@@ -16,14 +16,20 @@
 	<physics>
 		<bodies>
 			<body name="spinnerbody" width="40" height="40" dynamtic="true">
-				<shape type="polygon" top="0.0" left="0.0" width="40" height="40" friction="0.3" density="0" restitution="0.1"/>
+				<shapes>
+					<shape type="polygon" top="0.0" left="0.0" width="40" height="40" friction="0.3" density="0" restitution="0.1"/>
+				</shapes>
 			</body>
 			<body name="bouncybody" width="40" height="40" dynamtic="true">
-				<shape type="polygon" top="0.0" left="0.0" width="40" height="40" friction="0.3" density="0" restitution="0.5"/>
+				<shapes>
+					<shape type="polygon" top="0.0" left="0.0" width="40" height="40" friction="0.3" density="0" restitution="0.5"/>
+				</shapes>
 			</body>
 			<body name="polyandcircle" width="40" height="40" ddynamtic="true">
-				<shape type="circle" x="10" y="20" radius="10" friction="0.3" density="0" restitution="0.5"/>
-				<shape type="polygon" top="0" left="20" width="20" height="40" friction="0.3" density="0" restitution="0.5"/>
+				<shapes>
+					<shape type="circle" x="10" y="20" radius="10" friction="0.3" density="0" restitution="0.5"/>
+					<shape type="polygon" top="0" left="20" width="20" height="40" friction="0.3" density="0" restitution="0.5"/>
+				</shapes>
 			</body>
 		</bodies>
 	</physics>

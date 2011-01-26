@@ -14,7 +14,7 @@ package com.scyllacharybdis.core.loaders
 		 */
 		public override function success(data:*):void
 		{
-			task.invoker.xmlLoadSuccess( data );
+			task.invoker.xmlLoadSuccess( new XML(data) );
 		}
 		
 		/**

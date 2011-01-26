@@ -74,7 +74,6 @@ package com.scyllacharybdis.components
 		 */
 		public final function loadTexture( fileName:String ):void
 		{
-			trace( _amihandler );
 			// Dispatch the load texture 
 			_amihandler.dispatchTask( new AMITask( new TextureLoaderAction(fileName), new TextureResults(), this ) );
 			
@@ -101,7 +100,6 @@ package com.scyllacharybdis.components
 		 */
 		public final function textureLoadSuccess( data:BitmapData ):void
 		{
-			trace("textureLoadSuccess");
 			_sprite.setTexture( data );
 		}
 		
