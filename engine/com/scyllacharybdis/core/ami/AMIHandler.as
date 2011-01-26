@@ -39,6 +39,9 @@ package com.scyllacharybdis.core.ami
 		 */
 		public final function dispatchTask( task:AMITask ):void
 		{
+			// Set the event handler
+			task.action.eventHandler = _eventHander;
+			
 			if ( ! (task.action is AMIUniqueAction) ) 
 			{
 					// Execute the action

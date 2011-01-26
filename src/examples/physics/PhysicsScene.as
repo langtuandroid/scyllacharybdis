@@ -40,7 +40,7 @@ package examples.physics
 			// Add the to the scene
 			addToScene(_ground);
 			
-			for (var i:int = 1; i < 10; i++)
+			for (var i:int = 1; i < 11; i++)
 			{
 				// Create a box
 				var geom:GameObject = allocate( GameObject );

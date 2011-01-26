@@ -35,7 +35,6 @@ package com.scyllacharybdis.components
 		public final override function engine_awake():void
 		{
 			_amihandler = getDependency(AMIHandler);
-			trace( "TextureRenderComp::engine_awake" + _amihandler );
 		}
 
 		/** 
@@ -102,6 +101,7 @@ package com.scyllacharybdis.components
 		 */
 		public final function textureLoadSuccess( data:BitmapData ):void
 		{
+			trace("textureLoadSuccess");
 			_sprite.setTexture( data );
 		}
 		
