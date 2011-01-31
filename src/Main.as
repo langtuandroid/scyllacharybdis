@@ -17,7 +17,6 @@
 	import com.scyllacharybdis.core.physics.PhysicsWorld;
 	import com.scyllacharybdis.core.rendering.Renderer;
 	import com.scyllacharybdis.core.rendering.Window;
-	import com.scyllacharybdis.core.scenes.SceneManager;
 	import com.scyllacharybdis.handlers.ChatMessageHandler;
 	import com.scyllacharybdis.handlers.ConnectionHandler;
 	import com.scyllacharybdis.handlers.LoginHandler;
@@ -25,6 +24,7 @@
 	import examples.di.CoreModule;
 	import examples.di.TestClass;
 	import examples.physics.PhysicsScene;
+	import examples.scene.SceneManager;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	
@@ -73,18 +73,8 @@
 			_sceneManager = allocate(SceneManager);
 
 			// Display the intro scene
-			//_sceneManager.PushScene(PhysicsScene);	
+			_sceneManager.PushScene(PhysicsScene);	
 			
-			var _test:GameObject = allocate( GameObject );
-			trace("LoginScene1");
-			var tmpRender:XMLRenderComponent = allocate( XMLRenderComponent );
-			var tmpPhysics:XMLCollisionComponent = allocate( XMLCollisionComponent );
-			//var tmpRender:TextureRenderComponent = allocate( TextureRenderComponent );
-			trace("LoginScene2");
-			//tmpRender.loadTexture("test.png");
-			tmpRender.loadMaterial("test.xml", "spinnersprite");
-			tmpPhysics.loadPhysics("test.xml", "spinnerbody");
-
 			addEventListener( Event.ENTER_FRAME, onEnterFrame );
 		}
 
