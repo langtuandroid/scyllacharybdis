@@ -1,10 +1,9 @@
-package com.scyllacharybdis.core.scenes
+package examples.scene
 {
 	import com.scyllacharybdis.core.memory.allocate;
 	import com.scyllacharybdis.core.memory.deallocate;
 	import com.scyllacharybdis.core.memory.MemoryManager;
 	import com.scyllacharybdis.core.objects.BaseObject;
-	import com.scyllacharybdis.core.objects.SceneObject;
 	import flash.utils.Dictionary;
 	/**
 	 */

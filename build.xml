@@ -54,7 +54,6 @@
 				${basedir}/engine/com/scyllacharybdis/core/physics/
 				${basedir}/engine/com/scyllacharybdis/core/rendering/
 				${basedir}/engine/com/scyllacharybdis/core/scenegraph/
-				${basedir}/engine/com/scyllacharybdis/core/scenes/
 				${basedir}/engine/com/scyllacharybdis/events/ 
 				${basedir}/engine/com/scyllacharybdis/handlers/
 				${basedir}/engine/com/scyllacharybdis/models/

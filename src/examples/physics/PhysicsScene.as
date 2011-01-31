@@ -5,8 +5,8 @@ package examples.physics
 	import com.scyllacharybdis.core.memory.allocate;
 	import com.scyllacharybdis.core.memory.MemoryManager;
 	import com.scyllacharybdis.core.objects.GameObject;
-	import com.scyllacharybdis.core.objects.SceneObject;
 	import examples.intro.SquareScriptComponent;
+	import examples.scene.SceneObject;
 	
 	/**
 	 */

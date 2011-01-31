@@ -1,8 +1,10 @@
-package com.scyllacharybdis.core.objects 
+package examples.scene 
 {
 	import com.scyllacharybdis.core.memory.allocate;
 	import com.scyllacharybdis.core.memory.deallocate;
 	import com.scyllacharybdis.core.memory.MemoryManager;
+	import com.scyllacharybdis.core.objects.BaseObject;
+	import com.scyllacharybdis.core.objects.GameObject;
 	import com.scyllacharybdis.core.scenegraph.SceneGraph;
 	/**
 	 */

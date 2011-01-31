@@ -8,7 +8,7 @@ package com.scyllacharybdis.core.objects
 	 * ...
 	 * @author 
 	 */
-	public class SpriteObject 
+	public class SpriteObject extends BaseObject
 	{
 		private var _loaded:Boolean = false;
 		private var _bitmapData:BitmapData;
@@ -45,7 +45,7 @@ package com.scyllacharybdis.core.objects
 			return null; 
 		}
 		
-		public function play(animationName:String):void
+		public function playAnimation(animationName:String):void
 		{
 			if ( _animations[animationName] == null ) 
 			{ 
@@ -55,7 +55,7 @@ package com.scyllacharybdis.core.objects
 			_playing = animationName; 
 		}
 		
-		public function stop():void
+		public function stopAnimation():void
 		{
 			_playing = null;
 		}
