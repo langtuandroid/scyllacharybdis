@@ -114,7 +114,7 @@ package com.scyllacharybdis.components
 		 */
 		public function onClick( e:MouseEvent ):void
 		{
-			trace( "clicked" );
+			//trace( "clicked" );
 		}
 		
 		/*

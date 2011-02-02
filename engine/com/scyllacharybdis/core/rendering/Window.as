@@ -137,7 +137,6 @@ package com.scyllacharybdis.core.rendering
 			{
 				return;
 			}
-			trace( "addListeners" );
 			_canvas.addEventListener( MouseEvent.CLICK, onClick, false, 0, true);
 			_canvas.addEventListener( MouseEvent.DOUBLE_CLICK, onDoubleClick, false, 0, true );
 			_canvas.addEventListener( MouseEvent.MOUSE_DOWN, onMouseDown, false, 0, true );

@@ -74,6 +74,9 @@ package com.scyllacharybdis.core.rendering
 			_window.endRendering();
 		}
 		
+		/**
+		 * Get the window used by the renderer
+		 */
 		public function get window():Window
 		{
 			return _window;
