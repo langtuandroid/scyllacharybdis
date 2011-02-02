@@ -4,7 +4,6 @@ package com.scyllacharybdis.handlers
 	import com.scyllacharybdis.core.events.NetworkEvents;
 	import com.scyllacharybdis.core.objects.BaseObject;
 	import flash.utils.Dictionary;
-	import com.smartfoxserver.v2.core.SFSEvent;
 	
 	/**
 	 */
@@ -27,15 +26,15 @@ package com.scyllacharybdis.handlers
 			// Get the event manager
 			_networkEventHandler = getDependency(NetworkEventHandler);
 			
-			_networkEventHandler.addEventListener(SFSEvent.CONNECTION, this, onConnection);
-			_networkEventHandler.addEventListener(SFSEvent.CONNECTION_LOST, this, onConnectionLost);
-			_networkEventHandler.addEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, this, onConfigLoadSuccess);
-			_networkEventHandler.addEventListener(SFSEvent.CONFIG_LOAD_FAILURE, this, onConfigLoadFailure);
+			_networkEventHandler.addEventListener(NetworkEvents.CONNECTION, this, onConnection);
+			_networkEventHandler.addEventListener(NetworkEvents.CONNECTION_LOST, this, onConnectionLost);
+			_networkEventHandler.addEventListener(NetworkEvents.CONFIG_LOAD_SUCCESS, this, onConfigLoadSuccess);
+			_networkEventHandler.addEventListener(NetworkEvents.CONFIG_LOAD_FAILURE, this, onConfigLoadFailure);
 			
 			super.engine_awake();
 
-			_networkEventHandler.addEventListener(NetworkEvents.CONNECT, this, requestConnection );
-			_networkEventHandler.addEventListener(NetworkEvents.DISCONNECT, this, requestDisconnection );
+			_networkEventHandler.addEventListener(NetworkEvents.CONNECT_REQUEST, this, requestConnection );
+			_networkEventHandler.addEventListener(NetworkEvents.DISCONNECT_REQUEST, this, requestDisconnection );
 			
 		}
 		
@@ -64,15 +63,15 @@ package com.scyllacharybdis.handlers
 		 */
 		public final override function engine_destroy():void
 		{
-			_networkEventHandler.removeEventListener(NetworkEvents.CONNECT, this, requestConnection );
-			_networkEventHandler.removeEventListener(NetworkEvents.DISCONNECT, this, requestDisconnection );
+			_networkEventHandler.removeEventListener(NetworkEvents.CONNECT_REQUEST, this, requestConnection );
+			_networkEventHandler.removeEventListener(NetworkEvents.DISCONNECT_REQUEST, this, requestDisconnection );
 
 			super.engine_destroy();
 			
-			_networkEventHandler.removeEventListener(SFSEvent.CONNECTION, this, onConnection);
-			_networkEventHandler.removeEventListener(SFSEvent.CONNECTION_LOST, this, onConnectionLost);
-			_networkEventHandler.removeEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, this, onConfigLoadSuccess);
-			_networkEventHandler.removeEventListener(SFSEvent.CONFIG_LOAD_FAILURE, this, onConfigLoadFailure);
+			_networkEventHandler.removeEventListener(NetworkEvents.CONNECTION, this, onConnection);
+			_networkEventHandler.removeEventListener(NetworkEvents.CONNECTION_LOST, this, onConnectionLost);
+			_networkEventHandler.removeEventListener(NetworkEvents.CONFIG_LOAD_SUCCESS, this, onConfigLoadSuccess);
+			_networkEventHandler.removeEventListener(NetworkEvents.CONFIG_LOAD_FAILURE, this, onConfigLoadFailure);
 		}
 		
 		/**
@@ -176,7 +175,7 @@ package com.scyllacharybdis.handlers
 		private function connectionSuccess():void
 		{
 			_connected = true;
-			_networkEventHandler.fireEvent(NetworkEvents.CONNECTION_SUCCESS);
+			_networkEventHandler.fireEvent(NetworkEvents.CONNECTION_REQUEST_SUCCESS);
 		}
 		
 		/**
@@ -186,14 +185,14 @@ package com.scyllacharybdis.handlers
 		private function connectionFailed(message:String):void
 		{
 			_connected = false;
-			_networkEventHandler.fireEvent(NetworkEvents.CONNECTION_FAILED, message);
+			_networkEventHandler.fireEvent(NetworkEvents.CONNECTION_REQUEST_FAILED, message);
 		}
 		
 		/**
 		 * onConntection event handler
-		 * @param	evt (SFSEvent)
+		 * @param	evt (NetworkEvents)
 		 */
-		private function onConnection(evt:SFSEvent):void
+		private function onConnection(evt:NetworkEvents):void
 		{
 			if (evt.params.success)
 			{
@@ -207,27 +206,27 @@ package com.scyllacharybdis.handlers
 		
 		/**
 		 * onConnectionLost event handler
-		 * @param	evt (SFSEvent)
+		 * @param	evt (NetworkEvents)
 		 */
-		private function onConnectionLost(evt:SFSEvent):void
+		private function onConnectionLost(evt:NetworkEvents):void
 		{
 			trace("Connection was lost. Reason: " + evt.params.reason)
 		}
 		
 		/**
 		 * onConfigLoadSuccess event handler
-		 * @param	evt (SFSEvent)
+		 * @param	evt (NetworkEvents)
 		 */
-		private function onConfigLoadSuccess(evt:SFSEvent):void
+		private function onConfigLoadSuccess(evt:NetworkEvents):void
 		{
 			trace("Server settings: "  + _networkEventHandler.config.host + ":" + _networkEventHandler.config.port)
 		}
 		
 		/**
 		 * onConfigLoadFailure event handler
-		 * @param	evt (SFSEvent)
+		 * @param	evt (NetworkEvents)
 		 */
-		private function onConfigLoadFailure(evt:SFSEvent):void
+		private function onConfigLoadFailure(evt:NetworkEvents):void
 		{
 			trace("Config load failure!!!")
 		}

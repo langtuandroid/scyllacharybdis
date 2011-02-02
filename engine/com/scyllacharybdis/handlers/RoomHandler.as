@@ -6,7 +6,6 @@ package com.scyllacharybdis.handlers
 	import com.scyllacharybdis.models.CreateRoomModel;
 	import com.scyllacharybdis.models.RoomModel;
 	import flash.utils.Dictionary;
-	import com.smartfoxserver.v2.core.SFSEvent;
 	import com.smartfoxserver.v2.requests.JoinRoomRequest;
 	import com.smartfoxserver.v2.requests.RoomSettings;
 	import com.smartfoxserver.v2.requests.RoomExtension;
@@ -36,20 +35,20 @@ package com.scyllacharybdis.handlers
 			// Get the event manager
 			_networkEventHandler = getDependency(NetworkEventHandler);
 			
-			_networkEventHandler.addEventListener(SFSEvent.ROOM_CREATION_ERROR, this, onRoomCreationError);
-			_networkEventHandler.addEventListener(SFSEvent.ROOM_JOIN, this, onJoinRoom);
-			_networkEventHandler.addEventListener(SFSEvent.ROOM_JOIN_ERROR, this, onJoinRoomError);
-			_networkEventHandler.addEventListener(SFSEvent.ROOM_ADD, this, onRoomAdd);
-			_networkEventHandler.addEventListener(SFSEvent.ROOM_REMOVE, this, onRoomRemove);
-			_networkEventHandler.addEventListener(SFSEvent.USER_ENTER_ROOM, this, onUserEnterRoom);
-			_networkEventHandler.addEventListener(SFSEvent.USER_EXIT_ROOM, this, onUserExitRoom);
-			_networkEventHandler.addEventListener(SFSEvent.USER_COUNT_CHANGE, this, onUserCountChange);
+			_networkEventHandler.addEventListener(NetworkEvents.ROOM_CREATION_ERROR, this, onRoomCreationError);
+			_networkEventHandler.addEventListener(NetworkEvents.ROOM_JOIN, this, onJoinRoom);
+			_networkEventHandler.addEventListener(NetworkEvents.ROOM_JOIN_ERROR, this, onJoinRoomError);
+			_networkEventHandler.addEventListener(NetworkEvents.ROOM_ADD, this, onRoomAdd);
+			_networkEventHandler.addEventListener(NetworkEvents.ROOM_REMOVE, this, onRoomRemove);
+			_networkEventHandler.addEventListener(NetworkEvents.USER_ENTER_ROOM, this, onUserEnterRoom);
+			_networkEventHandler.addEventListener(NetworkEvents.USER_EXIT_ROOM, this, onUserExitRoom);
+			_networkEventHandler.addEventListener(NetworkEvents.USER_COUNT_CHANGE, this, onUserCountChange);
 			
 			super.engine_start();
 			
-			_networkEventHandler.addEventListener(NetworkEvents.CREATEROOM, this, requestCreateRoom );
-			_networkEventHandler.addEventListener(NetworkEvents.JOINROOM, this, requestJoinRoom );
-			_networkEventHandler.addEventListener(NetworkEvents.LEAVBROOM, this, requestLeaveRoom );
+			_networkEventHandler.addEventListener(NetworkEvents.CREATE_ROOM_REQUEST, this, requestCreateRoom );
+			_networkEventHandler.addEventListener(NetworkEvents.JOIN_ROOM_REQUEST, this, requestJoinRoom );
+			_networkEventHandler.addEventListener(NetworkEvents.LEAVE_ROOM_REQUEST, this, requestLeaveRoom );
 		}
 		
 		/**
@@ -77,21 +76,21 @@ package com.scyllacharybdis.handlers
 		 */
 		public final override function engine_destroy():void
 		{
-			_networkEventHandler.removeEventListener(NetworkEvents.CREATEROOM, this, requestCreateRoom );
-			_networkEventHandler.removeEventListener(NetworkEvents.JOINROOM, this, requestJoinRoom );
-			_networkEventHandler.removeEventListener(NetworkEvents.LEAVBROOM, this, requestLeaveRoom );
+			_networkEventHandler.removeEventListener(NetworkEvents.CREATE_ROOM_REQUEST, this, requestCreateRoom );
+			_networkEventHandler.removeEventListener(NetworkEvents.JOIN_ROOM_REQUEST, this, requestJoinRoom );
+			_networkEventHandler.removeEventListener(NetworkEvents.LEAVE_ROOM_REQUEST, this, requestLeaveRoom );
 			
 			super.engine_destroy();
 
-			_networkEventHandler.removeEventListener(SFSEvent.ROOM_CREATION_ERROR, this, onRoomCreationError);
-			_networkEventHandler.removeEventListener(SFSEvent.ROOM_JOIN, this, onJoinRoom);
-			_networkEventHandler.removeEventListener(SFSEvent.ROOM_JOIN_ERROR, this, onJoinRoomError);
+			_networkEventHandler.removeEventListener(NetworkEvents.ROOM_CREATION_ERROR, this, onRoomCreationError);
+			_networkEventHandler.removeEventListener(NetworkEvents.ROOM_JOIN, this, onJoinRoom);
+			_networkEventHandler.removeEventListener(NetworkEvents.ROOM_JOIN_ERROR, this, onJoinRoomError);
 
-			_networkEventHandler.removeEventListener(SFSEvent.ROOM_ADD, this, onRoomAdd);
-			_networkEventHandler.removeEventListener(SFSEvent.ROOM_REMOVE, this, onRoomRemove);
-			_networkEventHandler.removeEventListener(SFSEvent.USER_ENTER_ROOM, this, onUserEnterRoom);
-			_networkEventHandler.removeEventListener(SFSEvent.USER_EXIT_ROOM, this, onUserExitRoom);
-			_networkEventHandler.removeEventListener(SFSEvent.USER_COUNT_CHANGE, this, onUserCountChange);
+			_networkEventHandler.removeEventListener(NetworkEvents.ROOM_ADD, this, onRoomAdd);
+			_networkEventHandler.removeEventListener(NetworkEvents.ROOM_REMOVE, this, onRoomRemove);
+			_networkEventHandler.removeEventListener(NetworkEvents.USER_ENTER_ROOM, this, onUserEnterRoom);
+			_networkEventHandler.removeEventListener(NetworkEvents.USER_EXIT_ROOM, this, onUserExitRoom);
+			_networkEventHandler.removeEventListener(NetworkEvents.USER_COUNT_CHANGE, this, onUserCountChange);
 		}
 
 		/**
@@ -211,9 +210,9 @@ package com.scyllacharybdis.handlers
 	
 		/**
 		 * onRoomCreationError event handler
-		 * @param	evt (SFSEvent)
+		 * @param	evt (NetworkEvents)
 		 */
-		protected function onRoomCreationError(evt:SFSEvent):void
+		protected function onRoomCreationError(evt:NetworkEvents):void
 		{
 			trace("===> " + evt.params.errorMessage);
 			trace("Room creation error:\n" + evt.params.error);
@@ -221,41 +220,41 @@ package com.scyllacharybdis.handlers
 
 		/**
 		 * onJoinRoomError event handler
-		 * @param	evt (SFSEvent)
+		 * @param	evt (NetworkEvents)
 		 */
-		protected function onJoinRoomError(evt:SFSEvent):void
+		protected function onJoinRoomError(evt:NetworkEvents):void
 		{
-			_networkEventHandler.fireEvent(NetworkEvents.JOINROOM_FAILED, evt.params.errorMessage);
+			_networkEventHandler.fireEvent(NetworkEvents.JOIN_ROOM_REQUEST_FAILED, evt.params.errorMessage);
 		}
 
 		/**
 		 * onJoinRoom event handler
-		 * @param	evt (SFSEvent)
+		 * @param	evt (NetworkEvents)
 		 */
-		protected function onJoinRoom(evt:SFSEvent):void
+		protected function onJoinRoom(evt:NetworkEvents):void
 		{
 			if ( ! _gameRoom ) 
 			{
-				_networkEventHandler.fireEvent(NetworkEvents.JOINROOM_SUCCESS, evt);
+				_networkEventHandler.fireEvent(NetworkEvents.JOIN_ROOM_REQUEST_SUCCESS, evt);
 			} 
 			else 
 			{
-				_networkEventHandler.fireEvent(NetworkEvents.CREATEROOM_SUCCESS, evt);
+				_networkEventHandler.fireEvent(NetworkEvents.JOIN_GAME_ROOM_REQUEST_SUCCESS, evt);
 			}
 		}		
 		
 		/**
 		 * On user count change, update the rooms list.
 		 */
-		private function onUserCountChange(evt:SFSEvent):void
+		private function onUserCountChange(evt:NetworkEvents):void
 		{
-			_networkEventHandler.fireEvent(NetworkEvents.USERCOUNT_CHANGED, evt );
+			_networkEventHandler.fireEvent(NetworkEvents.USER_COUNT_CHANGE, evt );
 		}
 
 		/**
 		 * On user entering the current room, show his/her name in the users list.
 		 */
-		private function onUserEnterRoom(evt:SFSEvent):void
+		private function onUserEnterRoom(evt:NetworkEvents):void
 		{
 			var user:User = evt.params.user;
 			_networkEventHandler.fireEvent(NetworkEvents.USER_ENTER_ROOM, evt );
@@ -264,7 +263,7 @@ package com.scyllacharybdis.handlers
 		/**
 		 * On user leaving the current room, remove his/her name from the users list.
 		 */
-		private function onUserExitRoom(evt:SFSEvent):void
+		private function onUserExitRoom(evt:NetworkEvents):void
 		{
 			var user:User = evt.params.user;
 			_networkEventHandler.fireEvent(NetworkEvents.USER_EXIT_ROOM, evt );
@@ -273,7 +272,7 @@ package com.scyllacharybdis.handlers
 		/**
 		 * On room added, show it in the rooms list.
 		 */
-		private function onRoomAdd(evt:SFSEvent):void
+		private function onRoomAdd(evt:NetworkEvents):void
 		{
 			var room:Room = evt.params.room;
 			_networkEventHandler.fireEvent(NetworkEvents.ROOM_ADD, evt );
@@ -282,7 +281,7 @@ package com.scyllacharybdis.handlers
 		/**
 		 * On room removed, remove it from the rooms list.
 		 */
-		private function onRoomRemove(evt:SFSEvent):void
+		private function onRoomRemove(evt:NetworkEvents):void
 		{
 			var room:Room = evt.params.room;
 			_networkEventHandler.fireEvent(NetworkEvents.ROOM_REMOVE, evt );
