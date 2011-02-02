@@ -6,19 +6,16 @@ package com.scyllacharybdis.components
 	import com.scyllacharybdis.core.objects.BaseObject;
 	import com.scyllacharybdis.core.objects.ComponentObject;
 	import com.scyllacharybdis.core.objects.GameObject;
+	import flash.events.TimerEvent;
 	import flash.utils.Dictionary;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
-	import flash.utils.Timer;
-	import flash.events.TimerEvent;
 
 	/**
 	 */
 	[Component (type="ScriptComponent")]
 	public class ScriptComponent extends ComponentObject
 	{
-		private var _updateTimer:Timer = new Timer(1/30 * 1000, 0); 
-
 		/** 
 		 * Engine constructor
 		 * @private
@@ -35,21 +32,8 @@ package com.scyllacharybdis.components
 		public final override function engine_start():void
 		{
 			super.engine_start();
-
-			// setup the timer
-			_updateTimer.addEventListener(TimerEvent.TIMER, engine_update);
-			_updateTimer.start();
 		}
 		
-		/** 
-		 * Engine start
-		 * @private
-		 */		
-		private final function engine_update(event:TimerEvent):void
-		{
-			update(event);
-		}
-
 		/** 
 		 * Engine stop
 		 * @private
@@ -65,13 +49,7 @@ package com.scyllacharybdis.components
 		 */
 		public final override function engine_destroy():void
 		{
-
 			super.engine_destroy();
-
-			// Stop the timer
-			_updateTimer.stop();
-			_updateTimer = null;
-
 		}
 
 		/**
@@ -94,7 +72,7 @@ package com.scyllacharybdis.components
 		 * The users update method. 
 		 * @param	event
 		 */
-		public function update(event:TimerEvent):void
+		public override function update(event:TimerEvent):void
 		{
 		}
 
@@ -136,6 +114,7 @@ package com.scyllacharybdis.components
 		 */
 		public function onClick( e:MouseEvent ):void
 		{
+			trace( "clicked" );
 		}
 		
 		/*

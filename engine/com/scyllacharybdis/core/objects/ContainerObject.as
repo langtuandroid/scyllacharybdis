@@ -5,6 +5,7 @@ package com.scyllacharybdis.core.objects
 	import com.scyllacharybdis.components.SoundComponent;
 	import com.scyllacharybdis.core.memory.deallocate;
 	import com.scyllacharybdis.core.memory.MemoryManager;
+	import flash.events.TimerEvent;
 	import flash.utils.Dictionary;
 	/**
 	 */
@@ -51,6 +52,18 @@ package com.scyllacharybdis.core.objects
 			
 			super.engine_start();
 		}
+		
+		/**
+		 * Engine update
+		 * @param	event
+		 */
+		public final function engine_update(event:TimerEvent):void 
+		{
+			for each ( var comp:ComponentObject in _components ) 
+			{
+				comp.engine_update(event);
+			}
+		}		
 
 		/**
 		 * The engine stop function
