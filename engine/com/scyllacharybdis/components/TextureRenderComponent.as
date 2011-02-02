@@ -11,7 +11,7 @@ package com.scyllacharybdis.components
 	import com.scyllacharybdis.core.objects.BaseObject;
 	import com.scyllacharybdis.core.objects.ComponentObject;
 	import com.scyllacharybdis.core.objects.SpriteObject;
-	import com.scyllacharybdis.core.rendering.Backbuffer;
+	import com.scyllacharybdis.core.rendering.DoubleBuffer;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.geom.Point;
@@ -27,6 +27,7 @@ package com.scyllacharybdis.components
 	{
 		private var _sprite:SpriteObject = new SpriteObject();
 		private var _amihandler:AMIHandler;
+		private var _worldRect:Rectangle = new Rectangle();
 		
 		/**
 		 * Engine contructor
@@ -81,16 +82,16 @@ package com.scyllacharybdis.components
 		
 		/**
 		 * Add the renderable to the surface
-		 * @param	surface (Backbuffer) The render surface
+		 * @param	surface (DoubleBuffer) The render surface
 		 */
-		public final override function render( surface:Backbuffer ):void
+		public final override function render( surface:DoubleBuffer ):void
 		{
 			if ( ! _sprite.loaded ) 
 			{
 				return;
 			}
 
-			// Copy the pixels to the backbuffer
+			// Copy the pixels to the DoubleBuffer
 			surface.copyPixels(_sprite.bitmapData, _sprite.rectangle, new Point(owner.position.x, owner.position.y), null, null, true)
 		}
 
@@ -113,5 +114,18 @@ package com.scyllacharybdis.components
 		}
 		
 		public final function get amihandler():AMIHandler { return _amihandler; }
+		
+		/**
+		 * Get the world rectangle
+		 * @return
+		 */
+		public override function getWorldRectange():Rectangle
+		{
+			_worldRect.x = owner.position.x;
+			_worldRect.y = owner.position.y;
+			_worldRect.width = _sprite.rectangle.width;
+			_worldRect.height = _sprite.rectangle.height;
+			return _worldRect;
+		}		
 	}
 }

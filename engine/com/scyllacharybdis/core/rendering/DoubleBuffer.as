@@ -1,23 +1,21 @@
 package com.scyllacharybdis.core.rendering 
 {
 	import com.scyllacharybdis.core.objects.BaseObject;
-	import flash.display.DisplayObjectContainer;
-	import flash.display.MovieClip;
-	import flash.display.Sprite;
-	import flash.geom.Point;
+	import flash.display.Bitmap;
 	import flash.display.BitmapData;
-	import flash.display.Bitmap;	
+	import flash.display.DisplayObjectContainer;
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	
 	/**
 	 */
 	[Singleton]
-	public class Backbuffer extends BaseObject
+	public class DoubleBuffer extends BaseObject
 	{
 		private var _width:int;
 		private var _height:int;
 		private var _frontBuffer:BitmapData;
-		private var _backBuffer:BitmapData;
+		private var _DoubleBuffer:BitmapData;
 		private var _origin:Point = new Point(0, 0);
 		private var _canvas:DisplayObjectContainer;
 
@@ -64,27 +62,17 @@ package com.scyllacharybdis.core.rendering
 		 */
 		public function setCanvas( canvas:DisplayObjectContainer, width:int, height:int ):void
 		{
-			_canvas = canvas;
-			_width = width;
-			_height = height;
-
-			// Create the buffers
-			_frontBuffer = new BitmapData(width, height);
-			_backBuffer = new BitmapData(width, height);
-			
-			var surface:Bitmap = new Bitmap(_frontBuffer);
-			_canvas.addChild(surface);
 		}		
 		/**
 		 * Clear the screen
 		 */
 		public function clear(color:uint):void 
 		{
-			_backBuffer.fillRect(_backBuffer.rect, color);			
+			_DoubleBuffer.fillRect(_DoubleBuffer.rect, color);			
 		}
 		
 		/**
-		 * Copy the pixels to the backbuffer
+		 * Copy the pixels to the DoubleBuffer
 		 * @param	bitmapData
 		 * @param	bitmapRect
 		 * @param	destPoint
@@ -94,32 +82,53 @@ package com.scyllacharybdis.core.rendering
 		 */
 		public function copyPixels( bitmapData:BitmapData, bitmapRect:Rectangle, destPoint:Point, alphaBitmapData:BitmapData = null, alphaPoint:Point = null, mergeAlpha:Boolean = false ):void
 		{
-			_backBuffer.copyPixels(bitmapData, bitmapRect, destPoint, alphaBitmapData, alphaPoint, mergeAlpha)
+			_DoubleBuffer.copyPixels(bitmapData, bitmapRect, destPoint, alphaBitmapData, alphaPoint, mergeAlpha)
 		}
 		
 		/**
-		 * Lock the backbuffer for write
+		 * Lock the DoubleBuffer for write
 		 */
 		public function lock():void
 		{
-			_backBuffer.lock();
+			_DoubleBuffer.lock();
 		}
 		
 		/**
-		 * Swap the backbuffer to the front buffer;
+		 * Swap the DoubleBuffer to the front buffer;
 		 */
 		public function swapBuffers():void
 		{
-			_frontBuffer.copyPixels(_backBuffer, _backBuffer.rect, _origin);
+			_frontBuffer.copyPixels(_DoubleBuffer, _DoubleBuffer.rect, _origin);
 		}
 
 		/**
-		 * Unlock the backbuffer after completing the write
+		 * Unlock the DoubleBuffer after completing the write
 		 */
 		public function unlock():void
 		{
-			_backBuffer.unlock();
+			_DoubleBuffer.unlock();
 		}
+		
+		/**
+		 * Get the draw canvas
+		 */
+		public function get canvas():DisplayObjectContainer { return _canvas; }
+		
+		/**
+		 * Set the draw canvas
+		 */
+		public function set canvas(value:DisplayObjectContainer):void 
+		{
+			_canvas = value;
+			_width = value.stage.stageWidth;
+			_height = value.stage.stageHeight;
 
+			// Create the buffers
+			_frontBuffer = new BitmapData(_width, _height);
+			_DoubleBuffer = new BitmapData(_width, _height);
+			
+			var surface:Bitmap = new Bitmap(_frontBuffer);
+			_canvas.addChild(surface);
+		}
 	}
 }

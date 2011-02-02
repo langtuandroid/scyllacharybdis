@@ -73,5 +73,10 @@ package com.scyllacharybdis.core.rendering
 			
 			_window.endRendering();
 		}
+		
+		public function get window():Window
+		{
+			return _window;
+		}
 	}
 }

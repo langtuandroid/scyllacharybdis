@@ -1,9 +1,10 @@
 package com.scyllacharybdis.components
 {
 	import com.scyllacharybdis.core.objects.BaseObject;
-	import com.scyllacharybdis.core.rendering.Backbuffer;
+	import com.scyllacharybdis.core.rendering.DoubleBuffer;
 	import flash.display.BitmapData;
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
@@ -18,7 +19,8 @@ package com.scyllacharybdis.components
 	public class MovieClipComponent extends RenderComponent
 	{
 		private var _baseclip:MovieClip  = new MovieClip();
-		
+		private var _worldRect:Rectangle = new Rectangle();
+
 		/** 
 		 * Engine constructor
 		 * @private
@@ -34,7 +36,6 @@ package com.scyllacharybdis.components
 		 */
 		public final override function engine_start(): void 
 		{
-			addListeners();
 			super.engine_start();
 		}
 		
@@ -45,7 +46,6 @@ package com.scyllacharybdis.components
 		public final override function engine_stop():void
 		{
 			super.engine_stop();
-			removeListeners();
 		}
 		
 		/** 
@@ -103,7 +103,7 @@ package com.scyllacharybdis.components
 		 * Add the renderable to the surface
 		 * @param	surface (DisplayObjectContainer) 
 		 */
-		public final override function render( surface:Backbuffer ):void
+		public final override function render( surface:DoubleBuffer ):void
 		{
 			// Create a new bitmap
 			var bitmapData:BitmapData = new BitmapData(_baseclip.width, _baseclip.height, true, 0x000000FF);
@@ -111,228 +111,21 @@ package com.scyllacharybdis.components
 			// Draw the baseclip to the bitmap
 			bitmapData.draw(_baseclip);
 			
-			// Copy the pixels to the backbuffer
+			// Copy the pixels to the DoubleBuffer
 			surface.copyPixels(bitmapData, bitmapData.rect, new Point(owner.position.x, owner.position.y), null, null, true);
 		}
 		
 		/**
-		 * Add all the listeners to this object
+		 * Get the world rectangle
+		 * @return
 		 */
-		private final function addListeners():void
+		public override function getWorldRectange():Rectangle
 		{
-			{
-				_baseclip.addEventListener( MouseEvent.CLICK, onClick, false, 0, true);
-				_baseclip.addEventListener( MouseEvent.DOUBLE_CLICK, onDoubleClick, false, 0, true );
-				_baseclip.addEventListener( MouseEvent.MOUSE_DOWN, onMouseDown, false, 0, true );
-				_baseclip.addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove, false, 0, true );
-				_baseclip.addEventListener( MouseEvent.MOUSE_OUT, onMouseOut, false, 0, true );
-				_baseclip.addEventListener( MouseEvent.MOUSE_OVER, onMouseOver, false, 0, true );
-				_baseclip.addEventListener( MouseEvent.MOUSE_UP, onMouseUp, false, 0, true );
-				_baseclip.addEventListener( MouseEvent.MOUSE_WHEEL, onMouseWheel, false, 0, true );
-				_baseclip.addEventListener( MouseEvent.ROLL_OUT, onRollOut, false, 0, true );
-				_baseclip.addEventListener( MouseEvent.ROLL_OVER, onRollOver, false, 0, true );
-				_baseclip.addEventListener( KeyboardEvent.KEY_DOWN, onKeyDown, false, 0, true );
-				_baseclip.addEventListener( KeyboardEvent.KEY_UP, onKeyUp, false, 0, true );
-			}			
-		}
-
-		/**
-		 * Remove all the listeners from the movie clip
-		 */
-		private final function removeListeners():void
-		{
-			_baseclip.removeEventListener( MouseEvent.CLICK, onClick );
-			_baseclip.removeEventListener( MouseEvent.DOUBLE_CLICK, onDoubleClick );
-			_baseclip.removeEventListener( MouseEvent.MOUSE_DOWN, onMouseDown );
-			_baseclip.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
-			_baseclip.removeEventListener( MouseEvent.MOUSE_OUT, onMouseOut );
-			_baseclip.removeEventListener( MouseEvent.MOUSE_OVER, onMouseOver );
-			_baseclip.removeEventListener( MouseEvent.MOUSE_UP, onMouseUp );
-			_baseclip.removeEventListener( MouseEvent.MOUSE_WHEEL, onMouseWheel );
-			_baseclip.removeEventListener( MouseEvent.ROLL_OUT, onRollOut );
-			_baseclip.removeEventListener( MouseEvent.ROLL_OVER, onRollOver );
-			_baseclip.removeEventListener( KeyboardEvent.KEY_DOWN, onKeyDown );
-			_baseclip.removeEventListener( KeyboardEvent.KEY_UP, onKeyUp );
-		}
-
-		/**
-		 * Helper function
-		 * @private
-		 * @param	e
-		 */
-		private final function onClick(e:MouseEvent):void 
-		{
-			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
-			if ( scriptComponent != null )
-			{
-				scriptComponent.onClick(e);
-			}
-			
-		}
-
-		/**
-		 * Helper function
-		 * @private
-		 * @param	e
-		 */
-		private final function onDoubleClick(e:MouseEvent):void 
-		{
-			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
-			if ( scriptComponent != null )
-			{
-				scriptComponent.onDoubleClick(e);
-			}
-			
-		}
-
-		/**
-		 * Helper function
-		 * @private
-		 * @param	e
-		 */
-		private final function onMouseDown(e:MouseEvent):void 
-		{
-			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
-			if ( scriptComponent != null )
-			{
-				scriptComponent.onMouseDown(e);
-			}
-			
-		}
-
-		/**
-		 * Helper function
-		 * @private
-		 * @param	e
-		 */
-		private final function onMouseMove(e:MouseEvent):void 
-		{
-			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
-			if ( scriptComponent != null )
-			{
-				scriptComponent.onMouseMove(e);
-			}
-			
-		}
-		
-		/**
-		 * Helper function
-		 * @private
-		 * @param	e
-		 */
-		private final function onMouseOut(e:MouseEvent):void 
-		{
-			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
-			if ( scriptComponent != null )
-			{
-				scriptComponent.onMouseOut(e);
-			}
-			
-		}
-		
-		/**
-		 * Helper function
-		 * @private
-		 * @param	e
-		 */
-		private final function onMouseOver(e:MouseEvent):void 
-		{
-			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
-			if ( scriptComponent != null )
-			{
-				scriptComponent.onMouseOver(e);
-			}
-			
-		}
-
-		/**
-		 * Helper function
-		 * @private
-		 * @param	e
-		 */
-		private final function onMouseUp(e:MouseEvent):void 
-		{
-			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
-			if ( scriptComponent != null )
-			{
-				scriptComponent.onMouseUp(e);
-			}
-			
-		}
-		
-		/**
-		 * Helper function
-		 * @private
-		 * @param	e
-		 */
-		private final function onMouseWheel(e:MouseEvent):void 
-		{
-			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
-			if ( scriptComponent != null )
-			{
-				scriptComponent.onMouseWheel(e);
-			}
-			
-		}
-		
-		/**
-		 * Helper function
-		 * @private
-		 * @param	e
-		 */
-		private final function onKeyDown(e:KeyboardEvent):void 
-		{
-			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
-			if ( scriptComponent != null )
-			{
-				scriptComponent.onKeyDown(e);
-			}
-			
-		}
-
-		/**
-		 * Helper function
-		 * @private
-		 * @param	e
-		 */
-		private final function onKeyUp(e:KeyboardEvent):void 
-		{
-			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
-			if ( scriptComponent != null )
-			{
-				scriptComponent.onKeyUp(e);
-			}
-			
-		}
-		
-		/**
-		 * Helper function
-		 * @private
-		 * @param	e
-		 */
-		private final function onRollOver(e:MouseEvent):void 
-		{
-			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
-			if ( scriptComponent != null )
-			{
-				scriptComponent.onRollOver(e);
-			}
-			
-		}
-		
-		/**
-		 * Helper function
-		 * @private
-		 * @param	e
-		 */
-		private final function onRollOut(e:MouseEvent):void 
-		{
-			var scriptComponent:ScriptComponent = owner.getComponent(ScriptComponent);
-			if ( scriptComponent != null )
-			{
-				scriptComponent.onRollOut(e);
-			}
-			
-		}
+			_worldRect.x = owner.position.x;
+			_worldRect.y = owner.position.y;
+			_worldRect.width = _baseclip.width;
+			_worldRect.height = _baseclip.height;
+			return _worldRect;
+		}		
 	}
 }

@@ -9,7 +9,7 @@ package com.scyllacharybdis.components
 	import com.scyllacharybdis.core.memory.MemoryManager;
 	import com.scyllacharybdis.core.objects.BaseObject;
 	import com.scyllacharybdis.core.objects.SpriteObject;
-	import com.scyllacharybdis.core.rendering.Backbuffer;
+	import com.scyllacharybdis.core.rendering.DoubleBuffer;
 	import flash.display.Bitmap;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
