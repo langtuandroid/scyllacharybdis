@@ -18,11 +18,10 @@ package examples.intro
 		
 		public override function onMouseDown( e:MouseEvent ):void
 		{
-			trace("You just clicked on " + owner.toString());
-			if ( owner.getComponent( SoundComponent ) != null ) 
-			{
-				owner.getComponent( SoundComponent ).playSound(1);
-			}
+			//if ( owner.getComponent( SoundComponent ) != null ) 
+			//{
+				//owner.getComponent( SoundComponent ).playSound(1);
+			//}
 		}
 	}
 }

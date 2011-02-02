@@ -121,6 +121,10 @@ package com.scyllacharybdis.components
 		 */
 		public override function getWorldRectange():Rectangle
 		{
+			if ( ! _sprite.loaded ) 
+			{
+				return null;
+			}
 			_worldRect.x = owner.position.x;
 			_worldRect.y = owner.position.y;
 			_worldRect.width = _sprite.rectangle.width;

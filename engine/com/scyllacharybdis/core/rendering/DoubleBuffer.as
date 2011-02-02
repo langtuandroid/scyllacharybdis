@@ -4,6 +4,7 @@ package com.scyllacharybdis.core.rendering
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObjectContainer;
+	import flash.display.Sprite;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	
@@ -15,9 +16,10 @@ package com.scyllacharybdis.core.rendering
 		private var _width:int;
 		private var _height:int;
 		private var _frontBuffer:BitmapData;
-		private var _DoubleBuffer:BitmapData;
+		private var _backBuffer:BitmapData;
 		private var _origin:Point = new Point(0, 0);
 		private var _canvas:DisplayObjectContainer;
+		private var _surface:Sprite = new Sprite();
 
 		/**
 		 * The engine contructor
@@ -56,19 +58,11 @@ package com.scyllacharybdis.core.rendering
 		}
 
 		/**
-		 * Set the screen size
-		 * @param	var width width in pixels
-		 * @param	var height height in pixels
-		 */
-		public function setCanvas( canvas:DisplayObjectContainer, width:int, height:int ):void
-		{
-		}		
-		/**
 		 * Clear the screen
 		 */
 		public function clear(color:uint):void 
 		{
-			_DoubleBuffer.fillRect(_DoubleBuffer.rect, color);			
+			_backBuffer.fillRect(_backBuffer.rect, color);			
 		}
 		
 		/**
@@ -82,7 +76,7 @@ package com.scyllacharybdis.core.rendering
 		 */
 		public function copyPixels( bitmapData:BitmapData, bitmapRect:Rectangle, destPoint:Point, alphaBitmapData:BitmapData = null, alphaPoint:Point = null, mergeAlpha:Boolean = false ):void
 		{
-			_DoubleBuffer.copyPixels(bitmapData, bitmapRect, destPoint, alphaBitmapData, alphaPoint, mergeAlpha)
+			_backBuffer.copyPixels(bitmapData, bitmapRect, destPoint, alphaBitmapData, alphaPoint, mergeAlpha)
 		}
 		
 		/**
@@ -90,7 +84,7 @@ package com.scyllacharybdis.core.rendering
 		 */
 		public function lock():void
 		{
-			_DoubleBuffer.lock();
+			_backBuffer.lock();
 		}
 		
 		/**
@@ -98,7 +92,7 @@ package com.scyllacharybdis.core.rendering
 		 */
 		public function swapBuffers():void
 		{
-			_frontBuffer.copyPixels(_DoubleBuffer, _DoubleBuffer.rect, _origin);
+			_frontBuffer.copyPixels(_backBuffer, _backBuffer.rect, _origin);
 		}
 
 		/**
@@ -106,7 +100,7 @@ package com.scyllacharybdis.core.rendering
 		 */
 		public function unlock():void
 		{
-			_DoubleBuffer.unlock();
+			_backBuffer.unlock();
 		}
 		
 		/**
@@ -125,10 +119,11 @@ package com.scyllacharybdis.core.rendering
 
 			// Create the buffers
 			_frontBuffer = new BitmapData(_width, _height);
-			_DoubleBuffer = new BitmapData(_width, _height);
-			
-			var surface:Bitmap = new Bitmap(_frontBuffer);
-			_canvas.addChild(surface);
+			_backBuffer = new BitmapData(_width, _height);
+
+			// Add the front buffer to a sprite so it can get clicks
+			_canvas.addChild(_surface);
+			_surface.addChild(new Bitmap(_frontBuffer));
 		}
 	}
 }

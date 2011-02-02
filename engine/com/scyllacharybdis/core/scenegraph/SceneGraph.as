@@ -85,14 +85,9 @@ package com.scyllacharybdis.core.scenegraph
 		 */
 		public final function engine_update(event:TimerEvent):void
 		{
-			for each ( var gameObj:GameObject in _gameObjects )
-			{
-				gameObj.engine_update(event);
-			}
-			
+			// Update the physics world
 			_world.Step( 1 / 30, _velocityIterations, _positionIterations );
 			
-			var counter:int = 0;
 			// Update all the game object positions
 			for (var bb:b2Body = _world.GetBodyList(); bb; bb = bb.GetNext())
 			{
@@ -104,24 +99,32 @@ package com.scyllacharybdis.core.scenegraph
 					}
 					gameObj.position = new Point3d( bb.GetPosition().x * drawScale, bb.GetPosition().y * drawScale, gameObj.position.z );
 					gameObj.rotation = bb.GetAngle() * (180/Math.PI);
-					counter++;
 				}
 			}
 			
-			//trace("SceneGraph: renderables");
+			// Create a render qute
 			var renderables:Array = new Array();
-			// Apply frustrum-ish algorithm here
-			for each ( gameObj in _gameObjects )
+			
+			// Loop threw all the game objects
+			for each ( var gameObj:GameObject in _gameObjects )
 			{
+				// Check to make sure its enabled
 				if ( gameObj.enabled == true )
 				{
+					// Update the components
+					gameObj.engine_update(event);
+					
+					// Get the render component
 					var renderable:RenderComponent = gameObj.getComponent(RenderComponent) as RenderComponent;
 					if ( renderable != null )
 					{
+						// Add to the render stack
 						renderables.push(renderable);
 					}
-				}
-			}	
+				}				
+			}
+
+			// Render everything
 			_renderer.render( renderables );
 		}
 		
@@ -197,24 +200,6 @@ package com.scyllacharybdis.core.scenegraph
 				removeGameObjectToScene(child);
 			}				
 		}
-
-		/**
-		 * Add a gameobject to the scene
-		 * @param	gameObj
-		 */
-		private final function addGameObject( gameObj:GameObject ):void 
-		{
-			_gameObjects[gameObj] = gameObj;
-		}
-
-		/**
-		 * Remove a game object from the scene
-		 * @param	gameObj
-		 */
-		private final function removeGameObject( gameObj:GameObject ):void
-		{
-			delete _gameObjects[gameObj];
-		}
 		
 		/**
 		 * Get the world 
@@ -271,29 +256,6 @@ package com.scyllacharybdis.core.scenegraph
 		{
 			_positionIterations = value;
 		}		
-
-		private function getObjectsAt(x:Number, y:Number):Array 
-		{
-			trace("getObjectsAt");
-			var list:Array = new Array();
-			for each ( var gameObj:GameObject in _gameObjects )
-			{
-				var renderComponent:RenderComponent = gameObj.getComponent(RenderComponent);
-				if ( renderComponent != null )
-				{
-					var rect:Rectangle = renderComponent.getWorldRectange();
-					if ( rect != null )
-					{
-						if ( rect.contains( x, y ) ) 
-						{
-							list.push( gameObj );
-							trace( gameObj );
-						}
-					}
-				}
-			}
-			return list;
-		}
 		
 		/**
 		 * Helper function
@@ -493,5 +455,50 @@ package com.scyllacharybdis.core.scenegraph
 		{
 		}
 		
+		/**
+		 * Add a gameobject to the scene
+		 * @param	gameObj
+		 */
+		private final function addGameObject( gameObj:GameObject ):void 
+		{
+			_gameObjects[gameObj] = gameObj;
+		}
+
+		/**
+		 * Remove a game object from the scene
+		 * @param	gameObj
+		 */
+		private final function removeGameObject( gameObj:GameObject ):void
+		{
+			delete _gameObjects[gameObj];
+		}		
+		
+		/**
+		 * Get game objects helper function
+		 * @param	x
+		 * @param	y
+		 * @return
+		 * @private
+		 */
+		private function getObjectsAt(x:Number, y:Number):Array 
+		{
+			var list:Array = new Array();
+			for each ( var gameObj:GameObject in _gameObjects )
+			{
+				var renderComponent:RenderComponent = gameObj.getComponent(RenderComponent);
+				if ( renderComponent != null )
+				{
+					var rect:Rectangle = renderComponent.getWorldRectange();
+					if ( rect != null )
+					{
+						if ( rect.contains( x, y ) ) 
+						{
+							list.push( gameObj );
+						}
+					}
+				}
+			}
+			return list;
+		}
 	}
 }

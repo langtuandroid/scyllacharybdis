@@ -27,6 +27,7 @@
 	import examples.scene.SceneManager;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	
 	public class Main extends Sprite 
 	{
@@ -72,6 +73,8 @@
 
 			// Display the intro scene
 			_sceneManager.PushScene(PhysicsScene);	
+			
 		}
+		
 	}
 }
