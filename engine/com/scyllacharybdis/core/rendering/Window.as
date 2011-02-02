@@ -1,6 +1,7 @@
 package com.scyllacharybdis.core.rendering 
 {
 	import com.scyllacharybdis.core.objects.BaseObject;
+	import com.scyllacharybdis.core.scenegraph.SceneGraph;
 	import flash.display.DisplayObjectContainer;
 
 	/**
@@ -110,6 +111,11 @@ package com.scyllacharybdis.core.rendering
 		{
 			_backBuffer.swapBuffers();
 			_backBuffer.unlock();
+		}
+		
+		public function setSceneGraph(sceneGraph:SceneGraph):void 
+		{
+			
 		}
 	}
 }

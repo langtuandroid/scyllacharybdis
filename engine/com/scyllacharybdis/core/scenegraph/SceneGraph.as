@@ -7,6 +7,8 @@ package com.scyllacharybdis.core.scenegraph
 	import com.scyllacharybdis.core.objects.BaseObject;
 	import com.scyllacharybdis.core.objects.GameObject;
 	import com.scyllacharybdis.core.physics.PhysicsContactListener;
+	import com.scyllacharybdis.core.rendering.Renderer;
+	import flash.events.Event;
 	import flash.events.TimerEvent;
 	import flash.utils.Dictionary;
 	import flash.utils.Timer;
@@ -16,11 +18,12 @@ package com.scyllacharybdis.core.scenegraph
 	 * @author ...
 	 */
 	[Singleton]
-	[Requires ("com.scyllacharybdis.core.physics.PhysicsContactListener")]
+	[Requires ("com.scyllacharybdis.core.rendering.Renderer", "com.scyllacharybdis.core.physics.PhysicsContactListener")]
 	public class SceneGraph extends BaseObject 
 	{
 		private var _updateTimer:Timer = new Timer(1/30 * 1000, 0); 
 		private var _gameObjects:Dictionary = new Dictionary(true);
+		private var _renderer:Renderer;
 		
 		private var _world:b2World;
 		private var _contactListener:PhysicsContactListener;
@@ -37,6 +40,10 @@ package com.scyllacharybdis.core.scenegraph
 		 */
 		public final override function engine_awake():void
 		{
+			// Get the dependencies
+			_contactListener = getDependency(PhysicsContactListener);
+			_renderer = getDependency(Renderer);
+
 			// Allow bodies to sleep
 			var doSleep:Boolean = true;
 			
@@ -45,9 +52,6 @@ package com.scyllacharybdis.core.scenegraph
 			
 			// Construct a world object
 			_world = new b2World(gravity, doSleep);
-
-			// Create a contact listener
-			_contactListener = getDependency(PhysicsContactListener);
 			
 			// Set the contact listener for the world
 			_world.SetContactListener(_contactListener);	
@@ -97,6 +101,22 @@ package com.scyllacharybdis.core.scenegraph
 					counter++;
 				}
 			}
+			
+			//trace("SceneGraph: renderables");
+			var renderables:Array = new Array();
+			// Apply frustrum-ish algorithm here
+			for each ( gameObj in _gameObjects )
+			{
+				if ( gameObj.enabled == true )
+				{
+					var renderable:RenderComponent = gameObj.getComponent(RenderComponent) as RenderComponent;
+					if ( renderable != null )
+					{
+						renderables.push(renderable);
+					}
+				}
+			}	
+			_renderer.render( renderables );
 		}
 		
 		/**
@@ -190,31 +210,6 @@ package com.scyllacharybdis.core.scenegraph
 			delete _gameObjects[gameObj];
 		}
 		
-		
-		
-		/**
-		 * Get all the renderables for the scene.
-		 * Used by the renderer to display the scene.
-		 */
-		public final function get renderables():Array
-		{
-			//trace("SceneGraph: renderables");
-			var renderables:Array = new Array();
-			// Apply frustrum-ish algorithm here
-			for each ( var gameObj:GameObject in _gameObjects )
-			{
-				if ( gameObj.enabled == true )
-				{
-					var renderable:RenderComponent = gameObj.getComponent(RenderComponent) as RenderComponent;
-					if ( renderable != null )
-					{
-						renderables.push(renderable);
-					}
-				}
-			}
-			return renderables;
-		}
-		
 		/**
 		 * Get the world 
 		 */
@@ -270,5 +265,6 @@ package com.scyllacharybdis.core.scenegraph
 		{
 			_positionIterations = value;
 		}		
+		
 	}
 }
