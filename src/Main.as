@@ -51,7 +51,7 @@
 			
 			// Create a window
 			_window = allocate(Window);
-			_window.displayContext = this;
+			_window.canvas = this;
 			
 			// Create a rendering system
 			_renderer = allocate(Renderer);

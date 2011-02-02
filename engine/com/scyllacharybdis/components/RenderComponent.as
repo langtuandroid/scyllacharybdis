@@ -2,9 +2,10 @@ package com.scyllacharybdis.components
 {
 	import com.scyllacharybdis.core.objects.BaseObject;
 	import com.scyllacharybdis.core.objects.ComponentObject;
-	import com.scyllacharybdis.core.rendering.Backbuffer;
+	import com.scyllacharybdis.core.rendering.DoubleBuffer;
 	import flash.display.BitmapData;
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
@@ -61,8 +62,17 @@ package com.scyllacharybdis.components
 		 * Add the renderable to the surface
 		 * @param	surface (DisplayObjectContainer) 
 		 */
-		public function render( surface:Backbuffer ):void
+		public function render( surface:DoubleBuffer ):void
 		{
+		}
+		
+		/**
+		 * Get the world rectangle
+		 * @return
+		 */
+		public function getWorldRectange():Rectangle
+		{
+			return null;
 		}
 	}
 }

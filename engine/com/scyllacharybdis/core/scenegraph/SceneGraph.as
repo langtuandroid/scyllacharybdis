@@ -4,12 +4,16 @@ package com.scyllacharybdis.core.scenegraph
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2World;
 	import com.scyllacharybdis.components.RenderComponent;
+	import com.scyllacharybdis.components.ScriptComponent;
 	import com.scyllacharybdis.core.objects.BaseObject;
 	import com.scyllacharybdis.core.objects.GameObject;
 	import com.scyllacharybdis.core.physics.PhysicsContactListener;
 	import com.scyllacharybdis.core.rendering.Renderer;
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
+	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
 	import flash.utils.Timer;
 	import org.casalib.math.geom.Point3d;
@@ -43,6 +47,8 @@ package com.scyllacharybdis.core.scenegraph
 			// Get the dependencies
 			_contactListener = getDependency(PhysicsContactListener);
 			_renderer = getDependency(Renderer);
+			
+			_renderer.window.clickHandler = this;
 
 			// Allow bodies to sleep
 			var doSleep:Boolean = true;
@@ -265,6 +271,227 @@ package com.scyllacharybdis.core.scenegraph
 		{
 			_positionIterations = value;
 		}		
+
+		private function getObjectsAt(x:Number, y:Number):Array 
+		{
+			trace("getObjectsAt");
+			var list:Array = new Array();
+			for each ( var gameObj:GameObject in _gameObjects )
+			{
+				var renderComponent:RenderComponent = gameObj.getComponent(RenderComponent);
+				if ( renderComponent != null )
+				{
+					var rect:Rectangle = renderComponent.getWorldRectange();
+					if ( rect != null )
+					{
+						if ( rect.contains( x, y ) ) 
+						{
+							list.push( gameObj );
+							trace( gameObj );
+						}
+					}
+				}
+			}
+			return list;
+		}
+		
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		public final function onClick(e:MouseEvent):void 
+		{
+			var objects:Array = getObjectsAt( e.stageX, e.stageY );
+			for each ( var object:GameObject in objects ) 
+			{
+				var scriptComponent:ScriptComponent = object.getComponent(ScriptComponent);
+				if ( scriptComponent != null )
+				{
+					scriptComponent.onClick(e);
+				}
+			}
+		}
+
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		public final function onDoubleClick(e:MouseEvent):void 
+		{
+			var objects:Array = getObjectsAt( e.stageX, e.stageY );
+			for each ( var object:GameObject in objects ) 
+			{
+				var scriptComponent:ScriptComponent = object.getComponent(ScriptComponent);
+				if ( scriptComponent != null )
+				{
+					scriptComponent.onDoubleClick(e);
+				}
+			}
+		}
+
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		public final function onMouseDown(e:MouseEvent):void 
+		{
+			var objects:Array = getObjectsAt( e.stageX, e.stageY );
+			for each ( var object:GameObject in objects ) 
+			{
+				var scriptComponent:ScriptComponent = object.getComponent(ScriptComponent);
+				if ( scriptComponent != null )
+				{
+					scriptComponent.onMouseDown(e);
+				}
+			}
+		}
+
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		public final function onMouseMove(e:MouseEvent):void 
+		{
+			var objects:Array = getObjectsAt( e.stageX, e.stageY );
+			for each ( var object:GameObject in objects ) 
+			{
+				var scriptComponent:ScriptComponent = object.getComponent(ScriptComponent);
+				if ( scriptComponent != null )
+				{
+					scriptComponent.onMouseMove(e);
+				}
+			}
+		}
+		
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		public final function onMouseOut(e:MouseEvent):void 
+		{
+			var objects:Array = getObjectsAt( e.stageX, e.stageY );
+			for each ( var object:GameObject in objects ) 
+			{
+				var scriptComponent:ScriptComponent = object.getComponent(ScriptComponent);
+				if ( scriptComponent != null )
+				{
+					scriptComponent.onMouseOut(e);
+				}
+			}
+		}
+		
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		public final function onMouseOver(e:MouseEvent):void 
+		{
+			var objects:Array = getObjectsAt( e.stageX, e.stageY );
+			for each ( var object:GameObject in objects ) 
+			{
+				var scriptComponent:ScriptComponent = object.getComponent(ScriptComponent);
+				if ( scriptComponent != null )
+				{
+					scriptComponent.onMouseOver(e);
+				}
+			}
+		}
+
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		public final function onMouseUp(e:MouseEvent):void 
+		{
+			var objects:Array = getObjectsAt( e.stageX, e.stageY );
+			for each ( var object:GameObject in objects ) 
+			{
+				var scriptComponent:ScriptComponent = object.getComponent(ScriptComponent);
+				if ( scriptComponent != null )
+				{
+					scriptComponent.onMouseUp(e);
+				}
+			}
+		}
+		
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		public final function onMouseWheel(e:MouseEvent):void 
+		{
+			var objects:Array = getObjectsAt( e.stageX, e.stageY );
+			for each ( var object:GameObject in objects ) 
+			{
+				var scriptComponent:ScriptComponent = object.getComponent(ScriptComponent);
+				if ( scriptComponent != null )
+				{
+					scriptComponent.onMouseWheel(e);
+				}
+			}
+		}
+
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		public final function onRollOver(e:MouseEvent):void 
+		{
+			var objects:Array = getObjectsAt( e.stageX, e.stageY );
+			for each ( var object:GameObject in objects ) 
+			{
+				var scriptComponent:ScriptComponent = object.getComponent(ScriptComponent);
+				if ( scriptComponent != null )
+				{
+					scriptComponent.onRollOver(e);
+				}
+			}
+		}
+		
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		public final function onRollOut(e:MouseEvent):void 
+		{
+			var objects:Array = getObjectsAt( e.stageX, e.stageY );
+			for each ( var object:GameObject in objects ) 
+			{
+				var scriptComponent:ScriptComponent = object.getComponent(ScriptComponent);
+				if ( scriptComponent != null )
+				{
+					scriptComponent.onRollOut(e);
+				}
+			}
+		}		
+		
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		public final function onKeyDown(e:KeyboardEvent):void 
+		{
+		}
+
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		public final function onKeyUp(e:KeyboardEvent):void 
+		{
+		}
 		
 	}
 }

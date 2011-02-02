@@ -3,15 +3,18 @@ package com.scyllacharybdis.core.rendering
 	import com.scyllacharybdis.core.objects.BaseObject;
 	import com.scyllacharybdis.core.scenegraph.SceneGraph;
 	import flash.display.DisplayObjectContainer;
+	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
 
 	/**
 	 */
 	[Singleton]
-	[Requires ("com.scyllacharybdis.core.rendering.Backbuffer")]
+	[Requires ("com.scyllacharybdis.core.rendering.DoubleBuffer")]
 	public class Window extends BaseObject
 	{
-		private var _displayContext:DisplayObjectContainer;
-		private var _backBuffer:Backbuffer;
+		private var _canvas:DisplayObjectContainer;
+		private var _doubleBuffer:DoubleBuffer;
+		private var _clickHander:SceneGraph;
 		
 		/**
 		 * The engine contructor
@@ -19,8 +22,10 @@ package com.scyllacharybdis.core.rendering
 		 */
 		public final override function engine_awake():void
 		{
-			_backBuffer = getDependency(Backbuffer);
+			_doubleBuffer = getDependency(DoubleBuffer);
+			
 			super.engine_awake();
+			
 		}
 
 		/**
@@ -47,33 +52,35 @@ package com.scyllacharybdis.core.rendering
 		 */
 		public final override function engine_destroy():void 
 		{
+			removeListeners();
 		}
 		
 		/**
 		 * Get the display context
 		 */
-		public function get displayContext():DisplayObjectContainer { return _displayContext; }
+		public function get canvas():DisplayObjectContainer { return _canvas; }
 		
 		/**
 		 * Set the display context
 		 */
-		public function set displayContext(value:DisplayObjectContainer):void 
+		public function set canvas(value:DisplayObjectContainer):void 
 		{
-			_displayContext = value;
-			_backBuffer.setCanvas(_displayContext, _displayContext.stage.stageWidth, _displayContext.stage.stageHeight);
+			_canvas = value;
+			_doubleBuffer.canvas = value;
+			addListeners();
 		}
 		
 		/**
 		 * Get the rendering surface
 		 */
-		public function get surface():Backbuffer { return _backBuffer; }
+		public function get surface():DoubleBuffer { return _doubleBuffer; }
 		
 		/**
 		 * Set the rendering surface
 		 */
-		public function set surface(value:Backbuffer):void 
+		public function set surface(value:DoubleBuffer):void 
 		{
-			_backBuffer = value;
+			_doubleBuffer = value;
 		}
 	
 		/**
@@ -82,7 +89,7 @@ package com.scyllacharybdis.core.rendering
 		 */
 		public function getScreenWidth():int
 		{
-			return _displayContext.stage.width;
+			return _canvas.stage.width;
 		}
 		
 		/**
@@ -91,7 +98,7 @@ package com.scyllacharybdis.core.rendering
 		 */
 		public function getScreenHeight():int
 		{
-			return _displayContext.stage.height;
+			return _canvas.stage.height;
 		}
 		
 		/**
@@ -100,7 +107,7 @@ package com.scyllacharybdis.core.rendering
 		 */
 		public function beginRendering():void 
 		{
-			_backBuffer.lock();
+			_doubleBuffer.lock();
 		}
 		
 		/**
@@ -109,13 +116,233 @@ package com.scyllacharybdis.core.rendering
 		 */
 		public function endRendering():void 
 		{
-			_backBuffer.swapBuffers();
-			_backBuffer.unlock();
+			_doubleBuffer.swapBuffers();
+			_doubleBuffer.unlock();
+		}
+
+		/**
+		 * Set the click handler ( SceneGraph );
+		 */
+		public function set clickHandler( value:SceneGraph ):void 
+		{
+			_clickHander = value;
 		}
 		
-		public function setSceneGraph(sceneGraph:SceneGraph):void 
+		/**
+		 * Add all the listeners to this object
+		 */
+		private final function addListeners():void
 		{
-			
+			if ( _canvas == null ) 
+			{
+				return;
+			}
+			trace( "addListeners" );
+			_canvas.addEventListener( MouseEvent.CLICK, onClick, false, 0, true);
+			_canvas.addEventListener( MouseEvent.DOUBLE_CLICK, onDoubleClick, false, 0, true );
+			_canvas.addEventListener( MouseEvent.MOUSE_DOWN, onMouseDown, false, 0, true );
+			_canvas.addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove, false, 0, true );
+			_canvas.addEventListener( MouseEvent.MOUSE_OUT, onMouseOut, false, 0, true );
+			_canvas.addEventListener( MouseEvent.MOUSE_OVER, onMouseOver, false, 0, true );
+			_canvas.addEventListener( MouseEvent.MOUSE_UP, onMouseUp, false, 0, true );
+			_canvas.addEventListener( MouseEvent.MOUSE_WHEEL, onMouseWheel, false, 0, true );
+			_canvas.addEventListener( MouseEvent.ROLL_OUT, onRollOut, false, 0, true );
+			_canvas.addEventListener( MouseEvent.ROLL_OVER, onRollOver, false, 0, true );
+			_canvas.addEventListener( KeyboardEvent.KEY_DOWN, onKeyDown, false, 0, true );
+			_canvas.addEventListener( KeyboardEvent.KEY_UP, onKeyUp, false, 0, true );
 		}
+
+		/**
+		 * Remove all the listeners from the movie clip
+		 */
+		private final function removeListeners():void
+		{
+			if ( _canvas == null ) 
+			{
+				return;
+			}
+			_canvas.removeEventListener( MouseEvent.CLICK, onClick );
+			_canvas.removeEventListener( MouseEvent.DOUBLE_CLICK, onDoubleClick );
+			_canvas.removeEventListener( MouseEvent.MOUSE_DOWN, onMouseDown );
+			_canvas.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
+			_canvas.removeEventListener( MouseEvent.MOUSE_OUT, onMouseOut );
+			_canvas.removeEventListener( MouseEvent.MOUSE_OVER, onMouseOver );
+			_canvas.removeEventListener( MouseEvent.MOUSE_UP, onMouseUp );
+			_canvas.removeEventListener( MouseEvent.MOUSE_WHEEL, onMouseWheel );
+			_canvas.removeEventListener( MouseEvent.ROLL_OUT, onRollOut );
+			_canvas.removeEventListener( MouseEvent.ROLL_OVER, onRollOver );
+			_canvas.removeEventListener( KeyboardEvent.KEY_DOWN, onKeyDown );
+			_canvas.removeEventListener( KeyboardEvent.KEY_UP, onKeyUp );
+		}
+
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		private final function onClick(e:MouseEvent):void 
+		{
+			if ( _clickHander == null ) 
+			{
+				return;
+			}
+			_clickHander.onClick(e);
+		}
+
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		private final function onDoubleClick(e:MouseEvent):void 
+		{
+			if ( _clickHander == null ) 
+			{
+				return;
+			}
+			_clickHander.onDoubleClick(e);
+		}
+
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		private final function onMouseDown(e:MouseEvent):void 
+		{
+			if ( _clickHander == null ) 
+			{
+				return;
+			}
+			_clickHander.onMouseDown(e);
+		}
+
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		private final function onMouseMove(e:MouseEvent):void 
+		{
+			if ( _clickHander == null ) 
+			{
+				return;
+			}
+			_clickHander.onMouseMove(e);
+		}
+		
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		private final function onMouseOut(e:MouseEvent):void 
+		{
+			if ( _clickHander == null ) 
+			{
+				return;
+			}
+			_clickHander.onMouseOut(e);
+		}
+		
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		private final function onMouseOver(e:MouseEvent):void 
+		{
+			if ( _clickHander == null ) 
+			{
+				return;
+			}
+			_clickHander.onMouseOver(e);
+		}
+
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		private final function onMouseUp(e:MouseEvent):void 
+		{
+			if ( _clickHander == null ) 
+			{
+				return;
+			}
+			_clickHander.onMouseUp(e);
+		}
+		
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		private final function onMouseWheel(e:MouseEvent):void 
+		{
+			if ( _clickHander == null ) 
+			{
+				return;
+			}
+			_clickHander.onMouseWheel(e);
+		}
+		
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		private final function onRollOver(e:MouseEvent):void 
+		{
+			if ( _clickHander == null ) 
+			{
+				return;
+			}
+			_clickHander.onRollOver(e);
+		}
+		
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		private final function onRollOut(e:MouseEvent):void 
+		{
+			if ( _clickHander == null ) 
+			{
+				return;
+			}
+			_clickHander.onRollOut(e);
+		}
+		
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		private final function onKeyDown(e:KeyboardEvent):void 
+		{
+			if ( _clickHander == null ) 
+			{
+				return;
+			}
+			_clickHander.onKeyDown(e);
+		}
+
+		/**
+		 * Helper function
+		 * @private
+		 * @param	e
+		 */
+		private final function onKeyUp(e:KeyboardEvent):void 
+		{
+			if ( _clickHander == null ) 
+			{
+				return;
+			}
+			_clickHander.onKeyUp(e);
+		}
+		
+
 	}
 }
