@@ -5,7 +5,6 @@ package com.scyllacharybdis.handlers
 	import com.scyllacharybdis.models.ChatMessageModel;
 	import flash.utils.Dictionary;
 	import com.scyllacharybdis.core.objects.BaseObject;
-	import com.smartfoxserver.v2.core.SFSEvent;
 	import com.smartfoxserver.v2.requests.PublicMessageRequest;
 
 	/**
@@ -26,11 +25,11 @@ package com.scyllacharybdis.handlers
 			// Get the event manager
 			_networkEventHandler = getDependency(NetworkEventHandler);
 			
-			_networkEventHandler.addEventListener(SFSEvent.PUBLIC_MESSAGE, this, onPublicMessage);
+			_networkEventHandler.addEventListener(NetworkEvents.PUBLIC_MESSAGE, this, onPublicMessage);
 			
 			super.engine_start();
 			
-			_networkEventHandler.addEventListener(NetworkEvents.SEND_CHAT_MESSAGE, this, sendChatMessage );
+			_networkEventHandler.addEventListener(NetworkEvents.SEND_CHAT_MESSAGE_REQUEST, this, sendChatMessage );
 		}
 		
 		/**
@@ -58,11 +57,11 @@ package com.scyllacharybdis.handlers
 		 */
 		public final override function engine_destroy():void
 		{
-			_networkEventHandler.removeEventListener(NetworkEvents.SEND_CHAT_MESSAGE, this, sendChatMessage );
+			_networkEventHandler.removeEventListener(NetworkEvents.SEND_CHAT_MESSAGE_REQUEST, this, sendChatMessage );
 
 			super.engine_destroy();
 			
-			_networkEventHandler.removeEventListener(SFSEvent.PUBLIC_MESSAGE, this, onPublicMessage);
+			_networkEventHandler.removeEventListener(NetworkEvents.PUBLIC_MESSAGE, this, onPublicMessage);
 		}
 		
 		/**
@@ -110,10 +109,10 @@ package com.scyllacharybdis.handlers
 		/**
  		 * On public message, show it in the chat area.
  		 */
-		private function onPublicMessage(evt:SFSEvent):void
+		private function onPublicMessage(evt:NetworkEvents):void
 		{
 			trace(evt.params.sender + " - " + evt.params.message );
-			_networkEventHandler.fireEvent(NetworkEvents.RECEIVED_CHAT_MESSAGE, new ChatMessageModel( evt.params.sender, evt.params.message ) );
+			_networkEventHandler.fireEvent(NetworkEvents.RECEIVED_CHAT_MESSAGE_REQUEST, new ChatMessageModel( evt.params.sender, evt.params.message ) );
 		}		
 	}
 }

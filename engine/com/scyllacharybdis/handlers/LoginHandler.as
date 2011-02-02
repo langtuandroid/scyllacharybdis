@@ -5,7 +5,6 @@ package com.scyllacharybdis.handlers
 	import com.scyllacharybdis.core.objects.BaseObject;
 	import com.scyllacharybdis.models.LoginModel;
 	import flash.utils.Dictionary;
-	import com.smartfoxserver.v2.core.SFSEvent;
 	import com.smartfoxserver.v2.requests.LoginRequest;
 	
 	/**
@@ -26,10 +25,11 @@ package com.scyllacharybdis.handlers
 			// Get the event manager
 			_networkEventHandler = getDependency(NetworkEventHandler);
 		
-			_networkEventHandler.addEventListener(SFSEvent.LOGIN_ERROR, this, onLoginError);
-			_networkEventHandler.addEventListener(SFSEvent.LOGIN, this, onLogin);
-			_networkEventHandler.addEventListener(NetworkEvents.LOGIN, this, requestLogin );
-			_networkEventHandler.addEventListener(NetworkEvents.LOGOUT, this, requestLogout );
+			_networkEventHandler.addEventListener(NetworkEvents.LOGIN_ERROR, this, onLoginError);
+			_networkEventHandler.addEventListener(NetworkEvents.LOGIN, this, onLogin);
+			
+			_networkEventHandler.addEventListener(NetworkEvents.LOGIN_REQUEST, this, requestLogin );
+			_networkEventHandler.addEventListener(NetworkEvents.LOGOUT_REQUEST, this, requestLogout );
 			
 			super.engine_start();
 			
@@ -62,10 +62,10 @@ package com.scyllacharybdis.handlers
 		{
 			super.engine_destroy();
 
-			_networkEventHandler.removeEventListener(SFSEvent.LOGIN_ERROR, this, onLoginError);
-			_networkEventHandler.removeEventListener(SFSEvent.LOGIN, this, onLogin);
-			_networkEventHandler.removeEventListener(NetworkEvents.LOGIN, this, requestLogin );
-			_networkEventHandler.removeEventListener(NetworkEvents.LOGOUT, this, requestLogout );
+			_networkEventHandler.removeEventListener(NetworkEvents.LOGIN_ERROR, this, onLoginError);
+			_networkEventHandler.removeEventListener(NetworkEvents.LOGIN, this, onLogin);
+			_networkEventHandler.removeEventListener(NetworkEvents.LOGIN_REQUEST, this, requestLogin );
+			_networkEventHandler.removeEventListener(NetworkEvents.LOGOUT_REQUEST, this, requestLogout );
 		}
 		/**
 		 * The users constructor. 
@@ -132,18 +132,18 @@ package com.scyllacharybdis.handlers
 		/**
 		 * On login sucess
 		 */
-		private function onLogin(evt:SFSEvent):void
+		private function onLogin(evt:NetworkEvents):void
 		{
-			_networkEventHandler.fireEvent(NetworkEvents.LOGIN_SUCCESS);
+			_networkEventHandler.fireEvent(NetworkEvents.LOGIN_REQUEST_SUCCESS);
 			trace("onLogin sucessful");
 		}
 		
 		/**
 		 * An error occurred during login; go back to login panel and display error message.
 		 */
-		private function onLoginError(evt:SFSEvent):void
+		private function onLoginError(evt:NetworkEvents):void
 		{
-			_networkEventHandler.fireEvent(NetworkEvents.LOGIN_FAILED);
+			_networkEventHandler.fireEvent(NetworkEvents.LOGIN_REQUEST_FAILED);
 			trace("onLoginError");
 		}
 	}

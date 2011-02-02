@@ -64,7 +64,7 @@
 			var _chatMessageHandler:ChatMessageHandler = allocate(ChatMessageHandler);
 			
 			// Fire a network connection event
-			_networkHandler.fireEvent(NetworkEvents.CONNECT);
+			_networkHandler.fireEvent(NetworkEvents.CONNECT_REQUEST);
 
 			// Create the scene manager
 			_sceneManager = allocate(SceneManager);
