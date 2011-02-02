@@ -1,5 +1,6 @@
 package com.scyllacharybdis.core.objects 
 {
+	import flash.events.TimerEvent;
 	/**
 	 * ...
 	 * @author 
@@ -28,6 +29,24 @@ package com.scyllacharybdis.core.objects
 		{
 			return getClassDetails().componentType;
 		}		
+		
+		/**
+		 * Engine update
+		 * @param	event
+		 */
+		public function engine_update(event:TimerEvent):void 
+		{
+			update(event);
+		}
+		
+		/**
+		 * User defined update
+		 * @param	event
+		 */
+		public function update(event:TimerEvent):void 
+		{
+			
+		}
 		
 	}
 

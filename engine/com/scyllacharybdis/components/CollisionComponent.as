@@ -10,18 +10,18 @@ package com.scyllacharybdis.components
 	import com.scyllacharybdis.core.memory.MemoryManager;
 	import com.scyllacharybdis.core.objects.BaseObject;
 	import com.scyllacharybdis.core.objects.ComponentObject;
-	import com.scyllacharybdis.core.physics.PhysicsWorld;
+	import com.scyllacharybdis.core.scenegraph.SceneGraph;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
 
 	/**
 	 */
 	[Component (type="CollisionComponent")]
-	[Requires ("com.scyllacharybdis.core.physics.PhysicsWorld", "com.scyllacharybdis.core.ami.AMIHandler")]
+	[Requires ("com.scyllacharybdis.core.scenegraph.SceneGraph", "com.scyllacharybdis.core.ami.AMIHandler")]
 	public class CollisionComponent extends ComponentObject
 	{
 		private var _body:b2Body;
-		private var _physicsWorld:PhysicsWorld;
+		private var _physicsWorld:SceneGraph;
 		private var _amihandler:AMIHandler;
 		
 		/** 
@@ -30,7 +30,7 @@ package com.scyllacharybdis.components
 		 */
 		public final override function engine_awake():void
 		{
-			_physicsWorld = getDependency(PhysicsWorld);
+			_physicsWorld = getDependency(SceneGraph);
 			_amihandler = getDependency(AMIHandler);
 			super.engine_awake();
 		}

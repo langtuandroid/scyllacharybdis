@@ -14,9 +14,9 @@
 	import com.scyllacharybdis.core.memory.allocate;
 	import com.scyllacharybdis.core.memory.MemoryManager;
 	import com.scyllacharybdis.core.objects.GameObject;
-	import com.scyllacharybdis.core.physics.PhysicsWorld;
 	import com.scyllacharybdis.core.rendering.Renderer;
 	import com.scyllacharybdis.core.rendering.Window;
+	import com.scyllacharybdis.core.scenegraph.SceneGraph;
 	import com.scyllacharybdis.handlers.ChatMessageHandler;
 	import com.scyllacharybdis.handlers.ConnectionHandler;
 	import com.scyllacharybdis.handlers.LoginHandler;
@@ -33,7 +33,7 @@
 		private var _window:Window;
 		private var _renderer:Renderer;
 		private var _sceneManager:SceneManager;
-		private var _physicsWorld:PhysicsWorld;
+		private var _sceneGraph:SceneGraph;
 		
 		public function Main():void 
 		{		
@@ -63,8 +63,6 @@
 			var _loginHandler:LoginHandler = allocate(LoginHandler);
 			var _roomHandler:RoomHandler = allocate(RoomHandler);
 			var _chatMessageHandler:ChatMessageHandler = allocate(ChatMessageHandler);
-			
-			_physicsWorld = allocate(PhysicsWorld);
 			
 			// Fire a network connection event
 			_networkHandler.fireEvent(NetworkEvents.CONNECT);

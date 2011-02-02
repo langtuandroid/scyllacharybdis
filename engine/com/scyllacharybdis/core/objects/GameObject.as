@@ -6,6 +6,7 @@ package com.scyllacharybdis.core.objects
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
+	import flash.events.TimerEvent;
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
 	import org.casalib.math.geom.Point3d;
@@ -143,6 +144,8 @@ package com.scyllacharybdis.core.objects
 			// Remove the child from the list
 			ArrayUtil.removeItem( _children, child );
 		}
+		
+
 		
 		/**
 		 * Get the local coordinates position.
