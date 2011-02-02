@@ -7,8 +7,6 @@
 	import com.scyllacharybdis.components.SoundComponent;
 	import com.scyllacharybdis.components.XMLCollisionComponent;
 	import com.scyllacharybdis.components.XMLRenderComponent;
-	import com.scyllacharybdis.core.di.createInjector;
-	import com.scyllacharybdis.core.di.Injector;
 	import com.scyllacharybdis.core.events.NetworkEventHandler;
 	import com.scyllacharybdis.core.events.NetworkEvents;
 	import com.scyllacharybdis.core.memory.allocate;
