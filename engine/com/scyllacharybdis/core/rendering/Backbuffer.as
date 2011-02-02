@@ -97,6 +97,9 @@ package com.scyllacharybdis.core.rendering
 			_backBuffer.copyPixels(bitmapData, bitmapRect, destPoint, alphaBitmapData, alphaPoint, mergeAlpha)
 		}
 		
+		/**
+		 * Lock the backbuffer for write
+		 */
 		public function lock():void
 		{
 			_backBuffer.lock();
@@ -110,6 +113,9 @@ package com.scyllacharybdis.core.rendering
 			_frontBuffer.copyPixels(_backBuffer, _backBuffer.rect, _origin);
 		}
 
+		/**
+		 * Unlock the backbuffer after completing the write
+		 */
 		public function unlock():void
 		{
 			_backBuffer.unlock();

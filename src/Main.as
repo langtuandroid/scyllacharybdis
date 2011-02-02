@@ -72,13 +72,6 @@
 
 			// Display the intro scene
 			_sceneManager.PushScene(PhysicsScene);	
-			
-			addEventListener( Event.ENTER_FRAME, onEnterFrame );
-		}
-
-		private function onEnterFrame( e:Event ):void
-		{
-			_renderer.render();
 		}
 	}
 }
