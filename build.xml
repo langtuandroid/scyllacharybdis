@@ -33,7 +33,7 @@
         </compc>
     </target>
 
-    <target name="main" depends="sc,docs">
+    <target name="main" depends="sc">
     </target>
 
     <target name="full" depends="clean,casalib,Box2D,sc,docs">
