@@ -1,6 +1,7 @@
 package com.scyllacharybdis.core.events 
 {
 	import com.scyllacharybdis.core.objects.BaseObject;
+	import com.smartfoxserver.v2.core.SFSEvent;
 	import flash.utils.Dictionary;
 	
 	[Singleton]
@@ -33,7 +34,6 @@ package com.scyllacharybdis.core.events
 		 */
 		public final function removeEventListener( eventName:String, listener:*, method:Function ):void
 		{
-			trace("unregisterListener");
 			_listeners[eventName][listener] = null;
 			delete _listeners[eventName][listener];
 		}

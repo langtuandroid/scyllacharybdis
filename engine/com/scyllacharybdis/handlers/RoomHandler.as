@@ -5,6 +5,7 @@ package com.scyllacharybdis.handlers
 	import com.scyllacharybdis.core.objects.BaseObject;
 	import com.scyllacharybdis.models.CreateRoomModel;
 	import com.scyllacharybdis.models.RoomModel;
+	import com.smartfoxserver.v2.core.SFSEvent;
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.requests.JoinRoomRequest;
 	import com.smartfoxserver.v2.requests.RoomSettings;
@@ -35,14 +36,14 @@ package com.scyllacharybdis.handlers
 			// Get the event manager
 			_networkEventHandler = getDependency(NetworkEventHandler);
 			
-			_networkEventHandler.addEventListener(NetworkEvents.ROOM_CREATION_ERROR, this, onRoomCreationError);
-			_networkEventHandler.addEventListener(NetworkEvents.ROOM_JOIN, this, onJoinRoom);
-			_networkEventHandler.addEventListener(NetworkEvents.ROOM_JOIN_ERROR, this, onJoinRoomError);
-			_networkEventHandler.addEventListener(NetworkEvents.ROOM_ADD, this, onRoomAdd);
-			_networkEventHandler.addEventListener(NetworkEvents.ROOM_REMOVE, this, onRoomRemove);
-			_networkEventHandler.addEventListener(NetworkEvents.USER_ENTER_ROOM, this, onUserEnterRoom);
-			_networkEventHandler.addEventListener(NetworkEvents.USER_EXIT_ROOM, this, onUserExitRoom);
-			_networkEventHandler.addEventListener(NetworkEvents.USER_COUNT_CHANGE, this, onUserCountChange);
+			_networkEventHandler.addEventListener(SFSEvent.ROOM_CREATION_ERROR, this, onRoomCreationError);
+			_networkEventHandler.addEventListener(SFSEvent.ROOM_JOIN, this, onJoinRoom);
+			_networkEventHandler.addEventListener(SFSEvent.ROOM_JOIN_ERROR, this, onJoinRoomError);
+			_networkEventHandler.addEventListener(SFSEvent.ROOM_ADD, this, onRoomAdd);
+			_networkEventHandler.addEventListener(SFSEvent.ROOM_REMOVE, this, onRoomRemove);
+			_networkEventHandler.addEventListener(SFSEvent.USER_ENTER_ROOM, this, onUserEnterRoom);
+			_networkEventHandler.addEventListener(SFSEvent.USER_EXIT_ROOM, this, onUserExitRoom);
+			_networkEventHandler.addEventListener(SFSEvent.USER_COUNT_CHANGE, this, onUserCountChange);
 			
 			super.engine_start();
 			
@@ -82,15 +83,15 @@ package com.scyllacharybdis.handlers
 			
 			super.engine_destroy();
 
-			_networkEventHandler.removeEventListener(NetworkEvents.ROOM_CREATION_ERROR, this, onRoomCreationError);
-			_networkEventHandler.removeEventListener(NetworkEvents.ROOM_JOIN, this, onJoinRoom);
-			_networkEventHandler.removeEventListener(NetworkEvents.ROOM_JOIN_ERROR, this, onJoinRoomError);
+			_networkEventHandler.removeEventListener(SFSEvent.ROOM_CREATION_ERROR, this, onRoomCreationError);
+			_networkEventHandler.removeEventListener(SFSEvent.ROOM_JOIN, this, onJoinRoom);
+			_networkEventHandler.removeEventListener(SFSEvent.ROOM_JOIN_ERROR, this, onJoinRoomError);
 
-			_networkEventHandler.removeEventListener(NetworkEvents.ROOM_ADD, this, onRoomAdd);
-			_networkEventHandler.removeEventListener(NetworkEvents.ROOM_REMOVE, this, onRoomRemove);
-			_networkEventHandler.removeEventListener(NetworkEvents.USER_ENTER_ROOM, this, onUserEnterRoom);
-			_networkEventHandler.removeEventListener(NetworkEvents.USER_EXIT_ROOM, this, onUserExitRoom);
-			_networkEventHandler.removeEventListener(NetworkEvents.USER_COUNT_CHANGE, this, onUserCountChange);
+			_networkEventHandler.removeEventListener(SFSEvent.ROOM_ADD, this, onRoomAdd);
+			_networkEventHandler.removeEventListener(SFSEvent.ROOM_REMOVE, this, onRoomRemove);
+			_networkEventHandler.removeEventListener(SFSEvent.USER_ENTER_ROOM, this, onUserEnterRoom);
+			_networkEventHandler.removeEventListener(SFSEvent.USER_EXIT_ROOM, this, onUserExitRoom);
+			_networkEventHandler.removeEventListener(SFSEvent.USER_COUNT_CHANGE, this, onUserCountChange);
 		}
 
 		/**
@@ -246,45 +247,45 @@ package com.scyllacharybdis.handlers
 		/**
 		 * On user count change, update the rooms list.
 		 */
-		private function onUserCountChange(evt:NetworkEvents):void
+		private function onUserCountChange(evt:SFSEvent):void
 		{
-			_networkEventHandler.fireEvent(NetworkEvents.USER_COUNT_CHANGE, evt );
+			_networkEventHandler.fireEvent(SFSEvent.USER_COUNT_CHANGE, evt );
 		}
 
 		/**
 		 * On user entering the current room, show his/her name in the users list.
 		 */
-		private function onUserEnterRoom(evt:NetworkEvents):void
+		private function onUserEnterRoom(evt:SFSEvent):void
 		{
 			var user:User = evt.params.user;
-			_networkEventHandler.fireEvent(NetworkEvents.USER_ENTER_ROOM, evt );
+			_networkEventHandler.fireEvent(SFSEvent.USER_ENTER_ROOM, evt );
 		}
 
 		/**
 		 * On user leaving the current room, remove his/her name from the users list.
 		 */
-		private function onUserExitRoom(evt:NetworkEvents):void
+		private function onUserExitRoom(evt:SFSEvent):void
 		{
 			var user:User = evt.params.user;
-			_networkEventHandler.fireEvent(NetworkEvents.USER_EXIT_ROOM, evt );
+			_networkEventHandler.fireEvent(SFSEvent.USER_EXIT_ROOM, evt );
 		}
 
 		/**
 		 * On room added, show it in the rooms list.
 		 */
-		private function onRoomAdd(evt:NetworkEvents):void
+		private function onRoomAdd(evt:SFSEvent):void
 		{
 			var room:Room = evt.params.room;
-			_networkEventHandler.fireEvent(NetworkEvents.ROOM_ADD, evt );
+			_networkEventHandler.fireEvent(SFSEvent.ROOM_ADD, evt );
 		}
 
 		/**
 		 * On room removed, remove it from the rooms list.
 		 */
-		private function onRoomRemove(evt:NetworkEvents):void
+		private function onRoomRemove(evt:SFSEvent):void
 		{
 			var room:Room = evt.params.room;
-			_networkEventHandler.fireEvent(NetworkEvents.ROOM_REMOVE, evt );
+			_networkEventHandler.fireEvent(SFSEvent.ROOM_REMOVE, evt );
 		}		
 		
 	}

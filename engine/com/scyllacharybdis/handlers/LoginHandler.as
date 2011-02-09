@@ -4,6 +4,7 @@ package com.scyllacharybdis.handlers
 	import com.scyllacharybdis.core.events.NetworkEvents;
 	import com.scyllacharybdis.core.objects.BaseObject;
 	import com.scyllacharybdis.models.LoginModel;
+	import com.smartfoxserver.v2.core.SFSEvent;
 	import flash.utils.Dictionary;
 	import com.smartfoxserver.v2.requests.LoginRequest;
 	
@@ -25,8 +26,8 @@ package com.scyllacharybdis.handlers
 			// Get the event manager
 			_networkEventHandler = getDependency(NetworkEventHandler);
 		
-			_networkEventHandler.addEventListener(NetworkEvents.LOGIN_ERROR, this, onLoginError);
-			_networkEventHandler.addEventListener(NetworkEvents.LOGIN, this, onLogin);
+			_networkEventHandler.addEventListener(SFSEvent.LOGIN_ERROR, this, onLoginError);
+			_networkEventHandler.addEventListener(SFSEvent.LOGIN, this, onLogin);
 			
 			_networkEventHandler.addEventListener(NetworkEvents.LOGIN_REQUEST, this, requestLogin );
 			_networkEventHandler.addEventListener(NetworkEvents.LOGOUT_REQUEST, this, requestLogout );
@@ -62,8 +63,8 @@ package com.scyllacharybdis.handlers
 		{
 			super.engine_destroy();
 
-			_networkEventHandler.removeEventListener(NetworkEvents.LOGIN_ERROR, this, onLoginError);
-			_networkEventHandler.removeEventListener(NetworkEvents.LOGIN, this, onLogin);
+			_networkEventHandler.removeEventListener(SFSEvent.LOGIN_ERROR, this, onLoginError);
+			_networkEventHandler.removeEventListener(SFSEvent.LOGIN, this, onLogin);
 			_networkEventHandler.removeEventListener(NetworkEvents.LOGIN_REQUEST, this, requestLogin );
 			_networkEventHandler.removeEventListener(NetworkEvents.LOGOUT_REQUEST, this, requestLogout );
 		}
