@@ -21,6 +21,7 @@
 	import com.scyllacharybdis.handlers.RoomHandler;
 	import examples.di.CoreModule;
 	import examples.di.TestClass;
+	import examples.network.NetworkDriver;
 	import examples.physics.PhysicsScene;
 	import examples.scene.SceneManager;
 	import flash.display.Sprite;
@@ -63,9 +64,9 @@
 			var _roomHandler:RoomHandler = allocate(RoomHandler);
 			var _chatMessageHandler:ChatMessageHandler = allocate(ChatMessageHandler);
 			
-			// Fire a network connection event
-			_networkHandler.fireEvent(NetworkEvents.CONNECT_REQUEST);
-
+			// Network driver test
+			var networkDriver:NetworkDriver = allocate( NetworkDriver );
+			
 			// Create the scene manager
 			_sceneManager = allocate(SceneManager);
 

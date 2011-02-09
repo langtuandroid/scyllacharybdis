@@ -3,6 +3,7 @@ package com.scyllacharybdis.handlers
 	import com.scyllacharybdis.core.events.NetworkEventHandler;
 	import com.scyllacharybdis.core.events.NetworkEvents;
 	import com.scyllacharybdis.models.ChatMessageModel;
+	import com.smartfoxserver.v2.core.SFSEvent;
 	import flash.utils.Dictionary;
 	import com.scyllacharybdis.core.objects.BaseObject;
 	import com.smartfoxserver.v2.requests.PublicMessageRequest;
@@ -25,7 +26,7 @@ package com.scyllacharybdis.handlers
 			// Get the event manager
 			_networkEventHandler = getDependency(NetworkEventHandler);
 			
-			_networkEventHandler.addEventListener(NetworkEvents.PUBLIC_MESSAGE, this, onPublicMessage);
+			_networkEventHandler.addEventListener(SFSEvent.PUBLIC_MESSAGE, this, onPublicMessage);
 			
 			super.engine_start();
 			
@@ -61,7 +62,7 @@ package com.scyllacharybdis.handlers
 
 			super.engine_destroy();
 			
-			_networkEventHandler.removeEventListener(NetworkEvents.PUBLIC_MESSAGE, this, onPublicMessage);
+			_networkEventHandler.removeEventListener(SFSEvent.PUBLIC_MESSAGE, this, onPublicMessage);
 		}
 		
 		/**

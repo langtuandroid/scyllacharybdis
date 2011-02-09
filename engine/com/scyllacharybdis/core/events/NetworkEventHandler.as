@@ -1,6 +1,7 @@
 package com.scyllacharybdis.core.events 
 {
 	import com.scyllacharybdis.core.objects.BaseObject;
+	import com.smartfoxserver.v2.core.SFSEvent;
 	import com.smartfoxserver.v2.entities.data.ISFSObject;
 	import com.smartfoxserver.v2.entities.data.SFSObject;
 	import com.smartfoxserver.v2.entities.Room;
@@ -27,54 +28,54 @@ package com.scyllacharybdis.core.events
 		public final override function engine_awake():void
 		{
 			// Register event handlers
-			_sfs.addEventListener(NetworkEvents.ADMIN_MESSAGE, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.CONFIG_LOAD_FAILURE, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.CONFIG_LOAD_SUCCESS, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.CONNECTION, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.CONNECTION_ATTEMPT_HTTP, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.CONNECTION_LOST, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.CONNECTION_RESUME, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.CONNECTION_RETRY, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.HANDSHAKE, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.INVITATION, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.INVITATION_REPLY, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.INVITATION_REPLY_ERROR, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.LOGIN, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.LOGIN_ERROR, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.LOGOUT, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.MODERATOR_MESSAGE, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.OBJECT_MESSAGE, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.PLAYER_TO_SPECTATOR, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.PLAYER_TO_SPECTATOR_ERROR, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.PRIVATE_MESSAGE, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.PUBLIC_MESSAGE, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.ROOM_ADD, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.ROOM_CAPACITY_CHANGE, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.ROOM_CAPACITY_CHANGE_ERROR, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.ROOM_CREATION_ERROR, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.ROOM_FIND_RESULT, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.ROOM_GROUP_SUBSCRIBE, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.ROOM_GROUP_SUBSCRIBE_ERROR, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.ROOM_GROUP_UNSUBSCRIBE, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.ROOM_GROUP_UNSUBSCRIBE_ERROR, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.ROOM_JOIN, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.ROOM_JOIN_ERROR, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.ROOM_NAME_CHANGE, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.ROOM_NAME_CHANGE_ERROR, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.ROOM_PASSWORD_STATE_CHANGE, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.ROOM_PASSWORD_STATE_CHANGE_ERROR, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.ROOM_REMOVE, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.ROOM_VARIABLES_UPDATE, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.SPECTATOR_TO_PLAYER, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.SPECTATOR_TO_PLAYER_ERROR, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.UDP_INIT, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.USER_COUNT_CHANGE, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.USER_ENTER_ROOM, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.USER_EXIT_ROOM, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.USER_FIND_RESULT, onServerResponse);
-			_sfs.addEventListener(NetworkEvents.USER_VARIABLES_UPDATE, onServerResponse);
+			_sfs.addEventListener(SFSEvent.ADMIN_MESSAGE, onServerResponse);
+			_sfs.addEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onServerResponse);
+			_sfs.addEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onServerResponse);
+			_sfs.addEventListener(SFSEvent.CONNECTION, onServerResponse);
+			_sfs.addEventListener(SFSEvent.CONNECTION_ATTEMPT_HTTP, onServerResponse);
+			_sfs.addEventListener(SFSEvent.CONNECTION_LOST, onServerResponse);
+			_sfs.addEventListener(SFSEvent.CONNECTION_RESUME, onServerResponse);
+			_sfs.addEventListener(SFSEvent.CONNECTION_RETRY, onServerResponse);
+			_sfs.addEventListener(SFSEvent.HANDSHAKE, onServerResponse);
+			_sfs.addEventListener(SFSEvent.INVITATION, onServerResponse);
+			_sfs.addEventListener(SFSEvent.INVITATION_REPLY, onServerResponse);
+			_sfs.addEventListener(SFSEvent.INVITATION_REPLY_ERROR, onServerResponse);
+			_sfs.addEventListener(SFSEvent.LOGIN, onServerResponse);
+			_sfs.addEventListener(SFSEvent.LOGIN_ERROR, onServerResponse);
+			_sfs.addEventListener(SFSEvent.LOGOUT, onServerResponse);
+			_sfs.addEventListener(SFSEvent.MODERATOR_MESSAGE, onServerResponse);
+			_sfs.addEventListener(SFSEvent.OBJECT_MESSAGE, onServerResponse);
+			_sfs.addEventListener(SFSEvent.PLAYER_TO_SPECTATOR, onServerResponse);
+			_sfs.addEventListener(SFSEvent.PLAYER_TO_SPECTATOR_ERROR, onServerResponse);
+			_sfs.addEventListener(SFSEvent.PRIVATE_MESSAGE, onServerResponse);
+			_sfs.addEventListener(SFSEvent.PUBLIC_MESSAGE, onServerResponse);
+			_sfs.addEventListener(SFSEvent.ROOM_ADD, onServerResponse);
+			_sfs.addEventListener(SFSEvent.ROOM_CAPACITY_CHANGE, onServerResponse);
+			_sfs.addEventListener(SFSEvent.ROOM_CAPACITY_CHANGE_ERROR, onServerResponse);
+			_sfs.addEventListener(SFSEvent.ROOM_CREATION_ERROR, onServerResponse);
+			_sfs.addEventListener(SFSEvent.ROOM_FIND_RESULT, onServerResponse);
+			_sfs.addEventListener(SFSEvent.ROOM_GROUP_SUBSCRIBE, onServerResponse);
+			_sfs.addEventListener(SFSEvent.ROOM_GROUP_SUBSCRIBE_ERROR, onServerResponse);
+			_sfs.addEventListener(SFSEvent.ROOM_GROUP_UNSUBSCRIBE, onServerResponse);
+			_sfs.addEventListener(SFSEvent.ROOM_GROUP_UNSUBSCRIBE_ERROR, onServerResponse);
+			_sfs.addEventListener(SFSEvent.ROOM_JOIN, onServerResponse);
+			_sfs.addEventListener(SFSEvent.ROOM_JOIN_ERROR, onServerResponse);
+			_sfs.addEventListener(SFSEvent.ROOM_NAME_CHANGE, onServerResponse);
+			_sfs.addEventListener(SFSEvent.ROOM_NAME_CHANGE_ERROR, onServerResponse);
+			_sfs.addEventListener(SFSEvent.ROOM_PASSWORD_STATE_CHANGE, onServerResponse);
+			_sfs.addEventListener(SFSEvent.ROOM_PASSWORD_STATE_CHANGE_ERROR, onServerResponse);
+			_sfs.addEventListener(SFSEvent.ROOM_REMOVE, onServerResponse);
+			_sfs.addEventListener(SFSEvent.ROOM_VARIABLES_UPDATE, onServerResponse);
+			_sfs.addEventListener(SFSEvent.SPECTATOR_TO_PLAYER, onServerResponse);
+			_sfs.addEventListener(SFSEvent.SPECTATOR_TO_PLAYER_ERROR, onServerResponse);
+			_sfs.addEventListener(SFSEvent.UDP_INIT, onServerResponse);
+			_sfs.addEventListener(SFSEvent.USER_COUNT_CHANGE, onServerResponse);
+			_sfs.addEventListener(SFSEvent.USER_ENTER_ROOM, onServerResponse);
+			_sfs.addEventListener(SFSEvent.USER_EXIT_ROOM, onServerResponse);
+			_sfs.addEventListener(SFSEvent.USER_FIND_RESULT, onServerResponse);
+			_sfs.addEventListener(SFSEvent.USER_VARIABLES_UPDATE, onServerResponse);
 
-			_sfs.addEventListener(NetworkEvents.EXTENSION_RESPONSE, onExtensionResponse);
+			_sfs.addEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse);
 			
 			super.engine_awake();
 		}
@@ -106,54 +107,54 @@ package com.scyllacharybdis.core.events
 			super.engine_destroy();
 			
 			// Unregister all the event handlers
-			_sfs.removeEventListener(NetworkEvents.ADMIN_MESSAGE, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.CONFIG_LOAD_FAILURE, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.CONFIG_LOAD_SUCCESS, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.CONNECTION, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.CONNECTION_ATTEMPT_HTTP, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.CONNECTION_LOST, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.CONNECTION_RESUME, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.CONNECTION_RETRY, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.HANDSHAKE, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.INVITATION, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.INVITATION_REPLY, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.INVITATION_REPLY_ERROR, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.LOGIN, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.LOGIN_ERROR, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.LOGOUT, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.MODERATOR_MESSAGE, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.OBJECT_MESSAGE, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.PLAYER_TO_SPECTATOR, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.PLAYER_TO_SPECTATOR_ERROR, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.PRIVATE_MESSAGE, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.PUBLIC_MESSAGE, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.ROOM_ADD, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.ROOM_CAPACITY_CHANGE, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.ROOM_CAPACITY_CHANGE_ERROR, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.ROOM_CREATION_ERROR, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.ROOM_FIND_RESULT, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.ROOM_GROUP_SUBSCRIBE, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.ROOM_GROUP_SUBSCRIBE_ERROR, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.ROOM_GROUP_UNSUBSCRIBE, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.ROOM_GROUP_UNSUBSCRIBE_ERROR, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.ROOM_JOIN, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.ROOM_JOIN_ERROR, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.ROOM_NAME_CHANGE, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.ROOM_NAME_CHANGE_ERROR, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.ROOM_PASSWORD_STATE_CHANGE, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.ROOM_PASSWORD_STATE_CHANGE_ERROR, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.ROOM_REMOVE, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.ROOM_VARIABLES_UPDATE, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.SPECTATOR_TO_PLAYER, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.SPECTATOR_TO_PLAYER_ERROR, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.UDP_INIT, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.USER_COUNT_CHANGE, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.USER_ENTER_ROOM, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.USER_EXIT_ROOM, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.USER_FIND_RESULT, onServerResponse);
-			_sfs.removeEventListener(NetworkEvents.USER_VARIABLES_UPDATE, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.ADMIN_MESSAGE, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.CONFIG_LOAD_FAILURE, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.CONFIG_LOAD_SUCCESS, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.CONNECTION, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.CONNECTION_ATTEMPT_HTTP, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.CONNECTION_LOST, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.CONNECTION_RESUME, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.CONNECTION_RETRY, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.HANDSHAKE, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.INVITATION, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.INVITATION_REPLY, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.INVITATION_REPLY_ERROR, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.LOGIN, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.LOGIN_ERROR, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.LOGOUT, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.MODERATOR_MESSAGE, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.OBJECT_MESSAGE, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.PLAYER_TO_SPECTATOR, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.PLAYER_TO_SPECTATOR_ERROR, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.PRIVATE_MESSAGE, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.PUBLIC_MESSAGE, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.ROOM_ADD, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.ROOM_CAPACITY_CHANGE, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.ROOM_CAPACITY_CHANGE_ERROR, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.ROOM_CREATION_ERROR, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.ROOM_FIND_RESULT, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.ROOM_GROUP_SUBSCRIBE, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.ROOM_GROUP_SUBSCRIBE_ERROR, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.ROOM_GROUP_UNSUBSCRIBE, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.ROOM_GROUP_UNSUBSCRIBE_ERROR, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.ROOM_JOIN, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.ROOM_JOIN_ERROR, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.ROOM_NAME_CHANGE, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.ROOM_NAME_CHANGE_ERROR, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.ROOM_PASSWORD_STATE_CHANGE, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.ROOM_PASSWORD_STATE_CHANGE_ERROR, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.ROOM_REMOVE, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.ROOM_VARIABLES_UPDATE, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.SPECTATOR_TO_PLAYER, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.SPECTATOR_TO_PLAYER_ERROR, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.UDP_INIT, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.USER_COUNT_CHANGE, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.USER_ENTER_ROOM, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.USER_EXIT_ROOM, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.USER_FIND_RESULT, onServerResponse);
+			_sfs.removeEventListener(SFSEvent.USER_VARIABLES_UPDATE, onServerResponse);
 
-			_sfs.removeEventListener(NetworkEvents.EXTENSION_RESPONSE, onExtensionResponse);
+			_sfs.removeEventListener(SFSEvent.EXTENSION_RESPONSE, onExtensionResponse);
 			
 		}
 		
@@ -206,10 +207,10 @@ package com.scyllacharybdis.core.events
 		 * @param	evt (NetworkEvents) The data from the server
 		 * @private
 		 */
-		public final function onServerResponse(evt:NetworkEvents):void
+		public final function onServerResponse(evt:SFSEvent):void
 		{
 			// Get the network message information
-			var cmd:String = evt.params.cmd;
+			var cmd:String = evt.type;
 
 			if ( _debug ) 
 			{
@@ -227,7 +228,7 @@ package com.scyllacharybdis.core.events
 		 * @param	evt (NetworkEvents) The data from the server
 		 * @private
 		 */
-		public final function onExtensionResponse(evt:NetworkEvents):void
+		public final function onExtensionResponse(evt:SFSEvent):void
 		{
 			// Get the network message information
 			var params:ISFSObject = evt.params.params;
